@@ -29,6 +29,7 @@ jobs:
         GH_REF: github.com/MurphyL/murphyl.com.git
         CI: true
       run: |
+        set -o xtrace
         git config --global user.name "Github Action"
         git config --global user.email "murphyl@outlook.com"
         git submodule init
@@ -38,6 +39,7 @@ jobs:
         echo "Build - $(pwd) @ $(date +"%Y-%m-%d %H:%M:%S")\n" >> commit-message.log
         git log --pretty=format:"CI: %s" --date=short -n 1 >> commit-message.log
         cat commit-message.log
+        echo '\n'
         git checkout gh-pages
         mv ./CNAME ./.git/ ./public
         cd ./public

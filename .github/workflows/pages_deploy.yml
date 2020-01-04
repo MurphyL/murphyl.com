@@ -1,0 +1,46 @@
+name: Deploy Hexo
+
+on: 
+    push:
+      branches:
+        - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, and build
+      run: |
+        npm ci
+        npm run clean
+    - name: deploy
+      env:
+        GH_REF: github.com/MurphyL/murphyl.com.git
+        CI: true
+      run: |
+        git submodule init
+        git submodule update
+        npm run build
+        rm -rf ./tmemes/*
+        echo "Build - $(pwd) @ $(date +"%Y-%m-%d %H:%M:%S")\n" >> commit-message.log
+        git log --pretty=format:"CI: %s" --date=short -n 1 >> commit-message.log
+        cat commit-message.log
+        git checkout gh-pages
+        mv ./CNAME ./.git/ ./public
+        cd ./public
+        git add -A
+        git commit -F ../commit-message.log
+        git push --force "https://${{secrets.PAGES_DEPLOY_TOKEN}}@${GH_REF}"
+        
+        

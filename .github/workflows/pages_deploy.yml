@@ -29,6 +29,8 @@ jobs:
         GH_REF: github.com/MurphyL/murphyl.com.git
         CI: true
       run: |
+        git config --global user.name "Github Action"
+        git config --global user.email "murphyl@outlook.com"
         git submodule init
         git submodule update
         npm run build

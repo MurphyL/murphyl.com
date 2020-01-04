@@ -113,4 +113,3 @@ deploy:
   branch: gh-pages
   name: MurphyL
   email: murphyl@outlook.com
-  message: 'deploy'

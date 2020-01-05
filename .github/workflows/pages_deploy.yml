@@ -32,7 +32,7 @@ jobs:
         set -o xtrace
         git config --global user.name "Github Action"
         git config --global user.email "murphyl@outlook.com"
-        git submodule update --init --recursive
+        sh -x ./tmemes/get.sh
         ls ./tmemes/*
         npm run build
         rm -rf ./tmemes/*

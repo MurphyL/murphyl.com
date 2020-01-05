@@ -30,8 +30,8 @@ jobs:
         set -o xtrace
         npm ci
         npm run clean
-        git config --global user.name "${GH_USER}"
-        git config --global user.email "murphyl@outlook.com"
+        git config --global user.name "Github Action"
+        git config --global user.email "action@github.com"
         sh -x ./themes/get.sh
         ls ./themes/*
         npm run build

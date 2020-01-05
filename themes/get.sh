@@ -12,4 +12,4 @@ echo 'Hexo theme downloaded: ' $THEME_DIST
 
 unzip -o ./$DIST_NAME.zip -d ./$DIST_NAME
 
-mv ./$DIST_NAME/$TARGET_DIR ./themes/$DIST_NAME
+mv ./$DIST_NAME/$TARGET_DIR/* ./themes/$DIST_NAME

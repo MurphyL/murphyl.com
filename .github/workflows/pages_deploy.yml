@@ -32,13 +32,13 @@ jobs:
         set -o xtrace
         git config --global user.name "Github Action"
         git config --global user.email "murphyl@outlook.com"
-        sh -x ./tmemes/get.sh
-        ls ./tmemes/*
+        sh -x ./themes/get.sh
+        ls ./themes/*
         npm run build
-        rm -rf ./tmemes/*
+        rm -rf ./themes/*
         echo "Build - $(pwd) @ $(date +"%Y-%m-%d %H:%M:%S")\n" >> commit-message.log
         git log --pretty=format:"CI: %s" --date=short -n 1 >> commit-message.log
-        git checkout gh-pages
+        git checkout -f gh-pages
         mv ./CNAME ./.git/ ./public
         cd ./public
         git add -A

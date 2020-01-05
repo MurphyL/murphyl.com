@@ -23,7 +23,6 @@ jobs:
     - name: Build, and deploy!
       env:
         GH_REP: ${{secrets. GITHUB_PAGES_REP}}
-        GH_USER: ${{secrets.GITHUB_USER}}
         TOKEN: ${{secrets.PAGES_DEPLOY_TOKEN}}
         CI: true
       run: |

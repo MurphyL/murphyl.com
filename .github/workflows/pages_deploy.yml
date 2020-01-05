@@ -36,7 +36,7 @@ jobs:
         ls ./themes/*
         npm run build
         rm -rf ./themes/*
-        echo "Build - $(pwd) @ $(date +"%Y-%m-%d %H:%M:%S")\n" >> commit-message.log
+        echo "Build @ $(date +"%Y-%m-%d %H:%M:%S")\n" >> commit-message.log
         git log --pretty=format:"CI: %s" --date=short -n 1 >> commit-message.log
         git checkout -f gh-pages
         mv ./CNAME ./.git/ ./public

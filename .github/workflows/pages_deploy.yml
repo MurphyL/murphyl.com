@@ -1,9 +1,9 @@
 name: Deploy Hexo
 
 on: 
-    push:
-      branches:
-        - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -20,17 +20,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, and build
-      run: |
-        npm ci
-        npm run clean
-    - name: deploy
+    - name: Build, and deploy!
       env:
-        GH_REF: github.com/MurphyL/murphyl.com.git
+        GH_REP: ${{secrets. GITHUB_PAGES_REP}}
+        GH_USER: ${{secrets.GITHUB_USER}}
+        TOKEN: ${{secrets.PAGES_DEPLOY_TOKEN}}
         CI: true
       run: |
         set -o xtrace
-        git config --global user.name "Github Action"
+        npm ci
+        npm run clean
+        git config --global user.name "${GH_USER}"
         git config --global user.email "murphyl@outlook.com"
         sh -x ./themes/get.sh
         ls ./themes/*
@@ -43,6 +43,6 @@ jobs:
         cd ./public
         git add -A
         git commit -F ../commit-message.log
-        git push --force --quiet "https://MurphyL:${{secrets.PAGES_DEPLOY_TOKEN}}@github.com/MurphyL/murphyl.com.git"
+        git push --force --quiet "https://${GH_USER}:${TOKEN}@${GH_REP}"
         
         

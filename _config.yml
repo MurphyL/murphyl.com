@@ -93,7 +93,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+# theme: next
+theme: yilia
+theme_override: true
 
 # RSS订阅
 feed:
@@ -104,6 +106,25 @@ feed:
   content:
   content_limit: 140
   content_limit_delim: ' '
+
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

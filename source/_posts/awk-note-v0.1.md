@@ -2,9 +2,9 @@
 title: AWK使用笔记
 date: 2016-11-02
 tags: 
-    - awk
-    - linux
-    - shell
+    - AWK
+    - Linux
+    - Shell
 ----
 
 `AWK`是一个强大的文本分析工具，`Linux`及`Unix`环境中现有的功能最强大的数据处理引擎之一。`AWK`在很多方面类似于`Unix shell`编程语言，尽管`AWK`具有完全属于其本身的语法。它将文件作为记录序列处理。在一般情况下，文件内容的每行都是一个记录。`AWK`一次可以读取一个输入行。对每个输入行，`AWK`解释器会判断它是否符合程序中出现的各个模式，并执行符合的模式所对应的动作。
@@ -64,6 +64,6 @@ NF | Number of field | 列号
 
 只写一个print 是 print $0的简写，打印整行所有数据；
 
-## 参考资料
+### 参考资料
 
 - [Wikipedia - AWK](https://zh.wikipedia.org/wiki/AWK)

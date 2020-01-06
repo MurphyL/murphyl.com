@@ -11,6 +11,11 @@ favicon:
 custom_file_path:
   style: source/_data/styles.styl
 
+menu:
+  home: / || home
+  archives: /archives/ || archive
+  sitemap: /sitemap.xml || sitemap
+
 sidebar:
   position: right
 
@@ -25,6 +30,13 @@ footer:
   theme:
     version: false
 
+links:
+  此间我们: https://cijian.us
+
+creative_commons:
+  license: by-nc-sa
+  post: true
+  
 read_more_btn: false
 
 reading_progress:

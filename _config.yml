@@ -4,10 +4,10 @@
 
 # Site
 title: 咖啡·薄荷
-subtitle: 发现、分享、互联网……
+subtitle: 子非鱼，焉知鱼之乐？
 description: 发现、分享、互联网……
-keywords: 咖啡薄荷, MurphyL
-author: MurphyL
+keywords: 咖啡薄荷, MurphyL, 非鱼
+author: 非鱼
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
@@ -93,8 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-# theme: next
-theme: yilia
+theme: yilia.x
 theme_override: true
 
 # RSS订阅

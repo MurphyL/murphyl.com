@@ -22,7 +22,7 @@ const config = load('../_config.yml');
 const { theme, theme_override = false } = config;
 
 if(theme_override) {
-    console.log('覆盖当前主题的配置', theme, theme_override);
+    console.log('Override theme config:', theme, theme_override);
 
     const localConfig = load(`../source/_data/${theme}.yml`);
     const themeConfig = load(`../themes/${theme}/_config.yml`);

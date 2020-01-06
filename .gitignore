@@ -7,3 +7,4 @@ node_modules/
 .deploy*/
 commit-message.log
 themes/next
+themes/yilia.x

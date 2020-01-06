@@ -1,0 +1,25 @@
+favicon: /images/coffee_bean.png
+
+menu:
+  主页: /
+  归档: /archives
+
+avatar: /images/avatar.png
+
+subnav:
+  github: "https://github.com/MurphyL"
+  twitter: "https://twitter.com/MurphyLuo"
+  rss: "/atom.xml"
+  mail: "mailto:murphyl@outlook.com"
+
+excerpt_link: 
+
+rss: /atom.xml
+
+smart_menu:
+  innerArchive: '所有文章'
+  friends: '友链'
+  aboutme: false
+
+friends:
+  此间我们: 'https://cijian.us/'

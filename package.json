@@ -1,31 +1,20 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
-  "private": true,
+  "name": "murphyl.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "serve": "hexo server"
+    "serve": "next",
+    "build": "next build",
+    "start": "next start"
   },
-  "hexo": {
-    "version": "4.2.0"
-  },
+  "author": "murph",
+  "license": "MIT",
   "dependencies": {
-    "hexo": "^4.0.0",
-    "hexo-deployer-git": "^2.1.0",
-    "hexo-generator-archive": "^1.0.0",
-    "hexo-generator-category": "^1.0.0",
-    "hexo-generator-cname": "^0.3.0",
-    "hexo-generator-feed": "^2.2.0",
-    "hexo-generator-index": "^1.0.0",
-    "hexo-generator-json-content": "^4.1.6",
-    "hexo-generator-sitemap": "^2.0.0",
-    "hexo-generator-tag": "^1.0.0",
-    "hexo-render-pug": "^2.1.4",
-    "hexo-renderer-ejs": "^1.0.0",
-    "hexo-renderer-marked": "^2.0.0",
-    "hexo-renderer-stylus": "^1.1.0",
-    "hexo-server": "^1.0.0"
+    "frontmatter": "0.0.3",
+    "next": "^9.3.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1"
   }
 }

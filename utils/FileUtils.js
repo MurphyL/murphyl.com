@@ -19,6 +19,18 @@ const listFiles = function(suffix, withContent = false) {
 	});
 };
 
+const mapPatterns = function(pattern, filter) {
+	const paths = [];
+	const items = listFiles('blog', false).forEach(({ filename }) => {
+		const matched = filename.match(pattern)
+		if(matched) {
+			paths.push(matched[0]);
+		}
+	});
+	return paths;
+};
+
 export default {
+	mapPatterns,
 	listBlogs: (withContent = false) => listFiles('blog', withContent),
 };

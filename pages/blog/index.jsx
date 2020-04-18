@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react';
 
 import Markdown from 'react-markdown';
-import parseFrontMatter from 'frontmatter';
 
-import  FileUtils from '../utils/FileUtils';
-import  BlogUtils from '../utils/BlogUtils';
-import  ObjectUtils from '../utils/ObjectUtils';
-
+import  FileUtils from '../../utils/FileUtils';
+import  BlogUtils from '../../utils/BlogUtils';
 
 // 获取数据
 export async function getStaticProps() {

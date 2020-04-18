@@ -1,8 +1,7 @@
-
-
 ---
-title: "Spring Boot 常用注解"
-author: "murph"
+title: Spring Boot 常用注解
+author: murph
+tags: [ Java, Spring, Xxx ]
 ---
 
 1.声明bean的注解

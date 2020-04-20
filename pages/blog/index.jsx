@@ -9,7 +9,7 @@ import  BlogUtils from '../../utils/BlogUtils';
 export async function getStaticProps() {
 	return {
 		props: {
-			posts: FileUtils.listBlogs(true),
+			posts: FileUtils.listBlog(true),
 		}
 	}
 }

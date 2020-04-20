@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import PostItem from '../../layout/PostItem.jsx';
+import PostItem from '../../includes/layout/PostItem.jsx';
 
 export async function getStaticPaths() {
 	const root = path.join(process.cwd(), 'blog');

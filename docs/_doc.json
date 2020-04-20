@@ -1,0 +1,15 @@
+{
+	"Java": [
+		"core-java"
+	],
+	"Linux": [
+		"linux-shell-script",
+		"linux-system-info"
+	],
+	"Tuning": [
+	],
+	"Other": [
+		"awesome-app-windows",
+		"data_visualization"
+	]
+}

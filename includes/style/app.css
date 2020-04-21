@@ -1,10 +1,43 @@
-html, body, __next {
+html, body, #__next {
 	margin: 0;
 	padding: 0;
 	border: none;
 }
 
-/** docs **/
+/** component - header **/
+
+#__next header {
+	display: flex;
+	height: 50px;
+	align-items: center;
+}
+
+#__next header .logo {
+	width: 100px;
+}
+
+#__next header ul.navi {
+	margin: 0;
+	padding: 0;
+	flex: 1;
+}
+
+#__next header ul.navi li {
+	display: inline-block;
+	padding: 0 1rem;
+	list-style-type: none;
+}
+
+/** component - footer **/
+
+#__next footer {
+	display: flex;
+	height: 120px;
+	justify-content: center;
+	align-items: center;
+}
+
+/** page - docs **/
 .docs {
 	display: flex;
 	height: 99vh;

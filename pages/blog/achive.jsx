@@ -31,6 +31,7 @@ export async function getStaticProps() {
 	});
 	return {
 		props: {
+			title: '博客 - 归档',
 			posts: posts || [],
 		}
 	}

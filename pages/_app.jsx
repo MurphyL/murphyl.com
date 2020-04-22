@@ -7,19 +7,27 @@ import Footer from '../includes/components/footer.jsx';
 
 import '../includes/style/app.css';
 
+/**
+<a className="ribbons" href={ `https://github.com/${ process.env.social.github }`}>
+	<img width="149" height="149" src="/image/forkme_right_darkblue.png" className="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" />
+</a>
+**/
+
 export default function Coffee({ Component, pageProps }) {
 	return (
 		<Fragment>
 		    <NextHead>
-	        	<title>{ process.env.appTitle }</title>
+	        	<title>{ `${ pageProps.title ? (pageProps.title + ' - ') : '' }${process.env.appTitle}` }</title>
 	        </NextHead>
-	        <Fragment>
+	        <div className={ `${ pageProps.full ? 'full' : 'normal' }-width` }>
 	        	<Header />
 				<main>
-					<Component {...pageProps} />
+					<div className="container">
+						<Component {...pageProps} />
+					</div>
 				</main>
 				<Footer />
-			</Fragment>
+			</div>
 		</Fragment>
 	)
 }

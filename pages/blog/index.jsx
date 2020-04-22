@@ -9,6 +9,7 @@ import  BlogUtils from '../../utils/BlogUtils';
 export async function getStaticProps() {
 	return {
 		props: {
+			title: '博客',
 			posts: FileUtils.listBlog(true),
 		}
 	}
@@ -41,8 +42,13 @@ class BlogPost extends Component {
 
 }
 
-export default function BlogList({ posts }) {
-	return (
-		<dl>{ posts.map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
-	)
+export default class BlogList extends Component {
+
+	render() {
+		const { posts } = this.props;
+		return (
+			<dl>{ (posts || []).map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
+		)
+	}
+	
 }

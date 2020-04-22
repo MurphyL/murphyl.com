@@ -1,6 +1,6 @@
 module.exports = {
 	env: {
-		appTitle: '非鱼',
+		appTitle: '咖啡·薄荷',
 		header: [{
 			label: 'Blog',
 			url: '/blog'
@@ -10,7 +10,10 @@ module.exports = {
 		}, {
 			label: '关于',
 			url: '/about'
-		}]
+		}],
+		social: {
+			github: 'MurphyL'
+		}
 	},
 	publicRuntimeConfig: {
 		staticFolder: '/public',

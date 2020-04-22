@@ -4,9 +4,19 @@ html, body, #__next {
 	border: none;
 }
 
+/** 宽、窄屏幕控制 **/
+#__next .normal-width .container {
+	margin: 0 10%;
+	width: 80%;
+}
+
 /** component - header **/
 
 #__next header {
+	border-bottom: 1px solid #ccc;
+}
+
+#__next header .container {
 	display: flex;
 	height: 50px;
 	align-items: center;
@@ -24,17 +34,64 @@ html, body, #__next {
 
 #__next header ul.navi li {
 	display: inline-block;
+	text-align: right;
 	padding: 0 1rem;
 	list-style-type: none;
+}
+
+/** component - main **/
+
+#__next main {
+	margin: 1rem 0;
+	min-height: 60vh;
 }
 
 /** component - footer **/
 
 #__next footer {
+	margin-top: 1rem;
+	min-height: 120px;
+	border-top: 1px solid #ccc;
+}
+
+#__next footer .sitemap {
 	display: flex;
-	height: 120px;
-	justify-content: center;
+}
+
+#__next footer .sitemap .section {
+	flex: 1;
+}
+
+#__next footer .sitemap .section dt {
+	font-weight: 800;
+}
+
+#__next footer .sitemap .section dd {
+	margin: 0;
+}
+
+#__next footer .sitemap .section dd ul {
+	padding-left: 0;
+}
+
+#__next footer .sitemap .section dd ul li {
+	list-style-type: none;
+}
+
+#__next footer .sitemap .logo {
+	display: flex;
+	width: 150px;
 	align-items: center;
+}
+
+#__next footer .sitemap .logo img {
+	width: 72px;
+	height: 72px;
+}
+
+#__next footer .copyright {
+	text-align: center;
+	line-height: 3rem;
 }
 
 /** page - docs **/
@@ -56,4 +113,11 @@ html, body, #__next {
 	flex: 1;
 	max-height: 98%;
 	overflow-y: scroll;
+}
+
+/** ribbons **/
+
+.ribbons {
+	position: absolute;
+	right: 0;
 }

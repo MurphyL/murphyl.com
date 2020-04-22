@@ -18,7 +18,9 @@ export async function getStaticProps() {
 	});
 	return {
 		props: {
-			docs
+			title: '笔记',
+			full: true,
+			docs,
 		}
 	}
 }
@@ -55,7 +57,6 @@ export default class DocumentViewer extends Component {
 	}
 
 	docSelected(selected) {
-		console.log(selected);
 		this.setState({ source: selected })
 	}
 

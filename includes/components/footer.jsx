@@ -15,7 +15,7 @@ export default class Footer extends Component {
 							<a href="/"><img src="/image/icon.png" /></a>
 						</div>
 						<dl className="section navi">
-							<dt>Sitemap</dt>
+							<dt>站点地图</dt>
 							<dd>
 								<ul>
 									<li><a href="/docs" target="_blank">笔记</a></li>
@@ -47,7 +47,7 @@ export default class Footer extends Component {
 						</dl>
 					</div>
 					<div className="copyright">
-						<div>Copyright © 2020 { process.env.appTitle }.</div>
+						<div>Copyright © 2020 { process.env.appTitle }. All rights reserved.</div>
 					</div>
 				</div>
 			</footer>

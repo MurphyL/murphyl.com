@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
-import Markdown from 'react-markdown';
+// import Markdown from 'react-markdown';
+import Markdown from 'markdown-to-jsx';
 
 import  FileUtils from '../../utils/FileUtils';
 import  BlogUtils from '../../utils/BlogUtils';
@@ -10,7 +11,9 @@ export async function getStaticProps() {
 	return {
 		props: {
 			title: '博客',
-			posts: FileUtils.listBlog(true),
+			posts: FileUtils.listBlog(true).sort((a, b) => {
+				return -a.filename.localeCompare(b.filename)
+			}),
 		}
 	}
 }
@@ -29,12 +32,24 @@ class BlogPost extends Component {
 		const content = summary ? BlogUtils.extractSummary(markdown) : markdown;
 		return (
 			<Fragment>
-				<dt><a href={ `/blog/${post.filename}` }>{ meta.title }</a></dt>
+				<dt>
+					<a href={ `/blog/${post.filename}` }>
+						<h2>{ meta.title }</h2>
+					</a>
+				</dt>
 				<dd>
-					<div>
-						<div>{ meta.author }</div>
-						<Markdown escapeHtml={ false } source={ content } />
-					 </div>
+					<article className="summary">
+						{/** <div>{ meta.author }</div> **/}
+						<Markdown children={ content }
+							options={{
+				            createElement: (type, props, children) => {
+				            	if(props.key === 'outer') {
+				            		props.className = 'outer summary';
+				            	}
+				                return React.createElement(type, props, children);
+				            },
+		    			}} />
+					 </article>
 				</dd>
 			</Fragment>
 		)
@@ -47,7 +62,7 @@ export default class BlogList extends Component {
 	render() {
 		const { posts } = this.props;
 		return (
-			<dl>{ (posts || []).map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
+			<dl className="blog">{ (posts || []).map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
 		)
 	}
 	

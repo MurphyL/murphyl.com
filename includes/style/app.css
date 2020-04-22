@@ -2,6 +2,31 @@ html, body, #__next {
 	margin: 0;
 	padding: 0;
 	border: none;
+	/** github **/
+	font-family: -apple-system,Fira Code Retina,Fira Code,JetBrains Mono,Ubuntu Mono,Source Code Pro,DejaVu Sans Mono,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+}
+
+/** markdown **/
+
+#__next article.markdown {
+	line-height: 1.5rem;
+}
+
+#__next article code {
+	font-family: Fira Code Retina,Fira Code,JetBrains Mono,Ubuntu Mono,Source Code Pro,DejaVu Sans Mono;
+}
+
+#__next article.summary .outer>p>code {
+	margin: 0 2px;
+	padding: 2px 5px 1px;
+	font-size: 0.9rem;
+	border: 1px solid rgba(240, 240, 240, 0.9);
+	border-radius: 3px;
+}
+
+#__next article.markdown .outer pre.code-block {
+	margin: 1rem;
+	border: 1px solid rgba(240, 240, 240, 0.9);
 }
 
 /** 宽、窄屏幕控制 **/
@@ -93,6 +118,13 @@ html, body, #__next {
 	text-align: center;
 	line-height: 3rem;
 }
+
+/** page - blog **/
+
+.blog dd {
+	margin-left: 0;
+}
+
 
 /** page - docs **/
 .docs {

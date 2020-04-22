@@ -39,8 +39,8 @@ const mapPatterns = function(pattern, filter) {
 };
 
 export default {
-	readFile,
 	mapPatterns,
+	readBlogFile: (unique) => readFile(`/blog/${unique}`),
 	listDocs: (withContent = false) => listFiles('docs', withContent),
 	listBlog: (withContent = false) => listFiles('blog', withContent),
 };

@@ -1,25 +1,28 @@
-import fs from 'fs';
-import path from 'path';
+import FileUtils from '../../utils/FileUtils.js';
+import BlogUtils from '../../utils/BlogUtils';
 
 import PostItem from '../../includes/layout/PostItem.jsx';
 
 export async function getStaticPaths() {
-	const root = path.join(process.cwd(), 'blog');
-	if(fs.existsSync(root)) {
-		const paths = (fs.readdirSync(root) || []).map((filename) => {
-			return `/blog/${filename}`
-		});
-		return { paths, fallback: false }
-	}
+	const paths = FileUtils.listBlog().map(({ filename }) => {
+		return `/blog/${filename}`
+	});
+	return { paths, fallback: false }
 }
 
 // 在构建时也会被调用
 export async function getStaticProps({ params }) {
-	return { props: { params } }
+	const { unique } = params;
+	const content = FileUtils.readBlogFile(unique);
+	const parsed = BlogUtils.reslovePostMeta(content || '') || {};
+	const { meta = {}, markdown = '' } = parsed;
+	return { 
+		props: { params, meta, markdown, title: meta.title } 
+	}
 }
 
-export default function Post({ params }) {
+export default function Post({ markdown, meta }) {
 	return (
-		<PostItem config={params} />
+		<PostItem meta={ meta } markdown={ markdown } />
 	)
 }

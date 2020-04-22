@@ -8,10 +8,9 @@ author: "murph"
 
 <!--more-->
 
-## URL Query String
+### 向目标页面传输数据
 
-## Storage
 
-## app.globalData
+### app.globalData
 
-## EventChannel
+### EventChannel

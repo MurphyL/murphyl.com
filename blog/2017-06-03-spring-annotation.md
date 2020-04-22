@@ -1,12 +1,14 @@
 ---
-title: Spring Boot 常用注解
+title: Spring常用注解
 author: murph
 tags: [ Java, Spring, Xxx ]
 ---
 
-1.声明bean的注解
+`Spring`从`2.5`版本开始引入注解来配置依赖注入，将广大`Java`开发人员从冗杂`XML`配置文件中解放出来。`Spring`也由此一举封神，似乎成为了`Java EE`开发圈子的事实标准。`Java`生态下的各类框架也是积极跟进注解配置，`Spring`家族的后续更是一发不可收拾，不断的翻新注解的玩法。近来`Spring Boot`更是登封造极，看到官方文档中需要翻页的注解列表时，不禁有些发怵。在这里整理下`Spring`家族个框架中的常用注解，简单归纳，便于记忆。
 
 <!--- more --->
+
+1. 声明bean的注解
 
 - @Component 组件，没有明确的角色
 
@@ -16,7 +18,7 @@ tags: [ Java, Spring, Xxx ]
 
 - @Controller 在展现层使用，控制器的声明（C）
 
-2.注入bean的注解
+2. 注入bean的注解
 
 - @Autowired：由Spring提供
 
@@ -26,7 +28,7 @@ tags: [ Java, Spring, Xxx ]
 
 都可以注解在set方法和属性上，推荐注解在属性上（一目了然，少写代码）。
 
-3.java配置类相关注解
+3. java配置类相关注解
 
 - @Configuration 声明当前类为配置类，相当于xml形式的Spring配置（类上）
 
@@ -38,7 +40,7 @@ tags: [ Java, Spring, Xxx ]
 
 - @WishlyConfiguration 为@Configuration与@ComponentScan的组合注解，可以替代这两个注解
 
-4.切面（AOP）相关注解
+4. 切面（AOP）相关注解
 
 Spring支持AspectJ的注解式切面编程。
 
@@ -56,7 +58,7 @@ Spring支持AspectJ的注解式切面编程。
 
 在java配置类中使用@EnableAspectJAutoProxy注解开启Spring对AspectJ代理的支持（类上）
 
-5.@Bean的属性支持
+5. @Bean的属性支持
 
 - @Scope 设置Spring容器如何新建Bean实例（方法上，得有@Bean）
 
@@ -78,7 +80,7 @@ Spring支持AspectJ的注解式切面编程。
 
 - @PreDestory 由JSR-250提供，在Bean销毁之前执行，等价于xml配置文件中bean的destroyMethod
 
-6.@Value注解
+6. @Value注解
 
 - @Value 为属性注入值（属性上）
 

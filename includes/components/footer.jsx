@@ -19,7 +19,7 @@ export default class Footer extends Component {
 							<dd>
 								<ul>
 									<li><a href="/blog">博客</a></li>
-									<li><a href="/docs">笔记</a></li>
+									{/** <li><a href="/docs">笔记</a></li> **/}
 								</ul>
 							</dd>
 						</dl>

@@ -11,6 +11,21 @@ module.exports = {
 			label: '关于',
 			url: '/about'
 		}],
+		docs: {
+			"Java": [
+				"core-java"
+			],
+			"Linux": [
+				"linux-shell-script",
+				"linux-system-info"
+			],
+			"Tuning": [
+			],
+			"Other": [
+				"awesome-app-windows",
+				"data_visualization"
+			]
+		},
 		social: {
 			github: 'MurphyL'
 		}

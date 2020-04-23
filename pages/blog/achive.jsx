@@ -94,7 +94,7 @@ const PARAMS_CONFIG = {
 };
 
 export default function Achive({ posts }) {
-	const router = useRouter()
+	const router = useRouter();
 	const params = router.query;
 	const items = (posts || {}).filter(source => {
 		for(let key in params) {

@@ -2,16 +2,13 @@ import React, { Component, Fragment } from 'react';
 
 import Markdown from 'react-markdown';
 
-import config from '../../docs/_doc.json';
-
-
 import  FileUtils from '../../utils/FileUtils';
 import  BlogUtils from '../../utils/BlogUtils';
 
 // 获取数据
 export async function getStaticProps() {
 	const items = FileUtils.listDocs(true) || [];
-	const docs = {};
+	const docs = process.env.docs || {};
 	items.forEach(({ filename, source }) => {
 		const doc = BlogUtils.reslovePostMeta(source);
 		docs[filename] = Object.assign(doc, { filename });
@@ -31,12 +28,12 @@ class Navigaror extends Component {
 		const { docs } = this.props;
 		return (
 			<dl>
-				{ config && ( Object.keys(config).map((category) => (
+				{ docs && ( Object.keys(docs).map((category) => (
 					<Fragment key={ category }>
 						<dt>{ category }</dt>
 						<dd>
 							<ul>
-								{ (config[category] || []).map((item, index) =>{
+								{ (docs[category] || []).map((item, index) =>{
 									return <li key={ `${category}-${index}` } onClick={ () => { this.props.selected(docs[item + '.md']) } }>{ docs[item + '.md'].meta.title }</li>
 								}) }
 							</ul>

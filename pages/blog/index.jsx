@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import { useRouter } from 'next/router';
+
 // import Markdown from 'react-markdown';
 import Markdown from 'markdown-to-jsx';
 
@@ -11,6 +13,7 @@ export async function getStaticProps() {
 	return {
 		props: {
 			title: '博客',
+			pageSize: 2,
 			posts: FileUtils.listBlog(true).sort((a, b) => {
 				return -a.filename.localeCompare(b.filename)
 			}),
@@ -57,13 +60,10 @@ class BlogPost extends Component {
 
 }
 
-export default class BlogList extends Component {
-
-	render() {
-		const { posts } = this.props;
-		return (
-			<dl className="blog">{ (posts || []).map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
-		)
-	}
-	
+export default function BlogList({ posts, pageSize }) {
+	const router = useRouter();
+	const { page = 1 } = router.query;
+	return (
+		<dl className="blog">{ posts.map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
+	)
 }

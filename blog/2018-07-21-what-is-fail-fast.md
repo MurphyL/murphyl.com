@@ -1,5 +1,5 @@
 ---
-title: fail-fast 是什么鬼？
+title: fail-fast是什么鬼？
 author: "murph"
 ---
 

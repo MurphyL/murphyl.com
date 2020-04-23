@@ -18,8 +18,8 @@ export default class Footer extends Component {
 							<dt>站点地图</dt>
 							<dd>
 								<ul>
-									<li><a href="/docs" target="_blank">笔记</a></li>
-									<li><a href="/about" target="_blank">关于</a></li>
+									<li><a href="/blog">博客</a></li>
+									<li><a href="/docs">笔记</a></li>
 								</ul>
 							</dd>
 						</dl>

@@ -1,5 +1,4 @@
-
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import FileUtils from '../../utils/FileUtils.js';
 import BlogUtils from '../../utils/BlogUtils';

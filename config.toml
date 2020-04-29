@@ -1,0 +1,16 @@
+[app]
+title = '咖啡·薄荷'
+
+[manifest]
+name = '咖啡·薄荷'
+short_name = '咖啡·薄荷'
+start_url = '.'
+display = 'standalone'
+background_color = '#fff'
+description = 'A simply readable Hacker News app.'
+[[manifest.icons]]
+src = '/image/icon.png'
+sizes = '149x149'
+type = 'image/png'
+[[manifest.related_applications]]
+platform = 'web'

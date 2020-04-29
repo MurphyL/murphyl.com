@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const toml = require('toml');
 const parseFrontMatter = require('frontmatter');
 
 const trimIfString = (source) => (typeof(source) ==='string' ? source.trim() : source);
@@ -20,6 +21,22 @@ const fillEmptyValue = function(target, field, value) {
 		target[field] = value;	
 	}
 };
+
+const configPath = path.join(process.cwd(), 'config.toml');
+
+if(fs.existsSync(configPath)) {
+	const configSource = fs.readFileSync(configPath, 'utf8').toString().trim();
+	const { manifest } = toml.parse(configSource);
+	console.log(JSON.stringify(manifest, null, '\t'));
+	const configTarget = path.join(process.cwd(), 'public/manifest.json');
+	fs.writeFile(configTarget, Buffer.from(JSON.stringify(manifest, null, '\t')), (err) => {
+		if(err){
+			console.log('manifest.json', '数据写入失败');
+		} else {
+			console.log('manifest.json', '数据写入完成');
+		}
+	});
+}
 
 const listFiles = function(suffix, withContent = false) {
 	const root = path.join(process.cwd(), suffix);

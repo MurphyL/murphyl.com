@@ -4,6 +4,8 @@ import Markdown from 'markdown-to-jsx';
 
 import axios from 'axios';
 
+import './blog.css';
+
 class BlogPost extends Component {
 
 	render() {
@@ -43,7 +45,7 @@ class BlogList extends Component {
     componentDidMount() {
         axios.get(`${process.env.PUBLIC_URL}/blog.json`)
             .then(({ statusText, status, data }) => {
-                console.log(statusText, status);
+                // console.log(statusText, status);
                 if (status === 200) {
                     this.setState({
                         status: 0,
@@ -55,9 +57,11 @@ class BlogList extends Component {
                     })
                 }
             })
-            .catch(error => {
+            .catch(({ response }) => {
+                console.log(response);
                 this.setState({
                     status: 1,
+                    code: response.status
                 })
             })
     }

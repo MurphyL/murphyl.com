@@ -2,7 +2,25 @@ html, body {
     margin: 0;
 }
 
+/**
 #root .container {
     margin: 0 auto;
     width: 960px;
+}**/
+
+@media screen and (max-width: 960px) {
+	#root .container {
+	    margin: 10px auto;
+	    width: calc(100% - 30px);
+	}
+}
+
+@media screen and (min-width: 961px) { 
+
+	#root .container {
+	    margin: 0 auto;
+	    padding: 0 10px;
+	    width: 960px;
+	}
+
 }

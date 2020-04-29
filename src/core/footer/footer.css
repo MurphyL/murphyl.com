@@ -1,0 +1,57 @@
+/** component - footer **/
+
+#root footer {
+	margin-top: 1rem;
+	min-height: 120px;
+	border-top: 1px solid #ccc;
+}
+
+#root footer .sitemap {
+	display: flex;
+}
+
+@media screen and (max-width: 800px) {
+
+}
+
+@media screen and (max-width: 600px) {
+	#root footer .sitemap .links {
+		display: none;
+	}
+}
+
+#root footer .sitemap .section {
+	flex: 1;
+}
+
+#root footer .sitemap .section dt {
+	font-weight: 800;
+}
+
+#root footer .sitemap .section dd {
+	margin: 0;
+}
+
+#root footer .sitemap .section dd ul {
+	padding-left: 0;
+}
+
+#root footer .sitemap .section dd ul li {
+	list-style-type: none;
+}
+
+#root footer .sitemap .logo {
+	display: flex;
+	width: 150px;
+	align-items: center;
+}
+
+#root footer .sitemap .logo img {
+	width: 72px;
+	height: 72px;
+}
+
+#root footer .copyright {
+	text-align: center;
+	line-height: 3rem;
+}

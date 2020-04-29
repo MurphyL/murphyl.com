@@ -1,21 +1,39 @@
 {
   "name": "murphyl.com",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "serve": "next",
-    "build": "next build",
-    "start": "next start"
-  },
-  "author": "murph",
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "frontmatter": "0.0.3",
+    "axios": "^0.19.2",
     "markdown-to-jsx": "^6.11.1",
-    "next": "^9.3.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-markdown": "^4.3.1"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "toml": "^3.0.0"
+  },
+  "scripts": {
+    "blog": "node build.js blog",
+    "docs": "node build.js docs",
+    "serve": "react-scripts start",
+    "prebuild": "npm run blog",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "frontmatter": "0.0.3"
   }
 }

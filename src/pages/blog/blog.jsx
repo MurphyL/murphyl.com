@@ -44,7 +44,7 @@ class BlogList extends Component {
         axios.get(`${process.env.PUBLIC_URL}/blog.json`)
             .then(({ statusText, status, data }) => {
                 console.log(statusText, status);
-                if (statusText === 'OK') {
+                if (status === 200) {
                     this.setState({
                         status: 0,
                         items: data

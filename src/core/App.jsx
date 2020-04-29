@@ -12,7 +12,7 @@ function App() {
     return (
         <StrictMode>
             <BrowserRouter>
-                <Header />
+                <Header title="咖啡·薄荷" />
                 <main>
                     <div className="container">
                         <Switch>
@@ -34,7 +34,7 @@ function App() {
                         </Switch>
                     </div>
                 </main>
-                <Footer />
+                <Footer title="咖啡·薄荷" />
             </BrowserRouter>
         </StrictMode>
     );

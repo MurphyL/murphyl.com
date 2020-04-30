@@ -2,15 +2,17 @@ import React from 'react';
 
 import { Route } from "react-router-dom";
 
+import './loading.css';
+
 export function Loading() {
     return (
-        <div style={{ padding: '25vh 0 100px', textAlign: 'center' }}>loading...</div>
+        <div className="loading">loading……</div>
     );
 }
 
 export function LoadedRouter(props) {
     return (
-        <Route path={ props.path} exact={ props.exact }>
+        <Route path={ props.path } exact={ props.exact || false }>
             <DynamicLoad page={ props.page } />
         </Route>
     )

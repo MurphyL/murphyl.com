@@ -1,4 +1,6 @@
-import React, { StrictMode } from 'react';
+import React, { Component, StrictMode } from 'react';
+
+// import axios from 'axios';
 
 import { LoadedRouter } from './loading/loading.jsx';
 
@@ -25,15 +27,21 @@ function Board() {
     )
 }
 
-export default function App() {
-    console.log(process.env);
-    return (
-        <StrictMode>
-            <BrowserRouter>
-                <Header />
-                <Board />
-                <Footer />
-            </BrowserRouter>
-        </StrictMode>
-    );
-}
+export default class App extends Component {
+
+    componentDidMount() {
+
+    }
+
+    render() {
+        return (
+            <StrictMode>
+                <BrowserRouter>
+                    <Header />
+                    <Board />
+                    <Footer />
+                </BrowserRouter>
+            </StrictMode>
+        )
+    }
+};

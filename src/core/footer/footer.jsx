@@ -45,7 +45,7 @@ function Footer() {
                     </dl>
                 </div>
                 <div className="copyright">
-                    <div>Copyright © 2020 { process.env.REACT_APP_TITLE }. All rights reserved.</div>
+                    <div>Copyright © 2020 { process.env.REACT_APP_TITLE }, All rights reserved. Host by <a href="https://vercel.com/" rel="noopener noreferrer" target="_blank">ZEIT.co</a></div>
                 </div>
             </div>
         </footer>

@@ -5,9 +5,7 @@ import React from 'react';
 function About() {
     // const prams = useParams();
     return (
-        <div className="about">
-            <div style={{ padding: '20vh 0 100px', textAlign: 'center' }}>about</div>
-        </div>
+        <div style={{ padding: '20vh 0 100px', textAlign: 'center' }}>about</div>
     );
 }
 

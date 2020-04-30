@@ -42,24 +42,22 @@ class Post extends Component {
             )
         } else if (status === 0) {
             return (
-                <div className="blog">
-                    <article className="markdown">
-                        <h2>{this.state.post.meta.title}</h2>
-                        <Markdown children={this.state.post.markdown}
-                            options={{
-                                slugify: str => str,
-                                createElement: (type, props, children) => {
-                                    if (props.key === 'outer') {
-                                        props.className = 'outer post';
-                                    }
-                                    if (type === 'pre' && children.type === 'code') {
-                                        props.className = 'code-block'
-                                    }
-                                    return React.createElement(type, props, children);
-                                },
-                            }} />
-                    </article>
-                </div>
+                <article className="markdown">
+                    <h2>{this.state.post.meta.title}</h2>
+                    <Markdown children={this.state.post.markdown}
+                        options={{
+                            slugify: str => str,
+                            createElement: (type, props, children) => {
+                                if (props.key === 'outer') {
+                                    props.className = 'outer post';
+                                }
+                                if (type === 'pre' && children.type === 'code') {
+                                    props.className = 'code-block'
+                                }
+                                return React.createElement(type, props, children);
+                            },
+                        }} />
+                </article>
             )
         } else {
             return <div>error</div>

@@ -77,7 +77,7 @@ class BlogList extends Component {
             )
         } else if (status === 0) {
             return (
-                <dl className="blog">{
+                <dl>{
                     posts.map((post, index) => {
                         return (
                             <BlogPost key={index} post={post} summary={true} />

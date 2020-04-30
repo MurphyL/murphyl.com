@@ -44,7 +44,7 @@ class BlogList extends Component {
 
     componentDidMount() {
         axios.get(`${process.env.PUBLIC_URL}/blog.json`)
-            .then(({ statusText, status, data }) => {
+            .then(({status, data }) => {
                 // console.log(statusText, status);
                 if (status === 200) {
                     this.setState({

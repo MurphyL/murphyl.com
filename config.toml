@@ -12,5 +12,3 @@ description = 'A simply readable Hacker News app.'
 src = '/image/icon.png'
 sizes = '149x149'
 type = 'image/png'
-[[manifest.related_applications]]
-platform = 'web'

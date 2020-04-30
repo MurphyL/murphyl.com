@@ -36,8 +36,8 @@ function Footer(props) {
                             <ul>
                                 {/** (social && social.github) && **/ (
                                     <li>
-                                        <a href={`https://github.com/MurphyL`} target="_blank" rel="noopener noreferrer">
-                                            <img alt="GitHub followers" src={`https://img.shields.io/github/followers/MurphyL?label=Follow&style=social`} />
+                                        <a href={`https://github.com/${ process.env.REACT_APP_GITHUB }`} target="_blank" rel="noopener noreferrer">
+                                            <img alt="GitHub followers" src={`https://img.shields.io/github/followers/${ process.env.REACT_APP_GITHUB }?label=Follow&style=social`} />
                                         </a>
                                     </li>
                                 )}

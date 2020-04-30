@@ -2,15 +2,15 @@ import React from 'react';
 
 import './footer.css';
 
-function Footer() {
+function Footer(props) {
     const social = {};
     return (
         <footer>
             <div className="container">
                 <div className="sitemap">
                     <div className="logo">
-                        <a href={ `${process.env.PUBLIC_URL}/` } rel="noopener noreferrer">
-                            <img src="/image/icon.png" alt={ this.props.title } />
+                        <a href={ `/` } rel="noopener noreferrer">
+                            <img src="/image/icon.png" alt={ props.title } />
                         </a>
                     </div>
                     <dl className="section navi">
@@ -34,10 +34,10 @@ function Footer() {
                         <dt>社交</dt>
                         <dd>
                             <ul>
-                                {(social && social.github) && (
+                                {/** (social && social.github) && **/ (
                                     <li>
-                                        <a href={`https://github.com/${process.env.social.github}`} target="_blank" rel="noopener noreferrer">
-                                            <img alt="GitHub followers" src={`https://img.shields.io/github/followers/${process.env.social.github}?label=Follow&style=social`} />
+                                        <a href={`https://github.com/MurphyL`} target="_blank" rel="noopener noreferrer">
+                                            <img alt="GitHub followers" src={`https://img.shields.io/github/followers/MurphyL?label=Follow&style=social`} />
                                         </a>
                                     </li>
                                 )}
@@ -46,7 +46,7 @@ function Footer() {
                     </dl>
                 </div>
                 <div className="copyright">
-                    <div>Copyright © 2020 { this.props.title }. All rights reserved.</div>
+                    <div>Copyright © 2020 { props.title }. All rights reserved.</div>
                 </div>
             </div>
         </footer>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import './header.css';
 
-function Header() {
+function Header(props) {
     const navItems = [{
         url: '/blog',
         label: 'Blog'
@@ -16,7 +16,7 @@ function Header() {
         <header>
             <div className="container">
                 <div className="logo">
-                    <a href={ `${process.env.PUBLIC_URL}/` }>{ this.props.title || '' }</a>
+                    <a href={ `/` }>{ props.title || '' }</a>
                 </div>
                 <ul className="navi">
                     { navItems && navItems.map((item, index) => (

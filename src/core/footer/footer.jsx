@@ -2,8 +2,7 @@ import React from 'react';
 
 import './footer.css';
 
-function Footer(props) {
-    const social = {};
+function Footer() {
     return (
         <footer>
             <div className="container">

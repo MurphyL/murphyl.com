@@ -1,19 +1,28 @@
 import React from 'react';
 
-function Loading() {
+import { Route } from "react-router-dom";
+
+export function Loading() {
     return (
         <div style={{ padding: '25vh 0 100px', textAlign: 'center' }}>loading...</div>
     );
 }
 
+export function LoadedRouter(props) {
+    return (
+        <Route path={ props.path} exact={ props.exact }>
+            <DynamicLoad page={ props.page } />
+        </Route>
+    )
+}
 
-function Loaded({ target }) {
-    const Child = React.lazy(() => import(`../../pages/${target}/${target}`));
+export function DynamicLoad({ page }) {
+    const LazyComponent = React.lazy(() => import(`../../pages/${page}/${page}`));
     return (
         <React.Suspense fallback={<Loading />}>
-            <Child />
+            <div className={ page }>
+                <LazyComponent />
+            </div>
         </React.Suspense>
     );
 }
-
-export default Loaded;

@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 
-import Loading from './loading/loading.jsx';
+import { LoadedRouter } from './loading/loading.jsx';
 
 import Header from './header/header.jsx';
 import Footer from './footer/footer.jsx';
@@ -16,18 +16,10 @@ function App() {
                 <main>
                     <div className="container">
                         <Switch>
-                            <Route exact path="/">
-                                <Loading target="home" />
-                            </Route>
-                            <Route path="/blog" >
-                                <Loading target="blog" />
-                            </Route>
-                            <Route path="/about" >
-                                <Loading target="about" />
-                            </Route>
-                            <Route path="/post/:unique" >
-                                <Loading target="post" />
-                            </Route>
+                            <LoadedRouter path="/" page="home" exact={ true } />
+                            <LoadedRouter path="/blog" page="blog" />
+                            <LoadedRouter path="/about" page="about" />
+                            <LoadedRouter path="/post/:unique" page="post" />
                             <Route>
                                 <div>404</div>
                             </Route>

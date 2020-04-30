@@ -4,34 +4,36 @@ import Markdown from 'markdown-to-jsx';
 
 import axios from 'axios';
 
+import { Loading } from '../../core/loading/loading.jsx';
+
 import './blog.css';
 
 class BlogPost extends Component {
 
-	render() {
-		const { post } = this.props;
-		return (
-			<Fragment>
-				<dt>
-					<a href={ `/post/${post.filename}` }>
-						<h2>{ post.meta.title }</h2>
-					</a>
-				</dt>
-				<dd>
-					<article className="summary">
-						<Markdown children={ post.summary } options={{
-				            createElement: (type, props, children) => {
-				            	if(props.key === 'outer') {
-				            		props.className = 'outer summary';
-				            	}
-				                return React.createElement(type, props, children);
-				            },
-		    			}} />
-					 </article>
-				</dd>
-			</Fragment>
-		)
-	}
+    render() {
+        const { post } = this.props;
+        return (
+            <Fragment>
+                <dt>
+                    <a href={`/post/${post.filename}`}>
+                        <h2>{post.meta.title}</h2>
+                    </a>
+                </dt>
+                <dd>
+                    <article className="summary">
+                        <Markdown children={post.summary} options={{
+                            createElement: (type, props, children) => {
+                                if (props.key === 'outer') {
+                                    props.className = 'outer summary';
+                                }
+                                return React.createElement(type, props, children);
+                            },
+                        }} />
+                    </article>
+                </dd>
+            </Fragment>
+        )
+    }
 
 }
 
@@ -44,7 +46,7 @@ class BlogList extends Component {
 
     componentDidMount() {
         axios.get(`${process.env.PUBLIC_URL}/blog.json`)
-            .then(({status, data }) => {
+            .then(({ status, data }) => {
                 // console.log(statusText, status);
                 if (status === 200) {
                     this.setState({
@@ -70,9 +72,19 @@ class BlogList extends Component {
         const posts = this.state.items || [];
         const status = this.state.status;
         if (status === -1) {
-            return <div>loading</div>
+            return (
+                <Loading />
+            )
         } else if (status === 0) {
-            return <dl className="blog">{ posts.map((post, index) => <BlogPost key={ index } post={ post } summary={ true } /> ) }</dl>
+            return (
+                <dl className="blog">{
+                    posts.map((post, index) => {
+                        return (
+                            <BlogPost key={index} post={post} summary={true} />
+                        )
+                    })}
+                </dl>
+            )
         } else {
             return <div>error</div>
         }

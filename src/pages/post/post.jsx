@@ -4,6 +4,8 @@ import Markdown from 'markdown-to-jsx';
 
 import axios from 'axios';
 
+import { Loading } from '../../core/loading/loading.jsx';
+
 class Post extends Component {
 
     state = {
@@ -35,7 +37,9 @@ class Post extends Component {
     render() {
         const status = this.state.status;
         if (status === -1) {
-            return <div>loading</div>
+            return (
+                <Loading />
+            )
         } else if (status === 0) {
             return (
                 <div className="blog">

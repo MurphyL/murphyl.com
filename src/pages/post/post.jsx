@@ -13,8 +13,8 @@ class Post extends Component {
     componentDidMount() {
         const { params } = this.props.match || {};
         axios.get(`${process.env.PUBLIC_URL}/post/${params.unique}.json`)
-            .then(({ statusText, data }) => {
-                if (statusText === 'OK') {
+            .then(({ status, data }) => {
+                if (status === 200) {
                     this.setState({
                         status: 0,
                         post: data

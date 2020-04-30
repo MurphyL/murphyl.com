@@ -10,7 +10,7 @@ function Footer(props) {
                 <div className="sitemap">
                     <div className="logo">
                         <a href={ `/` } rel="noopener noreferrer">
-                            <img src="/image/icon.png" alt={ props.title } />
+                            <img src="/image/icon.png" alt={ process.env.REACT_APP_TITLE } />
                         </a>
                     </div>
                     <dl className="section navi">
@@ -46,7 +46,7 @@ function Footer(props) {
                     </dl>
                 </div>
                 <div className="copyright">
-                    <div>Copyright © 2020 { props.title }. All rights reserved.</div>
+                    <div>Copyright © 2020 { process.env.REACT_APP_TITLE }. All rights reserved.</div>
                 </div>
             </div>
         </footer>

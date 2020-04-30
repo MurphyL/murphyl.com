@@ -8,7 +8,7 @@ import Footer from './footer/footer.jsx';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
-    // console.log(process.env);
+    console.log(process.env);
     return (
         <StrictMode>
             <BrowserRouter>

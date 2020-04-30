@@ -16,7 +16,7 @@ function Header(props) {
         <header>
             <div className="container">
                 <div className="logo">
-                    <a href={ `/` }>{ props.title || '' }</a>
+                    <a href={ `/` }>{ process.env.REACT_APP_TITLE || '' }</a>
                 </div>
                 <ul className="navi">
                     { navItems && navItems.map((item, index) => (

@@ -1,0 +1,7 @@
+.post .markdown.outer {
+	line-height: 2rem;
+}
+
+.post .markdown.outer p {
+	text-indent: 2rem;
+}

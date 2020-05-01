@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import { Loading } from '../../core/loading/loading.jsx';
 
+import './post.css';
+
 class Post extends Component {
 
     state = {
@@ -42,14 +44,14 @@ class Post extends Component {
             )
         } else if (status === 0) {
             return (
-                <article className="markdown">
+                <article className="content">
                     <h2>{this.state.post.meta.title}</h2>
                     <Markdown children={this.state.post.markdown}
                         options={{
                             slugify: str => str,
                             createElement: (type, props, children) => {
                                 if (props.key === 'outer') {
-                                    props.className = 'outer post';
+                                    props.className = 'outer markdown';
                                 }
                                 if (type === 'pre' && children.type === 'code') {
                                     props.className = 'code-block'

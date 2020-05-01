@@ -24,7 +24,7 @@ class BlogPost extends Component {
                         <Markdown children={post.summary} options={{
                             createElement: (type, props, children) => {
                                 if (props.key === 'outer') {
-                                    props.className = 'outer summary';
+                                    props.className = 'outer markdown';
                                 }
                                 return React.createElement(type, props, children);
                             },

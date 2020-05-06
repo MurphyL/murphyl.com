@@ -8,6 +8,10 @@ import { Loading } from '../../core/loading/loading.jsx';
 
 import './blog.css';
 
+const extractSummary = (text) => {
+    return (text || '').split(/<!(-{2,})( *)more( *)(-{2,})>/)[0];
+};
+
 class BlogPost extends Component {
 
     render() {
@@ -21,7 +25,7 @@ class BlogPost extends Component {
                 </dt>
                 <dd>
                     <article className="summary">
-                        <Markdown children={post.summary} options={{
+                        <Markdown children={ extractSummary(post.markdown) } options={{
                             createElement: (type, props, children) => {
                                 if (props.key === 'outer') {
                                     props.className = 'outer markdown';

@@ -13,6 +13,7 @@
   },
   "scripts": {
     "blog": "node build.js blog",
+    "x": "node build.v1.js x",
     "docs": "node build.js docs",
     "serve": "react-scripts start",
     "prebuild": "npm run blog",

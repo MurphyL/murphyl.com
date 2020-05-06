@@ -6,7 +6,9 @@ import './loading.css';
 
 export function Loading() {
     return (
-        <div className="loading">loading……</div>
+        <div className="loading">
+            <img src="/image/squares.svg" />
+        </div>
     );
 }
 

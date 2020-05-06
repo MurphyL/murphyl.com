@@ -11,7 +11,7 @@ author: "murph"
 AWK程序是由一系列模式/动作对组成的，写做：
 
 ```sh
-	pattern { action }
+pattern { action }
 ```
 
 其中pattern表示AWK在数据中查找的内容，而action是在找到匹配内容时所执行的一系列命令。
@@ -21,20 +21,20 @@ AWK程序是由一系列模式/动作对组成的，写做：
 将文件内的每一行以空格分隔，打印每一行的第五列：
 
 ```sh
-	awk '{print $5}' {{filename}}
+awk '{print $5}' {{filename}}
 ```
 
 通过正则表达式匹配文件内的每一行，然后将行内容以空格分隔，打印每一行的第二列：
 
 ```sh
-	awk '/{{regexp}}/ {print $2}' {{filename}}
-	awk '$1 ~ /{{regexp}}/ {print $2}' {{filename}}
+awk '/{{regexp}}/ {print $2}' {{filename}}
+awk '$1 ~ /{{regexp}}/ {print $2}' {{filename}}
 ```
 
 指定分隔符，输出每一行的列的数量
 
 ```sh
-	awk -F ',' '{print $NF}' {{filename}}
+awk -F ',' '{print $NF}' {{filename}}
 ```
 
 ### 语句定义
@@ -47,8 +47,8 @@ AWK程序是由一系列模式/动作对组成的，写做：
 内置常量
 
 ```sh
-	NR	Number of row	行号
-	NF	Number of field	列号
+NR	Number of row	行号
+NF	Number of field	列号
 ```
 
 ### 列引用
@@ -60,4 +60,4 @@ NF是个代表总列数的系统变量，所以$NF代表最后一列，还支持
 
 ### 参考资料
 
-[Wikipedia - AWK](https://zh.wikipedia.org/wiki/AWK)
+- [Wikipedia - AWK](https://zh.wikipedia.org/wiki/AWK)

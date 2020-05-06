@@ -12,6 +12,7 @@
 /build
 /public/post/
 /public/blog.json
+/public/murph.json
 /public/manifest.json
 
 # misc

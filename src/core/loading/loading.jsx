@@ -7,7 +7,7 @@ import './loading.css';
 export function Loading() {
     return (
         <div className="loading">
-            <img src="/image/squares.svg" />
+            <img src="/image/squares.svg" alt="loading spin" />
         </div>
     );
 }

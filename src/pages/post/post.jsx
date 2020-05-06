@@ -16,12 +16,18 @@ class Post extends Component {
 
     componentDidMount() {
         const { params } = this.props.match || {};
-        axios.get(`${process.env.PUBLIC_URL}/post/${params.unique}.json`)
+        // params.unique
+        axios.get(`${process.env.PUBLIC_URL}/blog.json`)
             .then(({ status, data }) => {
-                if (status === 200) {
+                if (status === 200 && data && Array.isArray(data)) {
+                    const post = data.find(({ filename }) => {
+                        return filename === params.unique;
+                    })
+                    if(!post) {
+                        throw new Error('NOT FOUND');
+                    }
                     this.setState({
-                        status: 0,
-                        post: data
+                        status: 0, post
                     })
                 } else {
                     this.setState({

@@ -53,7 +53,7 @@ const posts = (fs.readdirSync('blog') || [])
 		};
 	})
 	.filter((item) => {
-		writeFile(`public/post/${item.filename}.json`, JSON.stringify(item))
+		// writeFile(`public/post/${item.filename}.json`, JSON.stringify(item))
 		return !item.meta.achived;
 	})
 	.sort((a, b) => {
@@ -62,6 +62,7 @@ const posts = (fs.readdirSync('blog') || [])
 
 // 写入数据文件
 writeFile('public/blog.json', JSON.stringify(posts));
+
 // 写入原始数据
 writeFile('public/murph.json', JSON.stringify({
 	timestamp: parseInt(Date.now() / 1000),

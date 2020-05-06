@@ -36,10 +36,10 @@ if (!fs.existsSync(postTarget)) {
 }
 
 const posts = (fs.readdirSync('blog') || [])
-	.filter(filename => {
+	.filter((filename) => {
 		return /^20\d\d-\d\d-[0-3]\d/.test(filename) && filename.endsWith('.md')
 	})
-	.map(filename => {
+	.map((filename) => {
 		// 文章绝对路径
 		const path = reslovePath(`blog/${filename}`);
 		// 文章正文内容

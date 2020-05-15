@@ -51,6 +51,11 @@ NR	Number of row	行号
 NF	Number of field	列号
 ```
 
+|  常量   | 释义  | 备注  |
+|  ----  | ----  | ----  |
+| NR  | 行号 | Number of row |
+| NF  | 列号 | Number of field |
+
 ### 列引用
 
 $0代表整行所有数据，$1代表第一列(终于不是程序员数数从0开始了)；

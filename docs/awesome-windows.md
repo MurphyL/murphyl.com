@@ -1,5 +1,5 @@
 ---
-id: awesome-app-windows
+id: awesome-windows
 title: Windows 应用列表
 sidebar_label: Windows 应用列表
 ---
@@ -42,3 +42,4 @@ sidebar_label: Windows 应用列表
 ## 参考
 
 - [Windows绝赞应用](https://belittleyang.gitbooks.io/windows-apps-that-amaze-us/content/)
+- [Awesome-Windows](https://github.com/Awesome-Windows/Awesome/blob/master/README.md)

@@ -15,6 +15,7 @@ npm publish .
 npm unpublish package_name --froce
 ```
 
+## 切换镜像
 
 - https://registry.npm.taobao.org/
 - http://registry.npmjs.org/

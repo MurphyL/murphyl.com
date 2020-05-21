@@ -9,8 +9,11 @@
 	margin: 0 3px;
 }
 
-.post .markdown.outer p>img {
-	margin: 0 auto;
+.post .markdown.outer .image {
+	text-align: center;
+}
+
+.post .markdown.outer .image img {
 	max-width: 80%;
 }
 

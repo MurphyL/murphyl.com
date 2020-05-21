@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
-import { getPost } from '../../utils/blog_utils';
+import { getByUnique } from '../../utils/blog_utils';
 
 import { Loading } from '../../core/loading/loading.jsx';
 
@@ -12,7 +12,7 @@ function Post() {
     const { unique } = useParams();
     const [ post, setPost ] = useState({ code: -1 });
     useEffect(() => {
-        getPost(unique).then(res => {
+        getByUnique(unique).then(res => {
             setPost(res);
         });
     }, [ unique ]);

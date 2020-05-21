@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 
 import { Route } from "react-router-dom";
 
@@ -12,21 +12,21 @@ export function Loading() {
     );
 }
 
-export function LoadedRouter(props) {
+export function LoadableRoute(props) {
     return (
         <Route path={ props.path } exact={ props.exact || false }>
-            <DynamicLoad page={ props.page } />
+            <Loadable page={ props.page } />
         </Route>
     )
 }
 
-export function DynamicLoad({ page }) {
-    const LazyComponent = React.lazy(() => import(`../../pages/${page}/${page}`));
+export function Loadable({ page }) {
+    const LazyComponent = lazy(() => import(`../../pages/${page}/${page}`));
     return (
-        <React.Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
             <div className={ page }>
                 <LazyComponent />
             </div>
-        </React.Suspense>
+        </Suspense>
     );
 }

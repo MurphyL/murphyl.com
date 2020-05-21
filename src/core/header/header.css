@@ -23,15 +23,35 @@
 	}
 
 	#root header ul.navi {
-		position: absolute;
 		display: none;
-		padding: 10px 0 1rem;
-	    width: 80%;
+		margin: 11px 10px 10px;
+		padding: 0;
+		z-index: 1;
+		line-height: 50px;
 	    background-color: #fff;
 	}
 
 	#root .full-width header ul.navi {
 		width: 100%;
+	}
+
+	#root header ul.navi.true {
+		display: block;
+		position: fixed;
+		left: 0;
+		width: calc(100% - 10px * 2);
+	}
+
+	#root header .navi-trigger {
+		display: block;
+		position: absolute;
+		margin: 10px 5px;
+		padding: 0 20px;
+		top: 0;
+		right: 0;
+		height: 50px;
+		line-height: 50px;
+		cursor: pointer;
 	}
 
 }
@@ -61,6 +81,10 @@
 
 	#root header ul.navi li {
 		display: inline-block;
+	}
+
+	#root header .navi-trigger {
+		display: none;
 	}
 
 }

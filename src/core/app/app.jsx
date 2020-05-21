@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 
-import { LoadedRouter } from '../loading/loading.jsx';
+import { LoadableRoute } from '../loading/loading.jsx';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
@@ -14,10 +14,10 @@ function Board() {
         <main>
             <div className="container">
                 <Switch>
-                    <LoadedRouter path="/" page="home" exact={true} />
-                    <LoadedRouter path="/blog" page="blog" />
-                    <LoadedRouter path="/about" page="about" />
-                    <LoadedRouter path="/post/:unique" page="post" />
+                    <LoadableRoute path="/" page="home" exact={true} />
+                    <LoadableRoute path="/blog" page="blog" />
+                    <LoadableRoute path="/about" page="about" />
+                    <LoadableRoute path="/post/:unique" page="post" />
                     <Route>
                         <div>404</div>
                     </Route>
@@ -28,7 +28,6 @@ function Board() {
 }
 
 export default function App() {
-
     return (
         <StrictMode>
             <BrowserRouter>

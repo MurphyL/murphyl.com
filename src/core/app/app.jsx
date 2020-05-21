@@ -9,7 +9,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import './app.css';
 
-function Board() {
+function Main() {
     return (
         <main>
             <div className="container">
@@ -32,7 +32,7 @@ export default function App() {
         <StrictMode>
             <BrowserRouter>
                 <Header />
-                <Board />
+                <Main />
                 <Footer />
             </BrowserRouter>
         </StrictMode>

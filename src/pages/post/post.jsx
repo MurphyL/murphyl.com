@@ -8,6 +8,79 @@ import { Loading } from '../../core/loading/loading.jsx';
 
 import './post.css';
 
+const Title = ({ type, children }) => {
+    return React.createElement(type, { className: 'title' }, children);
+}
+
+const H3 = (props) => (<Title type='h3' { ...props } />);
+
+const Prepare = ({ children }) => {
+    if(children) {
+        if(children.type === 'code') {
+            return (
+                <pre className="code-block">{ children }</pre>
+            )
+        }
+    }
+    return (
+        <div>TODO prepare block</div>
+    );
+};
+
+const Paragraph = ({ children }) => {
+    if(children) {
+        if(Array.isArray(children) && children[0] && children[0].type === 'img') {
+            return (
+                <p className="image">{ children }</p>
+            )
+        }
+    }
+    return (
+        <p>{ children }</p>
+    );
+};
+
+const markdownOptions = {
+    overrides: {
+        h1: {
+            component: H3
+        },
+        h2: {
+            component: H3
+        },
+        h3: {
+            component: H3
+        },
+        h4: {
+            component:  (props) => (<Title type='h4' { ...props } />)
+        },
+        h5: {
+            component:  (props) => (<Title type='h5' { ...props } />)
+        },
+        h6: {
+            component:  (props) => (<Title type='h6' { ...props } />)
+        },
+        p: {
+            component: Paragraph
+        },
+        pre: {
+            component: Prepare
+        },
+        div: {
+            props: {
+                className: 'content'
+            }
+        },
+        table: {
+            props: {
+                border: 1,
+                cellSpacing: 0,
+                cellPadding: 0,
+            }
+        },
+    }
+};
+
 function Post() {
     const { unique } = useParams();
     const [ post, setPost ] = useState({ code: -1 });
@@ -27,34 +100,11 @@ function Post() {
         );
     }
     return (
-        <article className="content">
-            <h2>{post.meta.title}</h2>
-            <Markdown children={post.markdown}
-                options={{
-                    slugify: str => str,
-                    createElement: (type, props, children) => {
-                        if (props.key === 'outer') {
-                            props.className = 'outer markdown';
-                        }
-                        if (children && children.length === 1 && Array.isArray(children)) {
-                            let first = children[0];
-                            if (first) {
-                                if (first.type === 'img') {
-                                    props.className = 'image';    
-                                }                                        
-                            }
-                        } else {
-                            // console.log(type, props, children);
-                        }
-                        if(type === 'code'){
-                            props.className = 'code'
-                        }
-                        if (type === 'pre' && children && children.type === 'code') {
-                            props.className = 'code-block'
-                        }
-                        return React.createElement(type, props, children);
-                    },
-                }} />
+        <article>
+            <h2>{ post.meta.title }</h2>
+            <section>
+                <Markdown children={ post.markdown } options= { markdownOptions }/>
+            </section>
         </article>
     );
 };

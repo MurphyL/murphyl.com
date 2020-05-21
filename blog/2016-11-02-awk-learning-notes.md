@@ -43,15 +43,10 @@ awk -F ',' '{print $NF}' {{filename}}
 所有执行语句用{}括起来，{}的外面是一些高级的东西比如过滤条件；
 另外如果打印整列，{print} 可省略不写；
 
-内置常量
-
-```sh
-NR	Number of row	行号
-NF	Number of field	列号
-```
+#### 内置常量
 
 |  常量   | 释义  | 备注  |
-|  ----  | ----  | ----  |
+| ---- | ---- | ---- |
 | NR  | 行号 | Number of row |
 | NF  | 列号 | Number of field |
 

@@ -1,24 +1,61 @@
-.post .markdown.outer {
+.post .content {
 	line-height: 2rem;
 }
 
-.post .markdown.outer p {
+.post .content>p {
+	margin: 10px 5px;
 }
 
-.post .markdown.outer p>a {
+.post .content a {
 	margin: 0 3px;
 }
 
-.post .markdown.outer .image {
+.post .content .title {
+	margin: 15px 0 10px;
+}
+
+.post .content .image {
 	text-align: center;
 }
 
-.post .markdown.outer .image img {
+.post .content .image img {
 	max-width: 80%;
 }
 
-.post .markdown.outer blockquote {
-	margin: 0 5px;
+.post .content blockquote {
+	margin: 10px;
 	padding-left: 10px;
 	border-left: 3px solid grey;
+}
+
+.post .content blockquote p {
+	margin: 3px;
+}
+
+.post .content table {
+	margin: 5px 2%;
+	width: 96%;
+	border-collapse: collapse;
+}
+
+.post .content table,
+.post .content table tr th,
+.post .content table tr td {
+	border: 1px solid #dededede;
+}
+
+.post .content table tr th,
+.post .content table tr td {
+	padding: 3px 5px;
+}
+
+.post .content .code-block {
+	margin: 10px;
+	padding: 0;
+	width: calc(100% - 10px * 2 - 5px);
+	border:  1px solid #dededede;
+}
+
+.post .content .code-block code {
+	margin: 10px 15px;
 }

@@ -18,7 +18,7 @@
 }
 
 .post .markdown.outer blockquote {
-	margin-left: 0;
-	text-indent: 1rem;
+	margin: 0 5px;
+	padding-left: 10px;
 	border-left: 3px solid grey;
 }

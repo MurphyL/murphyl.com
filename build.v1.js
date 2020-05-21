@@ -53,8 +53,9 @@ const posts = (fs.readdirSync('blog') || [])
 		};
 	})
 	.filter((item) => {
-		// writeFile(`public/post/${item.filename}.json`, JSON.stringify(item))
-		return !item.meta.achived;
+		const filename= item.filename.replace(/\.md$/, '.json');
+		writeFile(`public/post/${filename}`, JSON.stringify(item))
+		return !item.meta.achived && !item.meta.hidden;
 	})
 	.sort((a, b) => {
         return -a.filename.localeCompare(b.filename)

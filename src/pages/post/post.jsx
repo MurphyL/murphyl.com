@@ -56,10 +56,24 @@ class Post extends Component {
                         options={{
                             slugify: str => str,
                             createElement: (type, props, children) => {
+                                
                                 if (props.key === 'outer') {
                                     props.className = 'outer markdown';
                                 }
-                                if (type === 'pre' && children.type === 'code') {
+                                if (children && children.length === 1 && Array.isArray(children)) {
+                                    let first = children[0];
+                                    if (first) {
+                                        if (first.type === 'img') {
+                                            props.className = 'image';    
+                                        }                                        
+                                    }
+                                } else {
+                                    // console.log(type, props, children);
+                                }
+                                if(type === 'code'){
+                                    props.className = 'code'
+                                }
+                                if (type === 'pre' && children && children.type === 'code') {
                                     props.className = 'code-block'
                                 }
                                 return React.createElement(type, props, children);

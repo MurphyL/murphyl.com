@@ -3,5 +3,19 @@
 }
 
 .post .markdown.outer p {
-	text-indent: 2rem;
+}
+
+.post .markdown.outer p>a {
+	margin: 0 3px;
+}
+
+.post .markdown.outer p>img {
+	margin: 0 auto;
+	max-width: 80%;
+}
+
+.post .markdown.outer blockquote {
+	margin-left: 0;
+	text-indent: 1rem;
+	border-left: 3px solid grey;
 }

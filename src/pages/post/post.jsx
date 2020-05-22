@@ -16,6 +16,12 @@ const LANG_TYPES = {
     'lang-sh': 'Shell'
 };
 
+                hljs.configure({
+                    tabReplace: '    ',
+                });
+                hljs.initHighlighting();
+
+
 const Title = ({ type, children }) => {
     return React.createElement(type, { className: 'title' }, children);
 }

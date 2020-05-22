@@ -5,11 +5,24 @@ html, body, code {
     font-variant: tabular-nums;
 }
 
-/**
-#root .container {
-    margin: 0 auto;
-    width: 960px;
-}**/
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+*::-webkit-scrollbar-track {
+	background: orange rgba(241, 241, 241, 1);
+}
+*::-webkit-scrollbar-thumb {
+	background-color: rgba(193, 193, 193, 1);
+	border-radius: 20px;
+	border: 1px solid  rgba(192, 192, 192, 1);
+}
 
 @media screen and (max-width: 600px) {
 	.post .content .code-block .lang-type {

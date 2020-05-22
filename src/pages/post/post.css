@@ -50,8 +50,9 @@
 .post .content .code-block {
 	position: relative;
 	padding: 0;
+	overflow-x: auto;
+	border: 1px solid #ccc;
 	background: #f8f8f8;
-	border:  1px solid #dededede;
 	word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
@@ -59,11 +60,19 @@
     tab-size: 4;
 }
 
+.post .content .code-block .hljs {
+	margin: 10px 20px;
+	padding: 0;
+	overflow: initial;
+}
+
 .post .content .code-block .lang-type {
 	position: absolute;
 	padding: 1px 5px;
+	z-index: 1;
 	right: 10px;
 	top: 0;
+	background: #fff;
 	font-size: 8px;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;

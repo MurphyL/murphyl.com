@@ -26,10 +26,10 @@ const Prepare = ({ children }) => {
     if(children && children.type === 'code') {
         const langType = LANG_TYPES[children.props.className] || 'Text';
         return (
-            <pre className="code-block m10">
-                <div className="m10">{ children }</div>
+            <div className="code-block">
+                <pre>{ children }</pre>
                 <div className="lang-type">{ langType }</div>
-            </pre>
+            </div>
         )
     }
     return (

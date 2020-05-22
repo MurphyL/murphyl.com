@@ -11,6 +11,12 @@ html, body, code {
     width: 960px;
 }**/
 
+@media screen and (max-width: 600px) {
+	.post .content .code-block .lang-type {
+		display: none;
+	}
+}
+
 @media screen and (max-width: 960px) {
 	#root .container {
 	    margin: 10px auto;

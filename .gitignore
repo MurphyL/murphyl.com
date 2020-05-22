@@ -10,9 +10,7 @@
 
 # production
 /build
-/public/post/
-/public/blog.json
-/public/murph.json
+/public/posts.json
 /public/manifest.json
 
 # misc

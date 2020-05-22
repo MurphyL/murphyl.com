@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
@@ -6,7 +6,7 @@ import Markdown from 'markdown-to-jsx';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
-import { getByUnique } from '../../utils/blog_utils';
+import { ajaxGet } from '../../utils/rest_client';
 
 import { Loading } from '../../core/loading/loading.jsx';
 
@@ -16,10 +16,10 @@ const LANG_TYPES = {
     'lang-sh': 'Shell'
 };
 
-                hljs.configure({
-                    tabReplace: '    ',
-                });
-                hljs.initHighlighting();
+hljs.configure({
+    tabReplace: '    ',
+});
+hljs.initHighlighting();
 
 
 const Title = ({ type, children }) => {
@@ -102,14 +102,13 @@ function Post() {
     const { unique } = useParams();
     const [ post, setPost ] = useState({ code: -1 });
     useEffect(() => {
-        getByUnique(unique).then(res => {
-            setPost(res);
+        ajaxGet('posts.json').then(({ status, payload }) => {
+            setPost(Object.assign(payload.mapping[unique], { code: 0 }))
             setTimeout(() => {
                 document.querySelectorAll('.code-block code').forEach((block) => {
                     hljs.highlightBlock(block);
                 });
             }, 50);
-
         });
     }, [ unique ]);
     if(post.code === -1) {

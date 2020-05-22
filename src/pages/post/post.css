@@ -33,8 +33,6 @@
 }
 
 .post .content table {
-	margin: 5px 2%;
-	width: 96%;
 	border-collapse: collapse;
 }
 
@@ -50,12 +48,46 @@
 }
 
 .post .content .code-block {
-	margin: 10px;
+	position: relative;
 	padding: 0;
-	width: calc(100% - 10px * 2 - 5px);
+	background: #f8f8f8;
 	border:  1px solid #dededede;
+	word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+.post .content .code-block .lang-type {
+	position: absolute;
+	padding: 1px 5px;
+	right: 10px;
+	top: 0;
+	font-size: 8px;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.post .content .paragraph>code {
+	margin: 0 3px;
+	padding: 2px 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 0.8rem;
+	white-space:nowrap;
+	background: #f8f8f8;
+}
+
+.post .content .m10 {
+	margin: 10px;
+	width: calc(100% - 10px * 2 - 10px);
 }
 
 .post .content .code-block code {
-	margin: 0;
+	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 1em;
 }

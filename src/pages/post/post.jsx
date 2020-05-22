@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
+// highlight.js
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+
 import { getByUnique } from '../../utils/blog_utils';
 
 import { Loading } from '../../core/loading/loading.jsx';
 
 import './post.css';
+
+const LANG_TYPES = {
+    'lang-sh': 'Shell'
+};
 
 const Title = ({ type, children }) => {
     return React.createElement(type, { className: 'title' }, children);
@@ -15,12 +23,14 @@ const Title = ({ type, children }) => {
 const H3 = (props) => (<Title type='h3' { ...props } />);
 
 const Prepare = ({ children }) => {
-    if(children) {
-        if(children.type === 'code') {
-            return (
-                <pre className="code-block">{ children }</pre>
-            )
-        }
+    if(children && children.type === 'code') {
+        const langType = LANG_TYPES[children.props.className] || 'Text';
+        return (
+            <pre className="code-block m10">
+                <div className="m10">{ children }</div>
+                <div className="lang-type">{ langType }</div>
+            </pre>
+        )
     }
     return (
         <div>TODO prepare block</div>
@@ -28,15 +38,15 @@ const Prepare = ({ children }) => {
 };
 
 const Paragraph = ({ children }) => {
-    if(children) {
-        if(Array.isArray(children) && children[0] && children[0].type === 'img') {
+    if(children && Array.isArray(children)) {
+        if(children[0] && children[0].type === 'img') {
             return (
                 <p className="image">{ children }</p>
             )
         }
     }
     return (
-        <p>{ children }</p>
+        <p className="paragraph">{ children }</p>
     );
 };
 
@@ -73,6 +83,7 @@ const markdownOptions = {
         },
         table: {
             props: {
+                className: 'm10',
                 border: 1,
                 cellSpacing: 0,
                 cellPadding: 0,
@@ -87,6 +98,12 @@ function Post() {
     useEffect(() => {
         getByUnique(unique).then(res => {
             setPost(res);
+            setTimeout(() => {
+                document.querySelectorAll('.code-block code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            }, 50);
+
         });
     }, [ unique ]);
     if(post.code === -1) {

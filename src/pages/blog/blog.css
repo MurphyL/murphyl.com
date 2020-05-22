@@ -3,3 +3,13 @@
 	padding: 0;
 	line-height: 2rem;
 }
+
+.blog .summary code {
+	margin: 0 3px;
+	padding: 2px 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 0.8rem;
+	white-space:nowrap;
+	background: #f8f8f8;
+}

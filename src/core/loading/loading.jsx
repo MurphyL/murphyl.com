@@ -1,6 +1,4 @@
-import React, { lazy, Suspense } from 'react';
-
-import { Route } from "react-router-dom";
+import React, { Suspense } from 'react';
 
 import './loading.css';
 
@@ -10,23 +8,15 @@ export function Loading() {
             <img src="/image/squares.svg" alt="loading spin" />
         </div>
     );
-}
+};
 
-export function LoadableRoute(props) {
-    return (
-        <Route path={ props.path } exact={ props.exact || false }>
-            <Loadable page={ props.page } />
-        </Route>
-    )
-}
-
-export function Loadable({ page }) {
-    const LazyComponent = lazy(() => import(`../../pages/${page}/${page}`));
+export function dynamic(unique, props) {
+    const LazyComponent = React.lazy(() => import(`pages/${unique}/${unique}`));
     return (
         <Suspense fallback={<Loading />}>
-            <div className={ page }>
-                <LazyComponent />
+            <div className={ unique }>
+                <LazyComponent { ...props } />
             </div>
         </Suspense>
     );
-}
+};

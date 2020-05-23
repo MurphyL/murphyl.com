@@ -1,7 +1,6 @@
 ---
 id: awesome-windows
 title: Windows 应用列表
-sidebar_label: Windows 应用列表
 ---
 
 ## 必备

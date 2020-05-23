@@ -1,7 +1,6 @@
 ---
 id: linux-system-info
 title: 获取 Linux 的系统信息
-sidebar_label: 获取 Linux 的系统信息
 ---
 
 ## CPU

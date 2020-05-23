@@ -10,7 +10,7 @@
 
 # production
 /build
-/public/posts.json
+public/coffee.json
 /public/manifest.json
 
 # misc

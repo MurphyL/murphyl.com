@@ -1,10 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 
 import Markdown from 'markdown-to-jsx';
-
-import { ajaxGet } from '../../utils/rest_client';
-
-import { Loading } from '../../core/loading/loading.jsx';
 
 import './blog.css';
 
@@ -16,12 +12,12 @@ function BlogPost({ post }) {
     return (
         <Fragment>
             <dt>
-                <a href={`/post/${post.filename}`}>
-                    <h2>{post.meta.title}</h2>
+                <a href={ `/post/${post.filename}` }>
+                    <h2>{ post.title }</h2>
                 </a>
             </dt>
             <dd>
-                <article className="summary">
+                <article className={ `summary ${post.kind}` }>
                     <Markdown children={ extractSummary(post.markdown) } options={{
                         createElement: (type, props, children) => {
                             if (props.key === 'outer') {
@@ -37,32 +33,15 @@ function BlogPost({ post }) {
 }
 
 
-function BlogList() {
-    const [ local, cacheUpdate ] = useState({ status: -1 });
-    useEffect(() => {
-        ajaxGet('posts.json').then(({ status, payload }) => {
-            const { mapping, blog } = payload || {};
-            const posts = (blog || []).map(i => (mapping[i] || {}));
-            cacheUpdate({ status, posts });
-        });
-    }, [ ]);
-    if (local.status === -1) {
-        return (
-            <Loading />
-        )
-    } else if (local.status === 0) {
-        return (
-            <dl>{
-                (local.posts || []).map((post, index) => {
-                    return (
-                        <BlogPost key={index} post={post} summary={true} />
-                    )
-                })}
-            </dl>
-        )
-    } else {
-        return <div>error</div>
-    }
+function BlogList({ blog = [], dict = {} }) {
+    const posts = blog.map(item => (dict[item] || {}));
+    return (
+        <dl>{
+            (posts || []).map((post, index) => (
+                <BlogPost key={index} post={post} summary={true} />
+            ))}
+        </dl>
+    )
 };
 
 export default BlogList;

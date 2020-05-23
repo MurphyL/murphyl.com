@@ -30,14 +30,16 @@ const configSource = resloveFile(reslovePath('config.toml'));
 const { manifest } = toml.parse(configSource);
 writeFile('public/manifest.json', JSON.stringify(manifest, null, '\t'));
 
-const timestamp = moment().format('YYYY/MM/DD HH:mm:ss');;
+const time = moment().format('YYYY/MM/DD HH:mm:ss');;
 
 const local = {
-	timestamp,
-	mapping: {},
-	blog: []
+	time,
+	dict: {},
+	blog: [],
+	docs: []
 };
 
+// 博客 - 先不抽象
 (fs.readdirSync('blog') || []).filter((filename) => {
 	return /^20\d\d-\d\d-[0-3]\d/.test(filename) && filename.endsWith('.md')
 }).sort((a, b) => {
@@ -50,9 +52,10 @@ const local = {
 	// 文章元数据
 	const parsed = parseFrontMatter(source) || {};
 	// source
-	local.mapping[filename] = { 
+	local.dict[filename] = { 
 		filename,
-		meta: parsed.data || {},
+		kind: 'blog',
+		...(parsed.data || {}),
 		markdown: trimIfString(parsed.content) || ''
 	};
 	const { achive, hidden } = parsed.data || {};
@@ -62,5 +65,26 @@ const local = {
 	};
 });
 
+// 文档
+(fs.readdirSync('docs') || []).filter((filename) => {
+	return filename.endsWith('.md')
+}).forEach((filename) => {
+	// 文章绝对路径
+	const path = reslovePath(`docs/${filename}`);
+	// 文章正文内容
+	const source = resloveFile(path);
+	// 文章元数据
+	const parsed = parseFrontMatter(source) || {};
+	// index
+	local.docs.push(filename);
+	// source
+	local.dict[filename] = { 
+		filename,
+		kind: 'document',
+		...(parsed.data || {}),
+		markdown: trimIfString(parsed.content) || ''
+	};
+});
+
 // 写入数据文件
-writeFile('public/posts.json', JSON.stringify(local));
+writeFile('public/coffee.json', JSON.stringify(local));

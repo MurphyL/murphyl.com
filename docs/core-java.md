@@ -1,7 +1,6 @@
 ---
 id: core-java
 title: Core Java
-sidebar_label: Core Java
 ---
 
 ## Collections - 集合

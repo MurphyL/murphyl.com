@@ -1,7 +1,6 @@
 ---
 id: linux-shell-script
 title: Linux Shell 脚本开发
-sidebar_label: Linux Shell 脚本开发
 ---
 
 ## 0. set -x -e -u -o pipefail

@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
 // highlight.js
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-
-import { ajaxGet } from '../../utils/rest_client';
-
-import { Loading } from '../../core/loading/loading.jsx';
 
 import './post.css';
 
@@ -98,32 +94,19 @@ const markdownOptions = {
     }
 };
 
-function Post() {
+function Post({ dict }) {
     const { unique } = useParams();
-    const [ post, setPost ] = useState({ code: -1 });
+    const post = (dict || {})[unique] || {};
     useEffect(() => {
-        ajaxGet('posts.json').then(({ status, payload }) => {
-            setPost(Object.assign(payload.mapping[unique], { code: 0 }))
-            setTimeout(() => {
-                document.querySelectorAll('.code-block code').forEach((block) => {
-                    hljs.highlightBlock(block);
-                });
-            }, 50);
-        });
-    }, [ unique ]);
-    if(post.code === -1) {
-        return (
-            <Loading />
-        );
-    }
-    if(post.code === 1){
-        return (
-            <div>error</div>
-        );
-    }
+        setTimeout(() => {
+            document.querySelectorAll('.code-block code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+        }, 50);
+    }, []);
     return (
         <article>
-            <h2>{ post.meta.title }</h2>
+            <h2>{ post.title }</h2>
             <section>
                 <Markdown children={ post.markdown } options= { markdownOptions }/>
             </section>

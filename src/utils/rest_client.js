@@ -7,17 +7,17 @@ export const ajaxGet = (url, params) => (
 	.then(({ status, data }) => {
 		if(status === 200) {
 			return {
-				status: 0,
+				code: 0,
 				payload: data
 			}
 		} else {
 			return {
-				status: 1,
+				code: 1,
 				message: 'Network error!'
 			}
 		}
 	})
 	.catch(error => ({
-		status: 1, message: 'Request error'
+		code: 1, message: 'Request error'
 	}))
 )

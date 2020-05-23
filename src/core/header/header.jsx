@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import './header.css';
 
 const navItems = [{
+    url: '/docs',
+    label: '文档'
+}, {
     url: '/blog',
     label: 'Blog'
 }, {

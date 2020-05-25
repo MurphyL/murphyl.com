@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
+import { Loading } from 'core/loading/loading';
+
 import { ajaxGet } from 'utils/rest_client';
 
 import './blog.css';
@@ -36,6 +38,15 @@ function BlogList() {
     useEffect(() => {
         ajaxGet('blog.json').then(setState);
     }, []);
+    if(state.code === -1) {
+        return (
+            <Loading />
+        );
+    } else if(state.code === 1) {
+        return (
+            <div>加载文章列表出错~</div>
+        )
+    }
     return (
         <dl>
             {(state.payload || []).map((post, index) => (

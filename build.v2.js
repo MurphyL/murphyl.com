@@ -8,7 +8,7 @@ const { src, dest, series } = require('gulp');
 
 const clean = async () => {
 	del.sync([
-		'build',
+		'build/',
 		'public/*.json',
 		'public/posts/',
 	]);
@@ -72,7 +72,7 @@ const blog = async () => {
 		};
 		writeFile(`public/posts/${filename}.json`, JSON.stringify({
 			...temp, markdown: parsed.content || ''
-		}))
+		}));
 	});
 	writeFile('public/blog.json', JSON.stringify(items), true);
 }
@@ -92,9 +92,9 @@ const docs = async () => {
 			...(parsed.data || {})
 		};
 		items.push(temp);
-		writeFile(`public/posts/${filename}`, JSON.stringify({
+		writeFile(`public/posts/${filename}.json`, JSON.stringify({
 			...temp, markdown: parsed.content || ''
-		}))
+		}));
 	});
 	writeFile('public/docs.json', JSON.stringify(items), true);
 }

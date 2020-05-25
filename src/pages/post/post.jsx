@@ -105,9 +105,10 @@ function Post() {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});
     useEffect(() => {
-        ajaxGet(`posts/${unique}`).then(res => {
+        ajaxGet(`posts/${unique}.json`).then(res => {
             if(res.code === 0) {
-                const result = parseFrontMatter(res.payload || '');
+                const content = (res.payload || {}).markdown;
+                const result = parseFrontMatter(content || '');
                 return { code: 0, ...result.data, markdown: result.content };
             } else {
                 return { code: 1 }

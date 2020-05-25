@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function Documents({ docs = [], dict = {} }) {
-	const items = docs.map(item => (dict[item]))
+import { ajaxGet } from 'utils/rest_client';
+
+export default function Documents() {
+	const [ state, setState ] = useState({ code: -1 });
+	useEffect(() => {
+		ajaxGet('docs.json').then(setState);
+	}, []);
 	return (
 		<ul>
-			{ items.map((item, index) => (
+			{(state.payload || []).map((item, index) => (
 				<li key={index}>
-					<a href={ '/post/' + item.filename }>{ item.title }</a>
+					<a href={ `/post/${item.filename}` }>{ item.title }</a>
 				</li>
-			)) }
+			))}
 		</ul>
 	);
 }

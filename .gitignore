@@ -10,8 +10,8 @@
 
 # production
 /build
-public/coffee.json
-/public/manifest.json
+/public/posts
+/public/*.json
 
 # misc
 .DS_Store

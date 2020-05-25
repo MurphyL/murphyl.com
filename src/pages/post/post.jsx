@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+import parseFrontMatter from 'frontmatter';
 import Markdown from 'markdown-to-jsx';
 
 // highlight.js
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
+import { ajaxGet } from 'utils/rest_client';
+
 import './post.css';
 
 const LANG_TYPES = {
     'lang-sh': 'Shell'
 };
-
-hljs.configure({
-    tabReplace: '    ',
-});
-hljs.initHighlighting();
-
 
 const Title = ({ type, children }) => {
     return React.createElement(type, { className: 'title' }, children);
@@ -94,21 +91,37 @@ const markdownOptions = {
     }
 };
 
-function Post({ dict }) {
+const highlightCodeBlock = () => {
+    hljs.configure({
+        tabReplace: '    ',
+    });
+    hljs.initHighlighting();
+    document.querySelectorAll('.code-block code').forEach((block) => {
+        hljs.highlightBlock(block);
+    });    
+}
+
+function Post() {
     const { unique } = useParams();
-    const post = (dict || {})[unique] || {};
+    const [ post, setPost ] = useState({});
     useEffect(() => {
-        setTimeout(() => {
-            document.querySelectorAll('.code-block code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        }, 50);
-    }, []);
+        ajaxGet(`posts/${unique}`).then(res => {
+            if(res.code === 0) {
+                const result = parseFrontMatter(res.payload || '');
+                return { code: 0, ...result.data, markdown: result.content };
+            } else {
+                return { code: 1 }
+            }
+        }).then((result) => {
+            setPost(result);
+            setTimeout(highlightCodeBlock, 50);
+        })
+    }, [ unique ]);
     return (
         <article>
-            <h2>{ post.title }</h2>
+            <h2>{ post.title || '' }</h2>
             <section>
-                <Markdown children={ post.markdown } options= { markdownOptions }/>
+                <Markdown children={ post.markdown || '' } options= { markdownOptions }/>
             </section>
         </article>
     );

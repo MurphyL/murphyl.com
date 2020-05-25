@@ -40,7 +40,7 @@ function BlogList() {
     }, []);
     if(state.code === -1) {
         return (
-            <Loading />
+            <Loading message="正在加载博客数据……" />
         );
     } else if(state.code === 1) {
         return (

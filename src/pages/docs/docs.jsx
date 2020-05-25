@@ -11,7 +11,7 @@ export default function Documents() {
 	}, []);
     if(state.code === -1) {
         return (
-            <Loading />
+            <Loading message="正在加载文档流……" />
         );
     } else if(state.code === 1) {
         return (

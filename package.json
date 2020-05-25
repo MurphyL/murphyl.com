@@ -13,6 +13,7 @@
     "toml": "^3.0.0"
   },
   "scripts": {
+    "clean": "gulp -f build.v2.js clean",
     "blog": "gulp -f build.v2.js",
     "serve": "react-scripts start",
     "prebuild": "npm run blog",

@@ -4,12 +4,15 @@ const path = require('path');
 const toml = require('toml');
 const moment = require('moment');
 const parseFrontMatter = require('frontmatter');
-const { src, dest, parallel, series } = require('gulp');
+const { src, dest, series } = require('gulp');
 
 const clean = async () => {
-	del([ 
-		'public/posts/*',
+	del.sync([
+		'build',
+		'public/*.json',
+		'public/posts/',
 	]);
+	fs.mkdirSync('public/posts/');
 };
 
 // 解析当前目录下的路径
@@ -21,13 +24,7 @@ const resloveFile = (filepath) => fs.readFileSync(filepath, 'utf8').toString().t
 // 内容写入文件
 const writeFile = (suffix, content) => {
 	const writeTarget = path.join(process.cwd(), suffix);
-	fs.writeFile(writeTarget, Buffer.from(content), (err) => {
-		if(err){
-			console.error(suffix, '数据写入失败');
-		} else {
-			console.log(suffix, '数据写入完成');
-		}
-	});
+	fs.writeFileSync(writeTarget, Buffer.from(content));
 }
 
 // 如果是字符串就Trim当前字符串
@@ -41,19 +38,12 @@ const extractSummary = (text) => {
     return trimIfString((text || '').split(/<!(-{2,})( *)more( *)(-{2,})>/)[0]) || '';
 };
 
+// 处理配置文件
 const manifest = async () => {
-	// 处理配置文件
 	const configSource = resloveFile(reslovePath('config.toml'));
 	const { manifest } = toml.parse(configSource);
-	writeFile('public/manifest.json', JSON.stringify(manifest, null, '\t'));
+	writeFile('public/manifest.json', JSON.stringify(manifest, null, '\t'), true);
 }
-
-const copy = async () => {
-	if(!fs.existsSync('public/posts/')) {
-		fs.mkdirSync('public/posts/');
-	}
-	src([ 'blog/*.md', 'docs/*.md' ]).pipe(dest('public/posts/'));
-};
 
 const blog = async () => {
 	const items = [];
@@ -70,17 +60,21 @@ const blog = async () => {
 		const parsed = parseFrontMatter(source) || {};
 		// source
 		const { achive, hidden } = parsed.data || {};
+		const temp = {
+			filename,
+			kind: 'blog',
+			...(parsed.data || {}),
+			summary: extractSummary(trimIfString(parsed.content) || '')
+		};
 		// achive and hidden
 		if(!achive && !hidden) {
-			items.push({
-				filename,
-				kind: 'blog',
-				...(parsed.data || {}),
-				summary: extractSummary(trimIfString(parsed.content) || '')
-			});
+			items.push(temp);
 		};
+		writeFile(`public/posts/${filename}.json`, JSON.stringify({
+			...temp, markdown: parsed.content || ''
+		}))
 	});
-	writeFile('public/blog.json', JSON.stringify(items));
+	writeFile('public/blog.json', JSON.stringify(items), true);
 }
 
 const docs = async () => {
@@ -92,15 +86,17 @@ const docs = async () => {
 		const source = resloveFile(path);
 		// 文章元数据
 		const parsed = parseFrontMatter(source) || {};
-		items.push({ 
+		const temp = { 
 			filename,
 			kind: 'document',
 			...(parsed.data || {})
-		});
+		};
+		items.push(temp);
+		writeFile(`public/posts/${filename}`, JSON.stringify({
+			...temp, markdown: parsed.content || ''
+		}))
 	});
-	writeFile('public/docs.json', JSON.stringify(items));
+	writeFile('public/docs.json', JSON.stringify(items), true);
 }
 
-const build = parallel(manifest, copy, blog, docs);
-
-exports.default = series(clean, build);
+exports.default = series(clean, manifest, blog, docs);

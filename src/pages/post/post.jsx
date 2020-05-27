@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import parseFrontMatter from 'frontmatter';
 import Markdown from 'markdown-to-jsx';
 
 // highlight.js
@@ -107,9 +106,7 @@ function Post() {
     useEffect(() => {
         ajaxGet(`posts/${unique}.json`).then(res => {
             if(res.code === 0) {
-                const content = (res.payload || {}).markdown;
-                const result = parseFrontMatter(content || '');
-                return { code: 0, ...result.data, markdown: result.content };
+                return { code: 0, ...(res.payload || {}) };
             } else {
                 return { code: 1 }
             }

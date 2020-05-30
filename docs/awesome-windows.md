@@ -43,3 +43,5 @@ title: Windows 应用列表
 
 - [Windows绝赞应用](https://belittleyang.gitbooks.io/windows-apps-that-amaze-us/content/)
 - [Awesome-Windows](https://github.com/Awesome-Windows/Awesome/blob/master/README.md)
+- [Awesome Mac](https://github.com/jaywcjlove/awesome-mac/blob/master/README-zh.md)
+- [Awesome-Linux-Software](https://github.com/luong-komorebi/Awesome-Linux-Software/blob/master/README_zh-CN.md)

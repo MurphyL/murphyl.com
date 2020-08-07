@@ -3,15 +3,19 @@ const low = require('lowdb');
 const fs = require('graceful-fs');
 const Base = require('lowdb/adapters/Base');
 
-const readFile = fs.readFileSync
-const writeFile = fs.writeFileSync
+const readFile = fs.readFileSync;
+
+console.log(fs.readdirSync('blog.x.json'));
+console.log('----------------------------------------');
+console.log(fs.readdirSync('../blog.x.json'));
+console.log('----------------------------------------');
+console.log(fs.readdirSync(path.join(process.cwd(), 'blog.x.json'));
 
 class FileSync extends Base {
   read() {
     if (fs.existsSync(this.source)) {
       try {
         const data = readFile(this.source, 'utf-8').trim()
-        // Handle blank file
         return data ? this.deserialize(data) : this.defaultValue
       } catch (e) {
         if (e instanceof SyntaxError) {

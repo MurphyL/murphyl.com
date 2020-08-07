@@ -12,7 +12,7 @@
 		}
 	}],
 	"functions": {
-	    "api/test.js": {
+	    "pages/api/test.js": {
 			"memory": 1024,
 			"maxDuration": 60,
 			"includeFiles": "public/blog.x.json"

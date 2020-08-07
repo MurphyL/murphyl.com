@@ -9,13 +9,5 @@
 			"Cache-Control": "max-age=3600",
 			"X-Site-Owner": "murphyl@outlook.com"
 		}
-	}, {
-      "source": "/post/.*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "max-age=600"
-        }
-      ]
-    }]
+	}]
 }

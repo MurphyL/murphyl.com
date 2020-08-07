@@ -2,6 +2,7 @@ const fs = require('fs');
 const del = require('del');
 const path = require('path');
 const toml = require('toml');
+const lowdb = require('lowdb');
 const moment = require('moment');
 const parseFrontMatter = require('frontmatter');
 const { src, dest, series } = require('gulp');

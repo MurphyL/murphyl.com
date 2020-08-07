@@ -36,7 +36,7 @@ function BlogPost({ post }) {
 function BlogList() {
     const [ state, setState ] = useState({ code: -1 });
     useEffect(() => {
-        ajaxGet('blog.json').then(setState);
+        ajaxGet('blog.x.json').then(setState);
     }, []);
     if(state.code === -1) {
         return (
@@ -47,9 +47,10 @@ function BlogList() {
             <div>加载文章列表出错~</div>
         )
     }
+    console.log(state);
     return (
         <dl>
-            {(state.payload || []).map((post, index) => (
+            {(state.post || []).map((post, index) => (
                 <BlogPost key={index} post={post} />
             ))}
         </dl>

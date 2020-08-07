@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import './loading.css';
 
@@ -10,16 +10,5 @@ export function Loading({ message }) {
             </div>
             <div>{ message || '加载中……' }</div>
         </div>
-    );
-};
-
-export function dynamic(unique, props) {
-    const LazyComponent = React.lazy(() => import(`pages/${unique}/${unique}`));
-    return (
-        <Suspense fallback={<Loading message="程序载入中……" />}>
-            <div className={ unique }>
-                <LazyComponent { ...props } />
-            </div>
-        </Suspense>
     );
 };

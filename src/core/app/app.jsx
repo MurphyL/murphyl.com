@@ -1,8 +1,8 @@
-import React, { StrictMode } from 'react';
+import React, { StrictMode, Suspense } from 'react';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { dynamic } from '../loading/loading.jsx';
+import { Loading } from '../loading/loading.jsx';
 import { ErrorBoundary } from '../error/error.jsx';
 
 import Header from '../header/header.jsx';
@@ -10,34 +10,16 @@ import Footer from '../footer/footer.jsx';
 
 import './app.css';
 
-function Main() {
+const Layout = ({ view, custom = false }) => {
+    const LazyComponent = React.lazy(() => import(`pages/${view}`));
     return (
-        <main>
-            <div className="container">
-                <ErrorBoundary>
-                    <Switch>
-                        <Route path="/" exact={ true }>
-                            { dynamic('home') }
-                        </Route>
-                        <Route path="/blog">
-                            { dynamic('blog') }
-                        </Route>
-                        <Route path="/docs">
-                            { dynamic('docs') }
-                        </Route>
-                        <Route path="/post/:unique">
-                            { dynamic('post') }
-                        </Route>
-                        <Route path="/about">
-                            { dynamic('about') }
-                        </Route>
-                        <Route>
-                            <div>404</div>
-                        </Route>
-                    </Switch>
-                </ErrorBoundary>
-            </div>
-        </main>
+        <Suspense fallback={<Loading message="程序载入中……" />}>
+            { !custom && <Header /> }
+            <main className={ custom ? 'custom' : 'container' } uri={ view }>
+                <LazyComponent />
+            </main>
+            { !custom && <Footer /> }    
+        </Suspense>
     )
 }
 
@@ -46,9 +28,26 @@ export default function App() {
         <StrictMode>
             <ErrorBoundary>
                 <BrowserRouter>
-                    <Header />
-                    <Main />
-                    <Footer />
+                    <Switch>
+                        <Route path="/" exact={ true }>
+                            <Layout view="home/home" />
+                        </Route>
+                        <Route path="/blog">
+                            <Layout view="blog/blog" />
+                        </Route>
+                        <Route path="/wmp/writer">
+                            <Layout view="wmp/writer/wmp_writer" custom={ true } />
+                        </Route>
+                        <Route path="/post/:unique">
+                            <Layout view="post/post" />
+                        </Route>
+                        <Route path="/about">
+                            <Layout view="about/about" />
+                        </Route>
+                        <Route>
+                            <div>404</div>
+                        </Route>
+                    </Switch>
                 </BrowserRouter>
             </ErrorBoundary>
         </StrictMode>

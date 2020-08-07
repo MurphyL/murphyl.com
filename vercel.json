@@ -1,13 +1,21 @@
 {
 	"version": 2,
+	"name": "murphyl-dot-com",
 	"routes": [{ 
 		"handle": "filesystem" 
-	},{
+	}, {
 		"src": "/.*",
 		"dest": "/index.html",
 		"headers": { 
 			"Cache-Control": "max-age=3600",
 			"X-Site-Owner": "murphyl@outlook.com"
 		}
-	}]
+	}],
+	"functions": {
+	    "api/test.js": {
+			"memory": 1024,
+			"maxDuration": 60,
+			"includeFiles": "public/blog.x.json"
+	    }
+	}
 }

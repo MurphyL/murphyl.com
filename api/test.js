@@ -5,11 +5,11 @@ const Base = require('lowdb/adapters/Base');
 
 const readFile = fs.readFileSync;
 
-console.log(fs.readdirSync('blog.x.json'));
+console.log(fs.readdirSync(__dirname));
 console.log('----------------------------------------');
-console.log(fs.readdirSync('../blog.x.json'));
+console.log(fs.readdirSync(path.resolve('../')));
 console.log('----------------------------------------');
-console.log(fs.readdirSync(path.join(process.cwd(), 'blog.x.json')));
+console.log(fs.readdirSync(process.cwd()));
 
 class FileSync extends Base {
   read() {

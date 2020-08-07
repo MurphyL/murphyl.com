@@ -15,7 +15,7 @@
 	    "api/test.js": {
 			"memory": 1024,
 			"maxDuration": 10,
-			"includeFiles": "public/blog.x.json"
+			"includeFiles": "blog.x.json"
 	    }
 	}
 }

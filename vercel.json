@@ -1,19 +1,13 @@
 {
 	"version": 2,
-	"routes": [{
+	"routes": [{ 
+		"handle": "filesystem" 
+	}, {
 		"src": "/.*",
 		"dest": "/index.html",
 		"headers": { 
 			"Cache-Control": "max-age=3600",
-			"X-Post-Author": "murphyl@outlook.com"
+			"X-Site-Owner": "murphyl@outlook.com"
 		}
-	}, { 
-		"src": "/not-found", 
-		"status": 404, 
-		"dest": "/404.html",
-		"headers" : [{
-			"key" : "Cache-Control",
-			"value" : "public, max-age=3600"
-		}]
 	}]
 }

@@ -3,6 +3,7 @@ const del = require('del');
 const path = require('path');
 const toml = require('toml');
 const moment = require('moment');
+const shortid = require('shortid');
 const parseFrontMatter = require('frontmatter');
 const { src, dest, series } = require('gulp');
 
@@ -64,6 +65,7 @@ const blog = async () => {
 		db.get('blog').push({
 			filename,
 			markdown,
+			id: shortid.generate(),
 			meta: (parsed.data || {}),
 			summary: extractSummary(markdown || ''),
 		}).write()

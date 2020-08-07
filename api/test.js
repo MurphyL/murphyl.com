@@ -9,7 +9,7 @@ console.log(fs.readdirSync('blog.x.json'));
 console.log('----------------------------------------');
 console.log(fs.readdirSync('../blog.x.json'));
 console.log('----------------------------------------');
-console.log(fs.readdirSync(path.join(process.cwd(), 'blog.x.json'));
+console.log(fs.readdirSync(path.join(process.cwd(), 'blog.x.json')));
 
 class FileSync extends Base {
   read() {

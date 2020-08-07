@@ -18,7 +18,7 @@
 			"includeFiles": [
 				"blog.x.json", 
 				"build/blog.x.json",
-				"public/blog.x.json",
+				"public/blog.x.json"
 			]
 	    }
 	}

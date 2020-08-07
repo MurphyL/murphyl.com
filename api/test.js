@@ -32,6 +32,9 @@ class FileSync extends Base {
 const db = low(new FileSync(path.join(process.cwd(), 'blog.x.json')));
 
 export default (req, res) => {
+	console.log('blog.x.json', fs.existsSync('blog.x.json'));
+	console.log('../blog.x.json', fs.existsSync('../blog.x.json'));
+	console.log('/ABS/blog.x.json', fs.existsSync(path.join(process.cwd(), 'blog.x.json')));
 	const posts = db.defaults({ blog: [] }).get('blog').value();
 	res.json({ 
 		name: 'murph', 

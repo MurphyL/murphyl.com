@@ -16,19 +16,23 @@ export default (req, res) => {
 	const unique = req.query.db;
 
 	if(!unique) {
-		res.json({
+		res.status(400).json({
 			code: 1,
 			message: '未指定数据库'
 		});
-		return;
-	}
-	if(local[unique]) {
+	} else if(local[unique]) {
 		send(res);
 	} else {
 		axios.get(unique).then((data) => {
 			local[unique] = low(new FileSync({}));
 		}).then((data) => {
 			send(res);
+		}).catch(e => {
+			res.json({
+				code: 1,
+				message: '查询数据出错',
+				error: e
+			})
 		})
 	}
 

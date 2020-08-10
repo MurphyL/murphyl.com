@@ -1,6 +1,10 @@
 import React, { StrictMode, Suspense } from 'react';
 
+import { Provider } from 'react-redux';
+
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import murphStore from '../../utils/murph_store';
 
 import { Loading } from '../loading/loading.jsx';
 import { ErrorBoundary } from '../error/error.jsx';
@@ -26,30 +30,35 @@ const Layout = ({ view, custom = false }) => {
 export default function App() {
     return (
         <StrictMode>
-            <ErrorBoundary>
-                <BrowserRouter>
-                    <Switch>
-                        <Route path="/" exact={ true }>
-                            <Layout view="home/home" />
-                        </Route>
-                        <Route path="/blog">
-                            <Layout view="blog/blog" />
-                        </Route>
-                        <Route path="/wmp/writer">
-                            <Layout view="wmp/writer/wmp_writer" custom={ true } />
-                        </Route>
-                        <Route path="/post/:unique">
-                            <Layout view="post/post" />
-                        </Route>
-                        <Route path="/about">
-                            <Layout view="about/about" />
-                        </Route>
-                        <Route>
-                            <div>404</div>
-                        </Route>
-                    </Switch>
-                </BrowserRouter>
-            </ErrorBoundary>
+            <Provider store={ murphStore }>
+                <ErrorBoundary>
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path="/" exact={ true }>
+                                <Layout view="home/home" />
+                            </Route>
+                            <Route path="/blog">
+                                <Layout view="blog/blog" />
+                            </Route>
+                            <Route path="/wmp/writer">
+                                <Layout view="wmp/writer/wmp_writer" custom={ true } />
+                            </Route>
+                            <Route path="/post">
+                                <Layout view="post/post" />
+                            </Route>
+                            <Route path="/post/:unique">
+                                <Layout view="post/post" />
+                            </Route>
+                            <Route path="/about">
+                                <Layout view="about/about" />
+                            </Route>
+                            <Route>
+                                <div>404</div>
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </ErrorBoundary>
+            </Provider>
         </StrictMode>
     )
 };

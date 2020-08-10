@@ -12,6 +12,7 @@
 /build
 /public/posts
 /public/*.json
+/api/*.x.js
 
 # misc
 .DS_Store

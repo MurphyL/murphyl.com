@@ -10,8 +10,6 @@ const { src, dest, series } = require('gulp');
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 
-const writeFile = console.log;
-
 const clean = async () => {
 	del.sync([
 		'build/',
@@ -35,6 +33,12 @@ const trimIfString = (source) => (typeof(source) ==='string' ? source.trim() : s
 // 抽取文章摘要
 const extractSummary = (text) => {
     return trimIfString((text || '').split(/<!(-{2,})( *)more( *)(-{2,})>/)[0]) || '';
+};
+
+// 内容写入文件
+const writeFile = (suffix, content) => {
+	const writeTarget = path.join(process.cwd(), suffix);
+	fs.writeFileSync(writeTarget, Buffer.from(content));
 };
 
 // 处理配置文件
@@ -67,9 +71,15 @@ const blog = async () => {
 			markdown,
 			id: shortid.generate(),
 			meta: (parsed.data || {}),
+			title: (parsed.data || {}).title,
 			summary: extractSummary(markdown || ''),
 		}).write()
 	});
-}
+};
 
-exports.default = series(clean, manifest, blog);
+const funDeps = async () => {
+	const blog = resloveFile('public/blog.x.json');
+	writeFile('api/blog.x.js', 'export default ' + blog);
+};
+
+exports.default = series(clean, manifest, blog, funDeps);

@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
+import { connect } from 'react-redux';
+
 import Markdown from 'markdown-to-jsx';
 
 import { Loading } from 'core/loading/loading';
-
-import { ajaxGet } from 'utils/rest_client';
 
 import './blog.css';
 
@@ -33,11 +33,16 @@ function BlogPost({ post }) {
 }
 
 
-function BlogList() {
+function BlogList({ blogFetched, dispatch }) {
     const [ state, setState ] = useState({ code: -1 });
     useEffect(() => {
-        ajaxGet('blog.x.json').then(setState);
-    }, []);
+        dispatch({ type: 'FETCH_POSTS' });
+    }, [ dispatch ]);
+    useEffect(() => {
+        blogFetched.then(items => {
+            setState({ code: 0, items });
+        })
+    }, [ blogFetched ]);
     if(state.code === -1) {
         return (
             <Loading message="正在加载博客数据……" />
@@ -47,14 +52,23 @@ function BlogList() {
             <div>加载文章列表出错~</div>
         )
     }
-    console.log(state);
     return (
         <dl>
-            {(state.post || []).map((post, index) => (
-                <BlogPost key={index} post={post} />
-            ))}
+            {(state.items || []).filter(({ meta = {} }) => {
+                return !meta.hidden;
+            }).map((post, index) => {
+                return (
+                    <BlogPost key={index} post={post} />
+                )
+            })}
         </dl>
     )
 };
 
-export default BlogList;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        blogFetched: state.blogAction
+    }
+}
+
+export default connect(mapStateToProps)(BlogList);

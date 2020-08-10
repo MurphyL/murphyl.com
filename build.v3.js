@@ -82,4 +82,4 @@ const funDeps = async () => {
 	writeFile('api/blog.x.js', 'export default ' + blog);
 };
 
-exports.default = series(clean, manifest, blog, funDeps);
+exports.default = series(clean, manifest, blog);

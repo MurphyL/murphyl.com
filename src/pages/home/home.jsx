@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Home() {
+const Home = () => {
     return (
         <div style={{ padding: '20vh 0 100px', textAlign: 'center' }}>
             <h2>嘿，你好，我是MurphyL！</h2>

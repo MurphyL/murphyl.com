@@ -2,6 +2,9 @@
 
 #root header {
 	border-bottom: 1px solid #ccc;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	height: 60px;
+	line-height: 60px;
 }
 
 #root header a {
@@ -15,19 +18,15 @@
 	}
 
 	#root header .container {
-		height: 50px;
+		height: 100%;
 	}
 
-	#root header .logo {
-		line-height: 50px;
-	}
 
 	#root header ul.navi {
 		display: none;
 		margin: 11px 0 0;
 		padding: 0;
 		z-index: 1;
-		line-height: 50px;
 	    background-color: #fff;
 	}
 
@@ -50,8 +49,8 @@
 		padding: 0 20px;
 		top: 0;
 		right: 0;
-		height: 50px;
-		line-height: 50px;
+		height: 60px;
+		line-height: 60px;
 		cursor: pointer;
 	}
 
@@ -65,7 +64,6 @@
 
 	#root header .container {
 		display: flex;
-		height: 50px;
 		align-items: center;
 	}
 

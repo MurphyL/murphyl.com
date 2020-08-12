@@ -21,6 +21,7 @@
 
 #root footer .sitemap .section {
 	flex: 1;
+	margin-top: 20px;
 }
 
 #root footer .sitemap .section dt {
@@ -33,6 +34,7 @@
 
 #root footer .sitemap .section dd ul {
 	padding-left: 0;
+	line-height: 25px;
 }
 
 #root footer .sitemap .section dd ul li {

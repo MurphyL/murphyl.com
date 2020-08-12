@@ -68,7 +68,7 @@ function BlogList({ blogFetched, dispatch }) {
 const mapStateToProps = (state, ownProps) => {
     return {
         blogFetched: state.blogAction
-    }
+    };
 }
 
 export default connect(mapStateToProps)(BlogList);

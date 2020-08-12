@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
+import { connect } from 'react-redux';
+
 // highlight.js
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-
-import { ajaxGet } from 'utils/rest_client';
 
 import './post.css';
 
@@ -100,21 +100,21 @@ const highlightCodeBlock = () => {
     });    
 }
 
-function Post() {
+function Post({ blogAction, dispatch }) {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});
     useEffect(() => {
-        ajaxGet(`posts/${unique}.json`).then(res => {
-            if(res.code === 0) {
-                return { code: 0, ...(res.payload || {}) };
-            } else {
-                return { code: 1 }
+        dispatch({ type: 'LOCAL_POST', filename: unique });
+    }, [ dispatch, unique ]);
+    useEffect(() => {
+        blogAction.then(([ first ]) => {
+            if(!first) {
+                return;
             }
-        }).then((result) => {
-            setPost(result);
+            setPost(first);
             setTimeout(highlightCodeBlock, 50);
-        })
-    }, [ unique ]);
+        });
+    }, [ blogAction ]);
     return (
         <article>
             <h2>{ post.title || '' }</h2>
@@ -125,4 +125,11 @@ function Post() {
     );
 };
 
-export default Post;
+const mapStateToProps = ({ blogAction }, ownProps) => {
+    return {
+        blogAction
+    }
+}
+
+
+export default connect(mapStateToProps)(Post);

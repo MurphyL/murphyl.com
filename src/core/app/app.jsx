@@ -43,9 +43,6 @@ export default function App() {
                             <Route path="/wmp/writer">
                                 <Layout view="wmp/writer/wmp_writer" custom={ true } />
                             </Route>
-                            <Route path="/post">
-                                <Layout view="post/post" />
-                            </Route>
                             <Route path="/post/:unique">
                                 <Layout view="post/post" />
                             </Route>

@@ -53,7 +53,7 @@ function BlogList({ blogFetched, dispatch }) {
         )
     }
     return (
-        <dl>
+        <dl className="blog">
             {(state.items || []).filter(({ meta = {} }) => {
                 return !meta.hidden;
             }).map((post, index) => {

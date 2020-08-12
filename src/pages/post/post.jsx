@@ -100,15 +100,6 @@ const highlightCodeBlock = () => {
     });    
 }
 
-const PostNavi = ({ unique }) => {
-    return (
-        <div>
-            <div>上一页</div>
-            <div>下一页</div>
-        </div>
-    );
-}
-
 const Post = ({ blogAction, dispatch }) => {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});

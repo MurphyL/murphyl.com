@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from "react-router-dom";
+
 import './footer.css';
 
 function Footer() {
@@ -8,16 +10,16 @@ function Footer() {
             <div className="container">
                 <div className="sitemap">
                     <div className="logo">
-                        <a href={ `/` } rel="noopener noreferrer">
+                        <Link to={ `/` } rel="noopener noreferrer">
                             <img src="/image/icon.png" alt={ process.env.REACT_APP_TITLE } />
-                        </a>
+                        </Link>
                     </div>
                     <dl className="section navi">
                         <dt>站点地图</dt>
                         <dd>
                             <ul>
-                                <li><a href="/blog" rel="noopener noreferrer">博客</a></li>
-                                {/** <li><a href="/docs">笔记</a></li> **/}
+                                <li><Link rel="noopener noreferrer" to="/blog">博客</Link></li>
+                                <li><Link rel="noopener noreferrer" to="/wmp/writer">编辑器</Link></li>
                             </ul>
                         </dd>
                     </dl>

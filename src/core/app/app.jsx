@@ -1,4 +1,4 @@
-import React, { StrictMode, Suspense } from 'react';
+import React, { StrictMode, Fragment, useEffect, useState } from 'react';
 
 import { Provider } from 'react-redux';
 
@@ -6,26 +6,33 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import murphStore from '../../utils/murph_store';
 
-import { Loading } from '../loading/loading.jsx';
 import { ErrorBoundary } from '../error/error.jsx';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
+import { Loading } from '../loading/loading.jsx';
+
+import About from '../../pages/about/about';
+import Home from '../../pages/home/home';
+import Blog from '../../pages/blog/blog';
+import Post from '../../pages/post/post';
+
+import WmpWriter from '../../pages/wmp/writer/wmp_writer';
+
 import './app.css';
 
-const Layout = ({ view, custom = false }) => {
-    const LazyComponent = React.lazy(() => import(`pages/${view}`));
+const NormalLayout = ({ View }) => {
     return (
-        <Suspense fallback={<Loading message="程序载入中……" />}>
-            { !custom && <Header /> }
-            <main className={ custom ? 'custom' : 'container' } uri={ view }>
-                <LazyComponent />
+        <Fragment>
+            <Header />
+            <main className="container">
+                <View />
             </main>
-            { !custom && <Footer /> }    
-        </Suspense>
-    )
-}
+            <Footer />
+        </Fragment>
+    );
+};
 
 export default function App() {
     return (
@@ -35,19 +42,19 @@ export default function App() {
                     <BrowserRouter>
                         <Switch>
                             <Route path="/" exact={ true }>
-                                <Layout view="home/home" />
+                                <NormalLayout View={ Home } />
                             </Route>
                             <Route path="/blog">
-                                <Layout view="blog/blog" />
+                                <NormalLayout View={ Blog } />
                             </Route>
                             <Route path="/wmp/writer">
-                                <Layout view="wmp/writer/wmp_writer" custom={ true } />
+                                <WmpWriter/>
                             </Route>
                             <Route path="/post/:unique">
-                                <Layout view="post/post" />
+                                <NormalLayout View={ Post } />
                             </Route>
                             <Route path="/about">
-                                <Layout view="about/about" />
+                                <NormalLayout View={ About } />
                             </Route>
                             <Route>
                                 <div>404</div>

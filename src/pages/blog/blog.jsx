@@ -35,16 +35,16 @@ function BlogPost({ post }) {
 }
 
 
-function BlogList({ blogFetched, dispatch }) {
+function BlogList({ blogAction, dispatch }) {
     const [ state, setState ] = useState({ code: -1 });
     useEffect(() => {
         dispatch({ type: 'FETCH_POSTS' });
     }, [ dispatch ]);
     useEffect(() => {
-        blogFetched.then(items => {
+        blogAction.then(items => {
             setState({ code: 0, items });
-        })
-    }, [ blogFetched ]);
+        });
+    }, [ blogAction ]);
     if(state.code === -1) {
         return (
             <Loading message="正在加载博客数据……" />
@@ -67,9 +67,9 @@ function BlogList({ blogFetched, dispatch }) {
     )
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ blogAction }, ownProps) => {
     return {
-        blogFetched: state.blogAction
+        blogAction
     };
 }
 

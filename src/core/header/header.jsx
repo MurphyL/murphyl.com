@@ -19,7 +19,7 @@ function Header(props) {
         <header>
             <div className="container">
                 <div className="logo">
-                    <a href={ `/` }>{ process.env.REACT_APP_TITLE || '' }</a>
+                    <Link to={ `/` }>{ process.env.REACT_APP_TITLE || '' }</Link>
                 </div>
                 <ul className={ `navi ${show}` }>
                     { navItems && navItems.map((item, index) => (

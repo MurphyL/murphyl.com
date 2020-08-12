@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Markdown from 'markdown-to-jsx';
 
+import { Link } from "react-router-dom";
+
 import { Loading } from 'core/loading/loading';
 
 import './blog.css';
@@ -12,9 +14,9 @@ function BlogPost({ post }) {
     return (
         <Fragment>
             <dt>
-                <a href={ `/post/${post.filename}` }>
+                <Link to={ `/post/${post.filename}` }>
                     <h2>{ post.title }</h2>
-                </a>
+                </Link>
             </dt>
             <dd>
                 <article className={ `summary ${post.kind}` }>

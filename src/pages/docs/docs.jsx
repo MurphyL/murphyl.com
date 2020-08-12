@@ -4,7 +4,7 @@ import { Loading } from 'core/loading/loading';
 
 import { ajaxGet } from 'utils/rest_client';
 
-export default function Documents() {
+const Documents = () => {
 	const [ state, setState ] = useState({ code: -1 });
 	useEffect(() => {
 		ajaxGet('docs.json').then(setState);
@@ -27,4 +27,6 @@ export default function Documents() {
 			))}
 		</ul>
 	);
-}
+};
+
+export default Documents;

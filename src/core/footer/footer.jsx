@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import './footer.css';
 
-function Footer() {
+const Footer = () => {
     return (
         <footer>
             <div className="container">
@@ -35,13 +35,11 @@ function Footer() {
                         <dt>社交</dt>
                         <dd>
                             <ul>
-                                {
-                                    <li>
-                                        <a href={`https://github.com/${ process.env.REACT_APP_GITHUB }`} target="_blank" rel="noopener noreferrer">
-                                            <img alt="GitHub followers" src={`https://img.shields.io/github/followers/${ process.env.REACT_APP_GITHUB }?label=Follow&style=social`} />
-                                        </a>
-                                    </li>
-                                }
+                                <li>
+                                    <a href={`https://github.com/${ process.env.REACT_APP_GITHUB }`} target="_blank" rel="noopener noreferrer">
+                                        <img alt="GitHub followers" src={`https://img.shields.io/github/followers/${ process.env.REACT_APP_GITHUB }?label=Follow&style=social`} />
+                                    </a>
+                                </li>
                             </ul>
                         </dd>
                     </dl>

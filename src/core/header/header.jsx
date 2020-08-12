@@ -13,7 +13,7 @@ const navItems = [{
 }];
 
 
-function Header(props) {
+const Header = (props) => {
     const [ show, setShow ] = useState(false);
     return (
         <header>

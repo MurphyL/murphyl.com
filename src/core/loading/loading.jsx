@@ -2,7 +2,7 @@ import React from 'react';
 
 import './loading.css';
 
-export function Loading({ message }) {
+const Loading = ({ message }) => {
     return (
         <div className="loading">
             <div className="spin">
@@ -12,3 +12,5 @@ export function Loading({ message }) {
         </div>
     );
 };
+
+export Loading;

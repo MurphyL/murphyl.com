@@ -1,6 +1,6 @@
 import React from 'react';
 
-function WechatPostEditor() {
+const WechatPostEditor = () => {
     return (
         <div className="wmp writer">
         	<div>

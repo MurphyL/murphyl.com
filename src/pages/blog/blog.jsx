@@ -10,7 +10,7 @@ import { Loading } from 'core/loading/loading';
 
 import './blog.css';
 
-function BlogPost({ post }) {
+const BlogPost = ({ post }) => {
     return (
         <Fragment>
             <dt>
@@ -35,7 +35,7 @@ function BlogPost({ post }) {
 }
 
 
-function BlogList({ blogAction, dispatch }) {
+const BlogList = ({ blogAction, dispatch }) => {
     const [ state, setState ] = useState({ code: -1 });
     useEffect(() => {
         dispatch({ type: 'FETCH_POSTS' });

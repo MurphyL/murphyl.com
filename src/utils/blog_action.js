@@ -10,9 +10,14 @@ const blogStore = async (state = [], action) => {
 			return code === 0 ? items : [];
 		case 'LOCAL_POST':
 			const { filename } = action;
-			return items.filter((item) => item.filename === filename);
+			return items.filter((item, index) => {
+				item.index = index;
+				return item.filename === filename;
+			});
+		case 'ARTICLE_NAV':
+			return [];
 		default:
-			return state
+			return state;
 	}
 }
 

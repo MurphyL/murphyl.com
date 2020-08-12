@@ -100,7 +100,16 @@ const highlightCodeBlock = () => {
     });    
 }
 
-function Post({ blogAction, dispatch }) {
+const PostNavi = ({ unique }) => {
+    return (
+        <div>
+            <div>上一页</div>
+            <div>下一页</div>
+        </div>
+    );
+}
+
+const Post = ({ blogAction, dispatch }) => {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});
     useEffect(() => {
@@ -116,7 +125,7 @@ function Post({ blogAction, dispatch }) {
         });
     }, [ blogAction ]);
     return (
-        <article>
+        <article className="post">
             <h2>{ post.title || '' }</h2>
             <section>
                 <Markdown children={ post.markdown || '' } options= { markdownOptions }/>

@@ -1,4 +1,4 @@
-import React, { StrictMode, Fragment, useEffect, useState } from 'react';
+import React, { StrictMode, Fragment } from 'react';
 
 import { Provider } from 'react-redux';
 
@@ -11,7 +11,7 @@ import { ErrorBoundary } from '../error/error.jsx';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
-import { Loading } from '../loading/loading.jsx';
+// import { Loading } from '../loading/loading.jsx';
 
 import About from '../../pages/about/about';
 import Home from '../../pages/home/home';

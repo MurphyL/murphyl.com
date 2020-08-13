@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
@@ -19,6 +19,9 @@ const Title = ({ type, children }) => {
 }
 
 const H3 = (props) => (<Title type='h3' { ...props } />);
+const H4 = (props) => (<Title type='h4' { ...props } />);
+const H5 = (props) => (<Title type='h5' { ...props } />);
+const H6 = (props) => (<Title type='h6' { ...props } />);
 
 const Prepare = ({ children }) => {
     if(children && children.type === 'code') {
@@ -60,13 +63,13 @@ const markdownOptions = {
             component: H3
         },
         h4: {
-            component:  (props) => (<Title type='h4' { ...props } />)
+            component: H4
         },
         h5: {
-            component:  (props) => (<Title type='h5' { ...props } />)
+            component: H5
         },
         h6: {
-            component:  (props) => (<Title type='h6' { ...props } />)
+            component: H6
         },
         p: {
             component: Paragraph
@@ -98,11 +101,23 @@ const highlightCodeBlock = () => {
     document.querySelectorAll('.code-block code').forEach((block) => {
         hljs.highlightBlock(block);
     });    
-}
+};
+
+const showFloatingNavi = () => {
+    const items = document.querySelectorAll('.post .content .title');
+    return Array.from(items).map((item, index) => {
+        return {
+            index, 
+            name: item.innerText, 
+            level: parseInt(item.nodeName.replace(/^H/, '')),
+        }
+    });
+};
 
 const Post = ({ blogAction, dispatch }) => {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});
+    const [ navi, setNavi ] = useState([]);
     useEffect(() => {
         dispatch({ type: 'LOCAL_POST', filename: unique });
     }, [ dispatch, unique ]);
@@ -112,16 +127,22 @@ const Post = ({ blogAction, dispatch }) => {
                 return;
             }
             setPost(first);
-            setTimeout(highlightCodeBlock, 50);
+            setTimeout(() => {
+                highlightCodeBlock();
+                setNavi(showFloatingNavi());
+            }, 50);
         });
     }, [ blogAction ]);
+    console.log(navi);
     return (
-        <article className="post">
-            <h2>{ post.title || '' }</h2>
-            <section>
-                <Markdown children={ post.markdown || '' } options= { markdownOptions }/>
-            </section>
-        </article>
+        <Fragment>
+            <article className="post">
+                <h2>{ post.title || '' }</h2>
+                <section>
+                    <Markdown children={ post.markdown || '' } options= { markdownOptions }/>
+                </section>
+            </article>
+        </Fragment>
     );
 };
 

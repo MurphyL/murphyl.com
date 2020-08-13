@@ -137,3 +137,11 @@
 	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 1em;
 }
+
+.container ul.post-navi {
+	position: fixed;
+	padding-right: 30px;
+	left: 40px;
+	top: 50px;
+	list-style-type: none;
+}

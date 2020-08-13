@@ -7,33 +7,16 @@
 	cursor: pointer;
 }
 
-.post .content>.title::before {
+.post .content>.title::after {
 	position: absolute;
+	margin-left: 5px;
+	font-size: 1.5rem;
 	opacity: 0;
+	content: '☍';
 }
 
-.post .content>.title:hover::before {
-	opacity: 0.1;
-}
-
-.post .content>h3.title::before {
-	left: -40px;
-	content: '###';
-}
-
-.post .content>h4.title::before {
-	left: -43px;
-	content: '####';
-}
-
-.post .content>h5.title::before {
-	left: -53px;
-	content: '#####';
-}
-
-.post .content>h6.title::before {
-	left: -63px;
-	content: '######';
+.post .content>.title:hover::after {
+	opacity: 0.05;
 }
 
 .post .content>p {

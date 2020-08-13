@@ -11,7 +11,13 @@ import 'highlight.js/styles/github.css';
 import './post.css';
 
 const LANG_TYPES = {
-    'lang-sh': 'Shell'
+    'lang-sh': 'Shell',
+    'lang-awk': 'Awk',
+    'lang-lua': 'Lua',
+    'lang-java': 'Java',
+    'lang-bash': 'Shell',
+    'lang-js': 'JavaScript',
+    'lang-javascript': 'JavaScript',
 };
 
 const Title = ({ type, children }) => {

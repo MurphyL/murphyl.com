@@ -1,11 +1,10 @@
 const fs = require('fs');
 const del = require('del');
 const path = require('path');
-const toml = require('toml');
 const moment = require('moment');
 const shortid = require('shortid');
-const parseFrontMatter = require('frontmatter');
 const { src, dest, series } = require('gulp');
+const parseFrontMatter = require('frontmatter');
 
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');

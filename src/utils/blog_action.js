@@ -1,6 +1,6 @@
 import { ajaxGet } from './rest_client';
 
-const blogFetched = ajaxGet('blog.x.json');
+const blogFetched = ajaxGet('murph.x.json');
 
 const blogStore = async (state = [], action) => {
 	const { code, payload } = await blogFetched;

@@ -7,15 +7,15 @@ const shortid = require('shortid');
 const parseFrontMatter = require('frontmatter');
 const { src, dest, series } = require('gulp');
 
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
 
 const clean = async () => {
 	del.sync([
 		'build/',
-		'public/blog.x.json'
+		'public/murph.x.json',
+		'public/manifest.json',
 	]);
-	// fs.mkdirSync('public/posts/');
 };
 
 // 通过文件名称判断是否为Markdown文件
@@ -41,18 +41,25 @@ const writeFile = (suffix, content) => {
 	fs.writeFileSync(writeTarget, Buffer.from(content));
 };
 
+// 配置文件
+const murph = JSON.parse(resloveFile(reslovePath('murph.json')));
+
 // 处理配置文件
 const manifest = async () => {
-	const configSource = resloveFile(reslovePath('config.toml'));
-	const { manifest } = toml.parse(configSource);
-	writeFile('public/manifest.json', JSON.stringify(manifest, null, '\t'), true);
+	const manifest = JSON.stringify((murph.manifest || {}), null, '\t');
+	writeFile('public/manifest.json', manifest, true);
 }
 
 
 const blog = async () => {
-	const db = low(new FileSync('public/blog.x.json'));
-	db.defaults({ blog: [] }).write()
+	const db = low(new FileSync('public/murph.x.json'));
+	const dt = new Date().toLocaleDateString('zh-CN');
+	const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
+	db.defaults(Object.assign(murph)).write();
+	db.unset('manifest').write();
+	db.set('app.version', `${dt} ${ts}`).write();
 	const items = [];
+	const blogCollection = db.get('blog');
 	(fs.readdirSync('blog') || []).filter((filename) => {
 		return /^20\d\d\d\d[0-3]\d/.test(filename) && isMarkdownFile(filename)
 	}).sort((a, b) => {
@@ -66,20 +73,15 @@ const blog = async () => {
 		const parsed = parseFrontMatter(source) || {};
 		// 正文
 		const markdown = trimIfString(parsed.content) || '';
-		db.get('blog').push({
+		// 写入数据
+		blogCollection.push({
 			filename,
 			markdown,
+			...(parsed.data || {}),
 			id: shortid.generate(),
-			meta: (parsed.data || {}),
-			title: (parsed.data || {}).title,
 			summary: extractSummary(markdown || ''),
 		}).write()
 	});
-};
-
-const funDeps = async () => {
-	const blog = resloveFile('public/blog.x.json');
-	writeFile('api/blog.x.js', 'export default ' + blog);
 };
 
 exports.default = series(clean, manifest, blog);

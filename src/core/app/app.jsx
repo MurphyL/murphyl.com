@@ -34,7 +34,7 @@ const NormalLayout = ({ View }) => {
     );
 };
 
-export default const App = () => {
+const App = () => {
     return (
         <StrictMode>
             <Provider store={ murphStore }>
@@ -66,3 +66,5 @@ export default const App = () => {
         </StrictMode>
     )
 };
+
+export default App;

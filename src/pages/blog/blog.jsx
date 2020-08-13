@@ -56,8 +56,8 @@ const BlogList = ({ blogAction, dispatch }) => {
     }
     return (
         <dl className="blog">
-            {(state.items || []).filter(({ meta = {} }) => {
-                return !meta.hidden;
+            {(state.items || []).filter(({ hidden = false }) => {
+                return !hidden;
             }).map((post, index) => {
                 return (
                     <BlogPost key={index} post={post} />

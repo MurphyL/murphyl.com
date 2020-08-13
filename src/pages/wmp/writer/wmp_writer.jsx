@@ -11,6 +11,6 @@ const WechatPostEditor = () => {
         	</div>
         </div>
     );
-}
+};
 
 export default WechatPostEditor;

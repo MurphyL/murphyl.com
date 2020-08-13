@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import { Loading } from 'core/loading/loading';
 
-import './blog.css';
+import './blog_list.css';
 
 const BlogPost = ({ post }) => {
     return (
@@ -71,6 +71,6 @@ const mapStateToProps = ({ blogAction }, ownProps) => {
     return {
         blogAction
     };
-}
+};
 
 export default connect(mapStateToProps)(BlogList);

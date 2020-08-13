@@ -7,6 +7,6 @@ const Home = () => {
             <p>欢迎来访我的个人主页！</p>
         </div>
     );
-}
+};
 
 export default Home;

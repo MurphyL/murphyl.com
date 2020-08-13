@@ -19,7 +19,7 @@ const Footer = () => {
                         <dd>
                             <ul>
                                 <li><Link rel="noopener noreferrer" to="/blog">博客</Link></li>
-                                <li><Link rel="noopener noreferrer" to="/wmp/writer">编辑器</Link></li>
+                                <li><Link rel="noopener noreferrer" to="/achive">归档</Link></li>
                             </ul>
                         </dd>
                     </dl>

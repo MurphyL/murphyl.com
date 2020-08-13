@@ -156,7 +156,6 @@ const mapStateToProps = ({ blogAction }, ownProps) => {
     return {
         blogAction
     }
-}
-
+};
 
 export default connect(mapStateToProps)(Post);

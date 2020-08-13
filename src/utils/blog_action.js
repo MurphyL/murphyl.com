@@ -16,6 +16,9 @@ const blogStore = async (state = [], action) => {
 			});
 		case 'ARTICLE_NAV':
 			return [];
+		case 'ACHIVE_ITEMS':
+			
+			return [];
 		default:
 			return state;
 	}

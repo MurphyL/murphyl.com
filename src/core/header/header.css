@@ -91,6 +91,7 @@
 
 #root header .logo {
 	font-weight: 600;
+	text-align: center;
 }
 
 #root header ul.navi li {

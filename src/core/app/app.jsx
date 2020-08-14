@@ -48,6 +48,9 @@ const RouteItems = () => {
                 <Route path="/blog">
                     <NormalLayout View={ BlogList } />
                 </Route>
+                <Route path="/all">
+                    <NormalLayout View={ BlogAchive } />
+                </Route>
                 <Route path="/achive">
                     <NormalLayout View={ BlogAchive } />
                 </Route>

@@ -17,7 +17,10 @@ const blogStore = async (state = [], action) => {
 		case 'ARTICLE_NAV':
 			return [];
 		case 'ACHIVE_ITEMS':
-			
+			items.map((item, index) => {
+				console.log(item);
+				return item;
+			});
 			return [];
 		default:
 			return state;

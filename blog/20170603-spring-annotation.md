@@ -89,49 +89,49 @@ Spring支持AspectJ的注解式切面编程。
 
 注入普通字符
 
-```
+```java
 	@Value("Michael Jackson")
 	String name;
 ```
 
 注入操作系统属性
 
-```
+```java
 	@Value("#{systemProperties['os.name']}")
 	String osName;
 ```
 
 注入表达式结果
 
-```
+```java
 	@Value("#{ T(java.lang.Math).random() * 100 }")
 	String randomNumber;
 ```
 
 注入其它bean属性
 
-```
+```java
 	@Value("#{domeClass.name}")
 	String name;
 ```
 
 注入文件资源
 
-```
+```java
 	@Value("classpath:com/hgs/hello/test.txt")
 	String Resource file;
 ```
 
 注入网站资源
 
-```
+```java
 	@Value("http://www.cznovel.com")
 	Resource url;
 ```
 
 注入配置文件
 
-```
+```java
 	@Value("${book.name}")
 	String bookName;
 ```
@@ -139,13 +139,14 @@ Spring支持AspectJ的注解式切面编程。
 注入配置使用方法：
 
 1. 编写配置文件（test.properties）
-```
+
+```java
 	book.name=《三体》
 ```
 
 2. @PropertySource 加载配置文件(类上)
 
-```
+```java
 	@PropertySource("classpath:com/hgs/hello/test/test.propertie")
 ```
 

@@ -1,12 +1,10 @@
-import React, { StrictMode, Fragment } from 'react';
+import React, { Component, Fragment, StrictMode } from 'react';
 
 import { Provider } from 'react-redux';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import murphStore from '../../utils/murph_store';
-
-import { ErrorBoundary } from '../error/error.jsx';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
@@ -18,6 +16,8 @@ import Home from '../../pages/home/home.jsx';
 import Post from '../../pages/post/post.jsx';
 
 import WmpWriter from '../../pages/wmp/writer/wmp_writer.jsx';
+
+import Sudoku from '../../pages/murph/sudoku/sudoku.jsx';
 
 import BlogList from '../../pages/blog/list/blog_list.jsx';
 import BlogAchive from '../../pages/blog/achive/blog_achive.jsx';
@@ -54,14 +54,17 @@ const RouteItems = () => {
                 <Route path="/achive">
                     <NormalLayout View={ BlogAchive } />
                 </Route>
+                <Route path="/about">
+                    <NormalLayout View={ About } />
+                </Route>
                 <Route path="/wmp/writer">
                     <WmpWriter/>
                 </Route>
                 <Route path="/post/:unique">
                     <NormalLayout View={ Post } />
                 </Route>
-                <Route path="/about">
-                    <NormalLayout View={ About } />
+                <Route path="/sudoku">
+                    <Sudoku/>
                 </Route>
                 <Route>
                     <div>404</div>
@@ -70,6 +73,29 @@ const RouteItems = () => {
         </BrowserRouter>
     );
 };
+
+class ErrorBoundary extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        console.log(error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return <h3>好像出错了！</h3>;
+        }
+        return this.props.children; 
+    }
+}
 
 const App = () => {
     return (

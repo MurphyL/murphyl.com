@@ -18,6 +18,7 @@ const LANG_TYPES = {
     'lang-bash': 'Shell',
     'lang-js': 'JavaScript',
     'lang-javascript': 'JavaScript',
+    'lang-dockerfile': 'Dockerfile'
 };
 
 const Title = ({ type, children }) => {

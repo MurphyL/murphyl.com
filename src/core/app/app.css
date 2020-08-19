@@ -33,7 +33,7 @@ html, body, code {
 
 @media screen and (max-width: 960px) {
 	#root .container {
-	    margin: 10px auto 20px;
+	    margin: 0 auto;
 	    width: calc(100% - 30px);
 	}
 }

@@ -1,12 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { connect } from 'react-redux';
-
 import Markdown from 'markdown-to-jsx';
 
 import { Link } from "react-router-dom";
 
-import { Loading } from 'core/loading/loading';
+import blogStore from '../../../utils/murph_store';
 
 import './blog_list.css';
 
@@ -35,30 +33,16 @@ const BlogPost = ({ post }) => {
 }
 
 
-const BlogList = ({ blogAction, dispatch }) => {
-    const [ state, setState ] = useState({ code: -1 });
+const BlogList = () => {
+    const [ posts, setPosts ] = useState([]);
     useEffect(() => {
-        dispatch({ type: 'FETCH_POSTS' });
-    }, [ dispatch ]);
-    useEffect(() => {
-        blogAction.then(items => {
-            setState({ code: 0, items });
+        blogStore.then((fetched) => {
+            setPosts(fetched.filter({ release: true }).take(10).value());
         });
-    }, [ blogAction ]);
-    if(state.code === -1) {
-        return (
-            <Loading message="正在加载博客数据……" />
-        );
-    } else if(state.code === 1) {
-        return (
-            <div>加载文章列表出错~</div>
-        )
-    }
+    }, [])
     return (
         <dl className="blog">
-            {(state.items || []).filter(({ hidden = false }) => {
-                return !hidden;
-            }).map((post, index) => {
+            {(posts || []).map((post, index) => {
                 return (
                     <BlogPost key={index} post={post} />
                 )
@@ -67,10 +51,4 @@ const BlogList = ({ blogAction, dispatch }) => {
     )
 };
 
-const mapStateToProps = ({ blogAction }, ownProps) => {
-    return {
-        blogAction
-    };
-};
-
-export default connect(mapStateToProps)(BlogList);
+export default BlogList;

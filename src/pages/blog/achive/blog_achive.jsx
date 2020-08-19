@@ -2,9 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import { Link } from "react-router-dom";
 
-import { connect } from 'react-redux';
-
-import moment from 'moment';
+import blogStore from '../../../utils/murph_store';
 
 import './blog_achive.css';
 
@@ -23,26 +21,13 @@ const AchiveList = ({ title = '', items = [] }) => {
 	);
 };
 
-const BlogAchive = ({ blogAction, dispatch }) => {
+const BlogAchive = () => {
 	const [ achiveItems, setAchiveItems ] = useState({});
     useEffect(() => {
-        dispatch({ type: 'FETCH_POSTS' });
-    }, [ dispatch ]);
-    useEffect(() => {
-        blogAction.then((items = []) => {
-        	const achiveTemp = {};
-            items.forEach((item) => {
-            	const date = moment(item.filename.substring(0, 8));
-            	const month = moment(date).format('YYYY/MM');
-            	item['dt'] = date.format('YYYY/MM/DD');
-            	if(!achiveTemp[month]) {
-            		achiveTemp[month] = [];
-            	}
-            	achiveTemp[month].push(item);
-            });
-            setAchiveItems(achiveTemp);
+        blogStore.then((fetched) => {
+            setAchiveItems({ all: fetched.value() });
         });
-    }, [ blogAction ]);
+    }, [])
 	return (
 		<div className="achive">
 			<dl>
@@ -54,10 +39,5 @@ const BlogAchive = ({ blogAction, dispatch }) => {
 	);
 };
 
-const mapStateToProps = ({ blogAction }, ownProps) => {
-    return {
-        blogAction
-    };
-};
 
-export default connect(mapStateToProps)(BlogAchive);
+export default BlogAchive;

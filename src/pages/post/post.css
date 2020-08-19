@@ -1,3 +1,7 @@
+.post {
+	min-height: 30px;
+}
+
 .post .content {
 	line-height: 2rem;
 	position: relative;

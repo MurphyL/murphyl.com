@@ -3,6 +3,10 @@ title: IntelliJ IDEA常用插件
 author: murph
 ---
 
+`IntelliJ IDEA`在业界被公认为最好的`Java`开发工具之一。
+
+<!-- more -->
+
 ### [Alibaba Java Coding Guidelines](https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines/)
 
 > `Alibaba`代码规约扫描插件

@@ -2,11 +2,10 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from 'markdown-to-jsx';
 
-import { connect } from 'react-redux';
-
-// highlight.js
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
+
+import blogStore from '../../utils/murph_store';
 
 import './post.css';
 
@@ -110,37 +109,17 @@ const highlightCodeBlock = () => {
     });    
 };
 
-const showFloatingNavi = () => {
-    const items = document.querySelectorAll('.post .content .title');
-    return Array.from(items).map((item, index) => {
-        return {
-            index, 
-            name: item.innerText, 
-            level: parseInt(item.nodeName.replace(/^H/, '')),
-        }
-    });
-};
-
-const Post = ({ blogAction, dispatch }) => {
+const Post = () => {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});
-    const [ navi, setNavi ] = useState([]);
     useEffect(() => {
-        dispatch({ type: 'LOCAL_POST', filename: unique });
-    }, [ dispatch, unique ]);
-    useEffect(() => {
-        blogAction.then(([ first ]) => {
-            if(!first) {
-                return;
-            }
-            setPost(first);
+        blogStore.then(fetched => {
+            setPost(fetched.find({ filename: unique }).value());
             setTimeout(() => {
                 highlightCodeBlock();
-                setNavi(showFloatingNavi());
             }, 50);
-        });
-    }, [ blogAction ]);
-    console.log(navi);
+        })
+    }, [ unique ]);
     return (
         <Fragment>
             <article className="post">
@@ -153,10 +132,4 @@ const Post = ({ blogAction, dispatch }) => {
     );
 };
 
-const mapStateToProps = ({ blogAction }, ownProps) => {
-    return {
-        blogAction
-    }
-};
-
-export default connect(mapStateToProps)(Post);
+export default Post;

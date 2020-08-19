@@ -1,10 +1,6 @@
 import React, { Component, Fragment, StrictMode } from 'react';
 
-import { Provider } from 'react-redux';
-
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-import murphStore from '../../utils/murph_store';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
@@ -100,11 +96,9 @@ class ErrorBoundary extends Component {
 const App = () => {
     return (
         <StrictMode>
-            <Provider store={ murphStore }>
-                <ErrorBoundary>
-                    <RouteItems />
-                </ErrorBoundary>
-            </Provider>
+            <ErrorBoundary>
+                <RouteItems />
+            </ErrorBoundary>
         </StrictMode>
     )
 };

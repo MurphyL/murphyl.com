@@ -2,7 +2,6 @@
 title: Spring常用注解
 author: murph
 tags: [ Java, Spring ]
-hidden: true
 ---
 
 `Spring`从`2.5`版本开始引入注解来配置依赖注入，将广大`Java`开发人员从冗杂`XML`配置文件中解放出来。`Spring`也由此一举封神，似乎成为了`Java EE`开发圈子的事实标准。`Java`生态下的各类框架也是积极跟进注解配置，`Spring`家族的后续更是一发不可收拾，不断的翻新注解的玩法。近来`Spring Boot`更是登封造极，看到官方文档中需要翻页的注解列表时，不禁有些发怵。在这里整理下`Spring`家族个框架中的常用注解，简单归纳，便于记忆。

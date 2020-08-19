@@ -5,8 +5,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
-// import { Loading } from '../loading/loading.jsx';
-
 import About from '../../pages/about/about.jsx';
 import Home from '../../pages/home/home.jsx';
 import Post from '../../pages/post/post.jsx';
@@ -17,8 +15,6 @@ import Sudoku from '../../pages/murph/sudoku/sudoku.jsx';
 
 import BlogList from '../../pages/blog/list/blog_list.jsx';
 import BlogAchive from '../../pages/blog/achive/blog_achive.jsx';
-
-
 
 import './app.css';
 

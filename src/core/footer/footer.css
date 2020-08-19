@@ -3,7 +3,8 @@
 	margin-top: 10px;
 	min-height: 120px;
 	border-top: 1px solid #ccc;
-    will-change: transform;	
+    will-change: transform;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
 }
 
 #root footer .sitemap {

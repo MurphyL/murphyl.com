@@ -15,5 +15,10 @@
 			"type": "image/png"
 		}
 	},
-	"blog": []
+	"blog": [],
+	"author": [{
+		"id": "murph",
+		"name": "MurphyL",
+		"github": "https://github.com/MurphyL"
+	}]
 }

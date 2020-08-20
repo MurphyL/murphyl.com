@@ -40,6 +40,10 @@
 	position: relative;
 }
 
+.post .content .title a {
+	text-decoration: none;
+}
+
 .post .content .title>span:before {
     content: "";
     position: absolute;

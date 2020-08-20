@@ -21,7 +21,7 @@
 }
 
 .post .content>.title:hover::after {
-	opacity: 0.05;
+	opacity: 0.1;
 }
 
 .post .content>p {
@@ -34,6 +34,27 @@
 
 .post .content .title {
 	margin: 15px 0 10px;
+}
+
+.post .content .title>span {
+	position: relative;
+}
+
+.post .content .title>span:before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: rgba(150, 150, 150, 0.9);
+    transition: all 0.3s;
+}
+
+.post .content .title>span:hover::before {
+	width: calc(100% + 30px);
+	left: -5px;
+	right: -5px;
 }
 
 .post .content .image {

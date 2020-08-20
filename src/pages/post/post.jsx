@@ -21,7 +21,7 @@ const LANG_TYPES = {
 };
 
 const Title = ({ type, children }) => {
-    return React.createElement(type, { className: 'title' }, children);
+    return React.createElement(type, { className: 'title' }, <span>{ children }</span>);
 }
 
 const H3 = (props) => (<Title type='h3' { ...props } />);

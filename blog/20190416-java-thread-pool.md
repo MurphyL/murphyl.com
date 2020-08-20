@@ -1,7 +1,6 @@
 ---
 title: Java中的线程池
 author: murph
-hidden: true
 ---
 
 在程序启动的时候就创建若干线程来响应处理，它们被称为线程池，里面的线程叫工作线程：

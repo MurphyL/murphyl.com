@@ -1,7 +1,6 @@
 ---
 title: NPM发布包
 author: murph
-hidden: true
 ---
 
 ```sh

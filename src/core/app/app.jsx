@@ -2,28 +2,19 @@ import React, { Component, Fragment, StrictMode } from 'react';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import { lazy } from '../loading/loading.jsx';
+
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
-import About from '../../pages/about/about.jsx';
-import Home from '../../pages/home/home.jsx';
-import Post from '../../pages/post/post.jsx';
-
-import WmpWriter from '../../pages/wmp/writer/wmp_writer.jsx';
-
-import Sudoku from '../../pages/murph/sudoku/sudoku.jsx';
-
-import BlogList from '../../pages/blog/list/blog_list.jsx';
-import BlogAchive from '../../pages/blog/achive/blog_achive.jsx';
-
 import './app.css';
 
-const NormalLayout = ({ View }) => {
+const NormalLoadable = ({ view }) => {
     return (
         <Fragment>
             <Header />
             <main className="container">
-                <View />
+                { lazy(view) }
             </main>
             <Footer />
         </Fragment>
@@ -35,28 +26,28 @@ const RouteItems = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact={ true }>
-                    <NormalLayout View={ Home } />
+                    <NormalLoadable view="home/home" />
                 </Route>
                 <Route path="/blog">
-                    <NormalLayout View={ BlogList } />
-                </Route>
-                <Route path="/all">
-                    <NormalLayout View={ BlogAchive } />
-                </Route>
-                <Route path="/achive">
-                    <NormalLayout View={ BlogAchive } />
-                </Route>
-                <Route path="/about">
-                    <NormalLayout View={ About } />
-                </Route>
-                <Route path="/wmp/writer">
-                    <WmpWriter/>
+                    <NormalLoadable view="blog/list/blog_list" />
                 </Route>
                 <Route path="/post/:unique">
-                    <NormalLayout View={ Post } />
+                    <NormalLoadable view="post/post" />
+                </Route>
+                <Route path="/all">
+                    <NormalLoadable view="blog/achive/blog_achive" />
+                </Route>
+                <Route path="/achive">
+                    <NormalLoadable view="blog/achive/blog_achive" />
+                </Route>
+                <Route path="/about">
+                    <NormalLoadable view="about/about" />
+                </Route>
+                <Route path="/wmp/writer">
+                    { lazy('wmp/writer/wmp_writer') }
                 </Route>
                 <Route path="/sudoku">
-                    <Sudoku/>
+                    { lazy('murph/sudoku/sudoku') }
                 </Route>
                 <Route>
                     <div>404</div>

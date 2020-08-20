@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import './loading.css';
 
@@ -13,3 +13,11 @@ export const Loading = ({ message }) => {
     );
 };
 
+export const lazy = (view) => {
+	const LazyComponent = React.lazy(() => import(`pages/${view}`));
+	return (
+		<Suspense fallback={ <Loading /> } maxDuration={ 500 }>
+			<LazyComponent />
+		</Suspense>
+	);
+};

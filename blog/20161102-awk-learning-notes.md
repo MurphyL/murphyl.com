@@ -1,5 +1,5 @@
 ---
-title: AWK实用笔记
+title: AWK使用笔记
 author: murph
 release: true
 ---

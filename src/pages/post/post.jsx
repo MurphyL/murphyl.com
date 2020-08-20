@@ -15,6 +15,7 @@ const LANG_TYPES = {
     'lang-lua': 'Lua',
     'lang-java': 'Java',
     'lang-bash': 'Shell',
+    'lang-shell': 'Shell',
     'lang-js': 'JavaScript',
     'lang-javascript': 'JavaScript',
     'lang-dockerfile': 'Dockerfile'

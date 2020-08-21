@@ -28,8 +28,8 @@ const Header = (props) => {
                         </li>
                     ))}
                 </ul>
-                <div className="navi-trigger" onClick={ () => setShow(!show) }>
-                    <div>=</div>
+                <div className={ `navi-trigger` } onClick={ () => setShow(!show) }>
+                    <div className="holder">{ show ? '✃' : '✁' }</div>
                 </div>
             </div>
         </header>

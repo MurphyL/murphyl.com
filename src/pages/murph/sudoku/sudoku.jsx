@@ -1,50 +1,65 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-const renderSudokuGame = () => {
-	const canvas = document.getElementById('sudoku');
-	const ctx = canvas.getContext('2d');
-	const offset = 10;
-	const width = 540;
-	const unit = width / 9;
-	ctx.font = '20px serif';
-	ctx.beginPath();
-	ctx.lineWidth = 3;
-	ctx.moveTo(offset, offset);
-	ctx.lineTo(width + offset, offset); 
-	ctx.lineTo(width + offset, width + offset); 
-	ctx.lineTo(offset, width + offset); 
-	ctx.lineTo(offset, offset);
-	ctx.closePath();
-	ctx.stroke();
-	ctx.lineWidth = 1;
-	for(let i = 1; i < 9; i++) {
-		ctx.moveTo(unit * i + offset, offset);
-		ctx.lineTo(unit * i + offset, width + offset);
-		ctx.moveTo(offset, unit * i + offset);
-		ctx.lineTo(width + offset, unit * i + offset);
-		ctx.closePath();
-	}
-	ctx.stroke();
-};
+import './sudoku.css';
 
-const itemClick = function(e){
-	console.log(e);
+const x9 = (x) => ([
+    [ 
+        { index: x - 9 - 1, x, value: (x - 9 - 1 - x), }, 
+        { index: x - 9 - 0, x, value: (x - 9 - 0 - x), }, 
+        { index: x - 9 + 1, x, value: (x - 9 + 1 - x), }  ], [ 
+        { index: x - 1 - 0, x, value: (x - 1 - 0 - x), }, 
+        { index: x - 0 - 0, x, value: (x - 0 - 0 - x), }, 
+        { index: x - 0 + 1, x, value: (x - 0 + 1 - x), }  ], [ 
+        { index: x + 9 - 1, x, value: (x + 9 - 1 - x), }, 
+        { index: x + 9 - 0, x, value: (x + 9 - 0 - x), }, 
+        { index: x + 9 + 1, x, value: (x + 9 + 1 - x), } 
+    ],
+]);
+
+const Board = ({ count = 81, step = 3 }) => {
+    const x = (count - 1) / 2;
+    const t = x - count / step;
+    const m = x + count / step;
+    const grid = [
+        [ x9(t - step), x9(t), x9(t + step) ],
+        [ x9(x - step), x9(x), x9(x + step) ],
+        [ x9(m - step), x9(m), x9(m + step) ],
+    ];
+    console.log(JSON.stringify(grid, null, '\t'));
+    return (
+        <div className="board">
+            { grid.map((gridRow, gi) => (
+                <div className="row" key={ gi }>
+                    { gridRow.map((gridCell, gri) => (
+                        <div className="cell" key={ gri }>
+                            { gridCell.map((innerRow, iri) => (
+                                <div className="row" key={ iri }>
+                                    { innerRow.map((innerCell, ici) => (
+                                        <div className="cell" key={ ici }>
+                                            <div className="x-val">
+                                                <div className="row"></div>
+                                                <div className="row">
+                                                    <div>{ innerCell.value }</div>
+                                                </div>
+                                                <div className="row"></div>
+                                            </div>
+                                        </div>
+                                    )) }
+                                </div>
+                            )) }
+                        </div>
+                    )) }
+                </div>
+            )) }
+        </div>
+    );
 };
 
 const Sudoku = () => {
-	useEffect(() => {
-		renderSudokuGame();
-	}, []);
-	const settings = {
-		id: 'sudoku',
-		className: 'custom',
-		height: '560px',
-		width: '560px',
-		style: { margin: '10px' },
-		onClick: itemClick
-	};
     return (
-        <canvas { ...settings }></canvas>
+        <div className="sudoku">
+            <Board count={ 81 } step = { 3 } />
+        </div>
     );
 };
 

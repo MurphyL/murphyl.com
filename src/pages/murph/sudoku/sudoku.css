@@ -1,0 +1,28 @@
+.sudoku {
+	text-align: center;
+}
+
+.sudoku .board {
+	margin: 20px;
+	width: 500px;
+	height: 500px;
+	text-align: center;
+}
+
+.sudoku .row {
+	height: 33%;
+}
+
+.sudoku .row .cell {
+	display: inline-block;
+	width: 33%;
+	height: 100%;
+}
+
+.sudoku .row .cell .x-val {
+	margin: 1%;
+	width: calc(98% - 2px);
+	height: calc(98% - 2px);
+	border: 1px solid grey;
+	border-radius: 3px;
+}

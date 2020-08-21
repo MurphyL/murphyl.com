@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import { Link } from "react-router-dom";
 
-import blogStore from '../../../utils/murph_store';
+import { blogFetched } from '../../../utils/murph_store';
 
 import './blog_achive.css';
 
@@ -24,7 +24,7 @@ const AchiveList = ({ title = '', items = [] }) => {
 const BlogAchive = () => {
 	const [ achiveItems, setAchiveItems ] = useState({});
     useEffect(() => {
-        blogStore.then((fetched) => {
+        blogFetched.then((fetched) => {
             setAchiveItems({ all: fetched.value() });
         });
     }, [])

@@ -13,8 +13,10 @@ const NormalLoadable = ({ view }) => {
     return (
         <Fragment>
             <Header />
-            <main className="container">
-                { lazy(view) }
+            <main>
+                <div className="container">
+                    { lazy(view) }
+                </div>
             </main>
             <Footer />
         </Fragment>
@@ -45,9 +47,6 @@ const RouteItems = () => {
                 </Route>
                 <Route path="/wmp/writer">
                     { lazy('wmp/writer/wmp_writer') }
-                </Route>
-                <Route path="/sudoku">
-                    { lazy('murph/sudoku/sudoku') }
                 </Route>
                 <Route>
                     <div>404</div>
@@ -84,7 +83,9 @@ const App = () => {
     return (
         <StrictMode>
             <ErrorBoundary>
-                <RouteItems />
+                <div>
+                    <RouteItems />
+                </div>
             </ErrorBoundary>
         </StrictMode>
     )

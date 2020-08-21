@@ -25,6 +25,14 @@ html, body, code {
 	border: 1px solid  rgba(192, 192, 192, 1);
 }
 
+#root .theme-dark {
+
+}
+
+#root .theme-light {
+	
+}
+
 @media screen and (max-width: 600px) {
 	.post .content .code-block .lang-type {
 		display: none;

@@ -4,7 +4,7 @@ import Markdown from 'markdown-to-jsx';
 
 import { Link } from "react-router-dom";
 
-import blogStore from '../../../utils/murph_store';
+import { blogFetched } from '../../../utils/murph_store';
 
 import './blog_list.css';
 
@@ -36,7 +36,7 @@ const BlogPost = ({ post }) => {
 const BlogList = () => {
     const [ posts, setPosts ] = useState([]);
     useEffect(() => {
-        blogStore.then((fetched) => {
+        blogFetched.then((fetched) => {
             setPosts(fetched.filter({ release: true }).take(10).value());
         });
     }, [])

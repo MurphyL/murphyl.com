@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
-import blogStore from '../../utils/murph_store';
+import { blogFetched } from '../../utils/murph_store';
 
 import './post.css';
 
@@ -14,7 +14,7 @@ const LANG_TYPES = {
     'lang-awk': 'Awk',
     'lang-lua': 'Lua',
     'lang-java': 'Java',
-    'lang-bash': 'Shell',
+    'lang-bash': 'Bash',
     'lang-shell': 'Shell',
     'lang-js': 'JavaScript',
     'lang-javascript': 'JavaScript',
@@ -114,7 +114,7 @@ const Post = () => {
     const { unique } = useParams();
     const [ post, setPost ] = useState({});
     useEffect(() => {
-        blogStore.then(fetched => {
+        blogFetched.then(fetched => {
             setPost(fetched.find({ filename: unique }).value());
             setTimeout(() => {
                 highlightCodeBlock();

@@ -72,7 +72,7 @@
 .post .content blockquote {
 	margin: 10px 15px;
 	padding-left: 10px;
-	border-left: 3px solid rgba(0, 0, 0, 0.6);
+	border-left: 3px solid #ccc;
 	font-style: italic;
 	color: rgba(0, 0, 0, 0.6);
 }
@@ -99,7 +99,7 @@
 
 .post .content .code-block {
 	position: relative;
-	margin: 5px 25px;
+	margin: 5px 15px;
 	padding: 0;
 	overflow-x: auto;
 	border: 1px solid #ccc;
@@ -138,7 +138,17 @@
 
 .post .content ol,
 .post .content ul {
-	padding-left: 25px;
+	list-style-position: inside;
+	list-style-type: none;
+	margin-left: 14px;
+	padding-left: 0;
+}
+
+.post .content ol li::before,
+.post .content ul li::before {
+	margin-right: 15px;
+	content: '•';
+	color: #ababab;
 }
 
 .post .content li>code,
@@ -150,6 +160,10 @@
 	font-size: 0.8rem;
 	white-space:nowrap;
 	background: #f8f8f8;
+}
+
+.post .content blockquote>.paragraph>code {
+	margin: 0 4px;
 }
 
 .post .content table {

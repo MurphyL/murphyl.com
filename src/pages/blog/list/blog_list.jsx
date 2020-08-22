@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import Markdown from 'markdown-to-jsx';
-
 import { Link } from "react-router-dom";
+
+import Markdown from 'markdown-to-jsx';
 
 import { blogFetched } from '../../../utils/murph_store';
 
@@ -32,23 +32,29 @@ const BlogPost = ({ post }) => {
     )
 }
 
+export const ArticleList = ({ posts }) => {
+    return (
+        <dl className="blog">
+            {(posts || []).map((post, index) => {
+                return (
+                    <BlogPost key={ index } post={ post } />
+                )
+            })}
+        </dl>
+    )
+};
 
 const BlogList = () => {
     const [ posts, setPosts ] = useState([]);
     useEffect(() => {
         blogFetched.then((fetched) => {
-            setPosts(fetched.filter({ release: true }).take(10).value());
+            const temp = fetched.filter({ release: true });
+            setPosts(temp.take(5).value());
         });
-    }, [])
+    }, [ ]);
     return (
-        <dl className="blog">
-            {(posts || []).map((post, index) => {
-                return (
-                    <BlogPost key={index} post={post} />
-                )
-            })}
-        </dl>
-    )
+        <ArticleList posts={ posts } />
+    );
 };
 
 export default BlogList;

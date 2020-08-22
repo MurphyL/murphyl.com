@@ -45,8 +45,8 @@ const murph = JSON.parse(resloveFile(reslovePath('murph.json')));
 
 // 处理配置文件
 const manifest = async () => {
-	const manifest = JSON.stringify((murph.manifest || {}), null, '\t');
-	writeFile('public/manifest.json', manifest, true);
+	const db = low(new FileSync('public/manifest.json'));
+	db.defaults(murph.manifest || {}).write();
 }
 
 
@@ -66,6 +66,8 @@ const blog = async () => {
 	}).forEach((filename) => {
 		// 文章绝对路径
 		const path = reslovePath(`blog/${filename}`);
+		// 文章创建日期
+		const date = filename.substring(0, 8);
 		// 文章正文内容
 		const source = resloveFile(path);
 		// 文章元数据
@@ -74,6 +76,7 @@ const blog = async () => {
 		const markdown = trimIfString(parsed.content) || '';
 		// 写入数据
 		blogCollection.push({
+			date,
 			filename,
 			markdown,
 			...(parsed.data || {}),

@@ -1,13 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
+
 import { useParams } from "react-router-dom";
+
 import Markdown from 'markdown-to-jsx';
 
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
-import { blogFetched } from '../../utils/murph_store';
+import { blogFetched } from '../../../utils/murph_store';
 
-import './post.css';
+import './blog_post.css';
 
 const LANG_TYPES = {
     'lang-sh': 'Shell',

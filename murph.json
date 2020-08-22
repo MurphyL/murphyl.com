@@ -19,6 +19,10 @@
 	"author": [{
 		"id": "murph",
 		"name": "MurphyL",
+		"desc": "养心如葵，素心如兰",
 		"github": "https://github.com/MurphyL"
+	}],
+	"tags": [{
+		"id": "Linux"
 	}]
 }

@@ -34,13 +34,19 @@ const RouteItems = () => {
                     <NormalLoadable view="blog/list/blog_list" />
                 </Route>
                 <Route path="/post/:unique">
-                    <NormalLoadable view="post/post" />
+                    <NormalLoadable view="blog/post/blog_post" />
+                </Route>
+                <Route path="/tag/:unique">
+                    <NormalLoadable view="blog/tag/blog_tag" />
                 </Route>
                 <Route path="/all">
                     <NormalLoadable view="blog/achive/blog_achive" />
                 </Route>
                 <Route path="/achive">
                     <NormalLoadable view="blog/achive/blog_achive" />
+                </Route>
+                <Route path="/author/:unique">
+                    <NormalLoadable view="blog/author/blog_author" />
                 </Route>
                 <Route path="/about">
                     <NormalLoadable view="about/about" />

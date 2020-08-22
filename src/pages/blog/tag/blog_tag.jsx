@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import { blogFetched } from '../../../utils/murph_store';
 
-import './blog_achive.css';
+import './blog_tag.css';
 
 const AchiveList = ({ title = '', items = [] }) => {
 	return (

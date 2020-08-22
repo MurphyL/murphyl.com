@@ -6,7 +6,7 @@ import './header.css';
 
 const navItems = [{
     url: '/blog',
-    label: 'Blog'
+    label: '文章'
 }, {
     url: '/about',
     label: '关于'

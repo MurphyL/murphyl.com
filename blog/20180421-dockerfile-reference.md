@@ -3,6 +3,7 @@ unique: dockerfile
 title: 使用Dockerfile制作镜像
 author: "murph"
 release: true
+tags: [ Docker ]
 ---
 
 `Dockerfile`的作用是将工作环境初始化的每个步骤以指令的形式存放在一个文件中，最后通过`docker build`指令生成相应的镜像，从而实现通过基础指令快速地运行多个相同配置的运行环境……这极大的简化了`Docker`的工作流，避免了大量的重复操作，也能很好的避免因为操作的差异而引入的环境差异。`Dockerfile`的语法非常简单，一般的，`Dockerfile`分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。

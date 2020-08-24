@@ -92,7 +92,6 @@ const BlogList = () => {
         }
         setPageNum(pageNum + 1);
     };
-    console.log(local);
     return (
         <Fragment>
             <BlogItems posts={ posts } />

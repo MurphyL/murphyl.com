@@ -48,7 +48,7 @@ html, body, code {
 @media screen and (min-width: 961px) { 
 
 	#root .container {
-	    margin: 0 auto 20px;
+	    margin: 0 auto;
 	    padding: 0 10px;
 	    width: 960px;
 	}

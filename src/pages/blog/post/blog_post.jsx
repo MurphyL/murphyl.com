@@ -117,12 +117,19 @@ const Post = () => {
     const [ post, setPost ] = useState({});
     useEffect(() => {
         blogFetched.then(fetched => {
-            setPost(fetched.find({ filename: unique }).value());
+            setPost(fetched.find({ filename: unique }).value() || {
+                status: 404
+            });
             setTimeout(() => {
                 highlightCodeBlock();
             }, 50);
         })
     }, [ unique ]);
+    if(post.status > 0) {
+        return (
+            <div><b>{ post.status }</b> - 找不到指定的文章</div>
+        );
+    }
     return (
         <Fragment>
             <article className="post">

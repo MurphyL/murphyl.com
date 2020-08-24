@@ -10,5 +10,3 @@ export const fetched = ajaxGet('murph.x.json').then((res) => {
 });
 
 export const blogFetched = fetched.then(db => db.get('blog'));
-
-

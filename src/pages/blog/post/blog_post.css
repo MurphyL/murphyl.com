@@ -1,6 +1,5 @@
 .post {
 	min-height: 30px;
-	margin-bottom: 30px;
 }
 
 .post .content {
@@ -182,4 +181,35 @@
 	left: 40px;
 	top: 50px;
 	list-style-type: none;
+}
+
+.post .author {
+	position: relative;
+	padding: 0 20px;
+	border-top: 1px solid #ccc;
+}
+
+.post .author .details {
+	margin: 0 0 30px;
+}
+
+.post .author .details::after {
+	position: absolute;
+	padding: 5px;
+	top: 0;
+	right: 90px;
+	font-size: 12px;
+	content: '本文作者';
+	border: 1px solid #ccc;
+	border-top: none;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.post .author .details .social {
+	margin-top: 20px;
+}
+
+.post .author .details .social .social-link {
+	margin-right: 15px;
 }

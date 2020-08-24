@@ -20,7 +20,10 @@
 		"id": "murph",
 		"name": "MurphyL",
 		"desc": "养心如葵，素心如兰",
-		"github": "https://github.com/MurphyL"
+		"social": [{
+			"link": "https://github.com/MurphyL",
+			"type": "github"
+		}]
 	}],
 	"tags": [{
 		"id": "Linux"

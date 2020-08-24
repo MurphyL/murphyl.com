@@ -20,4 +20,4 @@ export const ajaxGet = (url, params) => (
 	.catch(error => ({
 		code: 1, message: 'Request error'
 	}))
-)
+);

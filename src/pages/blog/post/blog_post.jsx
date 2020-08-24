@@ -1,13 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Markdown from 'markdown-to-jsx';
 
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
-import { blogFetched } from '../../../utils/murph_store';
+import { Loading } from '../../../core/loading/loading';
+
+import { fetched } from '../../../utils/murph_store';
 
 import './blog_post.css';
 
@@ -114,20 +116,25 @@ const highlightCodeBlock = () => {
 
 const Post = () => {
     const { unique } = useParams();
-    const [ post, setPost ] = useState({});
+    const [ local, setLocal ] = useState({ status: -1 });
     useEffect(() => {
-        blogFetched.then(fetched => {
-            setPost(fetched.find({ filename: unique }).value() || {
-                status: 404
-            });
+        fetched.then(fetched => {
+            const post = fetched.get('blog').find({ filename: unique }).value();
+            const author = fetched.get('author').find({ id: post.author }).value();
+            setLocal({ post, author, status: 0 });
             setTimeout(() => {
                 highlightCodeBlock();
             }, 50);
         })
     }, [ unique ]);
-    if(post.status > 0) {
+    const { status, post, author } = local;
+    if(status > 0) {
         return (
-            <div><b>{ post.status }</b> - 找不到指定的文章</div>
+            <div><b>{ status }</b> - 找不到指定的文章</div>
+        );
+    } else if(status < 0) {
+        return (
+            <Loading />
         );
     }
     return (
@@ -136,6 +143,22 @@ const Post = () => {
                 <h2>{ post.title || '' }</h2>
                 <section>
                     <Markdown children={ post.markdown || '' } options= { markdownOptions }/>
+                </section>
+                <section className="author">
+                    <div className="details">
+                        <h3><Link to={ `/author/${author.id}` }>{ author.name || '' }</Link></h3>
+                        <div>{ author.desc || '' }</div>
+                        <div className="social">
+                            <Link to={ `/author/${author.id}` }>
+                                <span className="social-link">查看Ta的专栏</span>
+                            </Link>
+                            { (author.social || []).map((item, index) => (
+                                <a key={ index } href={ item.link } target="_blank" rel="noopener noreferrer">
+                                    <span className={ `social-link social-link-${item.type}` }>{ item.type }</span>
+                                </a>
+                            )) }
+                        </div>
+                    </div>
                 </section>
             </article>
         </Fragment>

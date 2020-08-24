@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import { fetched } from '../../../utils/murph_store';
 
-import { ArticleList } from '../list/blog_list.jsx';
+import { BlogItems } from '../list/blog_list.jsx';
 
 import './blog_author.css';
 
@@ -35,7 +35,7 @@ const BlogAuthor = () => {
 	return (
 		<div className="author">
 			<div className="article-list">
-				<ArticleList posts={ items } />
+				<BlogItems posts={ items } />
 			</div>
 			<div className="sidebar">
 				<div className="group">

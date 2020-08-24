@@ -13,3 +13,11 @@
 	white-space:nowrap;
 	background: #f8f8f8;
 }
+
+.pager {
+	margin: 10px auto;
+	padding: 15px 0;
+	border-top: 1px dashed #ccc;
+	width: 300px;
+	text-align: center;
+}

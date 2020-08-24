@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Markdown from 'markdown-to-jsx';
+
+import { Loading } from '../../../core/loading/loading';
 
 import { blogFetched } from '../../../utils/murph_store';
 
@@ -30,9 +32,20 @@ const BlogPost = ({ post }) => {
             </dd>
         </Fragment>
     )
-}
+};
 
-export const ArticleList = ({ posts }) => {
+export const BlogPager = ({ more, count }) => {
+    if(!more) {
+        return (
+            <div>已加载全部<b>{ count }</b>篇文章</div>
+        );
+    }
+    return (
+        <div>查看更多（共有<b>{ count }</b>篇文章）</div>
+    );
+};
+
+export const BlogItems = ({ posts }) => {
     return (
         <dl className="blog">
             {(posts || []).map((post, index) => {
@@ -41,19 +54,52 @@ export const ArticleList = ({ posts }) => {
                 )
             })}
         </dl>
-    )
+    );
 };
 
 const BlogList = () => {
-    const [ posts, setPosts ] = useState([]);
+    const { search } = useLocation();
+    const [ local, setLocal ] = useState({ loading: true });
+    const [ pageNum, setPageNum ] = useState(1);
     useEffect(() => {
+        const params = {};
+        const entries = new URLSearchParams(search).entries();
+        for(let [ key, val ] of entries) {
+            params[key] = val;
+        }
         blogFetched.then((fetched) => {
+            const { ps = 5 } = params;
             const temp = fetched.filter({ release: true });
-            setPosts(temp.take(5).value());
+            const count = temp.size().value();
+            const more = (pageNum * ps) < count;
+            setLocal({
+                more,
+                loading: false,
+                totalSize: count,
+                posts: temp.take(pageNum * ps).value(),
+            });
         });
-    }, [ ]);
+    }, [ search, pageNum ]);
+    const { loading, posts, more, totalSize } = local;
+    if(loading) {
+        return (
+            <Loading />
+        );
+    };
+    const changePage = (e) => {
+        if(!more) {
+            return;
+        }
+        setPageNum(pageNum + 1);
+    };
+    console.log(local);
     return (
-        <ArticleList posts={ posts } />
+        <Fragment>
+            <BlogItems posts={ posts } />
+            <div className="pager" onClick={ changePage }>
+                <BlogPager more={ more } count={ totalSize } />
+            </div>
+        </Fragment>
     );
 };
 

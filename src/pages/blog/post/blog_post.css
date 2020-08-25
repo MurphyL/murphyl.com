@@ -43,7 +43,14 @@
 	text-decoration: none;
 }
 
-.post .content .title>span:before {
+.post .content .title:hover::before {
+	position: absolute;
+	left: -30px;
+	color: #efefef;
+	content: attr(string) '';
+}
+
+.post .content .title>span::before {
     content: "";
     position: absolute;
     left: -5px;

@@ -116,7 +116,3 @@
 #root header ul.false li.theme-changer {
 	cursor: pointer;
 }
-
-#root header ul.false li.theme-changer span {
-	top: 3px;
-}

@@ -62,8 +62,10 @@ html, body, code {
 	border: 1px solid rgba(230, 230, 230, 1);
 }
 
-#root .light {}
+#root .light {
+	background-color: inherit;
+}
 
 #root .dark {
-	background-color: #efefef;
+	background-color: rgba(240, 240, 240, 0.5);
 }

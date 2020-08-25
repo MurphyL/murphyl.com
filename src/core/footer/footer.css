@@ -38,18 +38,24 @@
 }
 
 #root footer .sitemap .logo {
-	display: flex;
 	width: 150px;
-	align-items: center;
-	justify-content: center;
 }
 
 #root footer .sitemap .logo img {
+	position: relative;
+	top: 20px;
+	left: 15px;
 	width: 72px;
 	height: 72px;
 }
 
 #root footer .copyright {
+	height: 90px;
 	text-align: center;
-	line-height: 3rem;
+	line-height: 1rem;
+}
+
+#root footer .copyright .vercel-logo {
+	margin: 0 5px;
+	vertical-align: middle;
 }

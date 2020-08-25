@@ -28,13 +28,11 @@
 		display: none;
 		margin: 11px 0 0;
 		padding: 0;
+		width: 100%;
 		z-index: 1;
 	    background-color: #fff;
 	}
 
-	#root .full-width header ul.navi {
-		width: 100%;
-	}
 
 	#root header ul.navi.true {
 		display: block;
@@ -98,4 +96,27 @@
 	padding: 0 1rem;
 	font-size: 14px;
 	list-style-type: none;
+}
+
+/** Github Logo **/
+#root header ul.false li.github-logo a,
+#root header ul.false li.theme-changer span {
+	position: relative;
+	top: 4px;
+}
+
+#root header ul.false li.github-logo svg,
+#root header ul.false li.theme-changer svg {
+	width: 18px;
+	height: 18px;
+}
+
+/** Theme Changer **/
+
+#root header ul.false li.theme-changer {
+	cursor: pointer;
+}
+
+#root header ul.false li.theme-changer span {
+	top: 3px;
 }

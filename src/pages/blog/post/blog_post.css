@@ -195,9 +195,9 @@
 
 .post .author .details::after {
 	position: absolute;
-	padding: 5px;
+	padding: 5px 8px;
 	top: 0;
-	right: 90px;
+	right: 25px;
 	font-size: 12px;
 	content: '本文作者';
 	border: 1px solid #ccc;

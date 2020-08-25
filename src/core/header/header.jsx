@@ -27,8 +27,9 @@ const Header = (props) => {
                             <Link to={ `${item.url || '/'}` }  onClick={ () => setShow(false) }>{ item.label }</Link>
                         </li>
                     ))}
+                    { props.children }
                 </ul>
-                <div className={ `navi-trigger` } onClick={ () => setShow(!show) }>
+                <div className="navi-trigger" onClick={ () => setShow(!show) }>
                     <div className="holder">{ show ? '✃' : '✁' }</div>
                 </div>
             </div>

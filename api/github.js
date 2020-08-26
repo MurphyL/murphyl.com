@@ -15,7 +15,7 @@ const githubConfig = {
 
 const QUERY_REPO = `query{ repository(owner:"${githubUser}", name:"${githubRepo}") { id } }`;
 
-const createIssue = ({ repositoryId, title, body }) =(`mutation CreateIssuePayload { createIssue(input:{ repositoryId: "${ repositoryId }", title: "${ title }", body: "${ body }" }) { clientMutationId } }`);
+const createIssue = ({ repositoryId, title, body }) => (`mutation CreateIssuePayload { createIssue(input:{ repositoryId: "${ repositoryId }", title: "${ title }", body: "${ body }" }) { clientMutationId } }`);
 
 const repoFetched = axios.post(githubWebhook, { query: QUERY_REPO }, githubConfig);
 

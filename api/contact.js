@@ -1,18 +1,22 @@
 const axios = require('axios');
 
+const slackWebhook = `https://hooks.slack.com/services/${process.env.SLACK_WEBHOOK}`
+
 export default async (req, res) => {
 
-	const unique = req.query.db;
+	const { message = 'hello, murph' } = req.query;
 	
-	const html = await axios.get('http://cijian.us');
+	const html = await axios.post(slackWebhook, {
+		params: { 'payload': JSON.stringify({ text: message }) }
+	});
 
-	console.log(html);
+	console.log('Webhook url:', slackWebhook);
+	console.log('Response:', html);
 
 	res.json({
 		code: 0,
 		payload: {
-			unique,
-			env: process.env
+			message, html
 		}
 	});
 

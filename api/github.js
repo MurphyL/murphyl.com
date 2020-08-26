@@ -27,6 +27,7 @@ export default async (req, res) => {
 			}
 		});
 	}).catch(error => {
+		console.log('查询数据错误：', error);
 		res.json({
 			code: 1,
 			message: '查询数据错误'

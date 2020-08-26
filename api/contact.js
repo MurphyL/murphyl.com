@@ -1,15 +1,12 @@
 const axios = require('axios');
 
-export default (req, res) => {
+export default async (req, res) => {
 
 	const unique = req.query.db;
 	
-	axios.get('http://cijian.us').then(html => {
-		console.log(html)
-	}).catch(error => {
-		console.log(error);
-	});
+	const html = await axios.get('http://cijian.us');
 
+	console.log(html);
 
 	res.json({
 		code: 0,

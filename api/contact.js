@@ -7,11 +7,8 @@ export default (req, res) => {
 	const { message = 'hello, murph' } = req.query;
 	
 	axios.post(slackWebhook, {
-		params: { 
-			payload: { text: message } 
-		}
+		data: { text: message } 
 	}).then(resp => {
-		console.log('Webhook url:', slackWebhook);
 		console.log('Response:', resp);
 		console.log('发送消息成功');
 		res.json({
@@ -23,6 +20,7 @@ export default (req, res) => {
 		});
 	}).catch(error => {
 		console.log('发送消息出错~');
+		console.log('Error:', error);
 		res.json({
 			code: 1,
 			payload: {

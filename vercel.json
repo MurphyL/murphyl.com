@@ -16,6 +16,10 @@
 			"memory": 1024,
 			"maxDuration": 10
 	    },
+		"api/github.js": {
+			"memory": 1024,
+			"maxDuration": 10
+	    },
 		"api/contact.js": {
 			"memory": 1024,
 			"maxDuration": 10

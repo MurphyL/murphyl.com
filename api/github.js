@@ -27,11 +27,12 @@ export default async (req, res) => {
 		const repositoryId = lodash.get(data, 'repository.id');
 		console.log('查询到的仓库ID：', data, repositoryId);
 		const params = { repositoryId, title: 'x', body: 'y' };
-		axios.post(githubWebhook, { query: createIssue(params) }, githubConfig);
+		const creation = axios.post(githubWebhook, { query: createIssue(params) }, githubConfig);
 		Object.assign(result, {
 			code: 0,
 			payload: {
-				repositoryId
+				repositoryId,
+				creation: lodash.get(creation, 'data.data')
 			}
 		});
 	} catch(error) {

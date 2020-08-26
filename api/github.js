@@ -16,21 +16,20 @@ const QUERY_REPO = `query{ repository(owner:"${githubUser}", name:"${githubRepo}
 
 const repoFetched = axios.post(githubWebhook, { query: QUERY_REPO }, githubConfig);
 
+const query
+
 export default async (req, res) => {
 	const { message = 'hello, murph' } = req.query;
-	repoFetched.then(({ data }) => {
-		console.log('数据查询完成：', data);
-		res.json({
-			code: 0,
-			payload: {
-				feedback: data
-			}
-		});
-	}).catch(error => {
-		console.log('查询数据错误：', error);
-		res.json({
-			code: 1,
-			message: '查询数据错误'
-		});
-	});
+	const result = {};
+	try{
+		const { id } = repoFetched.then(({ data = {} }) => (data.repository || {}));
+		result.code = 0;
+		result.payload = {
+			repositoryId: id
+		};
+	} catch(error) {
+		result.code = 1;
+		result.message = '获取文章评论信息出错';
+	}
+	res.json(result);
 };

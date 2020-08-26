@@ -15,6 +15,8 @@ const githubConfig = {
 
 const QUERY_REPO = `query{ repository(owner:"${githubUser}", name:"${githubRepo}") { id } }`;
 
+const createIssue = ({ repositoryId, title, body }) =(`mutation CreateIssuePayload { createIssue(input:{ repositoryId: "${ repositoryId }", title: "${ title }", body: "${ body }" }) { clientMutationId } }`);
+
 const repoFetched = axios.post(githubWebhook, { query: QUERY_REPO }, githubConfig);
 
 export default async (req, res) => {
@@ -24,6 +26,8 @@ export default async (req, res) => {
 		const { data } = await repoFetched;
 		const repositoryId = lodashGet(data, 'data.repository.id');
 		console.log('查询到的仓库ID：', data, repositoryId);
+		const params = { repositoryId, title: 'x', body: 'y' };
+		axios.post(githubWebhook, { query: createIssue(params) }, githubConfig);
 		Object.assign(result, {
 			code: 0,
 			payload: {

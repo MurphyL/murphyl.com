@@ -6,7 +6,12 @@ export default async (req, res) => {
 
 	const { message = 'hello, murph' } = req.query;
 	
-	axios.post(slackWebhook, { text: message }).then(({ data }) => {
+	axios.post(slackWebhook, { 
+		text: message,
+		icon_emoji: ':cat:',
+		channel: '#creative',
+		username: 'murphyl.com'
+	}).then(({ data }) => {
 		console.log('发送消息成功', data);
 		console.log(JSON.stringify(req));
 		res.json({

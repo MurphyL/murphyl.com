@@ -8,10 +8,12 @@ export default async (req, res) => {
 	
 	axios.post(slackWebhook, { text: message }).then(({ data }) => {
 		console.log('发送消息成功', data);
+		console.log(JSON.stringify(req));
 		res.json({
 			code: 0,
 			payload: {
 				message,
+				feedback: data
 			}
 		});
 	}).catch(error => {

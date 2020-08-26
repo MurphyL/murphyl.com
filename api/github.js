@@ -1,5 +1,5 @@
 const axios = require('axios');
-const lodashGet = require('lodash.get');
+const lodash = require('lodash');
 
 const githubWebhook = 'https://api.github.com/graphql';
 
@@ -24,7 +24,7 @@ export default async (req, res) => {
 	const result = {};
 	try{
 		const { data } = await repoFetched;
-		const repositoryId = lodashGet(data, 'data.repository.id');
+		const repositoryId = lodash.get(data, 'data.repository.id');
 		console.log('查询到的仓库ID：', data, repositoryId);
 		const params = { repositoryId, title: 'x', body: 'y' };
 		axios.post(githubWebhook, { query: createIssue(params) }, githubConfig);

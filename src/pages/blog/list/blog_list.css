@@ -1,4 +1,8 @@
-#root main .blog dd {
+.blog dt a {
+	text-decoration: none;
+}
+
+.blog dd {
 	margin: 0;
 	padding: 0;
 	line-height: 2rem;

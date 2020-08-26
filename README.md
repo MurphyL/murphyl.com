@@ -1,3 +1,11 @@
 # murphyl.com
 
 > murph.now.sh
+
+## 配色
+
+> https://coolors.co/c9e4ca-87bba2-55828b-3b6064-364958
+
+## Icons
+
+> https://icons.getbootstrap.com/

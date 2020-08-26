@@ -1,4 +1,4 @@
-import React, { Component, StrictMode, useState } from 'react';
+import React, { Component, Fragment, StrictMode } from 'react';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -8,22 +8,6 @@ import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
 import './app.css';
-
-const ThemeChanger = React.memo(({ theme, setTheme }) => {
-    return (
-        <span onClick={ (e) => setTheme(!theme) }>
-            { theme ? (
-                <svg viewBox="0 0 16 16" className="bi bi-brightness-high" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-                </svg>
-            ) : (
-                <svg viewBox="0 0 16 16" className="bi bi-brightness-alt-high-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M4 11a4 4 0 1 1 8 0 .5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 11zm4-8a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zM4.464 7.464a.5.5 0 0 1-.707 0L2.343 6.05a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707z"/>
-                </svg>
-            ) }
-        </span>
-    );
-});
 
 const GithubLogo = (theme) => {
     return (
@@ -35,15 +19,12 @@ const GithubLogo = (theme) => {
     );
 }
 
-const NormalLoadable = ({ view, theme, setTheme }) => {
+const NormalLoadable = ({ view }) => {
     return (
-        <div className={ theme ? 'light' : 'dark' }>
+        <Fragment>
             <Header>
                 <li className="github-logo">
                     <GithubLogo />
-                </li>
-                <li className="theme-changer">
-                    <ThemeChanger { ...{ theme, setTheme } } />
                 </li>
             </Header>
             <main>
@@ -52,42 +33,43 @@ const NormalLoadable = ({ view, theme, setTheme }) => {
                 </div>
             </main>
             <Footer />
-        </div>
+        </Fragment>
     );
 };
 
 const RouteItems = () => {
-    const [ theme, setTheme ] = useState(true);
-    const themeSetter = { theme, setTheme };
     return (
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact={ true }>
-                    <NormalLoadable { ...themeSetter } view="home/home" />
+                    <NormalLoadable view="home/home" />
                 </Route>
                 <Route path="/blog">
-                    <NormalLoadable { ...themeSetter } view="blog/list/blog_list" />
+                    <NormalLoadable view="blog/list/blog_list" />
                 </Route>
                 <Route path="/post/:unique">
-                    <NormalLoadable { ...themeSetter } view="blog/post/blog_post" />
+                    <NormalLoadable view="blog/post/blog_post" />
                 </Route>
                 <Route path="/tag/:unique">
-                    <NormalLoadable { ...themeSetter } view="blog/tag/blog_tag" />
+                    <NormalLoadable view="blog/tag/blog_tag" />
                 </Route>
                 <Route path="/all">
-                    <NormalLoadable { ...themeSetter } view="blog/achive/blog_achive" />
+                    <NormalLoadable view="blog/achive/blog_achive" />
                 </Route>
                 <Route path="/achive">
-                    <NormalLoadable { ...themeSetter } view="blog/achive/blog_achive" />
+                    <NormalLoadable view="blog/achive/blog_achive" />
                 </Route>
                 <Route path="/author/:unique">
-                    <NormalLoadable { ...themeSetter } view="blog/author/blog_author" />
+                    <NormalLoadable view="blog/author/blog_author" />
                 </Route>
                 <Route path="/about">
-                    <NormalLoadable { ...themeSetter } view="about/about" />
+                    <NormalLoadable view="about/about" />
                 </Route>
                 <Route path="/wmp/writer">
                     { lazy('wmp/writer/wmp_writer') }
+                </Route>
+                <Route path="/contact">
+                    <NormalLoadable view="murph/contact/contact" />
                 </Route>
                 <Route>
                     <div>404</div>

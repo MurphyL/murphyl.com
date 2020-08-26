@@ -26,7 +26,7 @@ const LANG_TYPES = {
 };
 
 const Title = ({ type, children }) => {
-    return React.createElement(type, { className: 'title', string: type.toUpperCase() }, <span>{ children }</span>);
+    return React.createElement(type, { className: 'title' }, <span type={ type.toUpperCase() }>{ children }</span>);
 }
 
 const H3 = (props) => (<Title type='h3' { ...props } />);

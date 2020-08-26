@@ -1,8 +1,6 @@
 /** component - header **/
-
 #root header {
 	margin-bottom: 10px;
-	border-bottom: 1px solid #ccc;
 	will-change: transform;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 	height: 50px;
@@ -58,10 +56,6 @@
 
 @media screen and (min-width: 601px) {
 
-	#root header {
-		border-bottom: 1px solid #ccc;
-	}
-
 	#root header .container {
 		display: flex;
 		align-items: center;
@@ -99,20 +93,58 @@
 }
 
 /** Github Logo **/
-#root header ul.false li.github-logo a,
-#root header ul.false li.theme-changer span {
+#root header ul.false li.github-logo a {
 	position: relative;
 	top: 4px;
 }
 
-#root header ul.false li.github-logo svg,
-#root header ul.false li.theme-changer svg {
+#root header ul.false li.github-logo svg{
 	width: 18px;
 	height: 18px;
 }
 
-/** Theme Changer **/
+/** More Links **/
 
-#root header ul.false li.theme-changer {
+#root header ul.false li.more-links {
+	position: relative;
+}
+
+#root header ul.false li.more-links .x {
+	padding: 2px 5px;
+	font-size: 12px;
 	cursor: pointer;
+	border-radius: 2px;
+    border: 1px solid #d9d9d9;
+	box-shadow: 0 2px 0 rgba(0,0,0,.015);
+}
+
+#root header ul.false li.more-links svg {
+	position: relative;
+	left: 2px;
+	top: 2px;
+}
+
+#root header ul.false li.more-links ol {
+	position: absolute;
+	display: none;
+	margin: 0;
+	padding: 5px 0 5px 12px;
+	background-color: #fff;
+	width: 130px;
+	text-align: left;
+	line-height: 25px;
+	border: 1px solid #d9d9d9;
+	border-radius: 2px;
+	top: 40px;
+	right: 16px;
+}
+
+#root header ul.false li.more-links:hover ol {
+	display: block;
+}
+
+#root header ul.false li.more-links ol li {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }

@@ -1,5 +1,5 @@
 .post {
-	min-height: 30px;
+	min-height: 30vh;
 }
 
 .post .content {
@@ -7,19 +7,11 @@
 	position: relative;
 }
 
-.post .content>.title {
+.post .content .title {
 	cursor: pointer;
 }
 
-.post .content>.title::after {
-	position: absolute;
-	margin-left: 5px;
-	font-size: 1.5rem;
-	opacity: 0;
-	content: '☍';
-}
-
-.post .content>.title:hover::after {
+.post .content .title:hover::after {
 	opacity: 0.1;
 }
 
@@ -43,28 +35,29 @@
 	text-decoration: none;
 }
 
-.post .content .title:hover::before {
+.post .content .title>span:hover::after {
 	position: absolute;
-	left: -30px;
-	color: #efefef;
-	content: attr(string) '';
+	top: -10px;
+	right: -25px;
+	font-size: 10px;
+	color: #dcdcdc;
+	content: attr(type) '';
 }
 
 .post .content .title>span::before {
     content: "";
     position: absolute;
     left: -5px;
+    right: -5px;
     bottom: -5px;
     width: 0;
     height: 2px;
-    background: rgba(150, 150, 150, 0.9);
+    background: #dcdcdc;
     transition: all 0.3s;
 }
 
 .post .content .title>span:hover::before {
-	width: calc(100% + 30px);
-	left: -5px;
-	right: -5px;
+	width: calc(100% + 10px);
 }
 
 .post .content .image {
@@ -219,4 +212,17 @@
 
 .post .author .details .social .social-link {
 	margin-right: 15px;
+}
+
+@media screen and (max-width: 600px) {
+	.post .content .code-block .lang-type {
+		display: none;
+	}
+}
+
+#root main .blog .summary p>code, 
+#root main .post .markdown p>code {
+	margin: 0 3px;
+	padding: 2px 3px;
+	border: 1px solid rgba(230, 230, 230, 1);
 }

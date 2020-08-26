@@ -18,12 +18,12 @@ const repoFetched = axios.post(githubWebhook, { query: QUERY_REPO }, githubConfi
 
 export default async (req, res) => {
 	const { message = 'hello, murph' } = req.query;
-	repoFetched.then(resp => {
-		console.log('数据查询完成：', resp);
+	repoFetched.then(({ data }) => {
+		console.log('数据查询完成：', data);
 		res.json({
 			code: 0,
 			payload: {
-				feedback: resp
+				feedback: data
 			}
 		});
 	}).catch(error => {

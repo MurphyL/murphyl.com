@@ -20,14 +20,18 @@ export default async (req, res) => {
 	const { message = 'hello, murph' } = req.query;
 	const result = {};
 	try{
-		const { id } = repoFetched.then(({ data = {} }) => (data.repository || {}));
-		result.code = 0;
-		result.payload = {
-			repositoryId: id
-		};
+		const { data } = await repoFetched;
+		Object.assign(result, {
+			code: 0,
+			payload: {
+				data
+			}
+		});
 	} catch(error) {
-		result.code = 1;
-		result.message = '获取文章评论信息出错';
+		Object.assign(result, {
+			code: 1,
+			message: '获取文章评论信息出错'
+		})
 	}
 	res.json(result);
 };

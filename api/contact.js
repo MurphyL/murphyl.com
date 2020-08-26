@@ -1,6 +1,8 @@
 const axios = require('axios');
 
-const slackWebhook = `https://hooks.slack.com/services/${process.env.SLACK_WEBHOOK}`
+const slackChannel = process.env.SLACK_WEBHOOK;
+
+const slackWebhook = `https://hooks.slack.com/services/${slackChannel}`;
 
 export default async (req, res) => {
 

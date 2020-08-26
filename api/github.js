@@ -8,7 +8,7 @@ const githubRepo = process.env.NOW_GITHUB_REPO;
 
 const githubConfig = {
 	headers:{
-		Authorization: `bearer ${githubToken}`
+		Authorization: `Bearer ${githubToken}`
 	}
 };
 

@@ -10,7 +10,11 @@ export default async (req, res) => {
 		text: message,
 		icon_emoji: ':cat:',
 		channel: '#creative',
-		username: 'murphyl.com'
+		username: 'murphyl.com',
+		attachments: [{
+			title: 'Message from:',
+			text: '技术博客'
+		}]
 	}).then(({ data }) => {
 		console.log('发送消息成功', data);
 		console.log(JSON.stringify(req));

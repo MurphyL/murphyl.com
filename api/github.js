@@ -16,8 +16,6 @@ const QUERY_REPO = `query{ repository(owner:"${githubUser}", name:"${githubRepo}
 
 const repoFetched = axios.post(githubWebhook, { query: QUERY_REPO }, githubConfig);
 
-const query
-
 export default async (req, res) => {
 	const { message = 'hello, murph' } = req.query;
 	const result = {};

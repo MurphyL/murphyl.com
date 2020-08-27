@@ -10,10 +10,9 @@
 			"Cache-Control": "max-age=3600",
 			"X-Site-Owner": "murphyl@outlook.com"
 		}
-	}],
-	"headers": [{
-		"source": "/api/(.*)",
-		"headers" : [        {
+	}, {
+		"src": "/api/(.*)",
+		"headers" : [{
           "key" : "X-FUNC-OWNER",
           "value" : "murphyl@outlook.com"
         }, {
@@ -28,19 +27,7 @@
         }]
 	}],
 	"functions": {
-	    "api/desc.js": {
-			"memory": 1024,
-			"maxDuration": 10
-	    },
-		"api/github.js": {
-			"memory": 1024,
-			"maxDuration": 10
-	    },
-		"api/contact.js": {
-			"memory": 1024,
-			"maxDuration": 10
-	    },
-		"api/gh_v4.js": {
+	    "api/*.js": {
 			"memory": 1024,
 			"maxDuration": 10
 	    }

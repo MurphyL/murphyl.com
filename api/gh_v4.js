@@ -24,7 +24,7 @@ export default (req, res) => {
 	axios({
 		method: 'POST',
 		url: 'https://api.github.com/graphql',
-		data: JSON.stringify(req.body || demo),
+		data: req.body,
 		headers: { 
 			Authorization: `Bearer ${GITHUB_TOKEN}`
 		},
@@ -37,13 +37,12 @@ export default (req, res) => {
 				fetched
 			}
 		});
-	}).catch(({ message, config }) => {
+	}).catch(({ message }) => {
 		console.log('数据查询参数：', JSON.stringify(req.body));
 		console.error('数据查询出错：', message);
 		res.json({
 			code: 1,
 			payload: {
-				config,
 				message,
 				params: req.body,
 				type: typeof(req.body)

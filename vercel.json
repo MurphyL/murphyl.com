@@ -23,6 +23,10 @@
 		"api/contact.js": {
 			"memory": 1024,
 			"maxDuration": 10
+	    },
+		"api/gh_v4.js": {
+			"memory": 1024,
+			"maxDuration": 10
 	    }
 	}
 }

@@ -8,14 +8,14 @@ const endpoint = 'https://api.github.com/graphql';
 
 const XHR_CONFIG = {
 	headers:{
-		Authorization: `Bearer ${githubToken}`
+		Authorization: `Bearer ${GITHUB_WEBHOOK}`
 	}
 };
 
 export default async (req, res) => {
 	const { query, variables = {} } = JSON.parse(req.body);
 	Object.assign(variables, { owner, repo });
-	axios.post(GITHUB_WEBHOOK, { query, variables }, XHR_CONFIG)
+	axios.post(endpoint, { query, variables }, XHR_CONFIG)
 	.then(fetched => {
 		console.log('数据查询完毕：', fetched);
 		res.json({

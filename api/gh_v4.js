@@ -13,7 +13,6 @@ const XHR_CONFIG = {
 };
 
 export default (req, res) => {
-	console.log(JSON.stringify(req, null, '\t'));
 	res.json({
 		code: 0,
 		payload: {

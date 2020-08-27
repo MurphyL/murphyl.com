@@ -32,21 +32,12 @@ export default (req, res) => {
 		},
 	}).then(({ status, data }) => {
 		console.log('数据查询完毕：', data);
-		res.json({
-			code: 0,
-			payload: {
-				...data, status
-			}
-		});
+		res.json({ ...data, status });
 	}).catch((error) => {
 		console.error('数据查询出错：', error);
 		res.json({
-			code: 1,
-			payload: {
-				error,
-				params: req.body,
-				type: typeof(req.body)
-			}
+			status: 500,
+			message: `AJAX出错 - ${error.message}`
 		});
 	});
 };

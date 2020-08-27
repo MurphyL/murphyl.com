@@ -19,6 +19,7 @@ const demo = {
 	}
 };
 
+// 查询
 export default (req, res) => {
 	axios({
 		url: 'https://api.github.com/graphql',

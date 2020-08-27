@@ -13,6 +13,7 @@ const XHR_CONFIG = {
 };
 
 export default async (req, res) => {
+	console.log(req.body);
 	const { query, variables = {} } = JSON.parse(req.body);
 	Object.assign(variables, { owner, repo });
 	axios.post(endpoint, { query, variables }, XHR_CONFIG)

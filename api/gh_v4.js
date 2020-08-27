@@ -13,9 +13,7 @@ const XHR_CONFIG = {
 };
 
 export default (req, res) => {
-	const { query, variables = {} } = JSON.parse(req.body);
-	Object.assign(variables, { owner, repo });
-	axios.post(endpoint, { query, variables }, XHR_CONFIG).then(fetched => {
+	axios.post(endpoint, req.body, XHR_CONFIG).then(fetched => {
 		console.log('数据查询完毕：', fetched);
 		res.json({
 			code: 0,

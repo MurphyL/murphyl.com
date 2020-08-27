@@ -19,7 +19,6 @@ export default (req, res) => {
 			github: {
 				owner, repo
 			},
-			request: req,
 			config: XHR_CONFIG,
 			webhook: GITHUB_WEBHOOK,
 		}

@@ -1,4 +1,5 @@
 const axios = require('axios');
+const lodash = require('lodash');
 
 const { GITHUB_TOKEN } = process.env;
 const owner = process.env.NOW_GITHUB_ORG;
@@ -29,12 +30,11 @@ export default (req, res) => {
 		headers: { 
 			Authorization: `Bearer ${GITHUB_TOKEN}`
 		},
-	}).then(fetched => {
-		console.log('数据查询完毕：', fetched);
+	}).then(({ data }) => {
+		console.log('数据查询完毕：', data);
 		res.json({
 			code: 0,
-			payload: {
-			}
+			payload: lodash.get(data, 'data.user')
 		});
 	}).catch((error) => {
 		console.error('数据查询出错：', error);

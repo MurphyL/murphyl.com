@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const { GITHUB_WEBHOOK } = process.env;
+const { GITHUB_TOKEN } = process.env;
 const owner = process.env.NOW_GITHUB_ORG;
 const repo = process.env.NOW_GITHUB_REPO;
 
@@ -8,11 +8,13 @@ const endpoint = 'https://api.github.com/graphql';
 
 const XHR_CONFIG = {
 	headers:{
-		Authorization: `Bearer ${GITHUB_WEBHOOK}`
+		Authorization: `Bearer ${GITHUB_TOKEN}`
 	}
 };
 
 export default (req, res) => {
+	console.log(req);
+	console.log(req.body);
 	res.json({
 		code: 0,
 		payload: {
@@ -20,7 +22,6 @@ export default (req, res) => {
 				owner, repo
 			},
 			config: XHR_CONFIG,
-			webhook: GITHUB_WEBHOOK,
 		}
 	});
 	/**

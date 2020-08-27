@@ -12,6 +12,7 @@
 		}
 	}, {
 		"src": "/api/(.*)",
+		"methods": [ "POST" ],
 		"headers" : [{
           "key" : "X-FUNC-OWNER",
           "value" : "murphyl@outlook.com"

@@ -23,9 +23,6 @@ const demo = {
 // 查询
 export default (req, res) => {
 	console.log('数据查询参数：', req.body);
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'POST');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
 	axios({
 		method: 'POST',
 		url: 'https://api.github.com/graphql',

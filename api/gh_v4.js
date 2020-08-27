@@ -7,15 +7,27 @@ const repo = process.env.NOW_GITHUB_REPO;
 const endpoint = 'https://api.github.com/graphql';
 
 const XHR_CONFIG = {
-	responseType: 'json',
-	headers:{
-		'Content-Type': 'application/json;charset=utf-8',
+	headers: {
 		'Authorization': `Bearer ${GITHUB_TOKEN}`
 	}
 };
 
+const demo = {
+	query: 'query($user: String!) { user(login: $user) { bio, email } }',
+	variables :{ 
+		user: "MurphyL" 
+	}
+};
+
 export default (req, res) => {
-	axios.post(endpoint, req.body, XHR_CONFIG).then(fetched => {
+	axios({
+		url: 'https://api.github.com/graphql',
+		method: 'POST',
+		data: (req.body || demo),
+		headers: { 
+			Authorization: `Bearer ${GITHUB_TOKEN}`
+		},
+	}).then(fetched => {
 		console.log('数据查询参数：', req.body);
 		console.log('数据查询完毕：', fetched);
 		res.json({

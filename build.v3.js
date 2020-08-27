@@ -3,6 +3,7 @@ const del = require('del');
 const path = require('path');
 const moment = require('moment');
 const shortid = require('shortid');
+const { xml2js } = require('xml-js');
 const { src, dest, series } = require('gulp');
 const parseFrontMatter = require('frontmatter');
 
@@ -13,6 +14,7 @@ const clean = async () => {
 	del.sync([
 		'build/',
 		'public/murph.x.json',
+		'public/graphql.json',
 		'public/manifest.json',
 	]);
 };
@@ -48,6 +50,30 @@ const manifest = async () => {
 	const db = low(new FileSync('public/manifest.json'));
 	db.defaults(murph.manifest || {}).write();
 }
+
+const graphql = async () => {
+	const content = resloveFile(reslovePath('graphql.xml'));
+	const xml = xml2js(content);
+	if(!xml) {
+		return console.log('XML文件为空');
+	}
+	const [ mapper ] = xml.elements || [];
+	if(!mapper) {
+		return console.log('XML文件为空');
+	}
+	const mapping = {};
+	const items = (mapper.elements || []).forEach(({ name, attributes, elements }) => {
+		if(name !== 'graphql' || !elements || elements.length === 0) {
+			return;
+		}
+		const [ element = {} ] = elements;
+		if(!attributes || !attributes.id) {
+			return console.log('查询语句的ID未设置');
+		}
+		mapping[attributes.id] = trimIfString(element.cdata);
+	});
+	writeFile('public/graphql.json', JSON.stringify(mapping, null, '\t'));
+};
 
 
 const blog = async () => {
@@ -86,4 +112,4 @@ const blog = async () => {
 	});
 };
 
-exports.default = series(clean, manifest, blog);
+exports.default = series(clean, manifest, graphql, blog);

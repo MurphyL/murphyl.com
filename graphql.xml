@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper>
+	<graphql id="github_fetch_issues">
+		<![CDATA[
+			query($owner: String!, $repo: String!, $type: [String!], $size: Int!) {
+				repository(owner: $owner, name: $repo) {
+					url,
+					pushedAt,
+					createdAt,
+					issues(first: $size, labels: $type, states: CLOSED, filterBy: { 
+						assignee: $owner
+					}) {
+						nodes {
+							id,
+							url,
+							title,
+							body,
+							closedAt,
+							author {
+								login
+							},
+							comments(first: 100) {
+								nodes  {
+									author {
+										login
+									},
+									id,
+									url,
+									body,
+									publishedAt
+								}
+							}
+						}
+						totalCount
+						pageInfo {
+							hasPreviousPage
+							hasNextPage
+							startCursor
+							endCursor
+						}
+					}
+				}	
+			}
+		]]>
+	</graphql>
+</mapper>

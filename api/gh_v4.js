@@ -23,6 +23,10 @@ const demo = {
 // 查询
 export default (req, res) => {
 	console.log('数据查询参数：', req.body);
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'POST');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
 	axios({
 		method: 'POST',
 		url: 'https://api.github.com/graphql',
@@ -30,7 +34,7 @@ export default (req, res) => {
 		headers: { 
 			Authorization: `Bearer ${GITHUB_TOKEN}`
 		},
-	}).then(({ data }) => {
+	}).then(({ status, data }) => {
 		console.log('数据查询完毕：', data);
 		res.json({
 			code: 0,

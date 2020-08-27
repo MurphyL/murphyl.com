@@ -4,20 +4,11 @@ import MemoryAdapter from 'lowdb/adapters/Memory';
 import { ajaxGet, ajaxPost } from './rest_client';
 
 const root = process.env.PUBLIC_URL;
-const token = process.env.REACT_APP_TOKEN;
+const { REACT_APP_ENDPOINT } = process.env;
 
 const ghConfig = {};
 
-let ghEndpoint = `${root}/api/github`;
-
-if(token) {
-	ghEndpoint = 'https://api.github.com/graphql';
-	Object.assign(ghConfig, {
-		headers: {
-			Authorization: `Bearer ${token}`
-		}
-	})
-}
+const ghEndpoint = `${REACT_APP_ENDPOINT}/api/gh_v4`;
 
 ajaxGet(`${root}/graphql.json`).then(({ code, payload }) => {
 	const { github_fetch_issues } = payload;

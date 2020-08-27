@@ -12,7 +12,7 @@ const XHR_CONFIG = {
 	}
 };
 
-export default async (req, res) => {
+export default (req, res) => {
 	console.log(JSON.stringify(req, null, '\t'));
 	res.json({
 		code: 0,

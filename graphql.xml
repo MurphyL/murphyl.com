@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <mapper>
+
+	<graphql id="test_api">
+		<![CDATA[
+			query{
+			  repository(owner:"MurphyL", name:"murphyl.com") {
+			    id
+			  }
+			}
+		]]>
+	</graphql>
+
 	<graphql id="github_fetch_issues">
 		<![CDATA[
 			query($owner: String!, $repo: String!, $type: [String!], $size: Int!) {

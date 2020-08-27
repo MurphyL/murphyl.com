@@ -21,7 +21,11 @@ export default (req, res) => {
 			github: {
 				owner, repo
 			},
-			config: XHR_CONFIG,
+			request: {
+			    body: req.body,
+    			query: req.query,
+    			cookies: req.cookies,
+			}
 		}
 	});
 	/**

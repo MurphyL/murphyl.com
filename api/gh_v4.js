@@ -22,9 +22,9 @@ const demo = {
 // 查询
 export default (req, res) => {
 	axios({
-		url: 'https://api.github.com/graphql',
 		method: 'POST',
-		data: (req.body || demo),
+		url: 'https://api.github.com/graphql',
+		data: JSON.stringify(req.body || demo),
 		headers: { 
 			Authorization: `Bearer ${GITHUB_TOKEN}`
 		},

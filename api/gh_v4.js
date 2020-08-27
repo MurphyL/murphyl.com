@@ -24,12 +24,13 @@ export default (req, res) => {
 				fetched
 			}
 		});
-	}).catch(({ message }) => {
+	}).catch(({ message, config }) => {
 		console.log('数据查询参数：', req.body);
 		console.error('数据查询出错：', message);
 		res.json({
 			code: 1,
 			payload: {
+				config,
 				message,
 				params: req.body,
 				type: typeof(req.body)

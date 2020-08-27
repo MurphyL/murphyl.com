@@ -13,28 +13,9 @@ const XHR_CONFIG = {
 };
 
 export default (req, res) => {
-	console.log(req);
-	console.log(req.body);
-	res.json({
-		code: 0,
-		payload: {
-			github: {
-				owner, repo
-			},
-			request: {
-			    body: req.body,
-    			query: req.query,
-    			cookies: req.cookies,
-			}
-		}
-	});
-	/**
-	return;
-	console.log(req.body);
 	const { query, variables = {} } = JSON.parse(req.body);
 	Object.assign(variables, { owner, repo });
-	axios.post(endpoint, { query, variables }, XHR_CONFIG)
-	.then(fetched => {
+	axios.post(endpoint, { query, variables }, XHR_CONFIG).then(fetched => {
 		console.log('数据查询完毕：', fetched);
 		res.json({
 			code: 0,
@@ -42,8 +23,7 @@ export default (req, res) => {
 				fetched
 			}
 		});
-	})
-	.catch(error => {
+	}).catch(error => {
 		console.log('数据查询出错：', error);
 		res.json({
 			code: 1,
@@ -51,6 +31,5 @@ export default (req, res) => {
 				error
 			}
 		});
-	})
-	**/
+	});
 };

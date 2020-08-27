@@ -14,6 +14,13 @@ const XHR_CONFIG = {
 
 export default async (req, res) => {
 	console.log(JSON.stringify(req, null, '\t'));
+	res.json({
+		code: 0,
+		payload: {
+			request: req
+		}
+	});
+	return;
 	console.log(req.body);
 	const { query, variables = {} } = JSON.parse(req.body);
 	Object.assign(variables, { owner, repo });

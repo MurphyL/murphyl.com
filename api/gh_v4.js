@@ -7,8 +7,10 @@ const repo = process.env.NOW_GITHUB_REPO;
 const endpoint = 'https://api.github.com/graphql';
 
 const XHR_CONFIG = {
+	responseType: 'json',
 	headers:{
-		Authorization: `Bearer ${GITHUB_TOKEN}`
+		'Content-Type': 'application/json;charset=utf-8',
+		'Authorization': `Bearer ${GITHUB_TOKEN}`
 	}
 };
 

@@ -21,6 +21,7 @@ const demo = {
 
 // 查询
 export default (req, res) => {
+	console.log('数据查询参数：', req.body);
 	axios({
 		method: 'POST',
 		url: 'https://api.github.com/graphql',
@@ -29,21 +30,18 @@ export default (req, res) => {
 			Authorization: `Bearer ${GITHUB_TOKEN}`
 		},
 	}).then(fetched => {
-		console.log('数据查询参数：', req.body);
 		console.log('数据查询完毕：', fetched);
 		res.json({
 			code: 0,
 			payload: {
-				fetched
 			}
 		});
-	}).catch(({ message }) => {
-		console.log('数据查询参数：', JSON.stringify(req.body));
-		console.error('数据查询出错：', message);
+	}).catch((error) => {
+		console.error('数据查询出错：', error);
 		res.json({
 			code: 1,
 			payload: {
-				message,
+				error,
 				params: req.body,
 				type: typeof(req.body)
 			}

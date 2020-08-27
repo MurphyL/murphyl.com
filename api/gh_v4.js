@@ -17,9 +17,15 @@ export default async (req, res) => {
 	res.json({
 		code: 0,
 		payload: {
-			request: req
+			github: {
+				owner, repo
+			},
+			request: req,
+			config: XHR_CONFIG,
+			webhook: GITHUB_WEBHOOK,
 		}
 	});
+	/**
 	return;
 	console.log(req.body);
 	const { query, variables = {} } = JSON.parse(req.body);
@@ -43,4 +49,5 @@ export default async (req, res) => {
 			}
 		});
 	})
+	**/
 };

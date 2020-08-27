@@ -38,7 +38,7 @@ export default (req, res) => {
 			}
 		});
 	}).catch(({ message, config }) => {
-		console.log('数据查询参数：', req.body);
+		console.log('数据查询参数：', JSON.stringify(req.body));
 		console.error('数据查询出错：', message);
 		res.json({
 			code: 1,

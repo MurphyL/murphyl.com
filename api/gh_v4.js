@@ -13,11 +13,6 @@ const XHR_CONFIG = {
 };
 
 export default (req, res) => {
-	console.log('参数：', req.body, typeof(req.body));
-	console.log('地址：', endpoint);
-	console.log('配置：', XHR_CONFIG);
-	const params = JSON.stringify(req.body);
-	console.log('转发：', params);
 	axios.post(endpoint, params, XHR_CONFIG).then(fetched => {
 		console.log('数据查询参数：', req.body);
 		console.log('数据查询完毕：', fetched);
@@ -27,13 +22,15 @@ export default (req, res) => {
 				fetched
 			}
 		});
-	}).catch(error => {
+	}).catch(({ message }) => {
 		console.log('数据查询参数：', req.body);
-		console.log('数据查询出错：', error);
+		console.error('数据查询出错：', message);
 		res.json({
 			code: 1,
 			payload: {
-				error
+				message,
+				params: req.body,
+				type: typeof(req.body)
 			}
 		});
 	});

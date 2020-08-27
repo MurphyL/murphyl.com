@@ -34,7 +34,9 @@ export default (req, res) => {
 		console.log('数据查询完毕：', data);
 		res.json({
 			code: 0,
-			payload: lodash.get(data, 'data.user')
+			payload: {
+				...data, status
+			}
 		});
 	}).catch((error) => {
 		console.error('数据查询出错：', error);

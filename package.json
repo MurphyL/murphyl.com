@@ -46,5 +46,6 @@
     "shortid": "^2.2.15",
     "toml": "^3.0.0",
     "xml-js": "^1.6.11"
-  }
+  },
+  "proxy": "https://murph.now.sh"
 }

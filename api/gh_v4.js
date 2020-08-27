@@ -13,12 +13,10 @@ const XHR_CONFIG = {
 };
 
 export default (req, res) => {
-	console.log('参数：', req.body);
+	console.log('参数：', req.body, typeof(req.body));
 	console.log('地址：', endpoint);
 	console.log('配置：', XHR_CONFIG);
-	const params = JSON.parse(req.body);
-	console.log('转发：', params);
-	axios.post(endpoint, params, XHR_CONFIG).then(fetched => {
+	axios.post(endpoint, req.body, XHR_CONFIG).then(fetched => {
 		console.log('数据查询参数：', req.body);
 		console.log('数据查询完毕：', fetched);
 		res.json({

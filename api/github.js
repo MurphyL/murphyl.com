@@ -31,9 +31,10 @@ export default async (req, res) => {
 			}
 		});
 	} catch(error) {
+		console.log('出错：', error);
 		Object.assign(result, {
 			code: 1,
-			message: '获取文章评论信息出错'
+			message: '获取文章评论信息出错：' + error.message
 		})
 	}
 	res.json(result);

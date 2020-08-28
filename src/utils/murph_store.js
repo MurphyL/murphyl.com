@@ -1,6 +1,3 @@
-import lowdb from 'lowdb';
-import MemoryAdapter from 'lowdb/adapters/Memory';
-
 import { ajaxGet, ajaxPost } from './rest_client';
 
 const root = process.env.PUBLIC_URL;
@@ -12,7 +9,6 @@ const ghEndpoint = '/api/gh_v4';
 const mapper = ajaxGet(`${root}/graphql.json`).then((resp) => {
 	return (resp.code === 0) ? resp.payload : {};
 });
-
 
 const invoke = (dsl, params) => (
 	ajaxPost(ghEndpoint, {
@@ -37,10 +33,4 @@ export const getBlogDetails = async (id) => {
 	const { code, payload } = await invoke(github_issue_detail, { id });
 	return (code === 0 && payload.status === 200) ? payload : {};
 };
-
-export const fetched = ajaxGet('murph.x.json').then((res) => {
-	const db = lowdb(new MemoryAdapter('x'));
-	db.defaults(res.payload || { blog: [] }).write();
-	return db;
-});
 

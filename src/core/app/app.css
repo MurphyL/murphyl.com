@@ -31,6 +31,10 @@ html, body, #root, .theme {
 	min-height: 100%;
 }
 
+#root {
+	min-width: 400px;
+}
+
 #root main .container {
 	min-height: 30vh;
 }

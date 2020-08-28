@@ -2,7 +2,7 @@
 #root footer {
 	margin-top: 10px;
 	min-height: 120px;
-	border-top: 3px solid rgba(240, 240, 240, 0.5);
+	border-top: 3px solid rgba(240, 240, 240, 0.7);
 }
 
 #root footer .sitemap {
@@ -29,6 +29,7 @@
 }
 
 #root footer .sitemap .section dd ul {
+	margin-top: 10px;
 	padding-left: 0;
 	line-height: 25px;
 }
@@ -58,4 +59,11 @@
 #root footer .copyright .vercel-logo {
 	margin: 0 5px;
 	vertical-align: middle;
+}
+
+#root footer .sitemap .section.navi dd ul li::before,
+#root footer .sitemap .section.links dd ul li::before {
+	padding-right: 5px;
+	content: "◦";
+	color: rgba(170, 170, 170, 0.8);
 }

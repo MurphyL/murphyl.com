@@ -24,7 +24,7 @@
 
 	#root header ul.navi {
 		display: none;
-		margin: 11px 0 0;
+		margin: 5px 0 0;
 		padding: 0;
 		width: 100%;
 		z-index: 1;
@@ -34,10 +34,12 @@
 
 	#root header ul.navi.true {
 		display: block;
-		position: fixed;
-		left: 0;
-		width: 100%;
-		border-bottom: 1px solid #ccc;
+		border-top: 1px solid rgba(230, 230, 230, 0.2);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	}
+
+	#root header ul.navi.true li {
+		border-bottom: 1px solid rgba(230, 230, 230, 0.2);
 	}
 
 	#root header .navi-trigger {
@@ -50,6 +52,28 @@
 		height: 50px;
 		line-height: 50px;
 		cursor: pointer;
+	}
+
+	#root header .navi-trigger.true {
+		opacity: 0.5;
+	}
+
+
+	#root header .navi-trigger.false {
+		opacity: 1;
+	}
+
+
+	#root header .navi-trigger .holder svg {
+		margin-top: -5px;
+		width: 16px;
+		height: 16px;
+		vertical-align: middle;
+	}
+
+	#root header ul.true li.more-links,
+	#root header ul.true li.github-logo {
+		display: none;
 	}
 
 }
@@ -98,9 +122,14 @@
 	top: 4px;
 }
 
-#root header ul.false li.github-logo svg{
+#root header ul.false li.github-logo svg {
+	opacity: 0.3;
 	width: 18px;
 	height: 18px;
+}
+
+#root header ul.false li.github-logo:hover svg {
+	opacity: 0.8;
 }
 
 /** More Links **/
@@ -115,7 +144,11 @@
 	cursor: pointer;
 	border-radius: 2px;
     border: 1px solid #d9d9d9;
-	box-shadow: 0 2px 0 rgba(0,0,0,.015);
+	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+}
+
+#root header ul.false li.more-links:hover .x {
+	opacity: 0.7;
 }
 
 #root header ul.false li.more-links svg {

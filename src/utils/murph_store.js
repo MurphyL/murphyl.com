@@ -28,8 +28,8 @@ const githubInvoke = (dsl) => (
 
 export const fetchBlogItems = async () => {
 	const { github_fetch_issues } = await mapper;
-	const x = await githubInvoke(github_fetch_issues);
-	console.log(x);
+	const { code, payload } = await githubInvoke(github_fetch_issues);
+	console.log(code, payload);
 };
 
 fetchBlogItems();

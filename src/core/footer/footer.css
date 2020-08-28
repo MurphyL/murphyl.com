@@ -2,7 +2,7 @@
 #root footer {
 	margin-top: 10px;
 	min-height: 120px;
-	border-top: 1px solid #ccc;
+	border-top: 3px solid rgba(240, 240, 240, 0.5);
 }
 
 #root footer .sitemap {

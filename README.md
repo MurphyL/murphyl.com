@@ -9,3 +9,7 @@
 ## Icons
 
 > https://icons.getbootstrap.com/
+
+## 其他
+
+- [每日诗词](https://www.jinrishici.com/doc/#npm)

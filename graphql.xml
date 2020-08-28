@@ -15,43 +15,106 @@
 	<graphql id="github_fetch_issues">
 		<![CDATA[
 			query($owner: String!, $repo: String!, $type: [String!], $size: Int!) {
-				repository(owner: $owner, name: $repo) {
-					url,
-					pushedAt,
-					createdAt,
-					issues(first: $size, labels: $type, states: CLOSED, filterBy: { 
-						assignee: $owner
-					}) {
-						nodes {
-							id,
-							url,
-							title,
-							body,
-							closedAt,
-							author {
-								login
-							},
-							comments(first: 100) {
-								nodes  {
-									author {
-										login
-									},
-									id,
-									url,
-									body,
-									publishedAt
-								}
-							}
-						}
-						totalCount
-						pageInfo {
-							hasPreviousPage
-							hasNextPage
-							startCursor
-							endCursor
-						}
-					}
-				}	
+			  meta {
+			    hookIpAddresses
+			  }
+			  repository(owner: $owner, name: $repo) {
+			    issues(first: $size, labels: $type, states: CLOSED, filterBy: {assignee: $owner}) {
+			      nodes {
+			        id,
+			        databaseId,
+			        title,
+			        body,
+			        closedAt,
+			        labels(first: 10) {
+			          nodes {
+			            name,
+			            color,
+			            description
+			          }
+			        },
+			        reactionGroups {
+			          content,
+			          createdAt,
+			          users(first: 5) {
+			            totalCount
+			            nodes {
+			              name
+			            }
+			          }
+			        },
+			        author {
+			          login
+			        }
+			      },
+			      totalCount,
+			      pageInfo {
+			        hasPreviousPage,
+			        hasNextPage,
+			        startCursor,
+			        endCursor
+			      }
+			    }
+			  }
+			}
+		]]>
+	</graphql>
+
+	<graphql id="github_issue_detail">
+		<![CDATA[
+			query ($id: ID!) {
+			  meta {
+			    hookIpAddresses
+			  }
+			  node(id: $id) {
+			    ... on Issue {
+			      id,
+			      databaseId,
+			      title,
+			      body,
+			      closedAt,
+			      labels(first: 10) {
+			        nodes {
+			          name,
+			          color,
+			          description
+			        }
+			      },
+			      reactionGroups {
+			        content,
+			        createdAt,
+			        users(first: 5) {
+			          totalCount
+			          nodes {
+			            name
+			          }
+			        }
+			      },
+			      author {
+			        login
+			      },
+			      comments(first: 10) {
+			        nodes {
+			          author {
+			            login
+			          },
+			          id,
+			          bodyText,
+			          publishedAt,
+			          reactionGroups {
+			            content,
+			            createdAt,
+			            users(first: 5) {
+			              totalCount,
+			              nodes {
+			                name
+			              }
+			            }
+			          }
+			        }
+			      }
+			    }
+			  }
 			}
 		]]>
 	</graphql>

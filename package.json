@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
+    "gray-matter": "^4.0.2",
     "highlight.js": "^10.1.2",
     "lodash": "^4.17.20",
     "lowdb": "^1.0.0",

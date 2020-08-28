@@ -102,6 +102,7 @@
 	padding: 0;
 	overflow-x: auto;
 	border: 1px solid #ccc;
+	border-radius: 2px;
 	background: #f8f8f8;
 	word-spacing: normal;
     word-break: normal;
@@ -110,29 +111,35 @@
     tab-size: 4;
 }
 
-.post .content .code-block .hljs-comment {
-	letter-spacing: 1px;
+.post .content .code-block pre {
+	position: relative;
+	margin: 8px 10px;
+	padding: 5px 10px;
 }
 
-.post .content .code-block .hljs {
-	margin: 10px 20px;
-	padding: 0;
-	overflow: initial;
-}
-
-.post .content .code-block .lang-type {
+.post .content .code-block pre::before {
 	position: absolute;
-	padding: 1px 5px;
-	z-index: 1;
-	right: 10px;
-	top: 0;
+	padding: 3px 5px;
+	top: -8px;
+	right: 8px;
 	background: #fff;
 	font-size: 8px;
+	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+	line-height: 12px;
+	content: attr(desc);
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+}
+
+.post .content .code-block pre code .hljs-comment {
+	letter-spacing: 1px;
+}
+
+.post .content .code-block pre code {
+	overflow: initial;
 }
 
 .post .content ol,

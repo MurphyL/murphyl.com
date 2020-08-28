@@ -1,4 +1,4 @@
-import React, { Component, Fragment, StrictMode } from 'react';
+import React, { Component, StrictMode } from 'react';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import './app.css';
 
 const NormalLoadable = ({ view }) => {
     return (
-        <Fragment>
+        <div className="theme light">
             <Header />
             <main>
                 <div className="container">
@@ -19,7 +19,7 @@ const NormalLoadable = ({ view }) => {
                 </div>
             </main>
             <Footer />
-        </Fragment>
+        </div>
     );
 };
 

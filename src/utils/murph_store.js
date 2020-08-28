@@ -14,25 +14,29 @@ const mapper = ajaxGet(`${root}/graphql.json`).then((resp) => {
 });
 
 
-const githubInvoke = (dsl) => (
+const invoke = (dsl, params) => (
 	ajaxPost(ghEndpoint, {
 		query: dsl,
-		variables: {
-			owner: 'MurphyL',
-			repo: 'murphyl.com',
-			type: 'X-POST',
-			size: 5
-		}
+		variables: params
 	}, ghConfig)
 );
 
 export const fetchBlogItems = async () => {
 	const { github_fetch_issues } = await mapper;
-	const { code, payload } = await githubInvoke(github_fetch_issues);
-	console.log(code, payload);
+	const { code, payload } = await invoke(github_fetch_issues, {
+		owner: 'MurphyL',
+		repo: 'murphyl.com',
+		type: 'X-POST',
+		size: 5
+	});
+	return (code === 0 && payload.status === 200) ? payload : {};
 };
 
-fetchBlogItems();
+export const getBlogDetails = async (id) => {
+	const { github_issue_detail } = await mapper;
+	const { code, payload } = await invoke(github_issue_detail, { id });
+	return (code === 0 && payload.status === 200) ? payload : {};
+};
 
 export const fetched = ajaxGet('murph.x.json').then((res) => {
 	const db = lowdb(new MemoryAdapter('x'));
@@ -40,4 +44,3 @@ export const fetched = ajaxGet('murph.x.json').then((res) => {
 	return db;
 });
 
-export const blogFetched = fetched.then(db => db.get('blog'));

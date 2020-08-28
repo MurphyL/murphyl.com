@@ -1,26 +1,37 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { Link, useLocation } from "react-router-dom";
+import lodashGet from 'lodash/get';
+
+import { Link } from "react-router-dom";
 
 import Markdown from 'markdown-to-jsx';
 
 import { Loading } from '../../../core/loading/loading';
 
-import { blogFetched } from '../../../utils/murph_store';
+import { revisePost } from '../../../utils/article_utils';
+
+import { fetchBlogItems } from '../../../utils/murph_store';
+
 
 import './blog_list.css';
 
 const BlogPost = ({ post }) => {
+    const { title, id } = post;
+    const parsed = revisePost(post);
+    const linkInfo = {
+        pathname: `/post/${id || 'x'}`, 
+        state: revisePost(post)
+    };
     return (
         <Fragment>
             <dt>
-                <Link to={ `/post/${post.filename}` }>
-                    <h2>{ post.title }</h2>
+                <Link to={ linkInfo }>
+                    <h2>{ title }</h2>
                 </Link>
             </dt>
             <dd>
-                <article className={ `summary ${post.kind}` }>
-                    <Markdown children={ post.summary } options={{
+                <article className="summary">
+                    <Markdown children={ parsed.excerpt } options={{
                         createElement: (type, props, children) => {
                             if (props.key === 'outer') {
                                 props.className = 'outer markdown';
@@ -34,14 +45,13 @@ const BlogPost = ({ post }) => {
     )
 };
 
-export const BlogPager = ({ more, count }) => {
-    if(!more) {
-        return (
-            <div>已加载全部<b>{ count }</b>篇文章</div>
-        );
-    }
+export const BlogPager = ({ pageInfo }) => {
+    const { hasNextPage, hasPreviousPage } = pageInfo;
     return (
-        <div>查看更多（共有<b>{ count }</b>篇文章）</div>
+        <div>
+            <div>{ hasPreviousPage && ( <span>上一页</span> ) }</div>
+            <div>{ hasNextPage && ( <span>下一页</span> ) }</div>
+        </div>
     );
 };
 
@@ -57,49 +67,36 @@ export const BlogItems = ({ posts }) => {
     );
 };
 
+
+const GITHUB_ISSUES_PATH = 'data.repository.issues';
+
 const BlogList = () => {
-    const { search } = useLocation();
     const [ local, setLocal ] = useState({ loading: true });
-    const [ pageNum, setPageNum ] = useState(1);
     useEffect(() => {
-        const params = {};
-        const entries = new URLSearchParams(search).entries();
-        for(let [ key, val ] of entries) {
-            params[key] = val;
-        }
-        blogFetched.then((fetched) => {
-            const { ps = 5 } = params;
-            const temp = fetched.filter({ release: true });
-            const count = temp.size().value();
-            const more = (pageNum * ps) < count;
+        fetchBlogItems().then((resp) => {
+            const { nodes, pageInfo, totalCount } = lodashGet(resp, GITHUB_ISSUES_PATH);
             setLocal({
-                more,
                 loading: false,
-                totalSize: count,
-                posts: temp.take(pageNum * ps).value(),
+                pageInfo, 
+                totalCount,
+                posts: nodes
             });
-        });
-    }, [ search, pageNum ]);
-    const { loading, posts, more, totalSize } = local;
+        }).catch(error => {
+            console.log('查询数据出错：', error);
+        })
+    }, []);
+    const { loading, posts, pageInfo } = local;
     if(loading) {
         return (
-            <Loading />
+            <Loading message="数据加载中……" />
         );
-    };
-    const changePage = (e) => {
-        if(!more) {
-            return;
-        }
-        setPageNum(pageNum + 1);
-    };
+    }
     return (
         <Fragment>
             <BlogItems posts={ posts } />
-            <div className="pager" onClick={ changePage }>
-                <BlogPager more={ more } count={ totalSize } />
-            </div>
+            <BlogPager pageInfo = { pageInfo } />
         </Fragment>
     );
-};
+}
 
 export default BlogList;

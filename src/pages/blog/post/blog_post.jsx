@@ -1,6 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Link, useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+
+import lodashGet from 'lodash/get';
 
 import Markdown from 'markdown-to-jsx';
 
@@ -9,7 +11,9 @@ import 'highlight.js/styles/github.css';
 
 import { Loading } from '../../../core/loading/loading';
 
-import { fetched } from '../../../utils/murph_store';
+import { getBlogDetails } from '../../../utils/murph_store';
+
+import { revisePost } from '../../../utils/article_utils';
 
 import './blog_post.css';
 
@@ -39,8 +43,7 @@ const Prepare = ({ children }) => {
         const langType = LANG_TYPES[children.props.className] || 'Text';
         return (
             <div className="code-block">
-                <pre>{ children }</pre>
-                <div className="lang-type">{ langType }</div>
+                <pre desc={ langType }>{ children }</pre>
             </div>
         )
     }
@@ -105,17 +108,65 @@ const markdownOptions = {
 };
 
 const highlightCodeBlock = () => {
-    hljs.configure({
-        tabReplace: '    ',
+    setTimeout(() => {
+        hljs.configure({
+            tabReplace: '    ',
+        });
+        hljs.initHighlighting();
+        const codes = document.querySelectorAll('.code-block code');
+        codes.forEach((block) => {
+            hljs.highlightBlock(block);
+        }, 50);
     });
-    hljs.initHighlighting();
-    document.querySelectorAll('.code-block code').forEach((block) => {
-        hljs.highlightBlock(block);
-    });    
 };
 
 const Post = () => {
     const { unique } = useParams();
+    const { state } = useLocation();
+    const [ local, setLocal ] = useState({ loading: true });
+    useEffect(() => {
+        if(state) {
+            setLocal(Object.assign(state, { loading: false }));
+            highlightCodeBlock();
+        } else {
+            getBlogDetails(unique).then((resp) => {
+                const post = lodashGet(resp, 'data.node');
+                setLocal(Object.assign(revisePost(post), { loading: false }));
+                highlightCodeBlock();
+            });
+        }
+    }, [ state, unique ]);
+    const { loading, title, content } = local;
+    if(loading) {
+        return (
+            <Loading message="数据加载中……" />
+        );
+    }
+    return (
+        <article className="post">
+            <h2>{ title || '' }</h2>
+            <section>
+                <Markdown children={ content || '' } options= { markdownOptions }/>
+            </section>
+            {/*<section className="author">
+                <div className="details">
+                    <h3><Link to={ `/author/${author.id}` }>{ author.name || '' }</Link></h3>
+                    <div>{ author.desc || '' }</div>
+                    <div className="social">
+                        <Link to={ `/author/${author.id}` }>
+                            <span className="social-link">查看Ta的专栏</span>
+                        </Link>
+                        { (author.social || []).map((item, index) => (
+                            <a key={ index } href={ item.link } target="_blank" rel="noopener noreferrer">
+                                <span className={ `social-link social-link-${item.type}` }>{ item.type }</span>
+                            </a>
+                        )) }
+                    </div>
+                </div>
+            </section>*/}
+        </article>
+    );
+    /*const { unique } = useParams();
     const [ local, setLocal ] = useState({ status: -1 });
     useEffect(() => {
         fetched.then(fetched => {
@@ -162,7 +213,7 @@ const Post = () => {
                 </section>
             </article>
         </Fragment>
-    );
+    );*/
 };
 
 export default Post;

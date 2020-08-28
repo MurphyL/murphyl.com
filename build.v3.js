@@ -5,7 +5,6 @@ const moment = require('moment');
 const shortid = require('shortid');
 const { xml2js } = require('xml-js');
 const { src, dest, series } = require('gulp');
-const parseFrontMatter = require('frontmatter');
 
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
@@ -75,7 +74,7 @@ const graphql = async () => {
 	writeFile('public/graphql.json', JSON.stringify(mapping, null, '\t'));
 };
 
-
+/**
 const blog = async () => {
 	const db = low(new FileSync('public/murph.x.json'));
 	const dt = new Date().toLocaleDateString('zh-CN');
@@ -111,5 +110,6 @@ const blog = async () => {
 		}).write()
 	});
 };
+**/
 
-exports.default = series(clean, manifest, graphql, blog);
+exports.default = series(clean, manifest, graphql);

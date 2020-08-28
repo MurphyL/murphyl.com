@@ -49,8 +49,8 @@ export const BlogPager = ({ pageInfo }) => {
     const { hasNextPage, hasPreviousPage } = pageInfo;
     return (
         <div>
-            <div>{ hasPreviousPage && ( <span>上一页</span> ) }</div>
-            <div>{ hasNextPage && ( <span>下一页</span> ) }</div>
+            <div>{ hasPreviousPage && ( <Link to={'/post/2'}>上一页</Link> ) }</div>
+            <div>{ hasNextPage && ( <Link to="/post/2">下一页</Link> ) }</div>
         </div>
     );
 };

@@ -30,7 +30,7 @@ const RouteItems = () => {
                 <Route path="/" exact={ true }>
                     <NormalLoadable view="home/home" />
                 </Route>
-                <Route path="/blog">
+                <Route path={[ '/blog', '/blog/:pn' ]}>
                     <NormalLoadable view="blog/list/blog_list" />
                 </Route>
                 <Route path="/post/:unique">
@@ -39,10 +39,7 @@ const RouteItems = () => {
                 <Route path="/tag/:unique">
                     <NormalLoadable view="blog/tag/blog_tag" />
                 </Route>
-                <Route path="/all">
-                    <NormalLoadable view="blog/achive/blog_achive" />
-                </Route>
-                <Route path="/achive">
+                <Route path={[ '/all', '/achive' ]}>
                     <NormalLoadable view="blog/achive/blog_achive" />
                 </Route>
                 <Route path="/author/:unique">

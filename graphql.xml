@@ -19,9 +19,14 @@
 			    hookIpAddresses
 			  }
 			  repository(owner: $owner, name: $repo) {
-			    issues(first: $size, labels: $type, states: CLOSED, filterBy: {assignee: $owner}) {
+			    issues(first: $size, labels: $type, states: CLOSED, filterBy: {
+			    	assignee: $owner
+			    }, orderBy: {
+			    	field: CREATED_AT, direction: DESC
+			    }) {
 			      nodes {
 			        id,
+			        number,
 			        databaseId,
 			        title,
 			        body,
@@ -69,6 +74,7 @@
 			  node(id: $id) {
 			    ... on Issue {
 			      id,
+			      number,
 			      databaseId,
 			      title,
 			      body,

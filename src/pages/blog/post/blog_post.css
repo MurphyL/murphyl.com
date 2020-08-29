@@ -82,6 +82,8 @@
 }
 
 .post .content table {
+	margin: 10px 15px;
+	width: calc(100% - 15px * 2);
 	border-collapse: collapse;
 }
 
@@ -100,7 +102,7 @@
 	position: relative;
 	margin: 5px 15px;
 	padding: 0;
-	overflow-x: auto;
+	overflow: hidden;
 	border: 1px solid #ccc;
 	border-radius: 2px;
 	background: #f8f8f8;
@@ -111,17 +113,11 @@
     tab-size: 4;
 }
 
-.post .content .code-block pre {
-	position: relative;
-	margin: 8px 10px;
-	padding: 5px 10px;
-}
-
-.post .content .code-block pre::before {
+.post .content .code-block::before {
 	position: absolute;
 	padding: 3px 5px;
-	top: -8px;
-	right: 8px;
+	top: 0;
+	right: 10px;
 	background: #fff;
 	font-size: 8px;
 	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
@@ -132,6 +128,13 @@
 	border-bottom: 1px solid #ccc;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+}
+
+.post .content .code-block pre {
+	position: relative;
+	margin: 0;
+	padding: 13px 20px;
+	overflow-x: auto;
 }
 
 .post .content .code-block pre code .hljs-comment {
@@ -152,9 +155,9 @@
 
 .post .content ol li::before,
 .post .content ul li::before {
-	margin-right: 15px;
+	padding-right: 10px;
 	content: '•';
-	color: #ababab;
+	color: #bcbcbc;
 }
 
 .post .content li>code,
@@ -170,11 +173,6 @@
 
 .post .content blockquote>.paragraph>code {
 	margin: 0 4px;
-}
-
-.post .content table {
-	margin: 10px 25px;
-	width: calc(100% - 15px * 2);
 }
 
 .post .content .code-block code {

@@ -8,7 +8,7 @@ export const Loading = ({ message }) => {
             <div className="spin">
                 <img src="/image/squares.svg" alt="loading spin" />
             </div>
-            <div>{ message || '加载中……' }</div>
+            <div className="message">{ message || '加载中' }</div>
         </div>
     );
 };

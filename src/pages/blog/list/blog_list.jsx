@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import lodashGet from 'lodash/get';
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Markdown from 'markdown-to-jsx';
 
@@ -19,7 +19,7 @@ const BlogPost = ({ post }) => {
     const { title, id } = post;
     const parsed = revisePost(post);
     const linkInfo = {
-        pathname: `/post/${id || 'x'}`, 
+        pathname: `/post/${id || 'NOT_FOUND'}`, 
         state: revisePost(post)
     };
     return (
@@ -45,12 +45,29 @@ const BlogPost = ({ post }) => {
     )
 };
 
-export const BlogPager = ({ pageInfo }) => {
-    const { hasNextPage, hasPreviousPage } = pageInfo;
+const revieNavi = (state) => {
+    return {
+        state, pathname: '/blog'
+     };
+};
+
+export const BlogPager = ({ pageInfo, fromPrev }) => {
+    const { hasNextPage, hasPreviousPage, endCursor, startCursor } = pageInfo;
     return (
         <div>
-            <div>{ hasPreviousPage && ( <Link to={'/post/2'}>上一页</Link> ) }</div>
-            <div>{ hasNextPage && ( <Link to="/post/2">下一页</Link> ) }</div>
+            <div>{ hasPreviousPage && (
+                 <Link to={revieNavi({
+                    source: 'pager',
+                    direction: 'before',
+                    cursor: startCursor
+                })}>上一页</Link> 
+            ) }</div>
+            <div>{ (hasNextPage || fromPrev) && (
+                <Link to={revieNavi({
+                    direction: 'after',
+                    cursor: endCursor
+                })}>下一页</Link> 
+            ) }</div>
         </div>
     );
 };
@@ -58,11 +75,9 @@ export const BlogPager = ({ pageInfo }) => {
 export const BlogItems = ({ posts }) => {
     return (
         <dl className="blog">
-            {(posts || []).map((post, index) => {
-                return (
-                    <BlogPost key={ index } post={ post } />
-                )
-            })}
+            {(posts || []).map((post, index) => (
+                <BlogPost key={ index } post={ post } />
+            ))}
         </dl>
     );
 };
@@ -71,9 +86,19 @@ export const BlogItems = ({ posts }) => {
 const GITHUB_ISSUES_PATH = 'data.repository.issues';
 
 const BlogList = () => {
+    const { state } = useLocation();
+    console.log(state);
     const [ local, setLocal ] = useState({ loading: true });
     useEffect(() => {
-        fetchBlogItems().then((resp) => {
+        const params = state ? state : { 
+            cursor: null,
+            direction: 'before', 
+        };
+        fetchBlogItems({
+            ...params,
+            size: 5,
+            type: 'X-POST'
+        }).then((resp) => {
             const { nodes, pageInfo, totalCount } = lodashGet(resp, GITHUB_ISSUES_PATH);
             setLocal({
                 loading: false,
@@ -84,17 +109,18 @@ const BlogList = () => {
         }).catch(error => {
             console.log('查询数据出错：', error);
         })
-    }, []);
+    }, [ state ]);
     const { loading, posts, pageInfo } = local;
     if(loading) {
         return (
-            <Loading message="数据加载中……" />
+            <Loading message="数据加载中" />
         );
     }
+    const fromPrev = state && (state.source === 'pager');
     return (
         <Fragment>
             <BlogItems posts={ posts } />
-            <BlogPager pageInfo = { pageInfo } />
+            <BlogPager pageInfo = { pageInfo } fromPrev = { fromPrev } />
         </Fragment>
     );
 }

@@ -14,16 +14,28 @@
 
 	<graphql id="github_fetch_issues">
 		<![CDATA[
-			query($owner: String!, $repo: String!, $type: [String!], $size: Int!) {
+			query(
+				$owner: String!, 
+				$repo: String!, 
+				$type: [String!], 
+				$cursor: String, 
+				$size: Int!
+			) {
 			  meta {
 			    hookIpAddresses
 			  }
 			  repository(owner: $owner, name: $repo) {
-			    issues(first: $size, labels: $type, states: CLOSED, filterBy: {
-			    	assignee: $owner
-			    }, orderBy: {
-			    	field: CREATED_AT, direction: DESC
-			    }) {
+			    issues(
+				    first: $size, 
+				    labels: $type, 
+				    states: CLOSED, 
+				    #PAGE_DIRECTION#: $cursor,
+				    filterBy: {
+				    	assignee: $owner
+				    }, orderBy: {
+				    	field: CREATED_AT, direction: DESC
+				    }
+			    ) {
 			      nodes {
 			        id,
 			        number,

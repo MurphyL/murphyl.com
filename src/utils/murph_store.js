@@ -17,14 +17,15 @@ const invoke = (dsl, params) => (
 	}, ghConfig)
 );
 
-export const fetchBlogItems = async () => {
+export const fetchBlogItems = async (params) => {
+	const { direction } = (params || { direction: 'after', size: 5 });
 	const { github_fetch_issues } = await mapper;
-	const { code, payload } = await invoke(github_fetch_issues, {
+	const ql = github_fetch_issues.replace('#PAGE_DIRECTION#', direction);
+	const { code, payload } = await invoke(ql, Object.assign({
 		owner: 'MurphyL',
 		repo: 'murphyl.com',
-		type: 'X-POST',
-		size: 5
-	});
+		type: 'X-POST'
+	}, params));
 	return (code === 0 && payload.status === 200) ? payload : {};
 };
 

@@ -87,9 +87,9 @@ const GITHUB_ISSUES_PATH = 'data.repository.issues';
 
 const BlogList = () => {
     const { state } = useLocation();
-    console.log(state);
     const [ local, setLocal ] = useState({ loading: true });
     useEffect(() => {
+        setLocal({ loading: true });
         const params = state ? state : { 
             cursor: null,
             direction: 'before', 

@@ -130,6 +130,7 @@ const Post = () => {
             highlightCodeBlock();
         } else {
             getBlogDetails(unique).then((resp) => {
+                console.log(resp);
                 const post = lodashGet(resp, 'data.node');
                 setLocal(Object.assign(revisePost(post), { loading: false }));
                 highlightCodeBlock();

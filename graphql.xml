@@ -69,7 +69,27 @@
 			        },
 			        author {
 			          login
-			        }
+			        },
+			      	comments(first: 10) {
+			      	  nodes {
+			      	    author {
+			      	      login
+			      	    },
+			      	    id,
+			      	    bodyText,
+			      	    publishedAt,
+			      	    reactionGroups {
+			      	      content,
+			      	      createdAt,
+			      	      users(first: 5) {
+			      	        totalCount,
+			      	        nodes {
+			      	          name
+			      	        }
+			      	      }
+			      	    }
+			      	  }
+			      	}
 			      },
 			      totalCount,
 			      pageInfo {

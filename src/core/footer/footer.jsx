@@ -37,7 +37,12 @@ const Footer = () => {
                             <ul>
                                 <li>
                                     <a href={`https://github.com/${ process.env.REACT_APP_GITHUB }`} target="_blank" rel="noopener noreferrer">
-                                        <img alt="GitHub followers" src={`https://img.shields.io/github/followers/${ process.env.REACT_APP_GITHUB }?label=Follow&style=social`} />
+                                        <img alt="GitHub followers" src={`https://img.shields.io/github/followers/${ process.env.REACT_APP_GITHUB }?label=${ process.env.REACT_APP_GITHUB }&style=social`} />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href={`https://github.com/${ process.env.REACT_APP_GITHUB }`} target="_blank" rel="noopener noreferrer">
+                                        <img alt="GitHub followers" src={`https://img.shields.io/twitter/follow/MurphyLuo?label=MurphyLuo&style=social`} />
                                     </a>
                                 </li>
                             </ul>

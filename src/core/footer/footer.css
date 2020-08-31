@@ -59,6 +59,7 @@
 #root footer .copyright .vercel-logo {
 	margin: 0 5px;
 	vertical-align: middle;
+	opacity: 0.6;
 }
 
 #root footer .sitemap .section.navi dd ul li::before,

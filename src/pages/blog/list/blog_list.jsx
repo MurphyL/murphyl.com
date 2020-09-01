@@ -52,6 +52,9 @@ const revieNavi = (state) => {
 };
 
 export const BlogPager = ({ pageInfo, fromPrev }) => {
+    if(!pageInfo) {
+        return '';
+    }
     const { hasNextPage, hasPreviousPage, endCursor, startCursor } = pageInfo;
     return (
         <div>

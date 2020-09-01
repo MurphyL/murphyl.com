@@ -8,6 +8,7 @@ import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
 import './app.css';
+import './mark.css';
 
 const NormalLoadable = ({ view }) => {
     return (

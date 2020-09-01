@@ -21,17 +21,6 @@
 				$cursor: String, 
 				$size: Int!
 			) {
-			  meta {
-			    hookIpAddresses
-			  }
-			  viewer {
-			    bio
-			    name
-			    login
-			    email
-			    company
-			    location
-			  }
 			  repository(owner: $owner, name: $repo) {
 			    issues(
 				    first: $size, 
@@ -171,17 +160,6 @@
 				$type: [String!], 
 				$size: Int!
 			) {
-			  meta {
-			    hookIpAddresses
-			  }
-			  viewer {
-			    bio
-			    name
-			    login
-			    email
-			    company
-			    location
-			  }
 			  repository(owner: $owner, name: $repo) {
 			    issues(
 				    first: $size, 
@@ -204,16 +182,6 @@
 			            name,
 			            color,
 			            description
-			          }
-			        },
-			        reactionGroups {
-			          content,
-			          createdAt,
-			          users(first: 5) {
-			            totalCount
-			            nodes {
-			              name
-			            }
 			          }
 			        },
 			        author {

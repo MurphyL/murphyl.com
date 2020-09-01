@@ -1,22 +1,57 @@
 #snippets {
 	display: flex;
-}
-
-#snippets .nav {
-	width: 150px;
-	border-right: 4px solid #ccc;
-}
-
-#snippets .nav dl {
 	height: 100vh;
 }
 
-#snippets .nav dl dd, #snippets .nav dl ul {
-	margin: 0;
+#snippets .navi {
+	width: 150px;
+}
+
+#snippets .navi ul {
 	padding: 0;
+	list-style-type: none;
 	text-align: center;
 }
 
-#snippets .nav dl ul {
-	list-style-type: none;
+#snippets .navi ul b {
+	margin: 5px 0;
+	display: inline-block;
+	width: 100px;
+	border: 1px solid grey;
+	border-radius: 3px;
+	line-height: 35px;
+	cursor: pointer;
+}
+
+#snippets .navi .labels {
+	text-align: center;
+}
+
+#snippets .navi .labels .navi-item {
+	line-height: 25px;
+	cursor: pointer;
+}
+
+#snippets .list {
+	padding: 0;
+	width: 230px;
+	border-left: 1px solid grey;
+	border-right: 1px solid grey;
+}
+
+#snippets .list .snippet {
+	margin: 3px;
+	padding: 0 10px;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+#snippets .mark {
+	flex: 1;
+}
+
+#snippets .navi, 
+#snippets .list, 
+#snippets .mark {
+	height: 100%;
 }

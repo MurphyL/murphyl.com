@@ -51,6 +51,9 @@ const RouteItems = () => {
                 <Route path="/wmp/writer">
                     { lazy('wmp/writer/wmp_writer') }
                 </Route>
+                <Route path="/snippets">
+                    { lazy('murph/snippets/snippets') }
+                </Route>
                 <Route path="/contact">
                     <NormalLoadable view="murph/contact/contact" />
                 </Route>

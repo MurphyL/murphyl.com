@@ -20,8 +20,8 @@ export const ajaxGet = (url, params) => (
 	}))
 );
 
-export const ajaxPost = (url, params, header) => (
-	axios.post(url, params || {}, header || {})
+export const ajaxPost = (url, params, header) => {
+	return axios.post(url, params || {}, header || {})
 	.then(({ status, data }) => {
 		if(status === 200) {
 			return {
@@ -38,5 +38,5 @@ export const ajaxPost = (url, params, header) => (
 	.catch(error => ({
 		code: 1, message: 'Request error'
 	}))
-);
+};
 

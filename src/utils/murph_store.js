@@ -2,7 +2,11 @@ import { ajaxGet, ajaxPost } from './rest_client';
 
 const root = process.env.PUBLIC_URL;
 
-const ghConfig = {};
+const ghConfig = {
+	headers: {
+		'Content-Type': 'application/json; charset=utf-8'
+	}
+};
 
 const ghEndpoint = '/api/gh_v4';
 
@@ -19,8 +23,8 @@ const invoke = (dsl, params) => (
 
 export const fetchBlogItems = async (params) => {
 	const { direction } = (params || { direction: 'after', size: 5 });
-	const { github_fetch_issues } = await mapper;
-	const ql = github_fetch_issues.replace('#PAGE_DIRECTION#', direction);
+	const { fetch_post_issues } = await mapper;
+	const ql = fetch_post_issues.replace('#PAGE_DIRECTION#', direction);
 	const { code, payload } = await invoke(ql, Object.assign({
 		owner: 'MurphyL',
 		repo: 'murphyl.com',
@@ -30,8 +34,17 @@ export const fetchBlogItems = async (params) => {
 };
 
 export const getBlogDetails = async (id) => {
-	const { github_issue_detail } = await mapper;
-	const { code, payload } = await invoke(github_issue_detail, { id });
+	const { get_post_issue_detail } = await mapper;
+	const { code, payload } = await invoke(get_post_issue_detail, { id });
 	return (code === 0 && payload.status === 200) ? payload : {};
 };
 
+export const fetchCodeItems = async (params) => {
+	const { fetch_code_issues } = await mapper;
+	const { code, payload } = await invoke(fetch_code_issues, Object.assign({
+		owner: 'MurphyL',
+		repo: 'murphyl.com',
+		type: 'X-CODE'
+	}, (params || { size: 20 })));
+	return (code === 0 && payload.status === 200) ? payload : {};
+};

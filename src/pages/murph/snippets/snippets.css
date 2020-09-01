@@ -1,0 +1,22 @@
+#snippets {
+	display: flex;
+}
+
+#snippets .nav {
+	width: 150px;
+	border-right: 4px solid #ccc;
+}
+
+#snippets .nav dl {
+	height: 100vh;
+}
+
+#snippets .nav dl dd, #snippets .nav dl ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+#snippets .nav dl ul {
+	list-style-type: none;
+}

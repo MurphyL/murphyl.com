@@ -19,12 +19,12 @@
   "devDependencies": {
     "del": "^5.1.0",
     "gulp": "^4.0.2",
+    "http-proxy-middleware": "^1.0.5",
     "react-scripts": "3.4.1",
     "shortid": "^2.2.15",
     "toml": "^3.0.0",
     "xml-js": "^1.6.11"
   },
-  "proxy": "https://murph.now.sh",
   "scripts": {
     "clean": "gulp -f build.v2.js clean",
     "blog": "gulp -f build.v2.js",

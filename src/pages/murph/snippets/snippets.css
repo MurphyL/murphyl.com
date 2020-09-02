@@ -8,8 +8,8 @@
 }
 
 #snippets .navi, 
+#snippets .list, 
 #snippets .main {
-	overflow-y: hidden;
 	height: 100%;
 }
 
@@ -171,6 +171,7 @@
 /** 正文 **/
 #snippets .main {
 	flex: 1;
+	height: 100%;
 }
 
 #snippets .main .meta {
@@ -204,5 +205,7 @@
 }
 
 #snippets .main .mark {
-	padding: 10px;
+	margin: 10px 0 10px 10px;
+	height: calc(100% - 70px);
+	overflow-y: auto;
 }

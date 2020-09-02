@@ -79,7 +79,7 @@ export const markdownOptions = {
         },
         div: {
             props: {
-                className: 'content'
+                className: 'markdown-to-jsx'
             }
         },
         table: {

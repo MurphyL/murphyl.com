@@ -43,7 +43,9 @@ const Post = () => {
         <article className="post">
             <h2>{ title || '' }</h2>
             <section className="mark">
-                <Markdown children={ content || '' } options= { markdownOptions }/>
+                <div className="content">
+                    <Markdown children={ content || '' } options= { markdownOptions }/>
+                </div>
             </section>
             {/*<section className="author">
                 <div className="details">

@@ -10,23 +10,6 @@
 			"Cache-Control": "max-age=3600",
 			"X-Site-Owner": "murphyl@outlook.com"
 		}
-	}, {
-		"src": "/api/(.*)",
-		"methods": [ "POST" ],
-		"continue": true,
-		"headers" : [{
-          "key" : "X-FUNC-OWNER",
-          "value" : "murphyl@outlook.com"
-        }, {
-          "key" : "Access-Control-Allow-Origin",
-          "value" : "*"
-        }, {
-          "key" : "Access-Control-Allow-Methods",
-          "value" : "POST"
-        }, {
-          "key" : "Access-Control-Allow-Headers",
-          "value" : "X-Requested-With"
-        }]
 	}],
 	"functions": {
 	    "api/desc.js": {

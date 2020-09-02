@@ -74,3 +74,9 @@ html, body, #root, .theme {
 	}
 
 }
+
+.custom .navi-x {
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}

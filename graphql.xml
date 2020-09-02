@@ -173,6 +173,7 @@
 			    ) {
 			      nodes {
 			        id,
+			        url,
 			        number,
 			        title,
 			        body,
@@ -184,9 +185,6 @@
 			            description
 			          }
 			        },
-			        author {
-			          login
-			        },
 			      	comments(first: 100) {
 			      	  nodes {
 			      	    author {
@@ -194,17 +192,7 @@
 			      	    },
 			      	    id,
 			      	    body,
-			      	    publishedAt,
-			      	    reactionGroups {
-			      	      content,
-			      	      createdAt,
-			      	      users(first: 5) {
-			      	        totalCount,
-			      	        nodes {
-			      	          name
-			      	        }
-			      	      }
-			      	    }
+			      	    publishedAt
 			      	  }
 			      	}
 			      },

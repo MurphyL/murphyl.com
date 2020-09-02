@@ -24,6 +24,14 @@ const NormalLoadable = ({ view }) => {
     );
 };
 
+const CustomLoadable = ({ view }) => {
+    return (
+        <div className="custom">
+            { lazy(view) }
+        </div>
+    );
+};
+
 const RouteItems = () => {
     return (
         <BrowserRouter>
@@ -50,10 +58,10 @@ const RouteItems = () => {
                     <NormalLoadable view="about/about" />
                 </Route>
                 <Route path="/wmp/writer">
-                    { lazy('wmp/writer/wmp_writer') }
+                    <CustomLoadable view="wmp/writer/wmp_writer" />
                 </Route>
-                <Route path="/snippets">
-                    { lazy('murph/snippets/snippets') }
+                <Route path={[ '/snippets', '/code/:unique']}>
+                    <CustomLoadable view="murph/snippets/snippets" />
                 </Route>
                 <Route path="/contact">
                     <NormalLoadable view="murph/contact/contact" />

@@ -25,7 +25,7 @@
     "toml": "^3.0.0",
     "xml-js": "^1.6.11"
   },
-  "proxy": "https://murph.now.sh",
+  "proxy": "https://murphyl.com",
   "scripts": {
     "clean": "gulp -f build.v2.js clean",
     "blog": "gulp -f build.v2.js",

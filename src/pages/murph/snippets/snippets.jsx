@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+
+import { Link, withRouter } from "react-router-dom";
 
 import * as matter from 'gray-matter';
 
@@ -6,6 +8,9 @@ import Markdown from 'markdown-to-jsx';
 
 import lodashGet from 'lodash/get';
 
+import { Icon } from '../../../utils/murph_icon.jsx';
+
+import { Loading } from '../../../core/loading/loading';
 import { fetchCodeItems } from '../../../utils/murph_store';
 
 import { markdownOptions, highlightCodeBlock } from '../../../utils/mark_config.jsx';
@@ -17,22 +22,33 @@ const matterConfig = {
     delims: '```',
 };
 
+const MAX = 999999;
+
 class Snippets extends Component {
 
 	state = { loading: true };
 
 	componentDidMount() {
+		const { params = {} } = this.props.match || {};
+		if(params.unique) {
+			console.log(params);
+		} else {
+			this.fetchItems();	
+		}
+	}
+
+	fetchItems() {
 		fetchCodeItems({ size: 30 }).then(resp => {
 			const items = (lodashGet(resp, 'data.repository.issues.nodes') || []).map(item => {
 			    const parsed = matter(item.body, matterConfig);
-			    const { id, title, comments } = item;
+			    const { id, title, url, comments } = item;
 			    const snippets = (comments.nodes || []).map(code => {
 			    	const temp = matter(code.body, matterConfig);
 			    	return { ...temp.data, content: temp.content };
 			    });
 			    const { content, data } = parsed;
 				return Object.assign((data || {}), { 
-					id, title, content, snippets
+					id, title, url, content, snippets
 				});
 			});
 			this.setState({ 
@@ -45,16 +61,17 @@ class Snippets extends Component {
 	}
 
 	showTags() {
-		const { items = [] } = this.state;
-		return items.map((item, index) => (
-			<div className="navi-item" key={ index } onClick={ () => this.setState({ cateIndex: index }) }>
-				<span>{ item.unique }</span>
+		const { items = [], cateIndex = 0 } = this.state;
+		return items.sort((a, b) => ((a.sort || MAX) - (b.sort || MAX))).map((item, index) => (
+			<div className={ `navi-item ${ (cateIndex === index) ? 'current' : '' }` } key={ index } onClick={ () => this.setState({ cateIndex: index, codeIndex: 0 }) }>
+				<Icon x={ (item.unique || 'x').toLowerCase() } />
+				<span>{ item.name || item.unique || '未命名' }</span>
 			</div>
-		))
+		));
 	}
 
 	showCateItems() {
-		const { items = [], cateIndex = 0 } = this.state;
+		const { items = [], cateIndex = 0, codeIndex = 0 } = this.state;
 		const cate = items[cateIndex];
 		if(!cate) {
 			return (
@@ -62,7 +79,7 @@ class Snippets extends Component {
 			);
 		}
 		return (cate.snippets || []).map((item, index) => (
-			<div className="snippet" key={ index } onClick={ () => this.setState({ codeIndex: index }) }>
+			<div className={ `snippet ${ (codeIndex === index) ? 'current' : '' }` } key={ index } onClick={ () => this.setState({ codeIndex: index }) }>
 				<span>{ item.title }</span>
 			</div>
 		));
@@ -87,48 +104,74 @@ class Snippets extends Component {
 			highlightCodeBlock();
 		}, 100);
 		return (
-			<div className="content">
+			<Fragment>
 				<div className="meta">
-					<div>
+					<div className="title">
 						<span>{ snippet.title || '' }</span>
 					</div>
+					<div className="operations">
+						{ (codeIndex < (snippets.length - 1)) && (
+							<span className="action" onClick={ () => this.setState({ codeIndex: codeIndex + 1 }) }>下一个</span>
+						) }
+						{ (codeIndex > 0) && (
+							<span className="action" onClick={ () => this.setState({ codeIndex: codeIndex - 1 }) }>上一个</span>
+						) }
+						<a className="action" href={ cate.url } rel="noopener noreferrer" target="_blank">编辑</a>
+					</div>
 				</div>
-				<div className="main">
-					<Markdown children={ snippet.content || '' } options= { markdownOptions } />
+				<div className="mark">
+					<div className="content">
+						<Markdown children={ snippet.content || '' } options= { markdownOptions } />
+					</div>
 				</div>
-			</div>
+			</Fragment>
 		)
 
 	}
 
 	render() {
-		const { loading } = this.state;
+		const { loading, items = [], cateIndex = 0 } = this.state;
 		if(loading) {
 			return (
-				<div>数据加载中……</div>
+				<Loading />
 			);
 		}
 		return (
 			<div id="snippets">
 				<div className="navi">
-					<ul>
-						<li><b>Inbox</b></li>
-						<li><b>Tags</b></li>
-					</ul>
+					{/* <div className="top-cate">Inbox</div> */}
 					<div className="labels">
 						{ this.showTags() }
 					</div>
+					<div className="back">
+						<Link to="/">返回主页</Link>
+					</div>
 				</div>
-				<div className="list">
-					{ this.showCateItems() }
-				</div>
-				<div className="mark">
-					{ this.showSnippetBoard() }
-				</div>
+				{ items[cateIndex].snippets.length ? (
+					<Fragment>
+						<div className="list">
+							{ this.showCateItems() }
+							{/*
+							<div className="search">
+								<input type="text" placeholder="输入关键字搜索代码片段"/>
+							</div>
+							*/}
+						</div>
+						<div className="main">
+							{ this.showSnippetBoard() }
+						</div>
+					</Fragment>
+				) : (
+					<div className="empty">
+						<span>该类别为空，立即</span>
+						<a href={ items[cateIndex].url } rel="noopener noreferrer" target="_blank">新增代码片段</a>
+					</div>
+				) }
+
 			</div>
 		)
 	}
 
 }
 
-export default Snippets;
+export default withRouter(Snippets);

@@ -24,6 +24,9 @@ const demo = {
 export default (req, res) => {
 	res.setHeader('Cache-Control', 's-maxage=86400');
 	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Access-Control-Allow-Methods", "*");
+	res.setHeader("Access-Control-Expose-Headers", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
 	console.log('数据查询参数：', req.body);
 	axios({
 		method: 'POST',

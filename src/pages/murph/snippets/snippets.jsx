@@ -163,9 +163,11 @@ class Snippets extends Component {
 						</div>
 					</Fragment>
 				) : (
-					<div className="empty">
-						<span>该类别为空，立即</span>
-						<a href={ items[cateIndex].url } rel="noopener noreferrer" target="_blank">新增代码片段</a>
+					<div className="main">
+						<div className="empty">
+							<span>该类别为空，立即</span>
+							<a href={ items[cateIndex].url } rel="noopener noreferrer" target="_blank">新增代码片段</a>
+						</div>
 					</div>
 				) }
 

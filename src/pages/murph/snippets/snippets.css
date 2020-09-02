@@ -188,7 +188,7 @@
 #snippets .main .meta .operations {
 	margin: 10px 0;
 	padding: 0 20px 0 10px;
-	width: 200px;
+	width: 320px;
 	line-height: 27px;
 	font-size: 12px;
 	border-left: 1px solid #efefef;
@@ -206,6 +206,7 @@
 
 #snippets .main .mark {
 	margin: 10px 0 10px 10px;
+	padding-right: 15px;
 	height: calc(100% - 70px);
 	overflow-y: auto;
 }

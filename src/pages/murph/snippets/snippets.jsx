@@ -116,7 +116,8 @@ class Snippets extends Component {
 						{ (codeIndex > 0) && (
 							<span className="action" onClick={ () => this.setState({ codeIndex: codeIndex - 1 }) }>上一个</span>
 						) }
-						<a className="action" href={ cate.url } rel="noopener noreferrer" target="_blank">编辑</a>
+						<a className="action" href={ `${cate.url}#discussion_bucket` } rel="noopener noreferrer" target="_blank">编辑</a>
+						<a className="action" href={ `${cate.url}#issue-comment-box` } rel="noopener noreferrer" target="_blank">新建片段</a>
 					</div>
 				</div>
 				<div className="mark">

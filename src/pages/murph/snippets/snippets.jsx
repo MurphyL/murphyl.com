@@ -4,16 +4,17 @@ import { Link, withRouter } from "react-router-dom";
 
 import * as matter from 'gray-matter';
 
-import Markdown from 'markdown-to-jsx';
-
 import lodashGet from 'lodash/get';
 
-import { Icon } from '../../../utils/murph_icon.jsx';
+import { Loading } from 'core/loading/loading';
 
-import { Loading } from '../../../core/loading/loading';
-import { fetchCodeItems } from '../../../utils/murph_store';
+import { fetchCodeItems } from 'utils/murph_store';
 
-import { markdownOptions, highlightCodeBlock } from '../../../utils/mark_config.jsx';
+import MurphIcon from 'includes/murph_icon.jsx';
+
+import { CodeSnippet } from '../code_board/code_board.jsx';
+
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import './snippets.css';
 
@@ -44,7 +45,7 @@ class Snippets extends Component {
 			    const { id, title, url, comments } = item;
 			    const snippets = (comments.nodes || []).map(code => {
 			    	const temp = matter(code.body, matterConfig);
-			    	return { ...temp.data, content: temp.content };
+			    	return { id: code.id, sid: code.databaseId, ...temp.data, content: temp.content };
 			    });
 			    const { content, data } = parsed;
 				return Object.assign((data || {}), { 
@@ -55,7 +56,8 @@ class Snippets extends Component {
 				items, 
 				cateIndex: 0, 
 				codeIndex: 0, 
-				loading: false 
+				loading: false,
+				copiable: true
 			});
 		});
 	}
@@ -64,7 +66,7 @@ class Snippets extends Component {
 		const { items = [], cateIndex = 0 } = this.state;
 		return items.sort((a, b) => ((a.sort || MAX) - (b.sort || MAX))).map((item, index) => (
 			<div className={ `navi-item ${ (cateIndex === index) ? 'current' : '' }` } key={ index } onClick={ () => this.setState({ cateIndex: index, codeIndex: 0 }) }>
-				<Icon x={ (item.unique || 'x').toLowerCase() } />
+				<MurphIcon x={ (item.unique || 'x').toLowerCase() } />
 				<span>{ item.name || item.unique || '未命名' }</span>
 			</div>
 		));
@@ -85,8 +87,27 @@ class Snippets extends Component {
 		));
 	}
 
+	onLinkCopy(e) {
+		const { copiable }  = this.state;
+		if(!copiable) {
+			return;
+		}
+		this.setState({ message: '成功', copiable: false });
+		setTimeout(() => {
+			this.setState({ message: '链接', copiable: true });
+		}, 3000);
+	}
+
+	navi(disabled, direction) {
+		if(!disabled) {
+			return;
+		}
+		const { codeIndex = 0 } = this.state;
+		this.setState({ codeIndex: direction ? codeIndex + 1 : codeIndex - 1 });
+	}
+
 	showSnippetBoard() {
-		const { items = [], cateIndex = 0, codeIndex = 0 } = this.state;
+		const { items = [], cateIndex = 0, codeIndex = 0, fullscreen, message = '链接' } = this.state;
 		const cate = items[cateIndex];
 		if(!cate) {
 			return (
@@ -100,45 +121,35 @@ class Snippets extends Component {
 			);
 		}
 		const snippet = snippets[codeIndex];
-		setTimeout(() => {
-			highlightCodeBlock();
-		}, 100);
+		if(!snippet) {
+			return (
+				<div>加载片段错误</div>
+			);
+		}
+		const hasNext = codeIndex < (snippets.length - 1);
+		const hasPrev = codeIndex > 0;
 		return (
-			<Fragment>
-				<div className="meta">
-					<div className="title">
-						<span>{ snippet.title || '' }</span>
-					</div>
-					<div className="operations">
-						{ (codeIndex < (snippets.length - 1)) && (
-							<span className="action" onClick={ () => this.setState({ codeIndex: codeIndex + 1 }) }>下一个</span>
-						) }
-						{ (codeIndex > 0) && (
-							<span className="action" onClick={ () => this.setState({ codeIndex: codeIndex - 1 }) }>上一个</span>
-						) }
-						<a className="action" href={ `${cate.url}#discussion_bucket` } rel="noopener noreferrer" target="_blank">编辑</a>
-						<a className="action" href={ `${cate.url}#issue-comment-box` } rel="noopener noreferrer" target="_blank">新建片段</a>
-					</div>
-				</div>
-				<div className="mark">
-					<div className="content">
-						<Markdown children={ snippet.content || '' } options= { markdownOptions } />
-					</div>
-				</div>
-			</Fragment>
-		)
-
+			<CodeSnippet { ...snippet }>
+				<span className={ `action ${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) }>下一个</span>
+				<span className={ `action ${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) }>上一个</span>
+				<a className="action" href={ `${cate.url}#issuecomment-${snippet.sid}` } rel="noopener noreferrer" target="_blank">编辑代码</a>
+				<CopyToClipboard text={ `${window.location.origin}/code/board/${snippet.id}` } onCopy={ this.onLinkCopy.bind(this) }>
+					<span className="action murph-popup" pop-message="拷贝成功">拷贝{ message }</span>
+				</CopyToClipboard>
+				<span className="action" onClick={ () => this.setState({ fullscreen: !fullscreen }) }>全屏</span>
+			</CodeSnippet>
+		);
 	}
 
 	render() {
-		const { loading, items = [], cateIndex = 0 } = this.state;
+		const { loading, items = [], cateIndex = 0, fullscreen } = this.state;
 		if(loading) {
 			return (
 				<Loading />
 			);
 		}
 		return (
-			<div id="snippets">
+			<div id="snippets" className={ fullscreen ? 'fullscreen' : '' }>
 				<div className="navi">
 					{/* <div className="top-cate">Inbox</div> */}
 					<div className="labels">
@@ -170,7 +181,6 @@ class Snippets extends Component {
 						</div>
 					</div>
 				) }
-
 			</div>
 		)
 	}

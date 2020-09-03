@@ -38,7 +38,7 @@ const Header = (props) => {
                             <li><Link to="/achive">博客归档</Link></li>
                             <li><Link to="/contact">联系我</Link></li>
                             */}
-                            <li><Link to="/snippets">代码片段</Link></li>
+                            <li><Link to="/code/snippets">代码片段</Link></li>
                         </ol>
                     </li>
                     <li className="github-logo">

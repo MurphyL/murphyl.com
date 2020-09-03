@@ -192,11 +192,35 @@
 			      	    },
 			      	    id,
 			      	    body,
+			      	    databaseId,
 			      	    publishedAt
 			      	  }
 			      	}
 			      },
 			      totalCount
+			    }
+			  }
+			}
+		]]>
+	</graphql>
+
+	<graphql id="get_code_issue_detail">
+		<![CDATA[
+			query ($id: ID!) {
+			  node(id: $id) {
+			    ... on IssueComment {
+			      id,
+			      url,
+			      body,
+			      createdAt,
+			      databaseId,
+			      author {
+			        login
+			      },
+			      issue {
+			        id,
+			        body
+			      }
 			    }
 			  }
 			}

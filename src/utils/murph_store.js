@@ -48,3 +48,10 @@ export const fetchCodeItems = async (params) => {
 	}, (params || { size: 20 })));
 	return (code === 0 && payload.status === 200) ? payload : {};
 };
+
+
+export const executeGraphQl = async (id = 'test_api', params) => {
+	const dsl = (await mapper)[id];
+	const { code, payload } = await invoke(dsl, params || {});
+	return (code === 0 && payload.status === 200) ? payload : {};
+};

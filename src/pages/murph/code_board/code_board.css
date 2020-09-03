@@ -1,0 +1,52 @@
+
+#code-board .meta {
+	display: flex;
+	padding-left: 13px;
+	background: linear-gradient(#ffffff, #fdfefd, #ffffff);
+	line-height: 47px;
+	border-bottom: 1px solid #ddd;
+	user-select: none;
+}
+
+#code-board .meta .title {
+	flex: 1;
+}
+
+#code-board .meta .extra {
+	margin: 10px 0;
+	padding: 0 20px 0 10px;
+	width: 360px;
+	line-height: 27px;
+	font-size: 12px;
+	border-left: 1px solid #efefef;
+}
+
+#code-board .meta .extra .action {
+	margin-right: 10px;
+	padding: 2px 10px;
+	border: 1px solid grey;
+	border-radius: 3px;
+	cursor: pointer;
+	text-decoration: none;
+	color: grey;
+}
+
+#code-board .meta .extra .action.disabled {
+	opacity: 0.3;
+}
+
+#code-board .meta .extra .message {
+	color: grey;
+}
+
+#code-board .meta .extra .message a {
+	text-decoration: none;
+}
+
+/** markdown **/
+#code-board .mark {
+	margin: 10px 0 10px 10px;
+	padding-right: 15px;
+	height: calc(100% - 70px);
+	overflow-y: auto;
+}

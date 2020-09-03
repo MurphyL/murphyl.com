@@ -60,8 +60,11 @@ const RouteItems = () => {
                 <Route path="/wmp/writer">
                     <CustomLoadable view="wmp/writer/wmp_writer" />
                 </Route>
-                <Route path={[ '/snippets', '/code/:unique']}>
+                <Route path="/code/snippets">
                     <CustomLoadable view="murph/snippets/snippets" />
+                </Route>
+                <Route path="/code/board/:unique">
+                    <CustomLoadable view="murph/code_board/code_board" />
                 </Route>
                 <Route path="/contact">
                     <NormalLoadable view="murph/contact/contact" />

@@ -12,7 +12,7 @@ import { getBlogDetails } from '../../../utils/murph_store';
 
 import { revisePost } from '../../../utils/article_utils';
 
-import { markdownOptions, highlightCodeBlock } from '../../../utils/mark_config.jsx';
+import { markdownOptions, highlightCodeBlock } from 'includes/mark_config.jsx';
 
 import './blog_post.css';
 

@@ -1,7 +1,10 @@
 import React from 'react';
 
-// https://simpleicons.org/
-export const Icon = ({ x }) => {
+/**
+ * 自定义语言图表
+ * 图标链接： https://simpleicons.org/
+ */
+const MurphIcon = ({ x }) => {
 	switch(x) {
 		case 'bash':
 			return (
@@ -41,3 +44,5 @@ export const Icon = ({ x }) => {
 			);
 	}
 };
+
+export default MurphIcon;

@@ -128,6 +128,7 @@ class Snippets extends Component {
 		}
 		const hasNext = codeIndex < (snippets.length - 1);
 		const hasPrev = codeIndex > 0;
+		document.title = `${snippet.title} | 代码片段`;
 		return (
 			<CodeSnippet { ...snippet }>
 				<span className={ `action ${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) }>下一个</span>
@@ -144,10 +145,12 @@ class Snippets extends Component {
 	render() {
 		const { loading, items = [], cateIndex = 0, fullscreen } = this.state;
 		if(loading) {
+			document.title = '代码片段 - 加载中……';
 			return (
 				<Loading />
 			);
 		}
+		document.title = '代码片段';
 		return (
 			<div id="snippets" className={ fullscreen ? 'fullscreen' : '' }>
 				<div className="navi">

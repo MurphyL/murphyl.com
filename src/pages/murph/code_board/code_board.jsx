@@ -113,23 +113,27 @@ class CodeBoard extends Component {
 	render() {
 		const { loading, lost } = this.state;
 		if(loading) {
+			document.title = '代码片段 - 加载中……';
 			return (
 				<Loading />
 			);
 		}
 		if(lost) {
+			document.title = '未找到代码片段';
 			return (
 				<div>NOT_FOUND</div>
 			);
 		}
 		const { title, content } = this.state;
+		document.title = `${title} - 代码片段`;
 		return (
 			<CodeSnippet title={ title } content={ content }>
 				{/*
 				<span className="action disabled" onClick={ () => this.navi.bind(this)(1) }>下一个</span>
 				<span className="action disabled" onClick={ () => this.navi.bind(this)(0) }>上一个</span>
 				*/}
-				<Link className="action" to="/code/snippets">查看更多</Link>
+				<Link className="action" to="/">首页</Link>
+				<Link className="action" to="/code/snippets">更多片段</Link>
 			</CodeSnippet>
 		);		
 	}

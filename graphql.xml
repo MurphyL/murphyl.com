@@ -219,7 +219,33 @@
 			      },
 			      issue {
 			        id,
-			        body
+			        body,
+			        number
+			      },
+			      repository {
+			      	id,
+			      	name,
+			        owner {
+			          login
+			        }
+			      }
+			    }
+			  }
+			}
+		]]>
+	</graphql>
+	<graphql id="fetch_issue_commits">
+		<![CDATA[
+			query($issueId: ID!) {
+			  node(id: $issueId) {
+			    ... on Issue {
+			      id,
+			      body,
+			      comments(first: 100) {
+			        nodes {
+			          id
+			          body
+			        }
 			      }
 			    }
 			  }

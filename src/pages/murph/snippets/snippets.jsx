@@ -145,12 +145,11 @@ class Snippets extends Component {
 	render() {
 		const { loading, items = [], cateIndex = 0, fullscreen } = this.state;
 		if(loading) {
-			document.title = '代码片段 - 加载中……';
 			return (
 				<Loading />
 			);
 		}
-		document.title = '代码片段';
+		document.title = `代码片段 - ${process.env.REACT_APP_TITLE || ''}`;
 		return (
 			<div id="snippets" className={ fullscreen ? 'fullscreen' : '' }>
 				<div className="navi">

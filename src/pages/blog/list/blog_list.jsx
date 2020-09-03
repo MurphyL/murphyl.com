@@ -120,6 +120,7 @@ const BlogList = () => {
         );
     }
     const fromPrev = state && (state.source === 'pager');
+    document.title = `博客 - ${process.env.REACT_APP_TITLE || ''}`;
     return (
         <Fragment>
             <BlogItems posts={ posts } />

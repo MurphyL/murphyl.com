@@ -11,6 +11,7 @@ import './app.css';
 import './mark.css';
 
 const NormalLoadable = ({ view }) => {
+    document.title = '加载中……';
     return (
         <div className="theme light">
             <Header />
@@ -25,6 +26,7 @@ const NormalLoadable = ({ view }) => {
 };
 
 const CustomLoadable = ({ view }) => {
+    document.title = '加载中……';
     return (
         <div className="custom">
             { lazy(view) }

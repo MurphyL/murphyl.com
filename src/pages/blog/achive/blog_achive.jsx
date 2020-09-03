@@ -27,7 +27,8 @@ const BlogAchive = () => {
 	const [ achiveItems, setAchiveItems ] = useState({});
     useEffect(() => {
         setAchiveItems({});
-    }, [])
+    }, []);
+    document.title = `归档 - ${process.env.REACT_APP_TITLE || ''}`;
 	return (
 		<div className="achive">
 			<dl>

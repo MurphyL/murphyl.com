@@ -113,7 +113,6 @@ class CodeBoard extends Component {
 	render() {
 		const { loading, lost } = this.state;
 		if(loading) {
-			document.title = '代码片段 - 加载中……';
 			return (
 				<Loading />
 			);

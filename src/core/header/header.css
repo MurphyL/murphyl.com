@@ -6,6 +6,7 @@
 	height: 50px;
 	line-height: 50px;
 	background: linear-gradient(#ffffff, #fdfefd, #ffffff);
+	user-select: none;
 }
 
 #root header a {

@@ -22,6 +22,7 @@
 				$size: Int!
 			) {
 			  repository(owner: $owner, name: $repo) {
+			  	id,
 			    issues(
 				    first: $size, 
 				    labels: $type, 
@@ -93,14 +94,11 @@
 		]]>
 	</graphql>
 
-	<graphql id="get_post_issue_detail">
+	<graphql id="get_issue_detail">
 		<![CDATA[
-			query ($id: ID!) {
-			  meta {
-			    hookIpAddresses
-			  }
-			  node(id: $id) {
-			    ... on Issue {
+			query ($owner: String!, $repo: String!, $number: Int!) {
+			  repository(owner: $owner, name: $repo) {
+			    issue(number: $number) {
 			      id,
 			      number,
 			      title,
@@ -122,9 +120,6 @@
 			            name
 			          }
 			        }
-			      },
-			      author {
-			        login
 			      },
 			      comments(first: 10) {
 			        nodes {
@@ -234,6 +229,7 @@
 			}
 		]]>
 	</graphql>
+	
 	<graphql id="fetch_issue_commits">
 		<![CDATA[
 			query($issueId: ID!) {

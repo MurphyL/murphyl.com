@@ -1,14 +1,14 @@
-.blog dt a {
+#blog-list .blog dt a {
 	text-decoration: none;
 }
 
-.blog dd {
+#blog-list .blog dd {
 	margin: 0;
 	padding: 0;
 	line-height: 2rem;
 }
 
-.blog .summary code {
+#blog-list .blog .summary code {
 	margin: 0 3px;
 	padding: 2px 5px;
 	border: 1px solid #ccc;
@@ -17,19 +17,29 @@
 	white-space:nowrap;
 }
 
-.light .blog .summary code {
+#blog-list .light .blog .summary code {
 	background: #f8f8f8;
 }
 
-.dark .blog .summary code {
+#blog-list .dark .blog .summary code {
 	background: #f8f8f8;
 	color: #000;
 }
 
-.pager {
+#blog-list .pager {
+	display: flex;
 	margin: 10px auto;
 	padding: 15px 0;
-	border-top: 1px dashed #ccc;
-	width: 300px;
-	text-align: center;
+}
+
+#blog-list .pager .pager-navi {
+	flex: 1;
+}
+
+#blog-list .pager .pager-navi.prev {
+	text-align: left;
+}
+
+#blog-list .pager .pager-navi.next {
+	text-align: right;
 }

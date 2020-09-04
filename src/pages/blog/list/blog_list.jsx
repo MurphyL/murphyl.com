@@ -16,10 +16,10 @@ import { fetchBlogItems } from '../../../utils/murph_store';
 import './blog_list.css';
 
 const BlogPost = ({ post }) => {
-    const { title, id } = post;
+    const { title, number } = post;
     const parsed = revisePost(post);
     const linkInfo = {
-        pathname: `/post/${id || 'NOT_FOUND'}`, 
+        pathname: `/post/${number || 'NOT_FOUND'}`, 
         state: revisePost(post)
     };
     return (
@@ -57,20 +57,24 @@ export const BlogPager = ({ pageInfo, fromPrev }) => {
     }
     const { hasNextPage, hasPreviousPage, endCursor, startCursor } = pageInfo;
     return (
-        <div>
-            <div>{ hasPreviousPage && (
-                 <Link to={revieNavi({
-                    source: 'pager',
-                    direction: 'before',
-                    cursor: startCursor
-                })}>上一页</Link> 
-            ) }</div>
-            <div>{ (hasNextPage || fromPrev) && (
-                <Link to={revieNavi({
-                    direction: 'after',
-                    cursor: endCursor
-                })}>下一页</Link> 
-            ) }</div>
+        <div className="pager">
+            <div className="pager-navi prev">
+                { hasPreviousPage && ( 
+                    <Link to={revieNavi({
+                        source: 'pager',
+                        direction: 'before',
+                        cursor: startCursor
+                    })}>上一页</Link> 
+                ) }
+            </div>
+            <div className="pager-navi next">
+                { (hasNextPage || fromPrev) && ( 
+                    <Link to={revieNavi({
+                        direction: 'after',
+                        cursor: endCursor
+                    })}>下一页</Link> 
+                ) }
+            </div>
         </div>
     );
 };
@@ -122,10 +126,10 @@ const BlogList = () => {
     const fromPrev = state && (state.source === 'pager');
     document.title = `博客 - ${process.env.REACT_APP_TITLE || ''}`;
     return (
-        <Fragment>
+        <div id="blog-list">
             <BlogItems posts={ posts } />
             <BlogPager pageInfo = { pageInfo } fromPrev = { fromPrev } />
-        </Fragment>
+        </div>
     );
 }
 

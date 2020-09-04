@@ -83,7 +83,6 @@ html, body, #root, .theme {
 	#root .container {
 	    margin: 0 auto;
 	    padding: 0 10px;
-	    width: 960px;
 	}
 
 }

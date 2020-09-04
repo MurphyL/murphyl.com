@@ -136,11 +136,11 @@ class Snippets extends Component {
 				<div className="full-hide">
 					<span className={ `action ${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) }>下一个</span>
 					<span className={ `action ${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) }>上一个</span>
-					<a className="action" href={ `${cate.url}#issuecomment-${snippet.sid}` } rel="noopener noreferrer" target="_blank">编辑代码</a>
+					<a className="action middle-hide" href={ `${cate.url}#issuecomment-${snippet.sid}` } rel="noopener noreferrer" target="_blank">编辑代码</a>
 					<CopyToClipboard text={ `${window.location.origin}/code/board/${snippet.id}` } onCopy={ this.onLinkCopy.bind(this) }>
 						<span className="action" pop-message="拷贝成功">拷贝{ message }</span>
 					</CopyToClipboard>
-					<span className="action" onClick={ () => this.setState({ fullscreen: !fullscreen }) }>全屏</span>
+					<span className="action middle-hide" onClick={ () => this.setState({ fullscreen: !fullscreen }) }>全屏</span>
 				</div>
 				<div className="full-show">
 					<MurphIcon x="prev" className={ `${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) } />

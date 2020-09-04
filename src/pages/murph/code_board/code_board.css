@@ -3,19 +3,24 @@
 	display: flex;
 	padding-left: 13px;
 	background: linear-gradient(#ffffff, #fdfefd, #ffffff);
-	line-height: 47px;
+	line-height: 25px;
 	border-bottom: 1px solid #ddd;
 	user-select: none;
 }
 
 #code-board .meta .title {
+	margin-right: 5px;
 	flex: 1;
+	line-height: 46px;
+	min-width: 120px;
+	overflow-x: hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap
 }
 
 #code-board .meta .extra {
 	margin: 10px 0;
 	padding: 0 20px 0 10px;
-	line-height: 27px;
 	font-size: 12px;
 	border-left: 1px solid #efefef;
 }

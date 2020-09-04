@@ -11,7 +11,6 @@
 	line-height: 35px;
 }
 
-/** 导航 **/
 #snippets .navi {
 	position: relative;
 	background: rgb(37, 42, 58);
@@ -19,18 +18,7 @@
 	user-select: none;
 }
 
-#snippets .navi::after {
-	padding: 10px 3px 15px 5px;
-	position: absolute;
-	bottom: 10px;
-	right: 339px;
-	background: rgb(37, 42, 58);
-	color: #fff;
-	content: '↳';
-	cursor: pointer;
-	border-top-left-radius: 3px;
-	border-bottom-left-radius: 3px;
-}
+
 
 #snippets .navi ul {
 	padding: 0;
@@ -156,6 +144,19 @@
 		height: 100%;
 	}
 
+	#snippets .navi::after {
+		padding: 10px 3px 15px 5px;
+		position: absolute;
+		bottom: 10px;
+		right: 339px;
+		background: rgb(37, 42, 58);
+		color: #fff;
+		content: '↳';
+		cursor: pointer;
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
+	}
+
 }
 
 @media screen and (min-width: 601px) { 
@@ -178,12 +179,10 @@
 		height: 100%;
 	}
 
-	/** 导航 **/
 	#snippets .navi {
 		width: 190px;
 	}
 
-	/** 返回 **/
 	#snippets .navi .back {
 		position: absolute;
 		bottom: 20px;
@@ -265,6 +264,18 @@
 	/** 全屏 **/
 	#snippets.fullscreen .navi,
 	#snippets.fullscreen .list {
+		display: none;
+	}
+
+}
+
+@media screen and (min-width: 600px) and (max-width: 960px) {
+
+	#snippets .list {
+		display: none;
+	}
+
+	#snippets #code-board .extra .middle-hide {
 		display: none;
 	}
 

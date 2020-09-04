@@ -71,6 +71,9 @@ const RouteItems = () => {
                 <Route path="/contact">
                     <NormalLoadable view="murph/contact/contact" />
                 </Route>
+                <Route path="/x/:number">
+                    <CustomLoadable view="anon/anon_object" />
+                </Route>
                 <Route>
                     <div>404</div>
                 </Route>

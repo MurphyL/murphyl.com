@@ -48,7 +48,7 @@ const murph = JSON.parse(resloveFile(reslovePath('murph.json')));
 const manifest = async () => {
 	const db = low(new FileSync('public/manifest.json'));
 	db.defaults(murph.manifest || {}).write();
-}
+};
 
 const graphql = async () => {
 	const content = resloveFile(reslovePath('graphql.xml'));
@@ -73,43 +73,5 @@ const graphql = async () => {
 	});
 	writeFile('public/graphql.json', JSON.stringify(mapping, null, '\t'));
 };
-
-/**
-const blog = async () => {
-	const db = low(new FileSync('public/murph.x.json'));
-	const dt = new Date().toLocaleDateString('zh-CN');
-	const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
-	db.defaults(Object.assign(murph)).write();
-	db.unset('manifest').write();
-	db.set('app.version', `${dt} ${ts}`).write();
-	const items = [];
-	const blogCollection = db.get('blog');
-	(fs.readdirSync('blog') || []).filter((filename) => {
-		return /^20\d\d\d\d[0-3]\d/.test(filename) && isMarkdownFile(filename)
-	}).sort((a, b) => {
-	    return -a.localeCompare(b)
-	}).forEach((filename) => {
-		// 文章绝对路径
-		const path = reslovePath(`blog/${filename}`);
-		// 文章创建日期
-		const date = filename.substring(0, 8);
-		// 文章正文内容
-		const source = resloveFile(path);
-		// 文章元数据
-		const parsed = parseFrontMatter(source) || {};
-		// 正文
-		const markdown = trimIfString(parsed.content) || '';
-		// 写入数据
-		blogCollection.push({
-			date,
-			filename,
-			markdown,
-			...(parsed.data || {}),
-			id: shortid.generate(),
-			summary: extractSummary(markdown || ''),
-		}).write()
-	});
-};
-**/
 
 exports.default = series(clean, manifest, graphql);

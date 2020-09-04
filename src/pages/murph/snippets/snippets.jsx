@@ -143,8 +143,8 @@ class Snippets extends Component {
 					<span className="action" onClick={ () => this.setState({ fullscreen: !fullscreen }) }>全屏</span>
 				</div>
 				<div className="full-show">
-					<MurphIcon x="next" className={ `${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) } />
 					<MurphIcon x="prev" className={ `${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) } />
+					<MurphIcon x="next" className={ `${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) } />
 					<MurphTrigger type="left" show={ toggled } onTrigger = { (e) => this.setState({ toggled: !toggled }) }/>
 				</div>
 			</CodeSnippet>

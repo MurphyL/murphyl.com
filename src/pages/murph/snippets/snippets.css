@@ -1,8 +1,8 @@
 #snippets {
-	display: flex;
+	position: relative;
 	height: 100vh;
 	min-height: 200px;
-	overflow-y: auto;
+	overflow: hidden;
 }
 
 #snippets .empty {
@@ -11,18 +11,25 @@
 	line-height: 35px;
 }
 
-#snippets .navi, 
-#snippets .list, 
-#snippets .main {
-	height: 100%;
-}
-
 /** 导航 **/
 #snippets .navi {
-	width: 190px;
+	position: relative;
 	background: rgb(37, 42, 58);
 	color: #fff;
 	user-select: none;
+}
+
+#snippets .navi::after {
+	padding: 10px 3px 15px 5px;
+	position: absolute;
+	bottom: 10px;
+	right: 339px;
+	background: rgb(37, 42, 58);
+	color: #fff;
+	content: '↳';
+	cursor: pointer;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 
 #snippets .navi ul {
@@ -77,7 +84,7 @@
 }
 
 #snippets .navi .labels .navi-item svg {
-	margin-right: 5px;
+	margin: 1px 5px 0 0;
 	width: 16px;
 	height: 16px;
 	opacity: 0.7;
@@ -101,87 +108,164 @@
 #snippets .navi .labels .navi-item span {
 	vertical-align: middle;
 }
-/** 返回 **/
-#snippets .navi .back {
-	position: absolute;
-	bottom: 20px;
-	left: 10px;
-	opacity: 0.7;
+
+@media screen and (max-width: 600px) {
+
+	#snippets .navi, 
+	#snippets .list,
+	#snippets .full-hide {
+		display: none;
+	}
+
+	#snippets #code-board .extra {
+		position: relative;
+		width: 130px;
+	}
+
+	#snippets #code-board .extra .full-show {
+		display: block;
+		position: absolute;
+		top: 2px;
+	}
+
+	#snippets .full-show .icon {
+		display: inline-block;
+		padding: 3px;
+		width: 40px;
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	#snippets .full-show .icon.disabled {
+		opacity: 0.2;
+	}
+
+	#snippets .full-show .icon svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	#snippets.toggled .navi {
+		position: absolute;
+		display: block;
+		z-index: 9;
+		right: 0;
+		width: 60%;
+		height: 100%;
+	}
+
 }
 
-#snippets .navi .back a {
-	padding: 10px;
-	color: grey;
-	text-decoration: none;
-}
+@media screen and (min-width: 601px) { 
 
-/** list **/
-#snippets .list {
-	position: relative;
-	padding: 0;
-	width: 230px;
-	border-right: 1px solid #ddd;
-}
+	#snippets {
+		display: flex;
+	}
 
-#snippets .list .snippet {
-	border-bottom: 1px solid rgba(230, 230, 230, 0.8);
-	padding: 8px 13px 8px 5px;
-	line-height: 30px;
-	cursor: pointer;
-	color: grey;
-	user-select: none;
-}
+	#snippets .full-hide {
+		display: block;
+	}
 
-#snippets .list .snippet.current,
-#snippets .list .snippet:hover,
-#snippets .list .snippet.current:hover {
-	padding-left: 0;
-	border-left-width: 5px;
-	border-left-style: solid;
-}
+	#snippets .full-show {
+		display: none;
+	}
 
-#snippets .list .snippet.current {
-	color: black;
-	border-left-color: rgba(190, 190, 190, 0.9);
-}
+	#snippets .navi, 
+	#snippets .list, 
+	#snippets .main {
+		height: 100%;
+	}
 
-#snippets .list .snippet:hover {
-	border-left-color: rgba(190, 190, 190, 0.3);
-}
+	/** 导航 **/
+	#snippets .navi {
+		width: 190px;
+	}
 
-#snippets .list .snippet.current:hover {
-	border-left-color: rgba(190, 190, 190, 0.6);
-}
+	/** 返回 **/
+	#snippets .navi .back {
+		position: absolute;
+		bottom: 20px;
+		left: 10px;
+		opacity: 0.7;
+	}
 
-#snippets .list .snippet span {
-	margin-left: 10px;
-}
+	#snippets .navi .back a {
+		padding: 10px;
+		color: grey;
+		text-decoration: none;
+	}
 
-/** 搜索 **/
-#snippets .list .search {
-	position: absolute;
-	bottom: 0px;
-	margin: 0 4px 2px;
-	padding: 5px 0;
-	width: calc(100% - 14px);
-}
+	/** list **/
+	#snippets .list {
+		position: relative;
+		padding: 0;
+		width: 230px;
+		border-right: 1px solid #ddd;
+	}
 
-#snippets .list .search input {
-	width: 100%;
-	height: 24px;
-	font-size: 12px;
-	border: 1px solid rgba(190, 190, 190, 0.9);
-	outline: none;
-}
+	#snippets .list .snippet {
+		border-bottom: 1px solid rgba(230, 230, 230, 0.8);
+		padding: 8px 13px 8px 5px;
+		line-height: 30px;
+		cursor: pointer;
+		color: grey;
+		user-select: none;
+	}
 
-/** 正文 **/
-#snippets .main {
-	flex: 1;
-	height: 100%;
-}
+	#snippets .list .snippet.current,
+	#snippets .list .snippet:hover,
+	#snippets .list .snippet.current:hover {
+		padding-left: 0;
+		border-left-width: 5px;
+		border-left-style: solid;
+	}
 
-/** 全屏 **/
-#snippets.fullscreen .navi,
-#snippets.fullscreen .list {
-	display: none;
+	#snippets .list .snippet.current {
+		color: black;
+		border-left-color: rgba(190, 190, 190, 0.9);
+	}
+
+	#snippets .list .snippet:hover {
+		border-left-color: rgba(190, 190, 190, 0.3);
+	}
+
+	#snippets .list .snippet.current:hover {
+		border-left-color: rgba(190, 190, 190, 0.6);
+	}
+
+	#snippets .list .snippet span {
+		margin-left: 10px;
+	}
+
+	/** 搜索 **/
+	#snippets .list .search {
+		position: absolute;
+		bottom: 0px;
+		margin: 0 4px 2px;
+		padding: 5px 0;
+		width: calc(100% - 14px);
+	}
+
+	#snippets .list .search input {
+		width: 100%;
+		height: 24px;
+		font-size: 12px;
+		border: 1px solid rgba(190, 190, 190, 0.9);
+		outline: none;
+	}
+
+	/** 正文 **/
+	#snippets .main {
+		flex: 1;
+		height: 100%;
+	}
+
+	/** 全屏 **/
+	#snippets.fullscreen .navi,
+	#snippets.fullscreen .list {
+		display: none;
+	}
+
 }

@@ -12,6 +12,8 @@ import { fetchCodeItems } from 'utils/murph_store';
 
 import MurphIcon from 'includes/murph_icon.jsx';
 
+import MurphTrigger from "includes/murph_trigger.jsx";
+
 import { CodeSnippet } from '../code_board/code_board.jsx';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -65,7 +67,7 @@ class Snippets extends Component {
 	showTags() {
 		const { items = [], cateIndex = 0 } = this.state;
 		return items.sort((a, b) => ((a.sort || MAX) - (b.sort || MAX))).map((item, index) => (
-			<div className={ `navi-item ${ (cateIndex === index) ? 'current' : '' }` } key={ index } onClick={ () => this.setState({ cateIndex: index, codeIndex: 0 }) }>
+			<div className={ `navi-item ${ (cateIndex === index) ? 'current' : '' }` } key={ index } onClick={ () => this.setState({ cateIndex: index, codeIndex: 0, toggled: false }) }>
 				<MurphIcon x={ (item.unique || 'x').toLowerCase() } />
 				<span>{ item.name || item.unique || '未命名' }</span>
 			</div>
@@ -107,7 +109,7 @@ class Snippets extends Component {
 	}
 
 	showSnippetBoard() {
-		const { items = [], cateIndex = 0, codeIndex = 0, fullscreen, message = '链接' } = this.state;
+		const { items = [], cateIndex = 0, codeIndex = 0, fullscreen, toggled, message = '链接' } = this.state;
 		const cate = items[cateIndex];
 		if(!cate) {
 			return (
@@ -131,19 +133,26 @@ class Snippets extends Component {
 		document.title = `${snippet.title} | 代码片段`;
 		return (
 			<CodeSnippet { ...snippet }>
-				<span className={ `action ${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) }>下一个</span>
-				<span className={ `action ${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) }>上一个</span>
-				<a className="action" href={ `${cate.url}#issuecomment-${snippet.sid}` } rel="noopener noreferrer" target="_blank">编辑代码</a>
-				<CopyToClipboard text={ `${window.location.origin}/code/board/${snippet.id}` } onCopy={ this.onLinkCopy.bind(this) }>
-					<span className="action murph-popup" pop-message="拷贝成功">拷贝{ message }</span>
-				</CopyToClipboard>
-				<span className="action" onClick={ () => this.setState({ fullscreen: !fullscreen }) }>全屏</span>
+				<div className="full-hide">
+					<span className={ `action ${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) }>下一个</span>
+					<span className={ `action ${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) }>上一个</span>
+					<a className="action" href={ `${cate.url}#issuecomment-${snippet.sid}` } rel="noopener noreferrer" target="_blank">编辑代码</a>
+					<CopyToClipboard text={ `${window.location.origin}/code/board/${snippet.id}` } onCopy={ this.onLinkCopy.bind(this) }>
+						<span className="action" pop-message="拷贝成功">拷贝{ message }</span>
+					</CopyToClipboard>
+					<span className="action" onClick={ () => this.setState({ fullscreen: !fullscreen }) }>全屏</span>
+				</div>
+				<div className="full-show">
+					<MurphIcon x="next" className={ `${ hasNext ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasNext, 1) } />
+					<MurphIcon x="prev" className={ `${ hasPrev ? '' : 'disabled' }` } onClick={ () => this.navi.bind(this)(hasPrev, 0) } />
+					<MurphTrigger type="left" show={ toggled } onTrigger = { (e) => this.setState({ toggled: !toggled }) }/>
+				</div>
 			</CodeSnippet>
 		);
 	}
 
 	render() {
-		const { loading, items = [], cateIndex = 0, fullscreen } = this.state;
+		const { loading, items = [], cateIndex = 0, fullscreen, toggled } = this.state;
 		if(loading) {
 			return (
 				<Loading />
@@ -151,7 +160,7 @@ class Snippets extends Component {
 		}
 		document.title = `代码片段 - ${process.env.REACT_APP_TITLE || ''}`;
 		return (
-			<div id="snippets" className={ fullscreen ? 'fullscreen' : '' }>
+			<div id="snippets" className={ `${fullscreen ? 'fullscreen' : ''} ${toggled ? 'toggled' : ''}`.trim() }>
 				<div className="navi">
 					{/* <div className="top-cate">Inbox</div> */}
 					<div className="labels">
@@ -171,7 +180,7 @@ class Snippets extends Component {
 							</div>
 							*/}
 						</div>
-						<div className="main">
+						<div className="main" onClick={ () => { toggled && this.setState({ toggled: false })  } }>
 							{ this.showSnippetBoard() }
 						</div>
 					</Fragment>

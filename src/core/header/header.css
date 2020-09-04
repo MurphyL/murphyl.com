@@ -52,16 +52,6 @@
 		right: 0;
 		height: 50px;
 		line-height: 50px;
-		cursor: pointer;
-	}
-
-	#root header .navi-trigger.true {
-		opacity: 0.5;
-	}
-
-
-	#root header .navi-trigger.false {
-		opacity: 1;
 	}
 
 

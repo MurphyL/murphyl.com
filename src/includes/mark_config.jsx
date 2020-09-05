@@ -4,9 +4,11 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
 const LANG_TYPES = {
-    'lang-sh': 'Shell',
     'lang-awk': 'Awk',
-    'lang-lua': 'Lua',
+    'lang-sh': 'Shell',
+    'lang-yml': 'YAML',
+    'lang-yaml': 'YAML',
+    'lang-toml': 'TOML',
     'lang-java': 'Java',
     'lang-bash': 'Bash',
     'lang-shell': 'Shell',

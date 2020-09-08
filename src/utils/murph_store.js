@@ -14,17 +14,17 @@ const mapper = ajaxGet(`${root}/graphql.json`).then((resp) => {
 	return (resp.code === 0) ? resp.payload : {};
 });
 
-const invoke = (dsl, params) => (
-	ajaxPost(ghEndpoint, {
+const invoke = (dsl, params) => {
+	return ajaxPost(ghEndpoint, {
 		query: dsl,
 		variables: params
-	}, ghConfig)
-);
+	}, ghConfig);
+};
 
 export const fetchBlogItems = async (params) => {
-	const { direction } = (params || { direction: 'after', size: 5 });
+	const { direction, fetch } = params;
 	const { fetch_post_issues } = await mapper;
-	const ql = fetch_post_issues.replace('#PAGE_DIRECTION#', direction);
+	const ql = fetch_post_issues.replace('#PAGE_DIRECTION#', direction).replace('#FETCH_POSTION#', fetch);
 	const { code, payload } = await invoke(ql, Object.assign({
 		owner: 'MurphyL',
 		repo: 'murphyl.com',

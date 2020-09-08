@@ -24,7 +24,7 @@
 			  repository(owner: $owner, name: $repo) {
 			  	id,
 			    issues(
-				    first: $size, 
+				    #FETCH_POSTION#: $size, 
 				    labels: $type, 
 				    states: CLOSED, 
 				    #PAGE_DIRECTION#: $cursor,

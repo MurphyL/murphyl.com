@@ -41,7 +41,7 @@ const RouteItems = () => {
                 <Route path="/" exact={ true }>
                     <NormalLoadable view="home/home" />
                 </Route>
-                <Route path={[ '/blog', '/page/:direction/:cursor' ]}>
+                <Route path={[ '/blog/:num', '/blog' ]}>
                     <NormalLoadable view="blog/list/blog_list" />
                 </Route>
                 <Route path="/post/:number">

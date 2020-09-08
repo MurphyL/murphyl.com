@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import lodashGet from 'lodash/get';
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import Markdown from 'markdown-to-jsx';
 
@@ -12,12 +12,16 @@ import { revisePost } from '../../../utils/article_utils';
 
 import { fetchBlogItems } from '../../../utils/murph_store';
 
-
 import './blog_list.css';
 
 const BlogPost = ({ post }) => {
     const { title, number } = post;
     const parsed = revisePost(post);
+    if(!parsed) {
+        return (
+            <div>解析出错的文章</div>
+        );
+    }
     const linkInfo = {
         pathname: `/post/${number || 'NOT_FOUND'}`, 
         state: revisePost(post)
@@ -45,69 +49,31 @@ const BlogPost = ({ post }) => {
     )
 };
 
-const revieNavi = (state) => {
-    return {
-        state, pathname: '/blog'
-     };
-};
-
-export const BlogPager = ({ pageInfo, fromPrev }) => {
-    if(!pageInfo) {
-        return '';
-    }
-    const { hasNextPage, hasPreviousPage, endCursor, startCursor } = pageInfo;
-    return (
-        <div className="pager">
-            <div className="pager-navi prev">
-                { hasPreviousPage && ( 
-                    <Link to={revieNavi({
-                        source: 'pager',
-                        direction: 'before',
-                        cursor: startCursor
-                    })}>上一页</Link> 
-                ) }
-            </div>
-            <div className="pager-navi next">
-                { (hasNextPage || fromPrev) && ( 
-                    <Link to={revieNavi({
-                        direction: 'after',
-                        cursor: endCursor
-                    })}>下一页</Link> 
-                ) }
-            </div>
-        </div>
-    );
-};
-
-export const BlogItems = ({ posts }) => {
-    return (
-        <dl className="blog">
-            {(posts || []).map((post, index) => (
-                <BlogPost key={ index } post={ post } />
-            ))}
-        </dl>
-    );
-};
-
-
 const GITHUB_ISSUES_PATH = 'data.repository.issues';
 
-const BlogList = () => {
-    const { state } = useLocation();
-    const [ local, setLocal ] = useState({ loading: true });
-    useEffect(() => {
-        setLocal({ loading: true });
-        const params = state ? state : { 
-            cursor: null,
+class BlogList extends Component {
+
+    state = {
+        loading: true,
+        size: 5,
+    }
+
+    componentDidMount() {
+        // const { num } = this.props.match.params;
+        const { size } = this.state;
+        this.fetchPost({
+            type: 'X-POST',
             direction: 'before', 
-        };
-        fetchBlogItems({
-            ...params,
-            size: 5,
-            type: 'X-POST'
-        }).then((resp) => {
-            const { nodes, pageInfo, totalCount } = lodashGet(resp, GITHUB_ISSUES_PATH);
-            setLocal({
+            fetch: 'first',
+            size,
+        });
+    }
+
+    fetchPost(params) {
+        fetchBlogItems(params).then((resp) => {
+            const x = lodashGet(resp, GITHUB_ISSUES_PATH);
+            const { nodes, pageInfo, totalCount } = x;
+            this.setState({
                 loading: false,
                 pageInfo, 
                 totalCount,
@@ -116,21 +82,53 @@ const BlogList = () => {
         }).catch(error => {
             console.log('查询数据出错：', error);
         })
-    }, [ state ]);
-    const { loading, posts, pageInfo } = local;
-    if(loading) {
+    }
+
+    changePage(direction, cursor) {
+        this.setState({ loading: true });
+        const { size } = this.state;
+        const fetch = direction === 'before' ? 'last' : 'first';
+        this.fetchPost({
+            type: 'X-POST',
+            direction,
+            cursor,
+            fetch,
+            size
+        });
+    }
+
+    render() {
+        const { loading, posts, pageInfo } = this.state;
+        if(loading) {
+            return (
+                <Loading message="数据加载中" />
+            );
+        }
+        const { endCursor, startCursor } = pageInfo;
+        const go = this.changePage.bind(this);
         return (
-            <Loading message="数据加载中" />
+            <div id="blog-list">
+                <dl className="blog">
+                    {(posts || []).map((post, index) => (
+                        <BlogPost key={ index } post={ post } />
+                    ))}
+                </dl>
+                <div className="pager">
+                    <div className="pager-navi prev">
+                        { pageInfo.hasPreviousPage && ( 
+                            <Link to="#" onClick={ () => go('before', startCursor) }>较新的文章</Link>
+                        )}
+                    </div>
+                    <div className="pager-navi next">
+                        { pageInfo.hasNextPage && ( 
+                            <Link to="#" onClick={ () => go('after', endCursor) }>更早的文章</Link>
+                        )}
+                    </div>
+                </div>
+            </div>
         );
     }
-    const fromPrev = state && (state.source === 'pager');
-    document.title = `博客 - ${process.env.REACT_APP_TITLE || ''}`;
-    return (
-        <div id="blog-list">
-            <BlogItems posts={ posts } />
-            <BlogPager pageInfo = { pageInfo } fromPrev = { fromPrev } />
-        </div>
-    );
-}
 
-export default BlogList;
+};
+
+export default withRouter(BlogList);

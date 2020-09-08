@@ -19,3 +19,4 @@
 - [每日诗词](https://www.jinrishici.com/doc/#npm)
 - [TOML编辑器](https://toolkit.site/format.html)
 - [React参考文档](https://devhints.io/react)
+- [码农周刊](https://weekly.manong.io/issues/)

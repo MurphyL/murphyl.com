@@ -1,4 +1,5 @@
 .mark .content {
+	margin-bottom: 2em;
 	line-height: 2rem;
 	position: relative;
 }
@@ -43,7 +44,6 @@
 .mark .content .title>span::before {
     content: "";
     position: absolute;
-    left: -5px;
     right: -5px;
     bottom: -5px;
     width: 0;

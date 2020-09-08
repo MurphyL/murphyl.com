@@ -98,6 +98,7 @@ class BlogList extends Component {
     }
 
     render() {
+        document.title = '加载中……';
         const { loading, posts, pageInfo } = this.state;
         if(loading) {
             return (
@@ -106,6 +107,7 @@ class BlogList extends Component {
         }
         const { endCursor, startCursor } = pageInfo;
         const go = this.changePage.bind(this);
+        document.title = '博客';
         return (
             <div id="blog-list">
                 <dl className="blog">

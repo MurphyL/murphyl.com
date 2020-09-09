@@ -35,66 +35,74 @@
 	cursor: pointer;
 }
 
-#snippets .navi .labels {
+#snippets .navi .labels,
+#snippets .navi .links {
 	margin: 10px 0;
 }
 
+#snippets .navi .links::before,
 #snippets .navi .labels::before {
 	display: block;
 	margin-left: 8px;
 	padding-left: 6px;
-	content: 'LABELS';
 	line-height: 35px;
 	font-size: 12px;
 	color: #ccc;
 }
 
-#snippets .navi .top-cate {
-	margin: 10px 0 0 12px;
-	line-height: 35px;
+#snippets .navi .labels::before {
+	content: 'LABELS';
 }
 
-#snippets .navi .labels .navi-item {
+#snippets .navi .links::before {
+	content: 'LINKS';
+}
+
+#snippets .navi .navi-item {
 	margin-left: 10px;
 	line-height: 35px;
 	padding: 1px 5px 5px;
 }
 
-#snippets .navi .labels .navi-item.current {
+#snippets .navi .navi-item.current {
 	padding: 0 0 4px 5px;
 	border-right: 5px solid rgba(27, 152, 248, 0.9);
 	border-top: 1px solid rgba(255, 255, 255, 0.15);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-#snippets .navi .labels .navi-item:hover {
+#snippets .navi .navi-item:hover {
 	background-color: rgba(255, 255, 255, 0.15);
 }
 
-#snippets .navi .labels .navi-item svg {
+#snippets .navi .navi-item svg {
 	margin: 1px 5px 0 0;
 	width: 16px;
 	height: 16px;
 	opacity: 0.7;
 }
 
-#snippets .navi .labels .navi-item svg:hover {
+#snippets .navi .navi-item:hover svg {
 	opacity: 0.9;
 }
 
-#snippets .navi .labels .navi-item svg path {
+#snippets .navi .navi-item svg path {
 	fill: #fff;
 	stroke: #fff;
 }
 
-#snippets .navi .top-cate,
-#snippets .navi .labels .navi-item {
+#snippets .navi .navi-item {
 	cursor: pointer;
 }
 
-#snippets .navi .labels .navi-item svg,
-#snippets .navi .labels .navi-item span {
+#snippets .navi .navi-item svg,
+#snippets .navi .navi-item span {
 	vertical-align: middle;
+}
+
+#snippets .navi .links a {
+	text-decoration: none;
+	color: #fff;
 }
 
 @media screen and (max-width: 600px) {

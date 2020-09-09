@@ -71,6 +71,9 @@ const RouteItems = () => {
                 <Route path="/contact">
                     <NormalLoadable view="murph/contact/contact" />
                 </Route>
+                <Route path={[ '/win10', '/windows10' ]}>
+                    <CustomLoadable view="murph/web_os/windows10" />
+                </Route>
                 <Route path="/x/:number">
                     <CustomLoadable view="anon/anon_object" />
                 </Route>

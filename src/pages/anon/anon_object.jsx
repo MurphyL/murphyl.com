@@ -1,19 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { withRouter } from "react-router-dom";
 
-import lodashGet from 'lodash/get';
+import { get, countBy } from 'lodash';
 
 import { executeGraphQl } from 'utils/murph_store';
 
 import './anon_object.css';
 
+class LayoutTop extends Component {
+
+	render() {
+		const { tag, title } = this.props;
+		return (
+			<div className="top">
+				<div className="title">{ title }</div>
+				<div className="labels">
+					<span>{ tag }</span>
+				</div>
+			</div>
+		)
+	}
+
+}
 
 class PostLayout extends Component {
 
 	render() {
 		return (
-			<div className="layout">POST</div>
+			<Fragment>
+				<LayoutTop tag="POST" title={ 'TODO' } />
+				<div className="layout">TODO</div>
+			</Fragment>
 		)
 	}
 
@@ -23,7 +41,10 @@ class CodeLayout extends Component {
 
 	render() {
 		return (
-			<div className="layout">CODE</div>
+			<Fragment>
+				<LayoutTop tag="CODE" title={ 'TODO' } />
+				<div className="layout">TODO</div>
+			</Fragment>
 		)
 	}
 
@@ -33,30 +54,53 @@ class AnnoLayout extends Component {
 	
 	render() {
 		return (
-			<div className="layout">UNKNOW</div>
+			<Fragment>
+				<LayoutTop tag="ANNO" title={ 'TODO' } />
+				<div className="layout">TODO</div>
+			</Fragment>
 		)
 	}
 
 }
 
-class DrawLayout extends Component {
+class TodoLayout extends Component {
+	
+	render() {
+		const { title, content } = this.props
+		return (
+			<Fragment>
+				<LayoutTop tag="TODO" title={ title } />
+				<div className="layout">{ content }</div>
+			</Fragment>
+		)
+	}
+
+}
+
+class AnnoBoard extends Component {
 
 	render() {
-		const { layout } = this.props;
-		switch(layout) {
-			case 'post':
-				return (
-					<PostLayout />
-				);
-			case 'code':
-				return (
-					<CodeLayout />
-				);
-			default:
-				return (
-					<AnnoLayout />
-				);
-		};
+		const obj = this.props.x || {};
+		const { labels = {} } = obj;
+		const countLabels = countBy(labels.nodes || [], 'name');
+		if(countLabels['X-TODO'] > 0) {
+			return (
+				<TodoLayout title={ obj.title } content={ obj.body } />
+			);
+		}
+		if(countLabels['X-POST'] > 0) {
+			return (
+				<PostLayout />
+			);
+		}
+		if(countLabels['X-CODE'] > 0) {
+			return (
+				<CodeLayout />
+			);
+		}
+		return (
+			<AnnoLayout />
+		);
 	}
 
 }
@@ -74,7 +118,7 @@ class AnonObject extends Component {
             repo: 'murphyl.com',
             number: parseInt(number)
         }).then(resp => {
-            const obj = lodashGet(resp, 'data.repository.issue');
+            const obj = get(resp, 'data.repository.issue');
             this.setState({ loading: false, obj });
         });
 	}
@@ -86,20 +130,9 @@ class AnonObject extends Component {
 				<div>Loading……</div>
 			);
 		}
-		const labels = lodashGet(obj, 'labels.nodes') || [];
 		return (
 			<div id="anon-object">
-				<div className="top">
-					<div className="title">{ obj.title || '' }</div>
-					<div className="labels">
-						{ labels.map((label, index) => (
-							<span key="index"  className="label">{ label.description }</span>
-						)) }
-					</div>
-				</div>
-				<div className="x">
-					<DrawLayout layout="other" />
-				</div>
+				<AnnoBoard x={ obj } />
 			</div>
 		);
 	}

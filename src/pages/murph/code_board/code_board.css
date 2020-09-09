@@ -1,3 +1,7 @@
+#code-board {
+	min-height: 400px;
+}
+
 #code-board .meta {
 	display: flex;
 	padding-left: 13px;

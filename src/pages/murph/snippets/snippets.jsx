@@ -166,8 +166,13 @@ class Snippets extends Component {
 					<div className="labels">
 						{ this.showTags() }
 					</div>
-					<div className="back">
-						<Link to="/">返回主页</Link>
+					<div className="links">
+						<Link to="/">
+							<div className="navi-item">
+								<MurphIcon x="home" />
+								<span>返回主页</span>
+							</div>
+						</Link>
 					</div>
 				</div>
 				{ items[cateIndex].snippets.length ? (

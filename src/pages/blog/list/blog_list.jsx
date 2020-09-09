@@ -99,7 +99,7 @@ class BlogList extends Component {
 
     render() {
         document.title = '加载中……';
-        const { loading, posts, pageInfo } = this.state;
+        const { loading, posts, pageInfo, totalCount } = this.state;
         if(loading) {
             return (
                 <Loading message="数据加载中" />
@@ -121,6 +121,7 @@ class BlogList extends Component {
                             <Link to="#" onClick={ () => go('before', startCursor) }>较新的文章</Link>
                         )}
                     </div>
+                    <div className="pager-navi desc">共{ totalCount }篇文章</div>
                     <div className="pager-navi next">
                         { pageInfo.hasNextPage && ( 
                             <Link to="#" onClick={ () => go('after', endCursor) }>更早的文章</Link>

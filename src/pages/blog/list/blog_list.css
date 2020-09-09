@@ -40,6 +40,10 @@
 	text-align: left;
 }
 
+#blog-list .pager .pager-navi.desc {
+	text-align: center;
+}
+
 #blog-list .pager .pager-navi.next {
 	text-align: right;
 }

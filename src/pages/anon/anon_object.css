@@ -43,46 +43,28 @@
 
 /** 代码 **/
 #anon-object .layout .code {
-	border-top: 3px solid #cecece;
-	border-bottom: 1px solid #cecece;
 }
 
-#anon-object .layout .code .wrapper {
-	position: relative;
+#anon-object .layout .code .tab {
 	margin-left: 5px;
 	margin-right: 3px;
-	border-left: 1.2px solid #cecece;
-	border-right: 1px solid #cecece;
 }
 
-#anon-object .layout .code .wrapper::before {
-	position: absolute;
-	top: 2px;
-	left: -12px;
-	content: attr(no);
-	color: #cecece;
+#anon-object .layout .code .tab .selector {
+	border-bottom: 1px solid grey;
 }
 
-#anon-object .layout .code .wrapper .title {
-	padding: 0px 5px;
+#anon-object .layout .code .tab .selector .wrapper {
+	margin-left: 5px;
+}
+
+#anon-object .layout .code .tab .selector .tab-item {
+	display: inline-block;
+	margin: 0;
+	padding: 3px 15px;
 	cursor: pointer;
-	line-height: 35px;
-	user-select: none;
-}
-
-#anon-object .layout .code .wrapper .content {
-	padding: 5px;
-	min-height: 130px;
-}
-
-#anon-object .layout .code .wrapper .title {
-	border-left: 2px solid #ffffff;
-}
-
-#anon-object .layout .code.current .wrapper .title {
-	border-left: 2px solid #cecece;
-}
-
-#anon-object .layout .code.fold .wrapper .content {
-	display: none;
+	border: 1px solid grey;
+	border-bottom: 0;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 2px;
 }

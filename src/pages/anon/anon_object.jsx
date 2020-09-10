@@ -64,22 +64,41 @@ class CodeLayout extends Component {
 		current: 0
 	}
 
-	showSnippets() {
-		const { current } = this.state;
-		const { comments = {} } = this.props.code || {};
-		return (comments.nodes || []).map((comment, index) => {
-			const { content, data } = matter(comment.body, matterConfig);
-			return (
-				<div key={ index } className={ `code ${(current === index) ? 'current' : 'fold'}`.trim() }>
-					<div className="wrapper" no={ index + 1 }>
-						<div className="title" onClick={ () => this.setState({ current: index }) }>{ data.title }</div>
-						<div className="content">
-							<Markdown children={ content || '' } options= { markdownOptions } />
-						</div>
+
+
+	showCode() {
+		return (
+			<div className="tab">
+				<div className="selector">
+					<div className="wrapper">
+						{ this.showTabs.bind(this)() }
 					</div>
+				</div>
+				<div className="content">
+					<Markdown children={ this.showMarkdown() || '' } options= { markdownOptions } />
+				</div>
+			</div>
+		);
+	}
+
+	showTabs() {
+		const { current } = this.state;
+		const comments = get(this.props.code, 'comments.nodes') || [];
+		return (comments || []).map((comment, index) => {
+			const { data, content } = matter(comment.body, matterConfig);
+			return (
+				<div key={ index } className={ `tab-item ${ (current === index) ? 'current' : '' }`.trim() } onClick={ () => this.setState({ current: index, content }) }>
+					<span>{ (index + 1) + ((current === index) ? `. ${data.title}` : '') }</span>
 				</div>
 			);
 		});
+	}
+
+	showMarkdown() {
+		const { current } = this.state;
+		const comment = get(this.props.code, `comments.nodes[${current}]`) || {};
+		const { content } = matter((comment.body || ''), matterConfig);
+		return content;
 	}
 
 	render() {
@@ -88,7 +107,9 @@ class CodeLayout extends Component {
 			<Fragment>
 				<LayoutTop tag="CODE" title={ title } />
 				<div className="layout mark">
-					{ this.showSnippets() }
+					<div className="code">
+						{ this.showCode() }
+					</div>
 				</div>
 			</Fragment>
 		)

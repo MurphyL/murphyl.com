@@ -75,9 +75,11 @@ class CodeLayout extends Component {
 						const { content, data } = matter(comment.body, matterConfig);
 						return (
 							<div key={ index } className={ `code ${(current === index) ? 'current' : 'fold'}`.trim() }>
-								<div className="title" onClick={ () => this.setState({ current: index }) }>{ data.title }</div>
-								<div className="content">
-									<Markdown children={ content || '' } options= { markdownOptions } />
+								<div className="wrapper" no={ index + 1 }>
+									<div className="title" onClick={ () => this.setState({ current: index }) }>{ data.title }</div>
+									<div className="content">
+										<Markdown children={ content || '' } options= { markdownOptions } />
+									</div>
 								</div>
 							</div>
 						);

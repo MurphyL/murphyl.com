@@ -33,30 +33,54 @@
 }
 
 #anon-object .layout {
-	margin: 0 15px;
+	margin: 10px 10px 10px 15px;
+	padding: 10px 5px;
+}
+
+#anon-object .mark .content {
+	margin-bottom: 0;
 }
 
 /** 代码 **/
 #anon-object .layout .code {
-	margin-top: 15px;
-	border-top: 2px solid #efefef;
+	border-top: 2px solid #cecece;
 }
 
-#anon-object .layout .code .title {
+#anon-object .layout .code .wrapper {
+	position: relative;
+	margin-left: 5px;
+	border-left: 1px solid #cecece;
+}
+
+#anon-object .layout .code .wrapper::before {
+	position: absolute;
+	top: 2px;
+	left: -12px;
+	content: attr(no);
+	color: #cecece;
+}
+
+#anon-object .layout .code .wrapper .title {
 	padding: 0px 5px;
 	cursor: pointer;
 	line-height: 35px;
 	user-select: none;
 }
 
-#anon-object .layout .code .content {
+#anon-object .layout .code .wrapper .content {
 	padding: 5px;
-	border: 1px solid #efefef;
-	border-top: 3px solid #efefef;
 	min-height: 130px;
 	border-radius: 3px;
 }
 
-#anon-object .layout .code.fold .content {
+#anon-object .layout .code .wrapper .title {
+	border-left: 2px solid #ffffff;
+}
+
+#anon-object .layout .code.current .wrapper .title {
+	border-left: 2px solid #cecece;
+}
+
+#anon-object .layout .code.fold .wrapper .content {
 	display: none;
 }

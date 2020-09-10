@@ -4,9 +4,24 @@ import { withRouter } from "react-router-dom";
 
 import { get, countBy } from 'lodash';
 
+import Markdown from 'markdown-to-jsx';
+
+import * as matter from 'gray-matter';
+
+import { revisePost } from 'utils/article_utils';
+
+import { markdownOptions } from 'includes/mark_config.jsx';
+
+import { Loading } from 'core/loading/loading.jsx';
+
 import { executeGraphQl } from 'utils/murph_store';
 
 import './anon_object.css';
+
+const matterConfig = { 
+    excerpt: true, 
+    delims: '```',
+};
 
 class LayoutTop extends Component {
 
@@ -16,7 +31,7 @@ class LayoutTop extends Component {
 			<div className="top">
 				<div className="title">{ title }</div>
 				<div className="labels">
-					<span>{ tag }</span>
+					<span className="label">{ tag }</span>
 				</div>
 			</div>
 		)
@@ -27,10 +42,16 @@ class LayoutTop extends Component {
 class PostLayout extends Component {
 
 	render() {
+		const { title } = this.props.post;
+		const parsed = revisePost(this.props.post);
 		return (
 			<Fragment>
-				<LayoutTop tag="POST" title={ 'TODO' } />
-				<div className="layout">TODO</div>
+				<LayoutTop tag="POST" title={ title } />
+				<div className="layout mark">
+					<div className="content">
+						<Markdown children={ parsed.content || '' } options= { markdownOptions } />
+					</div>
+				</div>
 			</Fragment>
 		)
 	}
@@ -39,11 +60,29 @@ class PostLayout extends Component {
 
 class CodeLayout extends Component {
 
+	state = {
+		current: 0
+	}
+
 	render() {
+		const { current } = this.state;
+		const { title, comments = {} } = this.props.code;
 		return (
 			<Fragment>
-				<LayoutTop tag="CODE" title={ 'TODO' } />
-				<div className="layout">TODO</div>
+				<LayoutTop tag="CODE" title={ title } />
+				<div className="layout mark">
+					{ (comments.nodes || []).map((comment, index) => {
+						const { content, data } = matter(comment.body, matterConfig);
+						return (
+							<div key={ index } className={ `code ${(current === index) ? 'current' : 'fold'}`.trim() }>
+								<div className="title" onClick={ () => this.setState({ current: index }) }>{ data.title }</div>
+								<div className="content">
+									<Markdown children={ content || '' } options= { markdownOptions } />
+								</div>
+							</div>
+						);
+					}) }
+				</div>
 			</Fragment>
 		)
 	}
@@ -66,11 +105,15 @@ class AnnoLayout extends Component {
 class TodoLayout extends Component {
 	
 	render() {
-		const { title, content } = this.props
+		const { title, body } = this.props.todo || {};
 		return (
 			<Fragment>
 				<LayoutTop tag="TODO" title={ title } />
-				<div className="layout">{ content }</div>
+				<div className="layout mark">
+					<div className="content">
+						<Markdown children={ body || '' } options= { markdownOptions } />
+					</div>
+				</div>
 			</Fragment>
 		)
 	}
@@ -85,17 +128,17 @@ class AnnoBoard extends Component {
 		const countLabels = countBy(labels.nodes || [], 'name');
 		if(countLabels['X-TODO'] > 0) {
 			return (
-				<TodoLayout title={ obj.title } content={ obj.body } />
+				<TodoLayout todo={ obj } />
 			);
 		}
 		if(countLabels['X-POST'] > 0) {
 			return (
-				<PostLayout />
+				<PostLayout post={ obj } />
 			);
 		}
 		if(countLabels['X-CODE'] > 0) {
 			return (
-				<CodeLayout />
+				<CodeLayout code={ obj } />
 			);
 		}
 		return (
@@ -127,7 +170,7 @@ class AnonObject extends Component {
 		const { obj, loading } = this.state;
 		if(loading) {
 			return (
-				<div>Loading……</div>
+				<Loading />
 			);
 		}
 		return (

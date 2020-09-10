@@ -1,7 +1,6 @@
 import React from 'react';
 
 function About() {
-	document.title = `关于我 - ${process.env.REACT_APP_TITLE || ''}`;
     return (
 		<div style={{ padding: '20vh 0 30vh', textAlign: 'center' }}>
 			<a href={ `https://github.com/${process.env.REACT_APP_GITHUB}` } rel="noopener noreferrer" target="_blank">

@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react';
 
 import { Link, withRouter } from "react-router-dom";
 
-import * as matter from 'gray-matter';
-
 import lodashGet from 'lodash/get';
+
+import * as matter from 'gray-matter';
 
 import { Loading } from 'core/loading/loading';
 
@@ -14,7 +14,7 @@ import MurphIcon from 'includes/murph_icon.jsx';
 
 import MurphTrigger from "includes/murph_trigger.jsx";
 
-import { CodeSnippet } from '../code_board/code_board.jsx';
+import { CodeSnippet } from '../board/code_board.jsx';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 

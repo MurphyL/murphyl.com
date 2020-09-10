@@ -6,11 +6,11 @@ import lodashGet from 'lodash/get';
 
 import Markdown from 'markdown-to-jsx';
 
-import { Loading } from '../../../core/loading/loading';
+import { Loading } from 'core/loading/loading';
 
-import { executeGraphQl } from '../../../utils/murph_store';
+import { executeGraphQl } from 'utils/murph_store';
 
-import { revisePost } from '../../../utils/article_utils';
+import { revisePost } from 'utils/article_utils';
 
 import { markdownOptions, highlightCodeBlock } from 'includes/mark_config.jsx';
 
@@ -20,7 +20,7 @@ class PostX extends Component {
 
     state = {
         loading: true
-    };
+    }
 
     componentDidMount() {
         const { state } = this.props.location;
@@ -53,7 +53,6 @@ class PostX extends Component {
                 <Loading message="数据加载中……" />
             );
         }
-        document.title = `${title} - 博客 - ${process.env.REACT_APP_TITLE || ''}`;
         return (
             <article className="post">
                 <h2>{ title || '' }</h2>

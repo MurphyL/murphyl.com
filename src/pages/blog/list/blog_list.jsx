@@ -6,11 +6,11 @@ import { Link, withRouter } from "react-router-dom";
 
 import Markdown from 'markdown-to-jsx';
 
-import { Loading } from '../../../core/loading/loading';
+import { Loading } from 'core/loading/loading';
 
-import { revisePost } from '../../../utils/article_utils';
+import { revisePost } from 'utils/article_utils';
 
-import { fetchBlogItems } from '../../../utils/murph_store';
+import { fetchBlogItems } from 'utils/murph_store';
 
 import './blog_list.css';
 
@@ -23,7 +23,7 @@ const BlogPost = ({ post }) => {
         );
     }
     const linkInfo = {
-        pathname: `/post/${number || 'NOT_FOUND'}`, 
+        pathname: number ? `/post/${number}` : '/404', 
         state: revisePost(post)
     };
     return (
@@ -98,7 +98,6 @@ class BlogList extends Component {
     }
 
     render() {
-        document.title = '加载中……';
         const { loading, posts, pageInfo, totalCount } = this.state;
         if(loading) {
             return (
@@ -107,7 +106,6 @@ class BlogList extends Component {
         }
         const { endCursor, startCursor } = pageInfo;
         const go = this.changePage.bind(this);
-        document.title = '博客';
         return (
             <div id="blog-list">
                 <dl className="blog">

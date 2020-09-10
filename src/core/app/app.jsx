@@ -11,7 +11,6 @@ import './app.css';
 import './mark.css';
 
 const NormalLoadable = ({ view }) => {
-    document.title = '加载中……';
     return (
         <div className="theme light">
             <Header />
@@ -26,7 +25,6 @@ const NormalLoadable = ({ view }) => {
 };
 
 const CustomLoadable = ({ view }) => {
-    document.title = '加载中……';
     return (
         <div className="custom">
             { lazy(view) }
@@ -41,14 +39,14 @@ const RouteItems = () => {
                 <Route path="/" exact={ true }>
                     <NormalLoadable view="home/home" />
                 </Route>
+                <Route path="/about">
+                    <NormalLoadable view="about/about" />
+                </Route>
                 <Route path={[ '/blog/:num', '/blog' ]}>
                     <NormalLoadable view="blog/list/blog_list" />
                 </Route>
                 <Route path="/post/:number">
                     <NormalLoadable view="blog/post/blog_post" />
-                </Route>
-                <Route path="/tag/:unique">
-                    <NormalLoadable view="blog/tag/blog_tag" />
                 </Route>
                 <Route path={[ '/all', '/achive' ]}>
                     <NormalLoadable view="blog/achive/blog_achive" />
@@ -56,23 +54,17 @@ const RouteItems = () => {
                 <Route path="/author/:unique">
                     <NormalLoadable view="blog/author/blog_author" />
                 </Route>
-                <Route path="/about">
-                    <NormalLoadable view="about/about" />
-                </Route>
-                <Route path="/wmp/writer">
-                    <CustomLoadable view="wmp/writer/wmp_writer" />
-                </Route>
                 <Route path="/code/snippets">
                     <CustomLoadable view="murph/snippets/snippets" />
                 </Route>
                 <Route path="/code/board/:unique">
-                    <CustomLoadable view="murph/code_board/code_board" />
-                </Route>
-                <Route path="/contact">
-                    <NormalLoadable view="murph/contact/contact" />
+                    <CustomLoadable view="murph/board/code_board" />
                 </Route>
                 <Route path={[ '/win10', '/windows10' ]}>
                     <CustomLoadable view="murph/web_os/windows10" />
+                </Route>
+                <Route path="/contact">
+                    <NormalLoadable view="murph/contact/contact" />
                 </Route>
                 <Route path="/x/:number">
                     <CustomLoadable view="anon/anon_object" />

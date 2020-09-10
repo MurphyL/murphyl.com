@@ -4,7 +4,11 @@
 
 #anon-object .top {
 	display: flex;
-	line-height: 30px;	
+	padding: 0 10px;
+	line-height: 50px;	
+	user-select: none;
+    background: linear-gradient(#ffffff, #fdfefd, #ffffff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 #anon-object .top .title {
@@ -15,12 +19,12 @@
 	width: 200px;
 	text-align: right;
 	font-size: 8px;
-	line-height: 30px;
+	line-height: 50px;
 }
 
 #anon-object .top .labels .label {
 	display: inline-block;
-	padding: 3px 5px;
+	padding: 3px 8px;
 	border: 1px solid grey;
 	border-radius: 3px;
 	line-height: 12px;
@@ -29,8 +33,30 @@
 }
 
 #anon-object .layout {
-	margin: 1rem;
-	padding: 1rem;
-	border: 1px solid grey;
-	border-radius: 5px;
+	margin: 0 15px;
+}
+
+/** 代码 **/
+#anon-object .layout .code {
+	margin-top: 15px;
+	border-top: 2px solid #efefef;
+}
+
+#anon-object .layout .code .title {
+	padding: 0px 5px;
+	cursor: pointer;
+	line-height: 35px;
+	user-select: none;
+}
+
+#anon-object .layout .code .content {
+	padding: 5px;
+	border: 1px solid #efefef;
+	border-top: 3px solid #efefef;
+	min-height: 130px;
+	border-radius: 3px;
+}
+
+#anon-object .layout .code.fold .content {
+	display: none;
 }

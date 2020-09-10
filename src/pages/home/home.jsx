@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Home = () => {
-	document.title = process.env.REACT_APP_TITLE || '';
     return (
         <div style={{ padding: '20vh 0 25vh', textAlign: 'center' }}>
             <h2>嘿，你好，我是MurphyL！</h2>

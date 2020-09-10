@@ -64,26 +64,31 @@ class CodeLayout extends Component {
 		current: 0
 	}
 
-	render() {
+	showSnippets() {
 		const { current } = this.state;
-		const { title, comments = {} } = this.props.code;
+		const { comments = {} } = this.props.code || {};
+		return (comments.nodes || []).map((comment, index) => {
+			const { content, data } = matter(comment.body, matterConfig);
+			return (
+				<div key={ index } className={ `code ${(current === index) ? 'current' : 'fold'}`.trim() }>
+					<div className="wrapper" no={ index + 1 }>
+						<div className="title" onClick={ () => this.setState({ current: index }) }>{ data.title }</div>
+						<div className="content">
+							<Markdown children={ content || '' } options= { markdownOptions } />
+						</div>
+					</div>
+				</div>
+			);
+		});
+	}
+
+	render() {
+		const { title } = this.props.code || {};
 		return (
 			<Fragment>
 				<LayoutTop tag="CODE" title={ title } />
 				<div className="layout mark">
-					{ (comments.nodes || []).map((comment, index) => {
-						const { content, data } = matter(comment.body, matterConfig);
-						return (
-							<div key={ index } className={ `code ${(current === index) ? 'current' : 'fold'}`.trim() }>
-								<div className="wrapper" no={ index + 1 }>
-									<div className="title" onClick={ () => this.setState({ current: index }) }>{ data.title }</div>
-									<div className="content">
-										<Markdown children={ content || '' } options= { markdownOptions } />
-									</div>
-								</div>
-							</div>
-						);
-					}) }
+					{ this.showSnippets() }
 				</div>
 			</Fragment>
 		)

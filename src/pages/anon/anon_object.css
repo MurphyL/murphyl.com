@@ -33,8 +33,9 @@
 }
 
 #anon-object .layout {
-	margin: 10px 10px 10px 15px;
-	padding: 10px 5px;
+	margin: 10px 10px 0 15px;
+	padding: 10px 5px 0;
+	border-bottom: 1px solid #cecece;
 }
 
 #anon-object .mark .content {
@@ -43,13 +44,15 @@
 
 /** 代码 **/
 #anon-object .layout .code {
-	border-top: 2px solid #cecece;
+	border-top: 3px solid #cecece;
 }
 
 #anon-object .layout .code .wrapper {
 	position: relative;
 	margin-left: 5px;
-	border-left: 1px solid #cecece;
+	margin-right: 3px;
+	border-left: 1.2px solid #cecece;
+	border-right: 1px solid #cecece;
 }
 
 #anon-object .layout .code .wrapper::before {
@@ -70,7 +73,6 @@
 #anon-object .layout .code .wrapper .content {
 	padding: 5px;
 	min-height: 130px;
-	border-radius: 3px;
 }
 
 #anon-object .layout .code .wrapper .title {

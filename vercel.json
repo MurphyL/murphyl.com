@@ -3,12 +3,6 @@
 	"name": "murphyl-dot-com",
 	"routes": [{ 
 		"handle": "filesystem" 
-	}, { 
-		"src": "/redirect", 
-		"status": 308, 
-		"headers": { 
-			"Location": "https://git.io/JUWmP" 
-		} 
 	}, {
 		"src": "/.*",
 		"dest": "/index.html",

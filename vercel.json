@@ -11,6 +11,10 @@
 			"X-Site-Owner": "murphyl@outlook.com"
 		}
 	}],
+	"redirects": [{ 
+		"source": "/presets/vim", 
+		"destination": "https://git.io/JUWmP" 
+	}],
 	"functions": {
 	    "api/desc.js": {
 			"memory": 1024,

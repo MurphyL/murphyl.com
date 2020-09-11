@@ -62,24 +62,33 @@
 	color: red;
 }
 
-#anon-object .top .children .title a {
+#anon-object .top .children a {
 	text-decoration: none;
 }
 
 #anon-object .top .operations {
+	display: flex;
 	margin: 10px 5px;
 	padding-left: 10px;
 	height: 30px;
 	border-left: 1px solid #dedede;
 }
 
-#anon-object .top .operations .back {
-	width: 30px;
+#anon-object .top .operations .func {
+	margin: 0 3px;
+	padding: 0 8px;
+	flex: 1;
+	cursor: pointer;
 	line-height: 35px;
 	text-align: center;
 }
 
-#anon-object .top .operations .back .icon svg {
+#anon-object .top .operations .func .desc a {
+	text-decoration: none;
+	font-size: 10px;
+}
+
+#anon-object .top .operations .func .icon svg {
 	width: 18px;
 	height: 18px;
 }

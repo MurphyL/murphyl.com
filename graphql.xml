@@ -127,6 +127,7 @@
 			            login
 			          },
 			          id,
+			          url,
 			          body,
 			          publishedAt,
 			          reactionGroups {
@@ -240,6 +241,7 @@
 			      comments(first: 100) {
 			        nodes {
 			          id
+			          url
 			          body
 			        }
 			      }

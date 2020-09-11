@@ -36,13 +36,18 @@ class LayoutTop extends Component {
 					<div className="children">{ this.props.children }</div>
 				</div>
 				<div className="operations">
-					<div className="back">
-						<Link to="/">
-							<MurphIcon x="home" />
-						</Link>
-					</div>
+					<Link to="/" className="back func">
+						<MurphIcon x="home" />
+					</Link>
+					{/*
+					<Link to="/" className="navi func">
+						<MurphIcon x="prev" />
+					</Link>
+					<Link to="/" className="navi func">
+						<MurphIcon x="next" />
+					</Link>
+					*/}
 				</div>
-
 			</div>
 		)
 	}
@@ -80,9 +85,15 @@ class CodeLayout extends Component {
 	}
 
 	showSelect(comments, current) {
+		const target = comments[current] || {};
 		return (
 			<div className="single-select">
-				<div className="current">{ comments[current].data.title } ▾</div>
+				<div className="current">
+					<a href={ target.url } target="_blank" rel="noopener noreferrer">
+						<span>{ target.data.title }</span>
+					</a>
+					<span> ▾</span>
+				</div>
 				<div className="items">
 					{ (comments || []).map((comment, index) => {
 						return (

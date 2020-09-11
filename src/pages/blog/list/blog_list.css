@@ -40,12 +40,23 @@
 	flex: 1;
 }
 
+#blog-list .pager .pager-navi a {
+	text-decoration: none;
+}
+
 #blog-list .pager .pager-navi.prev {
 	text-align: left;
 }
 
 #blog-list .pager .pager-navi.desc {
 	text-align: center;
+	color: #acacac;
+	opacity: 0.2;
+	user-select: none;
+}
+
+#blog-list .pager:hover .pager-navi.desc {
+	opacity: 0.9;
 }
 
 #blog-list .pager .pager-navi.next {

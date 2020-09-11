@@ -62,6 +62,10 @@
 	color: red;
 }
 
+#anon-object .top .children .title a {
+	text-decoration: none;
+}
+
 #anon-object .top .operations {
 	margin: 10px 5px;
 	padding-left: 10px;

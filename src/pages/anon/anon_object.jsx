@@ -52,12 +52,15 @@ class LayoutTop extends Component {
 class PostLayout extends Component {
 
 	render() {
-		const { title } = this.props.post;
+		console.log(this.props.post);
+		const { number, title } = this.props.post;
 		const parsed = revisePost(this.props.post);
 		return (
 			<Fragment>
 				<LayoutTop tag="POST">
-					<div className="title">{ title }</div>
+					<div className="title">
+						<Link to={ `/post/${number}` }>{ title }</Link>
+					</div>
 				</LayoutTop>
 				<div className="layout mark">
 					<div className="content">

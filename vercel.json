@@ -10,6 +10,9 @@
 			"Cache-Control": "max-age=3600",
 			"X-Site-Owner": "murphyl@outlook.com"
 		}
+	}, {
+		"src": "/presets/vim", 
+		"dest": "https://git.io/JUWmP",
 	}],
 	"functions": {
 	    "api/*.js": {

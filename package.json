@@ -15,7 +15,8 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-splitter-layout": "^4.0.0"
+    "react-splitter-layout": "^4.0.0",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "del": "^5.1.0",

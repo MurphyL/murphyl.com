@@ -28,14 +28,12 @@ const matterConfig = {
 class LayoutTop extends Component {
 
 	render() {
-		const { tag, title } = this.props;
+		const { tag } = this.props;
 		return (
 			<div className="top">
 				<div className="meta">
-					<span className="labels">
-						<span className="label">{ tag }</span>
-					</span>
-					<span className="title">{ title }</span>
+					<span className="label">{ tag }</span>
+					<div className="children">{ this.props.children }</div>
 				</div>
 				<div className="operations">
 					<div className="back">
@@ -58,7 +56,9 @@ class PostLayout extends Component {
 		const parsed = revisePost(this.props.post);
 		return (
 			<Fragment>
-				<LayoutTop tag="POST" title={ title } />
+				<LayoutTop tag="POST">
+					<div className="title">{ title }</div>
+				</LayoutTop>
 				<div className="layout mark">
 					<div className="content">
 						<Markdown children={ parsed.content || '' } options= { markdownOptions } />
@@ -76,51 +76,38 @@ class CodeLayout extends Component {
 		current: 0
 	}
 
-
-
-	showCode() {
+	showSelect(comments, current) {
 		return (
-			<div className="tab">
-				<div className="selector">
-					<div className="wrapper">
-						{ this.showTabs.bind(this)() }
-					</div>
-				</div>
-				<div className="content">
-					<Markdown children={ this.showMarkdown() || '' } options= { markdownOptions } />
+			<div className="single-select">
+				<div className="current">{ comments[current].data.title } ▾</div>
+				<div className="items">
+					{ (comments || []).map((comment, index) => {
+						return (
+							<div key={ index } className="item" onClick={ () => this.setState({ current: index }) }>
+								<span className={ current === index ? "current" : "" }>{ comment.data.title || '无标题代码片段' }</span>
+							</div>
+						);
+					})}
 				</div>
 			</div>
 		);
 	}
 
-	showTabs() {
-		const { current } = this.state;
-		const comments = get(this.props.code, 'comments.nodes') || [];
-		return (comments || []).map((comment, index) => {
-			const { data, content } = matter(comment.body, matterConfig);
-			return (
-				<div key={ index } className={ `tab-item ${ (current === index) ? 'current' : '' }`.trim() } onClick={ () => this.setState({ current: index, content }) }>
-					<span>{ (index + 1) + ((current === index) ? `. ${data.title}` : '') }</span>
-				</div>
-			);
-		});
-	}
-
-	showMarkdown() {
-		const { current } = this.state;
-		const comment = get(this.props.code, `comments.nodes[${current}]`) || {};
-		const { content } = matter((comment.body || ''), matterConfig);
-		return content;
-	}
-
 	render() {
-		const { title } = this.props.code || {};
+		const { current } = this.state;
+		const comments = (get(this.props, 'code.comments.nodes') || []).map(comment => {
+			return Object.assign(comment, matter(comment.body, matterConfig));
+		});
 		return (
 			<Fragment>
-				<LayoutTop tag="CODE" title={ title } />
+				<LayoutTop tag="CODE">
+					{ this.showSelect(comments, current) }
+				</LayoutTop>
 				<div className="layout mark">
 					<div className="code">
-						{ this.showCode() }
+						<div className="content">
+							<Markdown children={ comments[current].content || '' } options= { markdownOptions } />
+						</div>
 					</div>
 				</div>
 			</Fragment>
@@ -148,7 +135,9 @@ class TodoLayout extends Component {
 		const { title, body } = this.props.todo || {};
 		return (
 			<Fragment>
-				<LayoutTop tag="TODO" title={ title } />
+				<LayoutTop tag="TODO">
+					<div className="title">{ title }</div>
+				</LayoutTop>
 				<div className="layout mark">
 					<div className="content">
 						<Markdown children={ body || '' } options= { markdownOptions } />

@@ -15,16 +15,9 @@
 	flex: 1;
 }
 
-#anon-object .top .labels {
-	margin-right: 5px;
-	width: 200px;
-	text-align: right;
-	font-size: 8px;
-	line-height: 45px;
-}
-
-#anon-object .top .labels .label {
+#anon-object .top .label {
 	display: inline-block;
+	margin-right: 5px;
 	padding: 3px 8px;
 	border: 1px solid grey;
 	border-radius: 3px;
@@ -32,6 +25,41 @@
 	line-height: 10px;
 	cursor: pointer;
 	user-select: none;
+}
+
+#anon-object .top .children {
+	display: inline-block;
+}
+
+#anon-object .top .children .single-select {
+	position: relative;
+	cursor: pointer;
+}
+
+
+#anon-object .top .children .single-select .items {
+	display: none;
+	position: absolute;
+	padding: 10px;
+	top: 45px;
+	width: 320px;
+	line-height: 30px;
+	border: 1px solid #dedede;
+	background-color: #fff;
+	z-index: 9;
+	cursor: default;
+}
+
+#anon-object .top .children .single-select .items .item {
+	cursor: pointer;
+}
+
+#anon-object .top .children .single-select:hover .items {
+	display: block;	
+}
+
+#anon-object .top .children .single-select .items .item .current {
+	color: red;
 }
 
 #anon-object .top .operations {
@@ -53,43 +81,25 @@
 }
 
 #anon-object .layout {
-	margin: 5px 10px 0 15px;
-	padding: 10px 5px 0;
+	margin: 0 0 0 15px;
+	padding: 0 0;
 }
 
 #anon-object .mark .content {
-	margin: 5px 0;
-	height: calc(100vh - 110px);
+	margin: 0;
+	height: calc(100vh - 60px);
 	overflow-y: auto;
+}
+
+#anon-object .mark .content .markdown-to-jsx {
+	margin-right: 15px;
 }
 
 /** 代码 **/
 #anon-object .layout .code {
+	margin-top: 10px;
 }
 
 #anon-object .layout .code .tab {
-	margin-left: 5px;
-	margin-right: 3px;
-}
-
-#anon-object .layout .code .tab .selector {
-	border-bottom: 1px solid #ababab;
-}
-
-#anon-object .layout .code .tab .selector .wrapper {
-	margin-left: 5px;
-}
-
-#anon-object .layout .code .tab .selector .tab-item {
-	display: inline-block;
-	margin: 0;
-	padding: 3px 15px;
-	font-size: 12px;
-	line-height: 20px;
-	cursor: pointer;
-	user-select: none;
-	border: 1px solid #ccc;
-	border-bottom: 0;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 2px;
+	margin: 0 3px 0 5px;
 }

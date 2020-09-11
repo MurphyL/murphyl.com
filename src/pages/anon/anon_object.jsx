@@ -155,9 +155,11 @@ class AnnoLayout extends Component {
 	render() {
 		return (
 			<Fragment>
-				<LayoutTop tag="ANNO" title={ 'TODO' } />
+				<LayoutTop tag="ANNO" title={ 'TODO' }>
+					<div className="title">NOT FOUND</div>
+				</LayoutTop>
 				<div className="layout">
-					<div className="anno">NOT FOUND</div>
+					<div className="anno">……</div>
 				</div>
 			</Fragment>
 		)

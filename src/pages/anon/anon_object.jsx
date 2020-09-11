@@ -25,6 +25,10 @@ const matterConfig = {
     delims: '```',
 };
 
+const { REACT_APP_OWNER, REACT_APP_REPO } = process.env;
+
+const CREATE_ISSUE_URL = `https://github.com/${REACT_APP_OWNER}/${REACT_APP_REPO}/issues/new`;
+
 class LayoutTop extends Component {
 
 	render() {
@@ -39,14 +43,6 @@ class LayoutTop extends Component {
 					<Link to="/" className="back func">
 						<MurphIcon x="home" />
 					</Link>
-					{/*
-					<Link to="/" className="navi func">
-						<MurphIcon x="prev" />
-					</Link>
-					<Link to="/" className="navi func">
-						<MurphIcon x="next" />
-					</Link>
-					*/}
 				</div>
 			</div>
 		)
@@ -57,7 +53,6 @@ class LayoutTop extends Component {
 class PostLayout extends Component {
 
 	render() {
-		console.log(this.props.post);
 		const { number, title } = this.props.post;
 		const parsed = revisePost(this.props.post);
 		return (
@@ -167,7 +162,7 @@ class AnnoLayout extends Component {
 				<div className="layout">
 					<div className="anno">
 						<span>指定的对象不存在，前去</span>
-						<a href="https://github.com/MurphyL/murphyl.com/issues/new">创建新的对象</a>
+						<a href={ CREATE_ISSUE_URL }>创建新的对象</a>
 					</div>
 				</div>
 			</Fragment>
@@ -181,25 +176,24 @@ class AnnoBoard extends Component {
 	render() {
 		const obj = this.props.x || {};
 		const { labels = {} } = obj;
-		const countLabels = countBy(labels.nodes || [], 'name');
-		if(countLabels['X-TODO'] > 0) {
+		const countLabels = countBy(labels.nodes, 'name');
+		if(countLabels['X-TODO']) {
 			return (
 				<TodoLayout todo={ obj } />
 			);
-		}
-		if(countLabels['X-POST'] > 0) {
+		} else if(countLabels['X-POST']) {
 			return (
 				<PostLayout post={ obj } />
 			);
-		}
-		if(countLabels['X-CODE'] > 0) {
+		} else if(countLabels['X-CODE']) {
 			return (
 				<CodeLayout code={ obj } />
 			);
+		} else {
+			return (
+				<AnnoLayout />
+			);
 		}
-		return (
-			<AnnoLayout />
-		);
 	}
 
 }
@@ -213,8 +207,6 @@ class AnonObject extends Component {
 	componentDidMount() {
 		const { number } = this.props.match.params || {};
         executeGraphQl('get_issue_detail', {
-            owner: 'MurphyL',
-            repo: 'murphyl.com',
             number: parseInt(number)
         }).then(resp => {
             const obj = get(resp, 'data.repository.issue');

@@ -54,6 +54,9 @@ const RouteItems = () => {
                 <Route path="/author/:unique">
                     <NormalLoadable view="blog/author/blog_author" />
                 </Route>
+                <Route path="/explorer">
+                    <CustomLoadable view="murph/explorer/explorer" />
+                </Route>
                 <Route path="/code/snippets">
                     <CustomLoadable view="murph/snippets/snippets" />
                 </Route>

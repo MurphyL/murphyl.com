@@ -1,0 +1,7 @@
+#murph-explorer .labels .none {
+	display: none;
+}
+
+#murph-explorer .labels:hover .none {
+	display: block;
+}

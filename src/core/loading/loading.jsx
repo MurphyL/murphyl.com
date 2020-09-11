@@ -39,6 +39,29 @@ export const Loading = ({ message }) => {
     );
 };
 
+export const Loadable = ({ id, status = 1, message, children }) => {
+    switch(status) {
+        case 0:
+            return (
+                <div id={ id }>{ children }</div>
+            );
+        case 1:
+            return (
+                <div id={ id }>
+                    <Loading message={ message } />
+                </div>
+            );
+        default:
+            return (
+                <div id={ id }>
+                    <div className="error">
+                        <span className="message">{ message }</span>
+                    </div>
+                </div>
+            );
+    }
+};
+
 export const lazy = (view) => {
 	const LazyComponent = React.lazy(() => import(`pages/${view}`));
 	return (

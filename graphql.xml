@@ -251,4 +251,20 @@
 			}
 		]]>
 	</graphql>
+
+	<graphql id="fetch_repo_lables">
+		<![CDATA[
+			query($owner: String!, $repo: String!) {
+			  repository(name: $repo, owner: $owner) {
+			    labels(first: 20) {
+			      nodes {
+			        name
+			        color
+			        description
+			      }
+			    }
+			  }
+			}
+		]]>
+	</graphql>
 </mapper>

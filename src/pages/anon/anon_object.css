@@ -11,15 +11,16 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-#anon-object .top .title {
+#anon-object .top .meta {
 	flex: 1;
 }
 
 #anon-object .top .labels {
+	margin-right: 5px;
 	width: 200px;
 	text-align: right;
 	font-size: 8px;
-	line-height: 50px;
+	line-height: 45px;
 }
 
 #anon-object .top .labels .label {
@@ -27,18 +28,39 @@
 	padding: 3px 8px;
 	border: 1px solid grey;
 	border-radius: 3px;
-	line-height: 12px;
+	font-size: 10px;
+	line-height: 10px;
 	cursor: pointer;
 	user-select: none;
 }
 
+#anon-object .top .operations {
+	margin: 10px 5px;
+	padding-left: 10px;
+	height: 30px;
+	border-left: 1px solid #dedede;
+}
+
+#anon-object .top .operations .back {
+	width: 30px;
+	line-height: 35px;
+	text-align: center;
+}
+
+#anon-object .top .operations .back .icon svg {
+	width: 18px;
+	height: 18px;
+}
+
 #anon-object .layout {
-	margin: 10px 10px 0 15px;
+	margin: 5px 10px 0 15px;
 	padding: 10px 5px 0;
 }
 
 #anon-object .mark .content {
-	margin-bottom: 0;
+	margin: 5px 0;
+	height: calc(100vh - 110px);
+	overflow-y: auto;
 }
 
 /** 代码 **/
@@ -51,7 +73,7 @@
 }
 
 #anon-object .layout .code .tab .selector {
-	border-bottom: 1px solid grey;
+	border-bottom: 1px solid #ababab;
 }
 
 #anon-object .layout .code .tab .selector .wrapper {
@@ -62,8 +84,11 @@
 	display: inline-block;
 	margin: 0;
 	padding: 3px 15px;
+	font-size: 12px;
+	line-height: 20px;
 	cursor: pointer;
-	border: 1px solid grey;
+	user-select: none;
+	border: 1px solid #ccc;
 	border-bottom: 0;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 2px;

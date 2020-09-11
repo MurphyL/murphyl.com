@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
 
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { get, countBy } from 'lodash';
 
 import Markdown from 'markdown-to-jsx';
 
 import * as matter from 'gray-matter';
+
+import MurphIcon from 'includes/murph_icon.jsx';
 
 import { revisePost } from 'utils/article_utils';
 
@@ -29,10 +31,20 @@ class LayoutTop extends Component {
 		const { tag, title } = this.props;
 		return (
 			<div className="top">
-				<div className="title">{ title }</div>
-				<div className="labels">
-					<span className="label">{ tag }</span>
+				<div className="meta">
+					<span className="labels">
+						<span className="label">{ tag }</span>
+					</span>
+					<span className="title">{ title }</span>
 				</div>
+				<div className="operations">
+					<div className="back">
+						<Link to="/">
+							<MurphIcon x="home" />
+						</Link>
+					</div>
+				</div>
+
 			</div>
 		)
 	}

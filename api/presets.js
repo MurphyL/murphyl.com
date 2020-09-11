@@ -1,6 +1,6 @@
 const request = require('request');
 
-const PREFIX = 'https://raw.githubusercontent.com/MurphyL/dow_presets/master';
+const PREFIX = 'https://raw.githubusercontent.com/MurphyL/dow-presets/master';
 
 
 export default (req, res) => {

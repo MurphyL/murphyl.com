@@ -79,6 +79,13 @@ export const markdownOptions = {
         pre: {
             component: Prepare
         },
+        a: {
+            props: {
+                target: '_blank',
+                className: 'hyper-link',
+                rel: 'noopener noreferrer'
+            }
+        },
         div: {
             props: {
                 className: 'markdown-to-jsx'

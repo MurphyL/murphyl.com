@@ -44,6 +44,7 @@
 	top: 45px;
 	width: 320px;
 	line-height: 30px;
+	font-size: 14px;
 	border: 1px solid #dedede;
 	background-color: #fff;
 	z-index: 9;
@@ -54,11 +55,16 @@
 	cursor: pointer;
 }
 
+#anon-object .top .children .single-select .items .item::before {
+	margin-right: 5px;
+	content: "-";
+}
+
 #anon-object .top .children .single-select:hover .items {
 	display: block;	
 }
 
-#anon-object .top .children .single-select .items .item .current {
+#anon-object .top .children .single-select .items .item.current {
 	color: red;
 }
 
@@ -88,9 +94,25 @@
 	font-size: 10px;
 }
 
-#anon-object .top .operations .func .icon svg {
+#anon-object .top .icon svg {
 	width: 18px;
 	height: 18px;
+}
+
+#anon-object .top .suffix .icon {
+	position: relative;
+	margin-left: 5px;
+	height: 24px;
+	opacity: 0.1;
+}
+
+#anon-object .top .suffix .icon svg {
+	position: absolute;
+	top: 4px;
+}
+
+#anon-object .top .suffix:hover .icon {
+	opacity: 1;
 }
 
 #anon-object .layout {

@@ -64,7 +64,10 @@ class PostLayout extends Component {
 			<Fragment>
 				<LayoutTop tag="POST">
 					<div className="title">
-						<Link to={ `/post/${number}` }>{ title }</Link>
+						<span>{ title }</span>
+						<Link className="suffix" to={ `/post/${number}` }>
+							<MurphIcon x="link" />
+						</Link>
 					</div>
 				</LayoutTop>
 				<div className="layout mark">
@@ -89,19 +92,17 @@ class CodeLayout extends Component {
 		return (
 			<div className="single-select">
 				<div className="current">
-					<a href={ target.url } target="_blank" rel="noopener noreferrer">
-						<span>{ target.data.title }</span>
+					<span>{ target.data.title }</span>
+					<a className="suffix" href={ target.url } target="_blank" rel="noopener noreferrer">
+						<MurphIcon x="link" />
 					</a>
-					<span> ▾</span>
 				</div>
 				<div className="items">
-					{ (comments || []).map((comment, index) => {
-						return (
-							<div key={ index } className="item" onClick={ () => this.setState({ current: index }) }>
-								<span className={ current === index ? "current" : "" }>{ comment.data.title || '无标题代码片段' }</span>
-							</div>
-						);
-					})}
+					{ (comments || []).map((comment, index) => (
+						<div key={ index } className={ `item ${current === index ? "current" : ""}` } onClick={ () => this.setState({ current: index }) }>
+							<span>{ comment.data.title || '无标题代码片段' }</span>
+						</div>
+					))}
 				</div>
 			</div>
 		);
@@ -133,11 +134,16 @@ class CodeLayout extends Component {
 class TodoLayout extends Component {
 	
 	render() {
-		const { title, body } = this.props.todo || {};
+		const { title, url, body } = this.props.todo || {};
 		return (
 			<Fragment>
 				<LayoutTop tag="TODO">
-					<div className="title">{ title }</div>
+					<div className="title">
+						<span>{ title }</span>
+						<a className="suffix" href={ url } target="_blank" rel="noopener noreferrer">
+							<MurphIcon x="link" />
+						</a>
+					</div>
 				</LayoutTop>
 				<div className="layout mark">
 					<div className="content">
@@ -159,7 +165,10 @@ class AnnoLayout extends Component {
 					<div className="title">NOT FOUND</div>
 				</LayoutTop>
 				<div className="layout">
-					<div className="anno">……</div>
+					<div className="anno">
+						<span>指定的对象不存在，前去</span>
+						<a href="https://github.com/MurphyL/murphyl.com/issues/new">创建新的对象</a>
+					</div>
 				</div>
 			</Fragment>
 		)

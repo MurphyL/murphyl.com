@@ -14,10 +14,15 @@ const mapper = ajaxGet(`${root}/graphql.json`).then((resp) => {
 	return (resp.code === 0) ? resp.payload : {};
 });
 
+const repoInfo = {
+	owner: process.env.REACT_APP_OWNER,
+	repo: process.env.REACT_APP_REPO,
+};
+
 const invoke = (dsl, params) => {
 	return ajaxPost(ghEndpoint, {
 		query: dsl,
-		variables: params
+		variables: Object.assign(params, repoInfo)
 	}, ghConfig);
 };
 
@@ -26,8 +31,6 @@ export const fetchBlogItems = async (params) => {
 	const { fetch_post_issues } = await mapper;
 	const ql = fetch_post_issues.replace('#PAGE_DIRECTION#', direction).replace('#FETCH_POSTION#', fetch);
 	const { code, payload } = await invoke(ql, Object.assign({
-		owner: 'MurphyL',
-		repo: 'murphyl.com',
 		type: 'X-POST'
 	}, params));
 	return (code === 0 && payload.status === 200) ? payload : {};
@@ -42,8 +45,6 @@ export const getBlogDetails = async (id) => {
 export const fetchCodeItems = async (params) => {
 	const { fetch_code_issues } = await mapper;
 	const { code, payload } = await invoke(fetch_code_issues, Object.assign({
-		owner: 'MurphyL',
-		repo: 'murphyl.com',
 		type: 'X-CODE'
 	}, (params || { size: 20 })));
 	return (code === 0 && payload.status === 200) ? payload : {};

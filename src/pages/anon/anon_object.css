@@ -113,6 +113,10 @@
 	margin-top: 10px;
 }
 
+#anon-object .layout .anno {
+	margin: 15px 0;
+}
+
 #anon-object .layout .code .tab {
 	margin: 0 3px 0 5px;
 }

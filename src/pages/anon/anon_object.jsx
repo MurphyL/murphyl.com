@@ -130,19 +130,6 @@ class CodeLayout extends Component {
 
 }
 
-class AnnoLayout extends Component {
-	
-	render() {
-		return (
-			<Fragment>
-				<LayoutTop tag="ANNO" title={ 'TODO' } />
-				<div className="layout">TODO</div>
-			</Fragment>
-		)
-	}
-
-}
-
 class TodoLayout extends Component {
 	
 	render() {
@@ -156,6 +143,21 @@ class TodoLayout extends Component {
 					<div className="content">
 						<Markdown children={ body || '' } options= { markdownOptions } />
 					</div>
+				</div>
+			</Fragment>
+		)
+	}
+
+}
+
+class AnnoLayout extends Component {
+	
+	render() {
+		return (
+			<Fragment>
+				<LayoutTop tag="ANNO" title={ 'TODO' } />
+				<div className="layout">
+					<div className="anno">NOT FOUND</div>
 				</div>
 			</Fragment>
 		)

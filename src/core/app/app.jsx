@@ -54,6 +54,9 @@ const RouteItems = () => {
                 <Route path="/author/:unique">
                     <NormalLoadable view="blog/author/blog_author" />
                 </Route>
+                <Route path="/x/:number">
+                    <CustomLoadable view="anon/anon_object" />
+                </Route>
                 <Route path="/explorer">
                     <CustomLoadable view="murph/explorer/explorer" />
                 </Route>
@@ -69,8 +72,8 @@ const RouteItems = () => {
                 <Route path="/contact">
                     <NormalLoadable view="murph/contact/contact" />
                 </Route>
-                <Route path="/x/:number">
-                    <CustomLoadable view="anon/anon_object" />
+                <Route path="/charts/decision">
+                    <CustomLoadable view="murph/charts/decision_maker/decision_maker" />
                 </Route>
                 <Route>
                     <div>404</div>

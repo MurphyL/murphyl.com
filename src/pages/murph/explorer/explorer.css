@@ -1,7 +1,14 @@
-#murph-explorer .labels .none {
-	display: none;
+#murph-explorer .labels {
+	padding: 10px;
+	vertical-align: middle;
+	font-size: 12px;
 }
 
-#murph-explorer .labels:hover .none {
-	display: block;
+#murph-explorer .labels .label {
+	margin: 3px;
+	padding: 3px 10px;
+	border-radius: 2rem;
+	cursor: pointer;
+	line-height: 20px;
+	color: #ffffff;
 }

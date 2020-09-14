@@ -31,21 +31,25 @@ class MurphExplorer extends Component {
 	}
 
 	render() {
-		const { loading, labels = [], selectedLabel } = this.state;
+		const { loading, labels = [] } = this.state;
 		return (
 			<Loadable id="murph-explorer" status={ loading }>
 				<div className="top">
 					<div className="labels">
-						{ labels.map(({ name }, index) => {
-							const className = (selectedLabel === index) ? 'current' : 'none';
+						{ labels.map(({ name, color, description }, index) => {
 							const props = { 
-								className, key: index, 
+								name,
+								key: index, 
+								className: 'label',
+								style: {
+									backgroundColor: `#${color}`,
+								},
 								onClick: () => this.setState({
 									selectedLabel: index
 								}) 
 							};
 							return (
-								<div { ...props }>{ name || 'X-ANNO' }</div>
+								<b { ...props }>{ description || '其他' }</b>
 							);
 						}) }
 					</div>

@@ -1,5 +1,32 @@
+#blog-list .blog dt {
+	display: flex;
+}
+
 #blog-list .blog dt a {
 	text-decoration: none;
+}
+
+#blog-list .blog dt .title {
+	flex: 1;
+}
+
+#blog-list .blog dt .title h2 {
+    margin: 20px 0 10px;
+}
+
+#blog-list .blog .post .reaction {
+	position: relative;
+	width: 200px;
+}
+
+#blog-list .blog .post .reaction .issue-reactions {
+	position: absolute;
+	top: 25px;
+	opacity: 0.1;
+}
+
+#blog-list .blog .post:hover .reaction .issue-reactions {
+	opacity: 1;
 }
 
 #blog-list .blog dd {
@@ -10,6 +37,10 @@
 
 #blog-list .blog .summary {
 	word-break: break-all;
+}
+
+#blog-list .blog .summary .markdown p {
+	margin: 5px 0;
 }
 
 #blog-list .blog .summary code {

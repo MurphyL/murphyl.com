@@ -1,43 +1,30 @@
-.post {
+#blog-post {
 	min-height: 30vh;
 }
 
-.container ul.post-navi {
-	position: fixed;
-	padding-right: 30px;
-	left: 40px;
-	top: 50px;
-	list-style-type: none;
-}
-
-.post .author {
+#blog-post .top {
+	display: flex;
 	position: relative;
-	padding: 0 20px;
-	border-top: 1px solid #ccc;
 }
 
-.post .author .details {
-	margin: 0 0 30px;
+#blog-post .top h2 {
+	flex: 1;
 }
 
-.post .author .details::after {
+#blog-post .top .reaction {
 	position: absolute;
-	padding: 5px 8px;
-	top: 0;
 	right: 25px;
-	font-size: 12px;
-	content: '本文作者';
-	border: 1px solid #ccc;
-	border-top: none;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
+	top: 25px;
+	padding-right: 23px;
+	width: 200px;
+	text-align: right;
+	
 }
 
-.post .author .details .social {
-	margin-top: 20px;
+#blog-post .top .issue-reactions { 
+	opacity: 0.05;
 }
 
-.post .author .details .social .social-link {
-	margin-right: 15px;
+#blog-post:hover .top .issue-reactions { 
+	opacity: 1;
 }
-

@@ -12,11 +12,15 @@ import { executeGraphQl } from 'utils/murph_store';
 
 import { revisePost } from 'utils/article_utils';
 
+import IssueReactions from 'includes/issue_reactions/issue_reactions.jsx';
+
 import { markdownOptions, highlightCodeBlock } from 'includes/mark_config.jsx';
 
 import './blog_post.css';
 
-class PostX extends Component {
+const ISSUE_PATH = 'data.repository.issue';
+
+class Post extends Component {
 
     state = {
         loading: true
@@ -29,12 +33,10 @@ class PostX extends Component {
         } else {
             const { number } = this.props.match.params;
             executeGraphQl('get_issue_detail', {
-                owner: 'MurphyL',
-                repo: 'murphyl.com',
                 number: parseInt(number)
             }).then(resp => {
-                const post = lodashGet(resp, 'data.repository.issue');
-                this.setPostDetail(revisePost(post));
+                const { reactionGroups, ...post } = lodashGet(resp, ISSUE_PATH);
+                this.setPostDetail(Object.assign(revisePost(post), { reactionGroups }));
             });
         }
     }
@@ -47,15 +49,21 @@ class PostX extends Component {
     }
 
     render() {
-        const { loading, title, content } = this.state;
+        const { loading } = this.state;
         if(loading) {
             return (
                 <Loading message="数据加载中……" />
             );
         }
+        const { title, content, reactionGroups } = this.state;
         return (
-            <article className="post">
-                <h2>{ title || '' }</h2>
+            <article id="blog-post">
+                <div className="top">
+                    <h2>{ title || '' }</h2>
+                    <div className="reaction">
+                        <IssueReactions group={ reactionGroups } />
+                    </div>
+                </div>
                 <section className="mark">
                     <div className="content">
                         <Markdown children={ content || '' } options= { markdownOptions }/>
@@ -67,4 +75,4 @@ class PostX extends Component {
 
 };
 
-export default withRouter(PostX);
+export default withRouter(Post);

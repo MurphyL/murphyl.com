@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import lodashGet from 'lodash/get';
 
@@ -12,10 +12,12 @@ import { revisePost } from 'utils/article_utils';
 
 import { fetchBlogItems } from 'utils/murph_store';
 
+import IssueReactions from 'includes/issue_reactions/issue_reactions.jsx';
+
 import './blog_list.css';
 
 const BlogPost = ({ post }) => {
-    const { title, number } = post;
+    const { title, number, reactionGroups } = post;
     const parsed = revisePost(post);
     if(!parsed) {
         return (
@@ -24,14 +26,19 @@ const BlogPost = ({ post }) => {
     }
     const linkInfo = {
         pathname: number ? `/post/${number}` : '/404', 
-        state: revisePost(post)
+        state: Object.assign(revisePost(post), { reactionGroups })
     };
     return (
-        <Fragment>
+        <div className="post">
             <dt>
-                <Link to={ linkInfo }>
-                    <h2>{ title }</h2>
-                </Link>
+                <div className="title">
+                    <Link to={ linkInfo }>
+                        <h2>{ title }</h2>
+                    </Link>
+                </div>
+                <div className="reaction">
+                    <IssueReactions group={ reactionGroups } />
+                </div>
             </dt>
             <dd>
                 <article className="summary">
@@ -45,7 +52,7 @@ const BlogPost = ({ post }) => {
                     }} />
                 </article>
             </dd>
-        </Fragment>
+        </div>
     )
 };
 

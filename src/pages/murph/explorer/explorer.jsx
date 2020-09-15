@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Tag } from 'antd';
+
 import { get } from 'lodash';
 
 import { executeGraphQl } from 'utils/murph_store';
@@ -36,22 +38,9 @@ class MurphExplorer extends Component {
 			<Loadable id="murph-explorer" status={ loading }>
 				<div className="top">
 					<div className="labels">
-						{ labels.map(({ name, color, description }, index) => {
-							const props = { 
-								name,
-								key: index, 
-								className: 'label',
-								style: {
-									backgroundColor: `#${color}`,
-								},
-								onClick: () => this.setState({
-									selectedLabel: index
-								}) 
-							};
-							return (
-								<b { ...props }>{ description || '其他' }</b>
-							);
-						}) }
+						{ labels.map(({ name, color, description }, index) => (
+							<Tag key={ index } color={ `#${color}` }>{ description || '其他' }</Tag>
+						)) }
 					</div>
 				</div>
 			</Loadable>

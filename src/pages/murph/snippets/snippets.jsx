@@ -14,6 +14,8 @@ import MurphIcon from 'includes/murph_icon.jsx';
 
 import MurphTrigger from "includes/murph_trigger.jsx";
 
+import MurphProcess from 'includes/murph_process.jsx';
+
 import { CodeSnippet } from '../board/code_board.jsx';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -41,6 +43,7 @@ class Snippets extends Component {
 	}
 
 	fetchItems() {
+		MurphProcess.start();
 		fetchCodeItems({ size: 30 }).then(resp => {
 			const items = (lodashGet(resp, 'data.repository.issues.nodes') || []).map(item => {
 			    const parsed = matter(item.body, matterConfig);
@@ -61,6 +64,9 @@ class Snippets extends Component {
 				loading: false,
 				copiable: true
 			});
+		}).finally(() => {
+			MurphProcess.end();
+			console.log('代码片段查询完成');
 		});
 	}
 

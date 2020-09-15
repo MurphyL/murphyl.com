@@ -4,11 +4,6 @@
 	font-size: 12px;
 }
 
-#murph-explorer .labels .label {
-	margin: 3px;
-	padding: 3px 10px;
-	border-radius: 2rem;
+#murph-explorer .labels .ant-tag {
 	cursor: pointer;
-	line-height: 20px;
-	color: #ffffff;
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { withRouter } from "react-router-dom";
 
+import { BackTop } from 'antd';
+
 import lodashGet from 'lodash/get';
 
 import Markdown from 'markdown-to-jsx';
@@ -69,6 +71,9 @@ class Post extends Component {
                         <Markdown children={ content || '' } options= { markdownOptions }/>
                     </div>
                 </section>
+                <BackTop>
+                    <b>UP</b>
+                </BackTop>
             </article>
         );
     }

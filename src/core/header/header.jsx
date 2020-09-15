@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 
 import { Link } from "react-router-dom";
 
+import { Badge, Button, Dropdown, Menu } from 'antd';
+
 import MurphTrigger from "includes/murph_trigger.jsx";
 
 import './header.css';
 
-const navItems = [{
-    url: '/blog',
-    label: '博客'
-}, {
-    url: '/about',
-    label: '关于'
-}];
+const MoreLinks = () => (
+    <Menu>
+        <Menu.Item>
+            <Link to="/code/snippets">代码片段</Link>
+        </Menu.Item>
+    </Menu>
+);
 
 const Header = (props) => {
     const [ show, setShow ] = useState(false);
@@ -23,25 +25,18 @@ const Header = (props) => {
                     <Link to={ `/` }>{ process.env.REACT_APP_TITLE || '' }</Link>
                 </div>
                 <ul className={ `navi ${show}` }>
-                    { navItems && navItems.map((item, index) => (
-                        <li key={ index }>
-                            <Link to={ `${item.url || '/'}` }  onClick={ () => setShow(false) }>{ item.label }</Link>
-                        </li>
-                    ))}
+                    <li>
+                        <Badge dot offset={[3, 0]}>
+                            <Link to='/blog'  onClick={ () => setShow(false) }>博客</Link>
+                        </Badge>
+                    </li>
+                    <li>
+                        <Link to='/about'  onClick={ () => setShow(false) }>关于</Link>
+                    </li>
                     <li className="more-links">
-                        <Link to="#" className="x">
-                            <span>更多</span>
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                            </svg>
-                        </Link >
-                        <ol>
-                            {/*
-                            <li><Link to="/achive">博客归档</Link></li>
-                            <li><Link to="/contact">联系我</Link></li>
-                            */}
-                            <li><Link to="/code/snippets">代码片段</Link></li>
-                        </ol>
+                        <Dropdown overlay={ <MoreLinks /> } placement="bottomRight">
+                            <Button size="small">更多</Button>
+                        </Dropdown>
                     </li>
                     <li className="github-logo">
                         <a href={`https://github.com/${ process.env.REACT_APP_GITHUB }`} target="_blank" rel="noopener noreferrer">

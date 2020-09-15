@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import lodashGet from 'lodash/get';
-
 import { Link, withRouter } from "react-router-dom";
+
+import lodashGet from 'lodash/get';
 
 import Markdown from 'markdown-to-jsx';
 
@@ -11,6 +11,8 @@ import { Loading } from 'core/loading/loading';
 import { revisePost } from 'utils/article_utils';
 
 import { fetchBlogItems } from 'utils/murph_store';
+
+import MurphProcess from 'includes/murph_process.jsx';
 
 import IssueReactions from 'includes/issue_reactions/issue_reactions.jsx';
 
@@ -66,7 +68,6 @@ class BlogList extends Component {
     }
 
     componentDidMount() {
-        // const { num } = this.props.match.params;
         const { size } = this.state;
         this.fetchPost({
             type: 'X-POST',
@@ -77,6 +78,7 @@ class BlogList extends Component {
     }
 
     fetchPost(params) {
+        MurphProcess.start();
         fetchBlogItems(params).then((resp) => {
             const x = lodashGet(resp, GITHUB_ISSUES_PATH);
             const { nodes, pageInfo, totalCount } = x;
@@ -87,7 +89,10 @@ class BlogList extends Component {
                 posts: nodes
             });
         }).catch(error => {
-            console.log('查询数据出错：', error);
+            console.error('查询数据出错：', error);
+        }).finally(() => {
+            MurphProcess.end();
+            console.log('文章列表数据查询完成');
         })
     }
 

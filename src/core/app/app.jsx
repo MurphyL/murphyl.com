@@ -1,18 +1,23 @@
-import React, { Component, StrictMode } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import { ConfigProvider } from 'antd';
 
 import { lazy } from '../loading/loading.jsx';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
-import './app.css';
+import 'antd/dist/antd.css';
+import 'nprogress/nprogress.css';
+
+import './app.less';
 import './mark.css';
 
 const NormalLoadable = ({ view }) => {
     return (
-        <div className="theme light">
+        <Fragment>
             <Header />
             <main>
                 <div className="container">
@@ -20,7 +25,7 @@ const NormalLoadable = ({ view }) => {
                 </div>
             </main>
             <Footer />
-        </div>
+        </Fragment>
     );
 };
 
@@ -108,11 +113,11 @@ class ErrorBoundary extends Component {
 
 const App = () => {
     return (
-        <StrictMode>
+        <ConfigProvider>
             <ErrorBoundary>
                 <RouteItems />
             </ErrorBoundary>
-        </StrictMode>
+        </ConfigProvider>
     )
 };
 

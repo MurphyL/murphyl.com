@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Tooltip } from 'antd';
+
 import emojis from 'gemoji/name-to-emoji';
 
 import './issue_reactions.css';
@@ -20,7 +22,9 @@ const IssueEmoji = ({ name = '', count = 1 }) => {
 	const local = name.toLowerCase();
 	const alias = GH_MAPPING[local] || local;
 	return (
-		<b name={ local } alias={ alias } count={ count }>{ emojis[alias] }</b>
+		<Tooltip title={ count } placement="top">
+			<b name={ local } alias={ alias }>{ emojis[alias] }</b>
+		</Tooltip>
 	);
 };
 

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@antv/g6": "^3.7.2",
+    "antd": "^4.6.4",
     "axios": "^0.19.2",
     "gemoji": "^5.0.1",
     "gray-matter": "^4.0.2",
@@ -12,30 +13,34 @@
     "markdown-to-jsx": "^6.11.4",
     "moment": "^2.28.0",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
+    "react-responsive": "^8.1.0",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
+    "@craco/craco": "^5.6.4",
+    "craco-less": "^1.17.0",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "http-proxy-middleware": "^1.0.5",
+    "lowdb": "^1.0.0",
     "react-scripts": "3.4.1",
+    "request": "^2.88.2",
     "shortid": "^2.2.15",
     "toml": "^3.0.0",
-    "xml-js": "^1.6.11",
-    "lowdb": "^1.0.0",
-    "request": "^2.88.2"
+    "xml-js": "^1.6.11"
   },
   "proxy": "https://murphyl.com",
   "scripts": {
     "clean": "gulp -f build.v2.js clean",
     "blog": "gulp -f build.v2.js",
     "metav2": "gulp -f build.v3.js",
-    "serve": "react-scripts start",
+    "serve": "craco start",
     "prebuild": "npm run metav2",
-    "build": "react-scripts build"
+    "build": "craco build"
   },
   "eslintConfig": {
     "extends": "react-app"

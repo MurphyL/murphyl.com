@@ -1,6 +1,5 @@
 /** component - footer **/
 #root footer {
-	margin-top: 10px;
 	min-height: 120px;
 	border-top: 3px solid rgba(240, 240, 240, 0.7);
 }

@@ -6,7 +6,7 @@
     "@ant-design/pro-table": "^2.9.11",
     "@antv/g6": "^3.8.1",
     "antd": "^4.7.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "gemoji": "^5.0.1",
     "gray-matter": "^4.0.2",
     "highlight.js": "^10.3.1",

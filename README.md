@@ -21,3 +21,4 @@
 - [React参考文档](https://devhints.io/react)
 - [码农周刊](https://weekly.manong.io/issues/)
 - [Asciidoctor.js](https://www.npmjs.com/package/asciidoctor)
+- [Ramda.js](https://ramdajs.com/docs)

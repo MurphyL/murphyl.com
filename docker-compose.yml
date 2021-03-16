@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: nodejs-run:v0.1
+    container_name: murphyl.com
+    build: .
+    ports:
+      - "4000:3000"
+    volumes:
+      - ".:/usr/murph"

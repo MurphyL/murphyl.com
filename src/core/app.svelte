@@ -8,6 +8,9 @@
 </script>
 
 <Route>
+    <Route path="/">
+        <div>HOME</div>
+    </Route>
     <Route path="/docs/*">
         <Route path="/">
             <Docs />

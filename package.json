@@ -1,61 +1,28 @@
 {
-  "name": "murphyl.com",
-  "version": "0.1.0",
+  "name": "svelte-app",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@ant-design/pro-table": "^2.9.11",
-    "@antv/g6": "^3.8.1",
-    "antd": "^4.7.2",
-    "axios": "^0.19.2",
-    "gemoji": "^5.0.1",
-    "gray-matter": "^4.0.2",
-    "highlight.js": "^10.3.1",
-    "lodash": "^4.17.20",
-    "markdown-to-jsx": "^6.11.4",
-    "moment": "^2.29.1",
-    "normalize.css": "^8.0.1",
-    "nprogress": "^0.2.0",
-    "react": "^16.14.0",
-    "react-copy-to-clipboard": "^5.0.2",
-    "react-dom": "^16.14.0",
-    "react-helmet": "^6.1.0",
-    "react-responsive": "^8.1.0",
-    "react-router-dom": "^5.2.0"
+  "scripts": {
+    "build": "rollup -c",
+    "build:docs": "node res/build.js",
+    "dev": "rollup -c -w",
+    "start": "sirv public --single --no-clear --host 0.0.0.0"
   },
   "devDependencies": {
-    "@craco/craco": "^5.7.0",
-    "craco-less": "^1.17.0",
-    "del": "^5.1.0",
-    "gulp": "^4.0.2",
-    "lowdb": "^1.0.0",
-    "react-scripts": "3.4.1",
-    "request": "^2.88.2",
-    "shortid": "^2.2.16",
-    "toml": "^3.0.0",
-    "xml-js": "^1.6.11"
-  },
-  "proxy": "https://murphyl.com",
-  "scripts": {
-    "clean": "gulp -f build.v2.js clean",
-    "blog": "gulp -f build.v2.js",
-    "metav2": "gulp -f build.v3.js",
-    "serve": "craco start",
-    "prebuild": "npm run metav2",
-    "build": "craco build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "axios": "^0.21.1",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "sirv-cli": "^1.0.0",
+    "svelte": "^3.0.0",
+    "svelte-simple-datatables": "^0.1.25",
+    "tinro": "^0.6.4",
+    "toml": "^3.0.0"
   }
 }

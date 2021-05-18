@@ -1,9 +1,0 @@
-#murph-explorer .labels {
-	padding: 10px;
-	vertical-align: middle;
-	font-size: 12px;
-}
-
-#murph-explorer .labels .ant-tag {
-	cursor: pointer;
-}

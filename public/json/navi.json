@@ -1,0 +1,12 @@
+{
+    "top_bar": [{
+        "label": "导航",
+        "url": "/extra/links"
+    }, {
+        "label": "工具",
+        "children": [{
+            "label": "HTTP 状态码",
+            "url": "/extra/http/status_code"
+        }]
+    }]
+}

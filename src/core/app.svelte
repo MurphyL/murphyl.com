@@ -1,14 +1,14 @@
 <script>
     import {Route} from 'tinro'; 
 
-    import NavWrap from '../plug/nav-wrap/nav-wrap.svelte';
-
-    import Document from '../view/document.svelte';
-
-    import HttpRouter from '../view/http/http.svelte';
-    import CryptoRouter from '../view/crypto/crypto.svelte';
+    import Blog from '../view/blog/blog.svelte';
+    import Docs from '../view/blog/docs.svelte';
 
     import LinkTable from '../view/link_table.svelte';
+
+    import StatusCode from '../view/http/status_code.svelte';
+    import CryptoTools from '../view/crypto_utils.svelte';
+
 
     import MacOS from '../view/system/macos.svelte';
     import Windows10 from '../view/system/windows10.svelte';
@@ -18,18 +18,23 @@
     <Route path="/">
         <div>HOME</div>
     </Route>
-    <Route path="/docs/*">
-        <Route path="/">
-            <Document />
-        </Route>
+    <Route path="/blog">
+        <Blog />
+    </Route>
+    <Route path="/docs">
+        <Docs />
     </Route>
     <Route path="/extra/*">
-        <HttpRouter />
-        <CryptoRouter />
+        <Route path="/http/*">
+            <Route path="/status_code">
+                <StatusCode/>
+            </Route>
+        </Route>
+        <Route path="/crypto">
+            <CryptoTools />
+        </Route>
         <Route path="/links">
-            <NavWrap>
-                <LinkTable />
-            </NavWrap>
+            <LinkTable />
         </Route>
         <Route path="/win10">
             <Windows10 />

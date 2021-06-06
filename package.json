@@ -13,6 +13,8 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "axios": "^0.21.1",
+    "inspire-tree": "^6.0.1",
+    "inspire-tree-dom": "^4.0.6",
     "mkdirp": "^1.0.4",
     "rimraf": "^3.0.2",
     "rollup": "^2.3.4",
@@ -28,8 +30,5 @@
     "toml": "^3.0.0",
     "yaml": "^1.10.2"
   },
-  "dependencies": {
-    "inspire-tree": "^6.0.1",
-    "inspire-tree-dom": "^4.0.6"
-  }
+  "dependencies": {}
 }

@@ -1,4 +1,5 @@
 <script>
+    import { top } from '../navi';
     export let current = 'home';
 </script>
 
@@ -9,9 +10,13 @@
                 <a href="/">{process.env.APP_TITLE}</a>
             </div>
             <div class="navi">
-                <a href="/docs" class:current={current === 'docs'}>文档</a>
-                <a href="/blog" class:current={current === 'blog'}>Blog</a>
-                <a href="/kits" class:current={current === 'kits'}>工具</a>
+                {#each top as item, index}
+                    {#if item.link}
+                        <a class="item" class:current={current === item.group} href={item.link} data-index={index}>{item.label}</a>
+                    {:else}
+                        <span class="item" class:current={current === item.group} data-index={index}>{item.label}</span>
+                    {/if}
+                {/each}
             </div>
         </div>
     </nav>
@@ -24,6 +29,10 @@
 </footer>
 
 <style>
+    .header {
+        -webkit-user-select: none;
+        user-select: none;
+    }
     .header .navbar {
         padding: 10px 15px;
     }
@@ -53,13 +62,19 @@
         flex: 1;
         text-align: right;
     }
-    .header .navbar .inner .navi a {
+    .header .navbar .inner .navi .item {
         padding: 0 16px;
+        cursor: pointer;
+    }
+    .header .navbar .inner .navi span.item::after {
+        content: '▾';
+        color: grey;
     }
     .content {
         min-height: 300px;
     }
     .footer {
+        min-height: 120px;
         border-top: 1px solid #eaecef;
     }
 </style>

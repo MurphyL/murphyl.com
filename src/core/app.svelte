@@ -1,8 +1,10 @@
 <script>
     import {Route} from 'tinro'; 
 
+    import Home from '../view/home/home.svelte';
     import Blog from '../view/blog/blog.svelte';
     import Docs from '../view/blog/docs.svelte';
+    import Kits from '../view/blog/kits.svelte';
 
     import LinkTable from '../view/link_table.svelte';
 
@@ -16,13 +18,16 @@
 
 <Route>
     <Route path="/">
-        <div>HOME</div>
+        <Home />
     </Route>
     <Route path="/blog">
         <Blog />
     </Route>
     <Route path="/docs">
         <Docs />
+    </Route>
+    <Route path="/kits">
+        <Kits />
     </Route>
     <Route path="/extra/*">
         <Route path="/http/*">

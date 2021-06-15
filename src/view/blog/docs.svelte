@@ -3,5 +3,5 @@
 </script>
 
 <BlogLayout current="docs">
-    
+    <div>docs</div>
 </BlogLayout>

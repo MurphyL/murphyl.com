@@ -1,9 +1,22 @@
 import {StrictMode} from 'react';
 
+import { Router, Route, Switch } from "wouter";
+
+import Home from 'view/home/home.view.jsx';
+import Group from 'view/group/group.view.jsx';
+import Crypto from 'view/extra/crypto/crypto.view.jsx';
+
 export default function App() {
     return (
         <StrictMode>
-            <div>app</div>
+            <Router>
+                <Switch>
+                    <Route path="/" component={Home} />
+                    <Route path="/group/:name" component={Group} />
+                    <Route path="/extra/crypto" component={Crypto} />
+                    <Route>404, Not Found!</Route>
+                </Switch>
+            </Router>
         </StrictMode>
     );
 };

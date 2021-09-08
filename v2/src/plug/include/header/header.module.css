@@ -1,0 +1,41 @@
+.root {
+    display: flex;
+    margin: 0;
+    border-bottom: 1px solid grey;
+}
+
+.root .logo,
+.root .navi {
+    margin: 0 10px;
+    padding: 10px;
+}
+
+.root .logo a,
+.root .navi a {
+    display: inline-block;
+    line-height: 25px;
+    height: 25px;
+    text-decoration: none;
+}
+
+
+/** logo **/
+.root .logo a {
+    width: 300px;
+    font-weight: 800;
+}
+
+.root .logo a, 
+.root .logo a:visited {
+    color: black;
+}
+
+/** navi **/
+.root .navi {
+    flex: 1;
+    text-align: right;
+}
+
+.root .navi a {
+    padding: 0 10px;
+}

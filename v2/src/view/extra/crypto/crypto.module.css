@@ -1,0 +1,9 @@
+.root {
+    margin: 10px;
+}
+
+.root .textarea textarea {
+    padding: 5px;
+    width: 300px;
+    height: 150px;
+}

@@ -5,6 +5,10 @@ import items from 'data/navi/top.js';
 
 import styles from './header.module.css';
 
+const makeUrl = ({group, page = false}) => {
+    return page ? `/${group}` : `/group/${group}`
+};
+
 export default function Header() {
     useEffect(() => {
         console.log(items);
@@ -17,7 +21,7 @@ export default function Header() {
             </figure>
             <nav className={styles.navi}>
                 {(items || []).map((item, index) => (
-                    <Link key={index} className="item" href={`/group/${item.group}`}>{item.label}</Link>
+                    <Link key={index} className="item" href={makeUrl(item)}>{item.label}</Link>
                 ))}
             </nav>
         </header>

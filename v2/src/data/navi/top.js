@@ -10,6 +10,7 @@ export default [{
 }, {
     label: 'Blog',
     group: 'blog',
+    page: true
 }, {
     label: '工具',
     group: 'kits',

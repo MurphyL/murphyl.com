@@ -39,3 +39,7 @@
 .root .navi a {
     padding: 0 10px;
 }
+
+.root .navi a:visited {
+    color: grey;
+}

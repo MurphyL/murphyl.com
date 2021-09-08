@@ -2,11 +2,16 @@ CONTAINER=murphyl.com
 
 SERVE_PORT?=3000
 
-BINDING=-p $(SERVE_PORT):5000 -p 35729:35729
+start: v2/start
 
+v2/init:
+	docker run --rm -v $(CURDIR):/usr/murph murphyl/nodejs npx create-react-app v2
 
-start: 
-	docker run -it --rm --name $(CONTAINER) -v $(CURDIR):/usr/murph $(BINDING) murphyl/nodejs sh -c "npm run dev"
+v2/start: 
+	docker run -it --rm --name $(CONTAINER) -v $(CURDIR)/v2:/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs npm run start
 
-install:
-	docker run --rm -v $(CURDIR):/usr/murph murphyl/nodejs npm install
+v1/start: 
+	docker run -it --rm --name $(CONTAINER) -v $(CURDIR)/v1:/usr/murph -p $(SERVE_PORT):5000 -p 35729:35729 murphyl/nodejs npm run dev
+
+v1/install:
+	docker run --rm -v $(CURDIR)/v1:/usr/murph murphyl/nodejs npm install

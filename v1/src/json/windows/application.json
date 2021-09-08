@@ -1,0 +1,23 @@
+[{
+    "label": "软件开发",
+    "children": [{
+        "label": "IntelliJ IDEA",
+        "tags": [
+            "java",
+            "ide"
+        ],
+        "link": "https://www.jetbrains.com/idea/download/#section=windows"
+    }]
+}, {
+    "label": "音乐管理",
+    "children": [{
+        "label": "MusicBrainz Picard",
+        "link": "https://picard.musicbrainz.org/"
+    }]
+}, {
+    "label": "Chrome/Edge 插件",
+    "children": [{
+        "label": "广告拦截插件 - AdGuard",
+        "link": "https://adguard.com/zh_cn/welcome.html"
+    }]
+}]

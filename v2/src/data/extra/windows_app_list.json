@@ -1,0 +1,62 @@
+[{
+    "label": "软件开发",
+    "children": [{
+        "label": "IntelliJ IDEA",
+        "tags": [
+            "java",
+            "ide"
+        ],
+        "link": "https://www.jetbrains.com/idea/download/#section=windows"
+    }, {
+        "label": "HeidiSQL",
+        "desc": [
+            "MSQL 数据库管理"
+        ]
+    }, {
+        "label": "Visual Studio Code"
+    }]
+}, {
+    "label": "音乐管理",
+    "children": [{
+        "label": "MusicBrainz Picard",
+        "link": "https://picard.musicbrainz.org/",
+        "desc": [
+            "跨平台音频标签处理，可在线查询并重写元数据标签。",
+            "Picard is a cross-platform music tagger that looks up and rewrite metadata tags."
+        ]
+    }, {
+        "label": "Audacity",
+        "desc": [
+            "免费开源跨平台的音频记录与编辑软件"
+        ]
+    }, {
+        "label": "AIMP",
+        "desc": [
+            "轻巧的本地音频播放器，支持多种格式，并具备音频管理功能"
+        ]
+    }, {
+        "label": "CharlesPikachu/musicdl",
+        "link": "https://github.com/CharlesPikachu/musicdl",
+        "tags": [
+            "open-source"
+        ]
+    }]
+}, {
+    "label": "效率工具",
+    "unique": "efficiency",
+    "children": [{
+        "label": "Everything"
+    }, {
+        "label": "Snipaste"
+    }, {
+        "label": "Pandoc"
+    }, {
+        "label": "7-Zip"
+    }]
+}, {
+    "label": "Chrome/Edge 插件",
+    "children": [{
+        "label": "广告拦截插件 - AdGuard",
+        "link": "https://adguard.com/zh_cn/welcome.html"
+    }]
+}]

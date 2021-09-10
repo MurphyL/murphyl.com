@@ -7,6 +7,7 @@ import Blog from 'view/blog/blog.view.jsx';
 import Database from 'view/db/db.view.jsx';
 import Group from 'view/group/group.view.jsx';
 import Crypto from 'view/extra/crypto/crypto.view.jsx';
+import WinApps from 'view/extra/windows/app_list.view.jsx';
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
                     <Route path="/data" component={Database} />
                     <Route path="/group/:name" component={Group} />
                     <Route path="/extra/crypto" component={Crypto} />
+                    <Route path="/extra/windows/apps" component={WinApps} />
                     <Route>404, Not Found!</Route>
                 </Switch>
             </Router>

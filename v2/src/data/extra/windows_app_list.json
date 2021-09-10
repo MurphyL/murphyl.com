@@ -14,9 +14,13 @@
         ]
     }, {
         "label": "Visual Studio Code"
+    }, {
+        "label": "Notepad2"
+    }, {
+        "label": "XShell"
     }]
 }, {
-    "label": "音乐管理",
+    "label": "多媒体",
     "children": [{
         "label": "MusicBrainz Picard",
         "link": "https://picard.musicbrainz.org/",
@@ -40,6 +44,14 @@
         "tags": [
             "open-source"
         ]
+    }, {
+        "label": "HandBrake"
+    }, {
+        "label": "VLC"
+    }, {
+        "label": "IrfanView"
+    }, {
+        "label": "Paint.net"
     }]
 }, {
     "label": "效率工具",
@@ -52,6 +64,16 @@
         "label": "Pandoc"
     }, {
         "label": "7-Zip"
+    }, {
+        "label": "Ditto"
+    }, {
+        "label": "GeekUninstaller"
+    }, {
+        "label": "KeyCastOW"
+    }, {
+        "label": "rufus"
+    }, {
+        "label": "Anydesk"
     }]
 }, {
     "label": "Chrome/Edge 插件",

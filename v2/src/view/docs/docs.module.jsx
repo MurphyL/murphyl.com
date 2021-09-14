@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from 'react';
-
-import { Loading } from 'plug/include/loading/loading.module.jsx';
+import React, { Fragment } from 'react';
 
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
 
-import { ajaxGet } from 'utils/rest_client';
+import docs from 'data/docs/awesome-docs.json';
 
 export default function Documents() {
-	const [ state, setState ] = useState({ code: -1 });
-	useEffect(() => {
-		ajaxGet('docs.json').then(setState);
-	}, []);
-    if(state.code === -1) {
-        return (
-            <Loading message="正在加载文档流……" />
-        );
-    } else if(state.code === 1) {
-        return (
-            <div>加载文章列表出错~</div>
-        )
-    }
 	return (
 		<NavLayout>
-			<ul>
-				{(state.payload || []).map((item, index) => (
-					<li key={index}>
-						<a href={ `/post/${item.filename}` }>{ item.title }</a>
-					</li>
+			<dl>
+				{(docs || []).map((group, gi) => (
+					<Fragment key={gi}>
+						<dt id={group.unique}>{group.label}</dt>
+						<dd>
+							{(group.children || []).map((item, di) => (
+								<div ket={di}>
+									<h3>{item.label}</h3>
+									<p>{item.desc || ''}</p>
+								</div>
+							))}
+						</dd>
+					</Fragment>
 				))}
-			</ul>
+			</dl>
 		</NavLayout>
 	);
 }

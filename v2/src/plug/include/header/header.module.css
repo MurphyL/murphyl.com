@@ -7,14 +7,17 @@
 .root .logo {
     display: inline-block;
     margin: 0;
-	align-items: center;
 	font-weight: 600;
 }
 
 .root .logo img {
 	margin-right: 10px;
-	width: 32px;
-	height: 32px;
+	width: 28px;
+	height: 28px;
+}
+
+.root .logo b {
+	font-size: 16px;
 }
 
 /** component - header **/

@@ -5,6 +5,7 @@
 
 .root a {
     text-decoration: none;
+    color: gray;
 }
 
 .root .container {

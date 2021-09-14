@@ -9,15 +9,6 @@
 	display: flex;
 }
 
-@media screen and (max-width: 800px) {
-
-}
-
-@media screen and (max-width: 600px) {
-	.root .sitemap .links {
-		display: none;
-	}
-}
 
 .root .sitemap .section {
 	flex: 1;

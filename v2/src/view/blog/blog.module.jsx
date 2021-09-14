@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import Markdown from 'markdown-to-jsx';
-
-import { Loading } from 'plug/include/loading/loading.module.jsx';
 
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
 
@@ -12,7 +10,7 @@ import './blog.module.css';
 
 function BlogPost({ post }) {
     return (
-        <NavLayout>
+        <Fragment>
             <dt>
                 <a href={ `/post/${post.filename}` }>
                     <h2>{ post.title }</h2>
@@ -30,7 +28,7 @@ function BlogPost({ post }) {
                     }} />
                 </article>
             </dd>
-        </NavLayout>
+        </Fragment>
     )
 }
 
@@ -42,7 +40,7 @@ function BlogList() {
     }, []);
     if(state.code === -1) {
         return (
-            <Loading message="正在加载博客数据……" />
+            <div>正在加载博客数据……</div>
         );
     } else if(state.code === 1) {
         return (

@@ -1,0 +1,14 @@
+.root {
+    margin: 0;
+    
+}
+
+.root a {
+    text-decoration: none;
+}
+
+.root .container {
+    margin: 0 auto;
+    padding: 0 10px;
+    width: 960px;
+}

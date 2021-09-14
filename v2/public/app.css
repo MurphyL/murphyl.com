@@ -1,7 +1,55 @@
-body {
+html, body, code {
     margin: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-    font-family: -apple-system,Helvetica Neue,Helvetica,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-feature-settings: "tnum";
+    font-variant: tabular-nums;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+*::-webkit-scrollbar-track {
+	background: orange rgba(241, 241, 241, 1);
+}
+*::-webkit-scrollbar-thumb {
+	background-color: rgba(193, 193, 193, 1);
+	border-radius: 20px;
+	border: 1px solid  rgba(192, 192, 192, 1);
+}
+
+@media screen and (max-width: 600px) {
+	.post .content .code-block .lang-type {
+		display: none;
+	}
+}
+/**
+@media screen and (max-width: 960px) {
+	#root .container {
+	    margin: 10px auto;
+	    width: calc(100% - 30px);
+	}
+}
+
+@media screen and (min-width: 961px) { 
+
+	#root .container {
+	    margin: 0 auto;
+	    padding: 0 10px;
+	    width: 960px;
+	}
+
+}
+**/
+#root main .blog .summary p>code, 
+#root main .post .markdown p>code {
+	margin: 0 3px;
+	padding: 2px 3px;
+	border: 1px solid rgba(230, 230, 230, 1);
 }

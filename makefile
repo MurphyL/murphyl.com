@@ -2,22 +2,16 @@ CONTAINER=murphyl.com
 
 SERVE_PORT?=3000
 
-start: v2/start
+VERSION?=v2
 
-v2/init:
-	docker run --rm --name $(CONTAINER) -v $(CURDIR):/usr/murph murphyl/nodejs npx create-react-app v2
+start: 
+	docker run --rm -it --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs npm run start
 
-v2/start: 
-	docker run -it --rm --name $(CONTAINER) -v $(CURDIR)/v2:/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs npm run start
+update:
+	docker run --rm --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph murphyl/nodejs npm update
+	
+install:
+	docker run --rm --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph murphyl/nodejs npm install
 
-v2/update:
-	docker run --rm --name $(CONTAINER) -v $(CURDIR)/v2:/usr/murph murphyl/nodejs npm update
-
-v1/start: 
-	docker run -it --rm --name $(CONTAINER) -v $(CURDIR)/v1:/usr/murph -p $(SERVE_PORT):5000 -p 35729:35729 murphyl/nodejs npm run dev
-
-v1/update:
-	docker run --rm --name $(CONTAINER) -v $(CURDIR)/v1:/usr/murph murphyl/nodejs npm update
-
-v1/install:
-	docker run --rm --name $(CONTAINER) -v $(CURDIR)/v1:/usr/murph murphyl/nodejs npm install
+init:
+	docker run --rm --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph murphyl/nodejs npm init $(VERSION)

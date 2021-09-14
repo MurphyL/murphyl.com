@@ -1,10 +1,45 @@
+/** component - footer **/
 .root {
-    margin: 10px 0 0;
-    padding: 10px;
-    border-top: 1px solid grey;
+	margin-top: 0;
+	min-height: 120px;
+	border-top: 1px solid #ccc;
 }
 
-.root .sign {
-    min-height: 50px;
-    text-align: center;
+.root .sitemap {
+	display: flex;
+}
+
+@media screen and (max-width: 800px) {
+
+}
+
+@media screen and (max-width: 600px) {
+	.root .sitemap .links {
+		display: none;
+	}
+}
+
+.root .sitemap .section {
+	flex: 1;
+}
+
+.root .sitemap .section dt {
+	font-weight: 800;
+}
+
+.root .sitemap .section dd {
+	margin: 0;
+}
+
+.root .sitemap .section dd ul {
+	padding-left: 0;
+}
+
+.root .sitemap .section dd ul li {
+	list-style-type: none;
+}
+
+.root .copyright {
+	text-align: center;
+	line-height: 3rem;
 }

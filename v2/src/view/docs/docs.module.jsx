@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Loading } from 'core/loading/loading.module.jsx';
+import { Loading } from 'plug/include/loading/loading.module.jsx';
 
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
 

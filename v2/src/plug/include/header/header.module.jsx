@@ -18,10 +18,10 @@ export default function Header({ container }) {
     return (
         <header className={styles.root}>
             <div className={container}>
-                <Link to="/" className={styles.logo}>
+                <figure className={styles.logo}>
                     <img src={process.env.REACT_APP_LEGO} alt="logo" />
-                    <span>{process.env.REACT_APP_TITLE || '未命名站点'}</span>
-                </Link>
+                    <Link to="/">{process.env.REACT_APP_TITLE}</Link>
+                </figure>
                 <nav className={`${styles.navi} ${show}`}>
                     {navItems && navItems.map((item, index) => (
                         <Link key={index} to={`${item.url || '/'}`} onClick={() => setShow(false)}>{item.label}</Link>

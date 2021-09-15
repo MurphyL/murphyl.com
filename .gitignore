@@ -2,6 +2,7 @@ node_modules/
 
 v1/public/build/
 v2/build/
+v2/public/vendors/
 
 
 package-lock.json

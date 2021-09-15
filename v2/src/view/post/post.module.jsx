@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+
+import * as matter from 'gray-matter';
+import axios from 'axios';
+
 import Markdown from 'markdown-to-jsx';
 
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
-
-import { ajaxGet } from 'utils/rest_client';
 
 import './post.module.css';
 
@@ -92,22 +94,31 @@ const markdownOptions = {
 
 export default function Post() {
     const { unique } = useParams();
-    const [ post, setPost ] = useState({});
+    const [ code, setCode ] = useState(-1);
+    const [ post, setPost ] = useState('');
     useEffect(() => {
-        ajaxGet(`posts/${unique}.json`).then(res => {
-            if(res.code === 0) {
-                return { code: 0, ...(res.payload || {}) };
-            } else {
-                return { code: 1 }
-            }
-        }).then(setPost)
+        axios.get(`/markdown/${unique}`).then(({ status, data }) => {
+            setCode(status);
+            setPost(data);
+        })
     }, [ unique ]);
+    if(code < 0) {
+        return (
+            <div>数据加载中……</div>
+        );
+    }
+    if(code !== 200 || post === '') {
+        return (
+            <div>数据加载错误…</div>
+        );
+    }
+    const { data: meta, content } = matter(post);
     return (
         <NavLayout>
             <article>
-                <h2>{ post.title || '' }</h2>
+                <h2>{ meta.title || unique }</h2>
                 <section>
-                    <Markdown children={ post.markdown || '' } options= { markdownOptions }/>
+                    <Markdown children={ content || '' } options= { markdownOptions }/>
                 </section>
             </article>
         </NavLayout>

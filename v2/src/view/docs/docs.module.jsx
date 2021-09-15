@@ -13,7 +13,7 @@ export default function Documents() {
 						<dt id={group.unique}>{group.label}</dt>
 						<dd>
 							{(group.children || []).map((item, di) => (
-								<div ket={di}>
+								<div key={di}>
 									<h3>{item.label}</h3>
 									<p>{item.desc || ''}</p>
 								</div>

@@ -13,7 +13,7 @@
     "react-router-dom": "^5.3.0"
   },
   "scripts": {
-    "docs": "copyfiles -fV src/data/docs/*.md public/vendors/docs",
+    "docs": "copyfiles -fV src/data/docs/*.md public/markdown",
     "prestart": "npm run docs",
     "prebuild": "npm run docs",
     "start": "react-scripts start",

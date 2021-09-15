@@ -2,7 +2,7 @@ import React, { StrictMode } from 'react';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { ErrorBoundary } from 'plug/include/error/error.jsx';
+import { ErrorBoundary } from 'plug/include/error/error.module.jsx';
 
 import Home from 'view/home/home.module.jsx';
 

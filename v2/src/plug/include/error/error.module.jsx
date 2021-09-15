@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import styles from './error.module.css';
+
 export class ErrorBoundary extends Component {
 
 	constructor(props) {
@@ -22,3 +24,11 @@ export class ErrorBoundary extends Component {
 		return this.props.children; 
 	}
 }
+
+export const Error = ({ message }) => {
+	return (
+		<div className={styles.root}>
+			<span>{ message }</span>
+		</div>
+	);
+};

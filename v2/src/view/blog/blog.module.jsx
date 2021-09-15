@@ -2,6 +2,10 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
+import { Loading } from 'plug/include/loading/loading.module.jsx';
+
+import { Error } from 'plug/include/error/error.module.jsx';
+
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
 
 import { ajaxGet } from 'utils/rest_client';
@@ -40,11 +44,13 @@ function BlogList() {
     }, []);
     if(state.code === -1) {
         return (
-            <div>正在加载博客数据……</div>
+            <Loading message="正在加载博客数据……" />
         );
     } else if(state.code === 1) {
         return (
-            <NavLayout>加载文章列表出错~</NavLayout>
+            <NavLayout>
+                <Error message="加载文章列表出错~" />
+            </NavLayout>
         )
     }
     return (

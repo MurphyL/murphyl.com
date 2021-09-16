@@ -1,16 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
-import { Error, Loading } from 'plug/include/status/status.module.jsx';
-
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
-
-import { ajaxGet } from 'utils/rest_client';
 
 import './blog.module.css';
 
-function BlogPost({ post }) {
+export function BlogPost({ post }) {
     return (
         <Fragment>
             <dt>
@@ -35,31 +31,10 @@ function BlogPost({ post }) {
 }
 
 
-function BlogList() {
-    const [ state, setState ] = useState({ code: -1 });
-    useEffect(() => {
-        ajaxGet('blog.json').then(setState);
-    }, []);
-    if(state.code === -1) {
-        return (
-            <Loading message="正在加载博客数据……" />
-        );
-    } else if(state.code === 1) {
-        return (
-            <NavLayout>
-                <Error message="加载文章列表出错~" />
-            </NavLayout>
-        )
-    }
+export default function BlogList() {
     return (
         <NavLayout>
-            <dl>
-                {(state.payload || []).map((post, index) => (
-                    <BlogPost key={index} post={post} />
-                ))}
-            </dl>
+            <p>Blog</p>
         </NavLayout>
     )
 };
-
-export default BlogList;

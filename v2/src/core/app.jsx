@@ -1,13 +1,12 @@
 import React, { StrictMode } from 'react';
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import { ErrorBoundary } from 'plug/include/status/status.module.jsx';
 
 import Home from 'view/home/home.module.jsx';
 
 import Blog from 'view/blog/blog.module.jsx';
-import Docs from 'view/docs/docs.module.jsx';
 import Post from 'view/post/post.module.jsx';
 
 import About from 'view/about/about.module.jsx';
@@ -25,7 +24,7 @@ export default function App() {
                             <Blog />
                         </Route>
                         <Route path="/docs">
-                            <Docs />
+                            <Redirect to="/post/document-navi.md" />
                         </Route>
                         <Route path="/post/:unique">
                             <Post />

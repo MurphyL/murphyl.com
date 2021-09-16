@@ -2,9 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
-import { Loading } from 'plug/include/loading/loading.module.jsx';
-
-import { Error } from 'plug/include/error/error.module.jsx';
+import { Error, Loading } from 'plug/include/status/status.module.jsx';
 
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
 

@@ -1,8 +1,5 @@
 ---
-id: awesome-windows
-title: Windows应用软件推荐
-top: true
-cover: '/image/assets/screen2gif.jpg'
+title: Windows 应用软件推荐
 ---
 
 ## 必备

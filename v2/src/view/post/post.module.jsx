@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-
-import * as matter from 'gray-matter';
 import axios from 'axios';
 
+import * as matter from 'gray-matter';
 import Markdown from 'markdown-to-jsx';
+
+import { Loading } from 'plug/include/status/status.module';
 
 import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
 
@@ -104,7 +105,9 @@ export default function Post() {
     }, [ unique ]);
     if(code < 0) {
         return (
-            <div>数据加载中……</div>
+            <NavLayout>
+                <Loading />
+            </NavLayout>
         );
     }
     if(code !== 200 || post === '') {

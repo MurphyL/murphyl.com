@@ -1,0 +1,97 @@
+/** list **/
+.list {
+    margin: 0;
+}
+
+.list .group {
+    margin: 0;
+}
+
+.list .group .group_title {
+    font-weight: 700;
+}
+
+.list .group .cards {
+    margin: 5px 0;
+}
+
+/** card **/
+.card {
+    display: inline-block;
+    width: 33%;
+}
+
+.card .card_container {
+    position: relative;
+    margin: 5px;
+    padding: 5px 8px;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+.card:hover .card_container {
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+.card .card_container .title {
+    height: 30px;
+    line-height: 30px;
+}
+
+.card .card_container .desc {
+    height: 50px;
+    line-height: 25px;
+    overflow: hidden;
+}
+
+.card .card_container .icon {
+    position: absolute;
+    right: 0;
+    top: 0px;
+    padding: 3px;
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+}
+
+/** post **/
+
+.post {
+    margin: root;
+}
+
+.post .profile {
+    display: flex;
+    margin: 20px 0;
+}
+
+.post .profile .logo {
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+
+    border: 1px solid #dfdfdf;
+    cursor: pointer;
+}
+
+.post .profile .meta {
+    flex: 1;
+    margin: 16px 0 0 10px;
+}
+
+.post .profile .meta h3,
+.post .profile .meta p {
+    margin: 0;
+}
+
+.post .profile .meta h3 {
+    line-height: 32px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.post .profile .meta p {
+    line-height: 28px;
+}

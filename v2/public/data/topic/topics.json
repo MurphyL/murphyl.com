@@ -1,7 +1,6 @@
 [
     {
         "title": "Java",
-        "desc": "java",
         "children": [
             {
                 "title": "JDBC",
@@ -13,10 +12,12 @@
             },
             {
                 "title": "Spring Boot",
+                "icon": "springboot",
                 "unique": "spring-boot"
             },
             {
                 "title": "Vert.x",
+                "icon": "eclipsevertdotx",
                 "unique": "vert.x"
             },
             {
@@ -24,9 +25,9 @@
                 "unique": "netty"
             }
         ]
-    },{
+    },
+    {
         "title": "数据处理",
-        "desc": "data",
         "children": [
             {
                 "title": "MySQL",
@@ -50,23 +51,24 @@
             },
             {
                 "title": "ElasticSearch",
-                "unique": "es",
+                "unique": "elasticsearch",
                 "desc": "基于 Lucene 的全文搜索引擎"
             }
         ]
     },
     {
         "title": "Web技术",
-        "desc": "web",
         "children": [
             {
                 "title": "CSS",
                 "unique": "css",
+                "icon": "css3",
                 "desc": "用来控制网络文档的样式，以一个简单的和容易的方法"
             },
             {
                 "title": "HTTP协议",
                 "unique": "http",
+                "icon": "aiohttp",
                 "desc": "超文本传输协议，是一种详细规定了浏览器和万维网服务器之间互相通信的规则"
             },
             {
@@ -83,7 +85,6 @@
     },
     {
         "title": "其他工具",
-        "desc": "other",
         "children": [
             {
                 "title": "Docker",

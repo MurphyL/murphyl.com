@@ -1,9 +1,6 @@
-{
-    "label": "MySQL",
-    "unique": "mysql",
-    "desc": "用户的巨大的开源关系型数据库",
-    "children": [{
+[
+    {
         "label": "探索MySQL表结构",
         "unique": "mysql-show-columns"
-    }]
-}
+    }
+]

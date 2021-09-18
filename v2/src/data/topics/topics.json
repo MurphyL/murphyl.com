@@ -1,0 +1,49 @@
+[
+    {
+        "title": "数据处理",
+        "desc": "data",
+        "children": [
+            {
+                "title": "MySQL",
+                "unique": "mysql",
+                "desc": "快速，易于使用的RDBMS"
+            },
+            {
+                "title": "PostgreSQL",
+                "unique": "postgresql",
+                "desc": "功能强大的开源对象关系数据库管理系统"
+            },
+            {
+                "title": "Ansi SQL",
+                "unique": "ansi-sql",
+                "desc": "数据库计算机语言，用于检索和管理关系数据库中的数据"
+            }
+        ]
+    },
+    {
+        "title": "Web技术",
+        "desc": "web",
+        "children": [
+            {
+                "title": "CSS",
+                "unique": "css",
+                "desc": "用来控制网络文档的样式，以一个简单的和容易的方法"
+            },
+            {
+                "title": "HTTP协议",
+                "unique": "http",
+                "desc": "超文本传输协议，是一种详细规定了浏览器和万维网服务器之间互相通信的规则"
+            },
+            {
+                "title": "React",
+                "unique": "react",
+                "desc": ""
+            },
+            {
+                "title": "XML",
+                "unique": "xml",
+                "desc": "可扩展标记语言"
+            }
+        ]
+    }
+]

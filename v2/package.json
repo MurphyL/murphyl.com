@@ -16,7 +16,7 @@
   },
   "scripts": {
     "markdown": "copyfiles -fV src/data/docs/**/*.md public/markdown",
-    "topic": "copyfiles -fV src/data/topic/**/*.json public/data/topic",
+    "topic": "copyfiles -fV src/data/topics/**/*.json public/data/topic",
     "prestart": "npm run markdown && npm run topic",
     "prebuild": "npm run markdown && npm run topic",
     "start": "react-scripts start",

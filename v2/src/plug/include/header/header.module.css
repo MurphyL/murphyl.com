@@ -3,6 +3,8 @@
 	height: 50px;
 	line-height: 50px;
 	border-bottom: 1px solid #ccc;
+
+	user-select: none;
 }
 
 .root .logo {

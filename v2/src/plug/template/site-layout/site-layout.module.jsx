@@ -9,11 +9,11 @@ export default function SiteLayout(props) {
     const { children } = props;
     return (
         <div className={styles.root}>
-            <Header container={styles.container} />
-            <main className={`${styles.container} ${styles.main}`}>
+            <Header className={styles.container} data-role="header" />
+            <main className={styles.container} data-role="main">
                 {children}
             </main>
-            <Footer container={styles.container} />
+            <Footer className={styles.container}  data-role="footer" />
         </div>
     );
 }

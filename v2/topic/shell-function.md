@@ -1,5 +1,5 @@
 ---
-title: "Shell 函数"
+title: Shell 函数
 ---
 
 `Shell`中函数的定义格式如下：

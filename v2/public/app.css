@@ -29,6 +29,10 @@ html, body, code {
 		display: none;
 	}
 }
+
+:root {
+	--view-width: 960px;
+}
 /**
 @media screen and (max-width: 960px) {
 	#root .container {

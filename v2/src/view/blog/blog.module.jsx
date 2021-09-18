@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
-import SiteLayout from 'plug/layout/site-layout/site-layout.module.jsx';
+import SiteLayout from 'plug/template/site-layout/site-layout.module.jsx';
 
 import './blog.module.css';
 

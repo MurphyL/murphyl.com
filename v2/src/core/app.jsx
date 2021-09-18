@@ -31,8 +31,7 @@ export default function App() {
                             }, {
                                 component: 'SiteLayout',
                                 children: [{
-                                    component: 'div',
-                                    text: 'Hello, world!'
+                                    component: 'TopicList',
                                 }]
                             }]} />
                         </Route>
@@ -42,8 +41,7 @@ export default function App() {
                             }, {
                                 component: 'SiteLayout',
                                 children: [{
-                                    component: 'div',
-                                    text: 'Hello, world!'
+                                    component: 'TopicPost',
                                 }]
                             }]} />
                         </Route>

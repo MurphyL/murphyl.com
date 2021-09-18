@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavLayout from 'plug/layout/site-layout/site-layout.module.jsx';
+import NavLayout from 'plug/template/site-layout/site-layout.module.jsx';
 
 export default function About() {
     return (

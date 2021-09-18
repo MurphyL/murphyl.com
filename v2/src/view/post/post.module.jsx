@@ -9,7 +9,7 @@ import { Loading } from 'plug/include/status/status.module';
 
 import markdownOptions from 'plug/extra/markdown/markdown.module.jsx';
 
-import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
+import NavLayout from 'plug/layout/site-layout/site-layout.module.jsx';
 
 import './post.module.css';
 

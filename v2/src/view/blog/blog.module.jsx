@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
-import NavLayout from 'plug/layout/nav_layout/nav_layout.module.jsx';
+import SiteLayout from 'plug/layout/site-layout/site-layout.module.jsx';
 
 import './blog.module.css';
 
@@ -33,8 +33,8 @@ export function BlogPost({ post }) {
 
 export default function BlogList() {
     return (
-        <NavLayout>
-            <p>Blog</p>
-        </NavLayout>
+        <SiteLayout>
+            Blog
+        </SiteLayout>
     )
 };

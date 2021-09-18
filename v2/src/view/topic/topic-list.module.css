@@ -12,11 +12,17 @@
     
 }
 
+.root .cards .card:hover .container {
+    opacity: 1;
+    cursor: pointer;
+}
+
 .root .cards .card .container {
     margin: 5px;
-    padding: 5px;
+    padding: 5px 8px;
     border: 1px solid #efefef;
     border-radius: 5px;
+    opacity: 0.8;
 }
 
 .root .cards .card .container .title {

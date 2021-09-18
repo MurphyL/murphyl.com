@@ -1,5 +1,30 @@
 [
     {
+        "title": "Java",
+        "desc": "java",
+        "children": [
+            {
+                "title": "JDBC",
+                "unique": "jdbc"
+            },
+            {
+                "title": "Spring",
+                "unique": "spring"
+            },
+            {
+                "title": "Spring Boot",
+                "unique": "spring-boot"
+            },
+            {
+                "title": "Vert.x",
+                "unique": "vert.x"
+            },
+            {
+                "title": "Netty",
+                "unique": "netty"
+            }
+        ]
+    },{
         "title": "数据处理",
         "desc": "data",
         "children": [
@@ -17,6 +42,16 @@
                 "title": "Ansi SQL",
                 "unique": "ansi-sql",
                 "desc": "数据库计算机语言，用于检索和管理关系数据库中的数据"
+            },
+            {
+                "title": "HDFS",
+                "unique": "hdfs",
+                "desc": "分布式文件系统"
+            },
+            {
+                "title": "ElasticSearch",
+                "unique": "es",
+                "desc": "基于 Lucene 的全文搜索引擎"
             }
         ]
     },
@@ -43,6 +78,16 @@
                 "title": "XML",
                 "unique": "xml",
                 "desc": "可扩展标记语言"
+            }
+        ]
+    },
+    {
+        "title": "其他工具",
+        "desc": "other",
+        "children": [
+            {
+                "title": "Docker",
+                "unique": "docker"
             }
         ]
     }

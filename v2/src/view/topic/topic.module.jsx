@@ -18,13 +18,13 @@ export function TopicPost() {
         return meta.loading;
     }
     console.log('topic', unique, meta);
-    const { hex: color, path } = simpleIcons.Get(meta.icon || unique);
+    const { hex: color, title: slug, path } = simpleIcons.Get(meta.icon || unique);
     return (
         <div className={post.root} style={{'--theme-color': `#${color}`}}>
             <div className={post.profile}>
                 <div className={post.logo}>
                     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <title>{unique}</title>
+                        <title>{slug}</title>
                         <path d={path} fill={`#${color}`} />
                     </svg>
                 </div>

@@ -24,23 +24,23 @@
     },{
         "label": "HDFS",
         "unique": "hdfs",
-        "desc": "HDFS是Hadoop分布式文件系统。"
+        "desc": "HDFS是Hadoop分布式文件系统"
     }, {
         "label": "MapReduce",
         "unique": "map/reduc",
-        "desc": "MapReduce是Hadoop解决大规模数据分布式计算的方案。"
+        "desc": "MapReduce是Hadoop解决大规模数据分布式计算的方案"
     }, {
         "label": "Yarn",
         "unique": "Yarn",
-        "desc": "Yarn是分布式集群资源调度框架。"
+        "desc": "Yarn是分布式集群资源调度框架"
     }, {
         "label": "Hive",
         "unique": "hive",
-        "desc": "Hive是Hadoop大数据仓库Hive。"
+        "desc": "Hive是Hadoop大数据仓库Hive"
     }, {
         "label": "ZooKeeper",
         "unique": "zooKeeper",
-        "desc": "ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务。"
+        "desc": "ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务"
     }]
 }, {
     "label": "软件设计架构",
@@ -56,14 +56,14 @@
     "children": [{
         "label": "Linux",
         "unique": "linux",
-        "desc": "Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统。"
+        "desc": "Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统"
     }, {
         "label": "Git",
         "unique": "git",
-        "desc": "Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。"
+        "desc": "Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目"
     }, {
         "label": "Markdown",
         "unique": "markdown",
-        "desc": "Markdown是一种可以使用普通文本编辑器编写的标记语言。"
+        "desc": "Markdown是一种可以使用普通文本编辑器编写的标记语言"
     }]
 }]

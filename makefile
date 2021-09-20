@@ -2,10 +2,7 @@ CONTAINER=murphyl.com
 
 SERVE_PORT?=3000
 
-VERSION?=v2
-
-DOC_SOURCE=src/data/docs/*.md
-DOC_TARGET=public/vendors/docs/
+VERSION?=site
 
 start: 
 	docker run --rm -it --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs npm run start

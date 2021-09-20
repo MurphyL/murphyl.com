@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "@iarna/toml": "^2.2.5",
     "copyfiles": "^2.4.1",
     "react-scripts": "3.4.1"
   }

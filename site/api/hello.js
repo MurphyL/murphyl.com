@@ -1,4 +1,4 @@
-const { readdirSync } = require('fs');
+const fs = require('fs');
 
 const meta = {
   name: 'murph',
@@ -7,15 +7,24 @@ const meta = {
 };
 
 export default (req, res) => {
-  try {
-    res.json({
-      ...meta,
-      list: readdirSync(req.query.who || '/', 'utf8'),
-    })
-  } catch (e) {
-    res.json({
-      ...meta,
-      message: `读取系统文件出错：${e.message}`
-    });
-  }
-}
+  const { where = '/' } = req.query;
+  fs.stat(where, (err, stats) => {
+    if (err) {
+      res.json(Object.assign(meta, {
+        message: '指定的路径不存在！'
+      }));
+    } else if (stats.isFile()) {
+      res.json(Object.assign(meta, {
+        list: fs.readFileSync(req.query.where || '/', 'utf8')
+      }));
+    } else if (stats.isDirectory()) {
+      res.json(Object.assign(meta, {
+        list: fs.readdirSync(req.query.where || '/', 'utf8')
+      }));
+    } else {
+      res.json(Object.assign(meta, {
+        message: '指定的路径不存在！'
+      }));
+    }
+  });
+};

@@ -79,12 +79,13 @@
 
 .post .profile .meta {
     flex: 1;
-    margin: 16px 0 0 10px;
+    margin: 0 0;
 }
 
 .post .profile .meta h3,
 .post .profile .meta p {
     margin: 0;
+    text-indent: 5px;
 }
 
 .post .profile .meta h3 {
@@ -93,5 +94,5 @@
 }
 
 .post .profile .meta p {
-    line-height: 28px;
+    line-height: 30px;
 }

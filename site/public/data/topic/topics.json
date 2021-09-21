@@ -32,7 +32,7 @@
             {
                 "title": "MySQL",
                 "unique": "mysql",
-                "desc": "快速，易于使用的RDBMS"
+                "desc": "快速，易于使用的 RDBMS"
             },
             {
                 "title": "PostgreSQL",
@@ -40,8 +40,8 @@
                 "desc": "功能强大的开源对象关系数据库管理系统"
             },
             {
-                "title": "Ansi SQL",
-                "unique": "ansi-sql",
+                "title": "SQL",
+                "unique": "sql",
                 "desc": "数据库计算机语言，用于检索和管理关系数据库中的数据"
             },
             {

@@ -1,10 +1,10 @@
-const { readFileSync } = require('fs');
+const { readdirSync } = require('fs');
 
 export default (req, res) => {
   res.json({ 
     name: 'murph', 
     email: 'murphyl@outlook.com',
     func: __filename,
-    files: readFileSync(__dirname, 'utf8')
+    files: readdirSync(__dirname, 'utf8')
   })
 }

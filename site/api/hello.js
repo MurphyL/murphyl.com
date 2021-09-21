@@ -4,6 +4,7 @@ export default (req, res) => {
   res.json({ 
     name: 'murph', 
     email: 'murphyl@outlook.com',
-    files: readFileSync(join__dirname, 'utf8')
+    func: __filename,
+    files: readFileSync(__dirname, 'utf8')
   })
 }

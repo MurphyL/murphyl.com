@@ -20,7 +20,8 @@
     "prestart": "npm run markdown && npm run topic",
     "prebuild": "npm run markdown && npm run topic",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "vercle": "vercel"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@iarna/toml": "^2.2.5",
     "copyfiles": "^2.4.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "vercel": "^23.1.2"
   }
 }

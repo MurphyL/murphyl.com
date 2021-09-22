@@ -15,13 +15,12 @@
     "simple-icons": "^5.14.0"
   },
   "scripts": {
-    "markdown": "copyfiles -fV src/data/docs/**/*.md public/markdown",
-    "topic": "copyfiles -fV src/data/topics/**/*.json public/data/topic",
-    "prestart": "npm run markdown && npm run topic",
-    "prebuild": "npm run markdown && npm run topic",
+    "markdown": "copyfiles -fV src/data/docs/**/*.md public/data/markdown",
+    "toml": "copyfiles -fV src/data/**/*.toml public/data/",
+    "prestart": "npm run markdown && npm run toml",
+    "prebuild": "npm run markdown && npm run toml",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "vercle": "vercel"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,7 +40,6 @@
   "devDependencies": {
     "@iarna/toml": "^2.2.5",
     "copyfiles": "^2.4.1",
-    "react-scripts": "3.4.1",
-    "vercel": "^23.1.2"
+    "react-scripts": "3.4.1"
   }
 }

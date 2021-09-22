@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
-
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 
 import { ErrorBoundary } from 'plug/include/status/status.module.jsx';
 
@@ -11,7 +11,7 @@ import Post from 'view/post/post.module.jsx';
 
 import About from 'view/about/about.module.jsx';
 
-import SchemaViewer from 'view/schema/viewer/schema-viewer.module.jsx';
+import { TopicPost, TopicList, TopicContext, fetchTopic } from 'view/topic/topic.module.jsx';
 
 export default function App() {
     return (
@@ -25,26 +25,14 @@ export default function App() {
                         <Route path="/blog">
                             <Blog />
                         </Route>
-                        <Route path={['/docs', '/topics', '/collections']} exact={true}>
-                            <SchemaViewer schema={[{
-                                component: 'DriftNav',
-                            }, {
-                                component: 'SiteLayout',
-                                children: [{
-                                    component: 'TopicList',
-                                }]
-                            }]} />
-                        </Route>
-                        <Route path={['/topics/:unique', '/collections/:unique']}>
-                            <SchemaViewer schema={[{
-                                component: 'DriftNav',
-                            }, {
-                                component: 'SiteLayout',
-                                children: [{
-                                    component: 'TopicPost',
-                                }]
-                            }]} />
-                        </Route>
+                        <TopicContext.Provider value={fetchTopic()}>
+                            <Route path={['/topics', '/collections']} exact={true}>
+                                <TopicList />
+                            </Route>
+                            <Route path={['/topics/:group/:unique', '/collections/:group/:unique']} exact={true}>
+                                <TopicPost />
+                            </Route>
+                        </TopicContext.Provider>
                         <Route path="/post/:unique">
                             <Post />
                         </Route>

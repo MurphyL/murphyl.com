@@ -16,7 +16,7 @@
   },
   "scripts": {
     "markdown": "copyfiles -fV src/data/docs/**/*.md public/data/markdown",
-    "toml": "copyfiles -fV src/data/**/*.toml public/data/",
+    "toml": "copyfiles -fV src/data/*.toml src/data/**.toml public/data/toml/topic",
     "prestart": "npm run markdown && npm run toml",
     "prebuild": "npm run markdown && npm run toml",
     "start": "react-scripts start",

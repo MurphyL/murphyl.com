@@ -12,10 +12,16 @@ import styles from './topic.module.css';
 
 export const TopicContext = createContext();
 
-export const fetchTopic = async () => {
-    const { status, data } = await axios.get(`/data/topics.toml`);
-    return (status === 200) ? TOML.parse(data) : { loading: <Error message="请求数据出错" /> };
+const fetch = (url, label = '') => {
+    return axios.get(url).then(({ status, data }) => {
+        return (status === 200) ? TOML.parse(data) : { loading: <Error message={ `请求${label}数据出错` } /> };
+    }).catch(err => {
+        return { loading: <Error message={ `请求${label}数据出错：${err.message}` }  /> };
+    });
+    
 };
+
+export const fetchTopic = () => fetch('/data/toml/topic/topics.toml', '主题元');
 
 function TopicCard({ group, card }) {
     return (
@@ -39,18 +45,19 @@ function TopicCard({ group, card }) {
 export function TopicPost() {
     const { group, unique } = useParams();
     const fetched = useContext(TopicContext);
-    const [meta, setMeta] = useState({ loading: <Loading /> });
+    const [topic, setTopic] = useState({ meta: { loading: <Loading /> }, topic: { loading: <Loading /> } });
     useEffect(() => {
-        fetched.then((topics) => {
-            setMeta({ ...(topics[group].items || []).find(x => x.unique === unique) })
-        }).catch(err => {
-            setMeta({ loading: <Error message={`没有相关主题的文章（${err.message}）`} /> });
+        Promise.all([fetched, fetch(`/data/toml/topic/${unique}.toml`, '主题')]).then(([topics, topic]) => {
+            setTopic({ 
+                meta: (topics[group].items || []).find(x => x.unique === unique),
+                ...topic
+            });
         });
     }, [fetched, group, unique]);
-    console.log('topic', unique, meta);
+    console.log('topic', unique, topic);
     return (
         <SiteLayout>
-            {meta.loading ? (meta.loading) : (
+            {topic.meta.loading ? (topic.meta.loading) : (
                 <div className={styles.post}>
                     <div className={styles.profile}>
                         <div className={styles.logo}>
@@ -62,19 +69,19 @@ export function TopicPost() {
                             )} */}
                         </div>
                         <div className={styles.meta}>
-                            <h3>{meta.title}</h3>
-                            <p>{meta.desc || '这里啥也没有'}</p>
+                            <h3>{topic.meta.title}</h3>
+                            <p>{topic.meta.desc || '这里啥也没有'}</p>
                         </div>
                     </div>
                     <div className={styles.post_content}>
-                        {meta.error ? meta.error : (
+                        {topic.loading ? topic.loading : (
                             <ul>
-                                {(meta.items || []).map((item, index) => (
+                                {(topic.items || []).map((item, index) => (
                                     <li key={index}>
                                         {item.unique ? (
-                                            <Link to={`/post/${item.unique}.md`}>{item.label}</Link>
+                                            <Link to={`/post/${item.unique}.md`}>{item.title}</Link>
                                         ) : (
-                                            <span>{item.label}</span>
+                                            <span>{item.title}</span>
                                         )}
                                     </li>
                                 ))}

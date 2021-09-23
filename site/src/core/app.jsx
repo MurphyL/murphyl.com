@@ -10,7 +10,8 @@ import Home from 'view/home/home.module.jsx';
 
 import Blog from 'view/blog/blog.module.jsx';
 import Post from 'view/post/post.module.jsx';
-import Snippet from 'view/snippet/snippet.module.jsx';
+
+import Snippet from 'view/kits/snippet/snippet.module.jsx';
 
 import About from 'view/about/about.module.jsx';
 

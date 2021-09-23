@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SiteLayout from 'plug/template/site-layout/site-layout.module.jsx';
+import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
 
 import styles from './home.module.css';
 

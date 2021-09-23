@@ -12,11 +12,12 @@
     "react-dom": "^17.0.2",
     "react-json-schema": "^1.2.2",
     "react-router-dom": "^5.3.0",
+    "recoil": "^0.4.1",
     "simple-icons": "^5.14.0"
   },
   "scripts": {
-    "markdown": "copyfiles -fV src/data/docs/**/*.md public/data/markdown",
-    "toml": "copyfiles -fV src/data/*.toml src/data/**.toml public/data/toml/topic",
+    "markdown": "copyfiles -f src/data/docs/**/*.md public/data/markdown",
+    "toml": "copyfiles -f src/data/*.toml src/data/**/*.toml public/data/toml/topic",
     "prestart": "npm run markdown && npm run toml",
     "prebuild": "npm run markdown && npm run toml",
     "start": "react-scripts start",

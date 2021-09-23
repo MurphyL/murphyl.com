@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Markdown from 'markdown-to-jsx';
 
-import SiteLayout from 'plug/template/site-layout/site-layout.module.jsx';
+import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
 
 import './blog.module.css';
 
 export function BlogPost({ post }) {
     return (
-        <Fragment>
+        <SiteLayout>
             <dt>
                 <a href={ `/post/${post.filename}` }>
                     <h2>{ post.title }</h2>
@@ -26,7 +26,7 @@ export function BlogPost({ post }) {
                     }} />
                 </article>
             </dd>
-        </Fragment>
+        </SiteLayout>
     )
 }
 
@@ -34,7 +34,7 @@ export function BlogPost({ post }) {
 export default function BlogList() {
     return (
         <SiteLayout>
-            Blog
+            <div>Blog</div>
         </SiteLayout>
     )
 };

@@ -1,27 +1,22 @@
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
+import { selectorFamily, useRecoilValue } from 'recoil';
 import axios from 'axios';
-import TOML from '@iarna/toml';
 // import simpleIcons from 'simple-icons';
 
-import { Loading, Error } from 'plug/include/status/status.module.jsx';
-
-import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
+import { resolveToml } from 'plug/extra/rest_utils.jsx';
 
 import styles from './topic.module.css';
 
-export const TopicContext = createContext();
+const metaQuery = selectorFamily({
+    key: 'meta', 
+    get: () => () => resolveToml(axios.get('/data/toml/topic/topics.toml'), '主题元')
+});
 
-const fetch = (url, label = '') => {
-    return axios.get(url).then(({ status, data }) => {
-        return (status === 200) ? TOML.parse(data) : { loading: <Error message={ `请求${label}数据出错` } /> };
-    }).catch(err => {
-        return { loading: <Error message={ `请求${label}数据出错：${err.message}` }  /> };
-    });
-    
-};
-
-export const fetchTopic = () => fetch('/data/toml/topic/topics.toml', '主题元');
+const topicQuery = selectorFamily({
+    key: 'topic', 
+    get: (url) => () => resolveToml(axios.get(url), '主题')
+});
 
 function TopicCard({ group, card }) {
     return (
@@ -44,20 +39,12 @@ function TopicCard({ group, card }) {
 
 export function TopicPost() {
     const { group, unique } = useParams();
-    const fetched = useContext(TopicContext);
-    const [topic, setTopic] = useState({ meta: { loading: <Loading /> }, topic: { loading: <Loading /> } });
-    useEffect(() => {
-        Promise.all([fetched, fetch(`/data/toml/topic/${unique}.toml`, '主题')]).then(([topics, topic]) => {
-            setTopic({ 
-                meta: (topics[group].items || []).find(x => x.unique === unique),
-                ...topic
-            });
-        });
-    }, [fetched, group, unique]);
-    console.log('topic', unique, topic);
+    const topics = useRecoilValue(metaQuery());
+    const topic = useRecoilValue(topicQuery(`/data/toml/topic/${unique}.toml`));
+    const meta = (topics[group].items || []).find(x => x.unique === unique);
     return (
-        <SiteLayout>
-            {topic.meta.loading ? (topic.meta.loading) : (
+        <Fragment>
+            {meta.loading ? (meta.loading) : (
                 <div className={styles.post}>
                     <div className={styles.profile}>
                         <div className={styles.logo}>
@@ -69,8 +56,8 @@ export function TopicPost() {
                             )} */}
                         </div>
                         <div className={styles.meta}>
-                            <h3>{topic.meta.title}</h3>
-                            <p>{topic.meta.desc || '这里啥也没有'}</p>
+                            <h3>{meta.title}</h3>
+                            <p>{meta.desc || '这里啥也没有'}</p>
                         </div>
                     </div>
                     <div className={styles.post_content}>
@@ -90,19 +77,15 @@ export function TopicPost() {
                     </div>
                 </div>
             )}
-        </SiteLayout>
+        </Fragment>
     );
 };
 
 
 export function TopicList() {
-    const [topics, setTopics] = useState({ loading: <Loading /> });
-    const fetched = useContext(TopicContext);
-    useEffect(() => {
-        fetched.then(setTopics);
-    }, [fetched]);
+    const topics = useRecoilValue(metaQuery());
     return (
-        <SiteLayout>
+        <Fragment>
             {topics.loading ? (topics.loading) : (
                 <div className={styles.list}>
                     {(Object.entries(topics) || []).map(([unique, group], groupIndex) => (
@@ -117,6 +100,6 @@ export function TopicList() {
                     ))}
                 </div>
             )}
-        </SiteLayout>
+        </Fragment>
     );
 };

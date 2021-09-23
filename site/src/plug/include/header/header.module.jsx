@@ -6,19 +6,30 @@ import { Link } from "react-router-dom";
 import styles from './header.module.css';
 
 const navItems = [{
-    url: '/',
-    label: '首页'
+    label: '首页',
+    child: '/',
 }, {
-    url: '/topics',
-    label: '主题'
+    label: '主题',
+    child: '/topics',
 }, {
-    url: '/blog',
-    label: '博客'
+    label: '博客',
+    child: '/blog',
 }, {
-    url: '/about',
-    label: '关于'
+    child: (
+        <span>工具</span>
+    )
+}, {
+    label: '关于',
+    child: '/about',
 }];
 
+function NavItem({label, child}) {
+    return (!child || typeof(child) === 'string') ? (
+        <Link to={`${child || '/'}`}>{label}</Link>
+    ) : (
+        <Link to={({pathname}) => pathname}>{ child }</Link>
+    )
+}
 
 export default function Header({ className, ...extra }) {
     const [show, setShow] = useState(false);
@@ -30,7 +41,7 @@ export default function Header({ className, ...extra }) {
             </Link>
             <nav className={`${styles.navi} ${show}`}>
                 {navItems && navItems.map((item, index) => (
-                    <Link key={index} to={`${item.url || '/'}`} onClick={() => setShow(false)}>{item.label}</Link>
+                    <NavItem key={index} {...item} />
                 ))}
                 <span className={styles.trigger} onClick={() => setShow(!show)}>=</span>
             </nav>

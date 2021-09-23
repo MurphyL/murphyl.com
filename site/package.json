@@ -17,9 +17,10 @@
   },
   "scripts": {
     "markdown": "copyfiles -f src/data/docs/**/*.md public/data/markdown",
-    "toml": "copyfiles -f src/data/*.toml src/data/**/*.toml public/data/toml/topic",
-    "prestart": "npm run markdown && npm run toml",
-    "prebuild": "npm run markdown && npm run toml",
+    "topic": "copyfiles -f src/data/topics.toml src/data/**/*.toml public/data/toml/topic",
+    "snippet": "copyfiles -f src/data/snippets.toml src/data/**/*.toml public/data/toml/snippet",
+    "prestart": "npm run markdown && npm run topic && npm run snippet",
+    "prebuild": "npm run markdown && npm run topic && npm run snippet",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },

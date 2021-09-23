@@ -17,7 +17,6 @@ import About from 'view/about/about.module.jsx';
 
 import { TopicList, TopicPost } from 'view/topic/topic.module.jsx';
 
-
 export default function App() {
     return (
         <StrictMode>

@@ -6,31 +6,57 @@ import { Link } from "react-router-dom";
 import styles from './header.module.css';
 
 const navItems = [{
-    url: '/',
-    label: '首页'
+    label: '首页',
+    link: '/',
 }, {
-    url: '/topics',
-    label: '主题'
+    label: '主题',
+    link: '/topics',
 }, {
-    url: '/blog',
-    label: '博客'
+    label: '博客',
+    link: '/blog',
 }, {
-    url: '/about',
-    label: '关于'
+    label: '工具',
+    children: [{
+        label: '代码片段',
+        link: '/snippet',
+    }]
+}, {
+    label: '关于',
+    link: '/about',
 }];
 
+function NavItem(option) {
+    return (typeof (option.link) === 'string') ? (
+        <Link className={styles.navi_item} to={option.link}>
+            <span className={styles.navi_text}>{option.label}</span>
+        </Link>
+    ) : (
+        <span className={styles.navi_item}>
+            <span className={styles.navi_text}>{option.label}</span>
+            <div className={styles.navi_hover}>
+                <ul>
+                    {option.children.map((nav, index) => (
+                        <li key={index}>
+                            <Link to={nav.link}>{nav.label}</Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </span>
+    )
+}
 
 export default function Header({ className, ...extra }) {
     const [show, setShow] = useState(false);
     return (
         <header className={classNames(styles.root, className)} {...extra}>
-            <Link className={styles.logo}  to="/">
+            <Link className={styles.logo} to="/">
                 {/* <img src={process.env.REACT_APP_LEGO} alt={process.env.REACT_APP_TITLE} /> */}
                 <b>{process.env.REACT_APP_TITLE}</b>
             </Link>
-            <nav className={`${styles.navi} ${show}`}>
+            <nav className={classNames(styles.navi, { show } )}>
                 {navItems && navItems.map((item, index) => (
-                    <Link key={index} to={`${item.url || '/'}`} onClick={() => setShow(false)}>{item.label}</Link>
+                    <NavItem key={index} {...item} />
                 ))}
                 <span className={styles.trigger} onClick={() => setShow(!show)}>=</span>
             </nav>

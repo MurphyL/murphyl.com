@@ -34,10 +34,48 @@
     text-align: right;
 }
 
-.root .navi a {
+.root .navi .navi_item {
+	position: relative;
     display: inline-block;
 	padding: 0 1rem;
 	list-style-type: none;
+	cursor: pointer;
+}
+
+.root .navi .navi_item:hover .navi_hover {
+	display: block;
+}
+
+.root .navi .navi_item .navi_text {
+	display: inline-block;
+	line-height: 50px;
+}
+
+.root .navi .navi_item .navi_hover {
+	position: absolute;
+	display: none;
+	right: 0px;
+	width: 160px;
+
+	text-align: center;
+	line-height: 24px;
+}
+
+.root .navi .navi_item .navi_hover ul {
+	margin: 6px 0 0;
+	padding: 10px 0;
+	border: 2px solid #efefef;
+	border-radius: 5px;
+}
+
+.root .navi .navi_item .navi_hover ul li {
+	list-style: none;
+	line-height: 30px;
+}
+
+.root .navi .navi_item .navi_hover ul li:hover {
+	background-color: #efefef;
+	opacity: 0.8;
 }
 
 .root .navi .trigger {

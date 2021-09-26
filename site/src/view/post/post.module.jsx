@@ -1,50 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import { useParams } from "react-router-dom";
+import { selectorFamily, useRecoilValue } from 'recoil';
 import axios from 'axios';
 
-import * as matter from 'gray-matter';
 import Markdown from 'markdown-to-jsx';
 
 import { Loading } from 'plug/include/status/status.module';
 
+import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
+
+import { resolveMarkdown } from 'plug/extra/rest_utils.jsx';
+
 import markdownOptions from 'plug/extra/markdown/markdown.module.jsx';
 
-import NavLayout from 'plug/template/site-layout/site-layout.module.jsx';
+import styles from './post.module.css';
 
-import './post.module.css';
+Markdown.displayName = 'MarkdownRender';
 
+const postQuery = selectorFamily({
+    key: 'post', 
+    get: (unique) => () => resolveMarkdown(axios.get(`/data/markdown/${unique}`), '文章')
+});
+
+function MarkdownPost() {
+    const { unique } = useParams();
+    const { meta, content } = useRecoilValue(postQuery(unique));
+    return (
+        <article className={styles.root}>
+            {!meta.truncate && <h2>{meta.title || unique}</h2>}
+            <section>
+                <Markdown children={content || ''} options={markdownOptions} />
+            </section>
+        </article>
+    );
+};
 
 export default function Post() {
-    const { unique } = useParams();
-    const [code, setCode] = useState(-1);
-    const [post, setPost] = useState('');
-    useEffect(() => {
-        axios.get(`/markdown/${unique}`).then(({ status, data }) => {
-            setCode(status);
-            setPost(data);
-        })
-    }, [unique]);
-    if (code < 0) {
-        return (
-            <NavLayout>
-                <Loading />
-            </NavLayout>
-        );
-    }
-    if (code !== 200 || post === '') {
-        return (
-            <div>数据加载错误…</div>
-        );
-    }
-    const { data: meta, content } = matter(post);
     return (
-        <NavLayout>
-            <article>
-                {!meta.truncate && <h2>{meta.title || unique}</h2>}
-                <section>
-                    <Markdown children={content || ''} options={markdownOptions} />
-                </section>
-            </article>
-        </NavLayout>
+        <SiteLayout>
+            <Suspense fallback={<Loading />}>
+                <MarkdownPost />
+            </Suspense>
+        </SiteLayout>
     );
 };

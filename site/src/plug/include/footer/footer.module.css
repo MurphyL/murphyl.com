@@ -23,11 +23,7 @@
 }
 
 .root .sitemap .section dd ul {
-	padding-left: 0;
-}
-
-.root .sitemap .section dd ul li {
-	list-style-type: none;
+	padding-left: 15px;
 }
 
 .root .copyright {

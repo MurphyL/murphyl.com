@@ -7,7 +7,7 @@ export default function Footer({ className, ...extra }) {
     return (
         <footer className={classNames(styles.root, className)} {...extra}>
             <div className={styles.sitemap}>
-                <dl className={`${styles.section} ${styles.navi}`}>
+                <dl className={classNames(styles.section, styles.navi)}>
                     <dt>站点地图</dt>
                     <dd>
                         <ul>
@@ -15,7 +15,7 @@ export default function Footer({ className, ...extra }) {
                         </ul>
                     </dd>
                 </dl>
-                <dl className={`${styles.section} ${styles.links}`}>
+                <dl className={classNames(styles.section, styles.links)}>
                     <dt>友情链接</dt>
                     <dd>
                         <ul>

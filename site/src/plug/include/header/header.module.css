@@ -34,10 +34,21 @@
     text-align: right;
 }
 
-.root .navi a {
+.root .navi .item {
+	position: relative;
     display: inline-block;
 	padding: 0 1rem;
 	list-style-type: none;
+	cursor: pointer;
+}
+
+.root .navi .item .hover {
+	position: absolute;
+}
+
+.root .navi .item .text {
+	display: inline-block;
+	line-height: 50px;
 }
 
 .root .navi .trigger {

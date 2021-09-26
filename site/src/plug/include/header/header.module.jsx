@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+import { Wrapper, Button, Menu, MenuItem } from 'react-aria-menubutton';
 
 import styles from './header.module.css';
 
@@ -15,19 +17,30 @@ const navItems = [{
     label: '博客',
     child: '/blog',
 }, {
-    child: (
-        <span>工具</span>
-    )
+    label: '工具',
 }, {
     label: '关于',
     child: '/about',
 }];
 
-function NavItem({label, child}) {
-    return (!child || typeof(child) === 'string') ? (
-        <Link to={`${child || '/'}`}>{label}</Link>
+const NavMenu = ({ label, child }) => {
+    const history = useHistory();
+    console.log(history);
+    return (
+        <Wrapper className={styles.item} tag="a">
+            <Button className={styles.text}>{label}</Button>
+            <Menu className={styles.hover}>
+                <MenuItem>Hello</MenuItem>
+            </Menu>
+        </Wrapper>
+    );
+};
+
+function NavItem({ label, child }) {
+    return (typeof (child) === 'string') ? (
+        <Link className={styles.item} to={`${child || '/'}`}>{label}</Link>
     ) : (
-        <Link to={({pathname}) => pathname}>{ child }</Link>
+        <NavMenu label={label} />
     )
 }
 
@@ -35,7 +48,7 @@ export default function Header({ className, ...extra }) {
     const [show, setShow] = useState(false);
     return (
         <header className={classNames(styles.root, className)} {...extra}>
-            <Link className={styles.logo}  to="/">
+            <Link className={styles.logo} to="/">
                 {/* <img src={process.env.REACT_APP_LEGO} alt={process.env.REACT_APP_TITLE} /> */}
                 <b>{process.env.REACT_APP_TITLE}</b>
             </Link>

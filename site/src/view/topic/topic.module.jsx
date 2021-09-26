@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import axios from 'axios';
 // import simpleIcons from 'simple-icons';
@@ -43,8 +44,11 @@ export function TopicPost() {
     const topic = useRecoilValue(topicQuery(`/data/toml/topic/${unique}.toml`));
     const meta = (topics[group].items || []).find(x => x.unique === unique);
     return (
-        <Fragment>
-            {meta.loading ? (meta.loading) : (
+        (meta && meta.loading) ? (meta.loading) : (
+            <Fragment>
+                <Helmet>
+                    <title>{meta.title} - 主题 - {process.env.REACT_APP_TITLE}</title>
+                </Helmet>
                 <div className={styles.post}>
                     <div className={styles.profile}>
                         <div className={styles.logo}>
@@ -76,8 +80,8 @@ export function TopicPost() {
                         )}
                     </div>
                 </div>
-            )}
-        </Fragment>
+            </Fragment>
+        )
     );
 };
 
@@ -85,8 +89,11 @@ export function TopicPost() {
 export function TopicList() {
     const topics = useRecoilValue(metaQuery());
     return (
-        <Fragment>
-            {topics.loading ? (topics.loading) : (
+        (topics && topics.loading) ? (topics.loading) : (
+            <Fragment>
+                <Helmet>
+                    <title>主题 - {process.env.REACT_APP_TITLE}</title>
+                </Helmet>
                 <div className={styles.list}>
                     {(Object.entries(topics) || []).map(([unique, group], groupIndex) => (
                         <div key={groupIndex} className={styles.group}>
@@ -99,7 +106,7 @@ export function TopicList() {
                         </div>
                     ))}
                 </div>
-            )}
-        </Fragment>
+            </Fragment>
+        )
     );
 };

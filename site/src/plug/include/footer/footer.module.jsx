@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import classNames from 'classnames';
 
 import styles from './footer.module.css';
@@ -11,7 +12,7 @@ export default function Footer({ className, ...extra }) {
                     <dt>站点地图</dt>
                     <dd>
                         <ul>
-                            <li><a href="/blog" rel="noopener noreferrer">博客</a></li>
+                            <li><Link to="/blog" rel="noopener noreferrer">博客</Link></li>
                         </ul>
                     </dd>
                 </dl>

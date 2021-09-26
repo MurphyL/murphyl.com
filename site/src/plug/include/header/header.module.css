@@ -42,13 +42,21 @@
 	cursor: pointer;
 }
 
-.root .navi .item .hover {
-	position: absolute;
-}
-
 .root .navi .item .text {
 	display: inline-block;
 	line-height: 50px;
+}
+
+.root .navi .item .hover {
+	position: absolute;
+	top: 56px;	/** 50/头部高度 + 1/边框 + 5/边框 **/
+	right: 0;
+	padding: 10px;
+	width: 260px;
+	border: 2px solid #efefef;
+	border-radius: 5px;
+	text-align: left;
+	line-height: 24px;
 }
 
 .root .navi .trigger {

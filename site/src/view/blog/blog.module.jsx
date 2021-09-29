@@ -1,10 +1,23 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { selectorFamily, useRecoilValue } from 'recoil';
+import axios from 'axios';
 import Markdown from 'markdown-to-jsx';
 
 import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
 
-import './blog.module.css';
+import styles from './blog.module.css';
+
+const blogQuery = selectorFamily({
+    key: 'blog',
+    get: () => () => axios.post('https://api.github.com/graphql', {
+
+    }, {
+        headers: {
+            Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`
+        }
+    })
+});
 
 export function BlogPost({ post }) {
     return (
@@ -35,12 +48,14 @@ export function BlogPost({ post }) {
 
 
 export default function BlogList() {
+    const blog = useRecoilValue(blogQuery());
+    console.log(blog);
     return (
         <SiteLayout>
             <Helmet>
                 <title>博客 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            <div>Blog</div>
+            <div className={styles.root}>Blog</div>
         </SiteLayout>
     );
 };

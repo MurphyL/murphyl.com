@@ -1,0 +1,10 @@
+POST https://api.github.com/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+Authorization: bearer {{$processEnv GHP_MURPHYL_COM}}
+
+query {   
+    viewer {    
+        login  
+    }
+}

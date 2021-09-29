@@ -25,4 +25,4 @@ export const resolveMarkdown = (promise, label = '') => {
         console.log('调用后端接口出错：', err.message);
         return { loading: <Error message={ `请求${label}数据出错，调用接口出错` } /> };
     });
-}
+};

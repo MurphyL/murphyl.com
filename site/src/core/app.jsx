@@ -27,7 +27,11 @@ export default function App() {
                         <BrowserRouter>
                             <Switch>
                                 <Route path="/" exact={true} component={Home} />
-                                <Route path="/blog" exact={true} component={Blog} />
+                                <Route path="/blog" exact={true}>
+                                    <Suspense fallback={<Loading />}>
+                                        <Blog />
+                                    </Suspense>
+                                </Route>
                                 <Route path="/post/:unique" exact={true} component={Post} />
                                 <Route path="/about" exact={true} component={About} />
                                 <Route path={['/topics', '/collections']} exact={true}>

@@ -7,7 +7,7 @@ VERSION?=site
 CLEAN?=0
 
 start: 
-	docker run --rm -it --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs npm run start
+	docker run --rm -it --name $(CONTAINER) -e REACT_APP_GHP_TOKEN=$(GHP_MURPHYL_COM) -v $(CURDIR)/$(VERSION):/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs npm run start
 
 vercle: 
 	docker run --rm -it --name $(CONTAINER) -v $(CURDIR)/$(VERSION):/usr/murph -p $(SERVE_PORT):3000 murphyl/nodejs vercel

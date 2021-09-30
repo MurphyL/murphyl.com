@@ -14,6 +14,8 @@ import Post from 'view/post/post.module.jsx';
 
 import Snippet from 'view/kits/snippet/snippet.module.jsx';
 
+import { DynamicSchemaViewer } from 'view/kits/schema/viewer/schema-viewer.module.jsx';
+
 import About from 'view/about/about.module.jsx';
 
 import { TopicList, TopicPost } from 'view/topic/topic.module.jsx';
@@ -27,13 +29,10 @@ export default function App() {
                         <BrowserRouter>
                             <Switch>
                                 <Route path="/" exact={true} component={Home} />
-                                <Route path="/blog" exact={true}>
-                                    <Suspense fallback={<Loading />}>
-                                        <Blog />
-                                    </Suspense>
-                                </Route>
+                                <Route path="/blog" exact={true} component={Blog} />
                                 <Route path="/post/:unique" exact={true} component={Post} />
                                 <Route path="/about" exact={true} component={About} />
+                                <Route path="/schema/:unique" exact={true} component={DynamicSchemaViewer} />
                                 <Route path={['/topics', '/collections']} exact={true}>
                                     <SiteLayout>
                                         <Suspense fallback={<Loading />}>

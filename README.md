@@ -8,7 +8,6 @@
 - [跟我一起写Makefile](https://seisman.github.io/how-to-write-makefile/introduction.html)
 - [TOML<->JSON Online converter](https://pseitz.github.io/toml-to-json-online-converter/)
 
-
 ## 文档
 
 - [Redux vs Recoil](https://segmentfault.com/a/1190000023718977)
@@ -21,6 +20,10 @@
 - `npm i marked`
 - [Badge](https://shields.io)
 - [TOML Editor](https://pseitz.github.io/toml-to-json-online-converter/)
+
+## 日期格式
+
+- [Java - Date and Time Patterns](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html)
 
 ## 语句
 

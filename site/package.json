@@ -21,11 +21,7 @@
     "simple-icons": "^5.14.0"
   },
   "scripts": {
-    "markdown": "copyfiles -f src/data/docs/**/*.md public/data/markdown",
-    "topic": "copyfiles -f src/data/topics.toml src/data/**/*.toml public/data/toml/topic",
-    "snippet": "copyfiles -f src/data/snippets.toml src/data/**/*.toml public/data/toml/snippet",
-    "prestart": "npm run markdown && npm run topic && npm run snippet",
-    "prebuild": "npm run markdown && npm run topic && npm run snippet",
+    "graphql": "xml2json src/data/github.graphql.xml public/data/github.graphql.json",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },

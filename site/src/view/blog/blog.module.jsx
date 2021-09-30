@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import { Helmet } from 'react-helmet-async';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Markdown from 'markdown-to-jsx';
-
+import { Loading } from 'plug/include/status/status.module.jsx';
 import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
 
 import styles from './blog.module.css';
@@ -47,7 +47,7 @@ export function BlogPost({ post }) {
 };
 
 
-export default function BlogList() {
+function BlogList() {
     const blog = useRecoilValue(blogQuery());
     console.log(blog);
     return (
@@ -59,3 +59,11 @@ export default function BlogList() {
         </SiteLayout>
     );
 };
+
+export default function Blog() {
+    return (
+        <Suspense fallback={<Loading />}>
+            <BlogList />
+        </Suspense>
+    );
+}

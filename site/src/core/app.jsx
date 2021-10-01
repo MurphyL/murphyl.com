@@ -40,7 +40,7 @@ export default function App() {
                                         </Suspense>
                                     </SiteLayout>
                                 </Route>
-                                <Route path={['/topics/:group/:unique', '/collections/:group/:unique']} exact={true}>
+                                <Route path={['/topics/:unique', '/collections/:unique']} exact={true}>
                                     <SiteLayout>
                                         <Suspense fallback={<Loading />}>
                                             <TopicPost />

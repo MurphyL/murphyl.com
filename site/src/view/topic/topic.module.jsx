@@ -3,34 +3,29 @@ import { Link, useParams } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import axios from 'axios';
+import { get as pathGet } from 'object-path';
 // import simpleIcons from 'simple-icons';
-
-import { resolveToml } from 'plug/extra/rest_utils.jsx';
+import { fetchGraphQlMapper, callGithubAPI } from 'plug/extra/rest_utils.jsx';
+import { parseTOML, resolveToml } from 'plug/extra/rest_utils.jsx';
 
 import styles from './topic.module.css';
 
 const metaQuery = selectorFamily({
-    key: 'meta', 
+    key: 'meta',
     get: () => () => resolveToml(axios.get('/data/toml/topic/topics.toml'), '主题元')
 });
 
 const topicQuery = selectorFamily({
-    key: 'topic', 
+    key: 'topic',
     get: (url) => () => resolveToml(axios.get(url), '主题')
 });
 
-function TopicCard({ group, card }) {
+function TopicCard({  card }) {
     return (
         <div className={styles.card}>
             <div className={styles.card_container}>
-                {/* {card.simple && (
-                    <svg className={styles.icon} role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <title>{card.simple.title}</title>
-                        <path d={card.simple.path} fill={`#${card.simple.color}`} />
-                    </svg>
-                )} */}
                 <div className={styles.title}>
-                    <Link to={`/topics/${group}/${card.unique}`}>{card.title || '这里什么也没有！'}</Link>
+                    <Link to={`/topics/${card.unique}`}>{card.title || '这里什么也没有！'}</Link>
                 </div>
                 <div className={styles.desc}>{card.desc || '这里什么也没有！'}</div>
             </div>
@@ -38,7 +33,30 @@ function TopicCard({ group, card }) {
     );
 };
 
+function TopicGroup({ id, bodyText }) {
+    const { unique, title, items } = parseTOML(bodyText);
+    return (
+        <div className={styles.group} data-group={id} data-unique={unique}>
+            <h3 className={styles.group_title}>{title || '无标题'}</h3>
+            <div className={styles.cards}>
+                {(items || []).map((card, index) => (
+                    <TopicCard key={index} card={card} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
 export function TopicPost() {
+    const { unique } = useParams();
+    console.log('unique', `X-TOPIC/${unique.toUpperCase()}`);
+    return (
+        <div>Hello</div>
+    );
+};
+
+
+export function TopicPostX() {
     const { group, unique } = useParams();
     const topics = useRecoilValue(metaQuery());
     const topic = useRecoilValue(topicQuery(`/data/toml/topic/${unique}.toml`));
@@ -87,26 +105,25 @@ export function TopicPost() {
 
 
 export function TopicList() {
-    const topics = useRecoilValue(metaQuery());
-    return (
-        (topics && topics.loading) ? (topics.loading) : (
-            <Fragment>
-                <Helmet>
-                    <title>主题 - {process.env.REACT_APP_TITLE}</title>
-                </Helmet>
-                <div className={styles.list}>
-                    {(Object.entries(topics) || []).map(([unique, group], groupIndex) => (
-                        <div key={groupIndex} className={styles.group}>
-                            <h3 className={styles.group_title}>{group.title || '无标题'}</h3>
-                            <div className={styles.cards}>
-                                {(group.items || []).map((card, cardIndex) => (
-                                    <TopicCard group={unique} card={card} key={cardIndex} />
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </Fragment>
-        )
+    const graphql = useRecoilValue(fetchGraphQlMapper());
+    const fetched = useRecoilValue(callGithubAPI({
+        graphql: pathGet(graphql, ['query-topic-issues', '_cdata']),
+        tags: (process.env.REACT_APP_GHP_TOPIC_TAG || 'X-TOML').split(','),
+    }));
+    const [topic] = pathGet(fetched, 'data.repository.issues.nodes');
+    console.log('topic issues', topic);
+    return topic ? (
+        <Fragment>
+            <Helmet>
+                <title>{topic.title} - {process.env.REACT_APP_TITLE}</title>
+            </Helmet>
+            <div className={styles.list}>
+                {topic.comments && (topic.comments.nodes || []).map((group, index) => (
+                    <TopicGroup key={index} {...group} />
+                ))}
+            </div>
+        </Fragment>
+    ) : (
+        <div>加载错误</div>
     );
 };

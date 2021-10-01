@@ -1,23 +1,15 @@
-import React, {Suspense} from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { selectorFamily, useRecoilValue } from 'recoil';
-import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { get as pathGet } from 'object-path';
 import Markdown from 'markdown-to-jsx';
 import { Loading } from 'plug/include/status/status.module.jsx';
 import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
 
+import { fetchGraphQlMapper, callGithubAPI } from 'plug/extra/rest_utils.jsx';
+
 import styles from './blog.module.css';
 
-const blogQuery = selectorFamily({
-    key: 'blog',
-    get: () => () => axios.post('https://api.github.com/graphql', {
-
-    }, {
-        headers: {
-            Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`
-        }
-    })
-});
 
 export function BlogPost({ post }) {
     return (
@@ -48,22 +40,29 @@ export function BlogPost({ post }) {
 
 
 function BlogList() {
-    const blog = useRecoilValue(blogQuery());
-    console.log(blog);
+    const graphql = useRecoilValue(fetchGraphQlMapper());
+    const fetched = useRecoilValue(callGithubAPI({
+        graphql: pathGet(graphql, ['query-blog-issues', '_cdata']),
+        tags: (process.env.REACT_APP_GHP_BLOG_TAG || '').split(','),
+    }));
+    const issues = pathGet(fetched, 'data.repository.issues');
+    console.log('blog issues', issues);
     return (
-        <SiteLayout>
+        <Fragment>
             <Helmet>
                 <title>博客 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             <div className={styles.root}>Blog</div>
-        </SiteLayout>
+        </Fragment>
     );
 };
 
 export default function Blog() {
     return (
-        <Suspense fallback={<Loading />}>
-            <BlogList />
-        </Suspense>
+        <SiteLayout>
+            <Suspense fallback={<Loading />}>
+                <BlogList />
+            </Suspense>
+        </SiteLayout>
     );
 }

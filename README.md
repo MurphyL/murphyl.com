@@ -28,7 +28,7 @@
 ## 语句
 
 ```graphql
-{
+query {
   viewer {
     login
   }

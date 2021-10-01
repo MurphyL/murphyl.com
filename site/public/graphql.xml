@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphql>
+    <query-blog-issues>
+        <![CDATA[
+            query($ghp_username:String!, $ghp_repository:String!, $ghp_labels:[String!]!) {
+                repository(owner: $ghp_username,name: $ghp_repository) {
+                    issues(labels: $ghp_labels, states: CLOSED, first: 10) {
+                        nodes {
+                            id,
+                            number,
+                            url,
+                            title,
+                            body
+                        }
+                    }
+                }
+            }
+        ]]>
+    </query-blog-issues>
+    <query-topic-issues>
+        <![CDATA[
+            query($ghp_username:String!, $ghp_repository:String!, $ghp_labels:[String!]!) {
+                repository(owner: $ghp_username,name: $ghp_repository) {
+                    issues(labels: $ghp_labels, first: 10) {
+                        nodes {
+                            id,
+                            number,
+                            url,
+                            title,
+                            createdViaEmail,
+                            publishedAt,
+                            comments(first: 100) {
+                                nodes {
+                                    id,
+                                    databaseId,
+                                    url,
+                                    bodyText,
+                                    publishedAt,
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]]>
+    </query-topic-issues>
+</graphql>

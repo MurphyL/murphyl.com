@@ -46,7 +46,7 @@ export const parseTOML = (data = '') => {
 export const fetchGraphQlMapper = selectorFamily({
     key: 'fetch-graphql',
     get: () => async () => {
-        const { data, status } = await axios.get('/data/github.graphql.xml');
+        const { data, status } = await axios.get('/graphql.xml');
         if (status === 200) {
             const { graphql } = parseXML(data);
             return graphql;

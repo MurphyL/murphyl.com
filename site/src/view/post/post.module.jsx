@@ -1,15 +1,17 @@
 import React, { Suspense } from 'react';
 import { useParams } from "react-router-dom";
-import { selectorFamily, useRecoilValue } from 'recoil';
-import axios from 'axios';
+import { useRecoilValue } from 'recoil';
 
 import Markdown from 'markdown-to-jsx';
 
-import { Loading } from 'plug/include/status/status.module';
+import { Loading } from 'plug/extra/status/status.module';
 
-import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
+import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
-import { resolveMarkdown } from 'plug/extra/rest_utils.jsx';
+import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
+
+import { get as pathGet } from 'object-path';
+import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
 import markdownOptions from 'plug/extra/markdown/markdown.module.jsx';
 
@@ -17,17 +19,20 @@ import styles from './post.module.css';
 
 Markdown.displayName = 'MarkdownRender';
 
-const postQuery = selectorFamily({
-    key: 'post', 
-    get: (unique) => () => resolveMarkdown(axios.get(`/data/markdown/${unique}`), '文章')
-});
+
 
 function MarkdownPost() {
     const { unique } = useParams();
-    const { meta, content } = useRecoilValue(postQuery(unique));
+    const fetched = useRecoilValue(callGithubAPI({
+        key: 'get-issue-details',
+        issue_number: parseInt(unique),
+    }));
+    const post = pathGet(fetched || {}, 'data.repository.issue');
+    const { meta, content } = parseMarkdown(post.body);
+    console.log('文章', unique, meta, post);
     return (
         <article className={styles.root}>
-            {!meta.truncate && <h2>{meta.title || unique}</h2>}
+            <h2>{post.title}</h2>
             <section>
                 <Markdown children={content || ''} options={markdownOptions} />
             </section>

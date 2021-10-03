@@ -1,10 +1,14 @@
 .root {
+	position: sticky;
 	display: flex;
+	top: 0;
 	height: 50px;
 	line-height: 50px;
-	border-bottom: 1px solid #ccc;
-
+	/* border-bottom: 1px solid #ccc; */
+	box-shadow: 0 2px 2px 0 var(--shadow-color);
+	background-color: #fff;
 	user-select: none;
+	z-index: 99;
 }
 
 .root .logo {

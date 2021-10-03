@@ -6,7 +6,7 @@ import styles from './footer.module.css';
 
 export default function Footer({ className, ...extra }) {
     return (
-        <footer className={classNames(styles.root, className)} {...extra}>
+        <footer className={classNames(className, styles.root)} {...extra}>
             <div className={styles.sitemap}>
                 <dl className={classNames(styles.section, styles.navi)}>
                     <dt>站点地图</dt>

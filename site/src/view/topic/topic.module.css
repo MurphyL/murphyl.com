@@ -3,15 +3,15 @@
     margin: 0;
 }
 
-.list .group {
+.list .card_group {
     margin: 0;
 }
 
-.list .group .group_title {
+.list .card_group .group_title {
     font-weight: 700;
 }
 
-.list .group .cards {
+.list .card_group .group_cards {
     margin: 5px 0;
 }
 

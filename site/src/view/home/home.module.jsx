@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import SiteLayout from "plug/template/site-layout/site-layout.module.jsx";
+import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
 import styles from './home.module.css';
 

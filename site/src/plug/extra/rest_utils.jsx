@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { selectorFamily } from 'recoil';
+
 import axios from 'axios';
 import TOML from '@iarna/toml';
+
+import { get as pathGet } from 'object-path';
+
 import { xml2js } from 'xml-js';
 import * as matter from 'gray-matter';
 
-import { selectorFamily } from 'recoil';
+import MapperContext from 'plug/extra/mepper_context.jsx';
 
-import { Error } from 'plug/include/status/status.module.jsx';
+import { Error } from 'plug/extra/status/status.module.jsx';
 
 export const resolveToml = (promise, label = '') => {
     return promise.then(({ status, data }) => {
@@ -43,6 +48,11 @@ export const parseTOML = (data = '') => {
     return TOML.parse(data);
 };
 
+export const parseMarkdown = (data = '') => {
+    const { data: meta, content } = matter(data);
+    return { meta, content };
+};
+
 export const fetchGraphQlMapper = selectorFamily({
     key: 'fetch-graphql',
     get: () => async () => {
@@ -58,22 +68,31 @@ export const fetchGraphQlMapper = selectorFamily({
 
 export const callGithubAPI = selectorFamily({
     key: 'call-github-api-v4',
-    get: ({ graphql, tags }) => () => axios.post('https://api.github.com/graphql', {
-        query: graphql,
-        variables: {
-            ghp_username: process.env.REACT_APP_GHP_USERNAME,
-            ghp_repository: process.env.REACT_APP_GHP_REPOSITORY,
-            ghp_labels: tags || [],
+    get: ({ key, ...extra }) => () => {
+        const mapper = useContext(MapperContext);
+        const graphql = pathGet(mapper, [key, '_cdata']);
+        if (!graphql) {
+            throw new Error('查询语句为空！');
         }
-    }, {
-        headers: {
-            Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`
-        }
-    }).then(({ status, data }) => {
-        return status === 200 ? data : null;
-    }).catch(err => {
-        return null;
-    }).finally(() => {
-        console.log('Github API 调用完成！');
-    })
+        return axios.post('https://api.github.com/graphql', {
+            query: graphql,
+            variables: {
+                ghp_username: process.env.REACT_APP_GHP_USERNAME,
+                ghp_repository: process.env.REACT_APP_GHP_REPOSITORY,
+                ghp_issue_states: (process.env.REACT_APP_GHP_ISSUE_STATES || 'CLOSED').split(','),
+                ...extra,
+            }
+        }, {
+            headers: {
+                Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`
+            }
+        }).then(({ status, data }) => {
+            return status === 200 ? data : null;
+        }).catch(err => {
+            console.error('Github API 调用出错：', err.message);
+            return null;
+        }).finally(() => {
+            console.log('Github API 调用完成！');
+        });
+    }
 });

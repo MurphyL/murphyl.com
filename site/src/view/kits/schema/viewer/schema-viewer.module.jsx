@@ -5,11 +5,12 @@ import { Helmet } from 'react-helmet-async';
 import { selectorFamily, useRecoilValue } from 'recoil';
 
 import axios from 'axios';
+
 import TOML from '@iarna/toml';
 
 import ReactJsonSchema from 'react-json-schema';
 
-import options from 'plug/schema/schema-options.jsx';
+import options from 'plug/extra/schema_options.jsx';
 
 import styles from './schema-viewer.module.css';
 

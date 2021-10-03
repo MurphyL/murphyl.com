@@ -1,23 +1,20 @@
 import React, { Suspense } from "react";
 import { Helmet } from 'react-helmet-async';
 
-import axios from 'axios';
-import { selectorFamily, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import DriftNavi from 'plug/extra/drift-navi/drift-navi.module.jsx';
-import { Loading } from 'plug/include/status/status.module.jsx';
+import { Loading } from 'plug/extra/status/status.module.jsx';
 
-import { resolveToml } from 'plug/extra/rest_utils.jsx';
+import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 
 import styles from './snippet.module.css';
 
-const snippetQuery = selectorFamily({
-    key: 'post',
-    get: () => () => resolveToml(axios.get(`/data/toml/snippet/snippets.toml`), '文章')
-});
-
 function SnippetNav() {
-    const snippets = useRecoilValue(snippetQuery());
+    const snippets = useRecoilValue(callGithubAPI({
+        key: 'query-issue-list',
+        tags: (process.env.REACT_APP_GHP_CODE_TAG || 'X-BLOG,X-POST').split(','),
+    }));
     return (
         <div className={styles.navi}>{JSON.stringify(snippets)}</div>
     );

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <graphql>
-    <query-blog-issues>
+    <query-issue-list>
         <![CDATA[
-            query($ghp_username:String!, $ghp_repository:String!, $ghp_labels:[String!]!) {
+            query($ghp_username:String!, $ghp_repository:String!, $ghp_issue_states:[IssueState!]!, $ghp_labels:[String!]!) {
                 repository(owner: $ghp_username,name: $ghp_repository) {
-                    issues(labels: $ghp_labels, states: CLOSED, first: 10) {
+                    issues(labels: $ghp_labels, states: $ghp_issue_states, first: 10) {
                         nodes {
                             id,
                             number,
@@ -16,12 +16,12 @@
                 }
             }
         ]]>
-    </query-blog-issues>
-    <query-topic-issues>
+    </query-issue-list>
+    <query-issue-comments>
         <![CDATA[
-            query($ghp_username:String!, $ghp_repository:String!, $ghp_labels:[String!]!) {
-                repository(owner: $ghp_username,name: $ghp_repository) {
-                    issues(labels: $ghp_labels, first: 10) {
+            query($ghp_username:String!, $ghp_repository:String!, $ghp_issue_states:[IssueState!]!, $ghp_labels:[String!]!) {
+                repository(owner: $ghp_username, name: $ghp_repository) {
+                    issues(labels: $ghp_labels states: $ghp_issue_states, first: 10) {
                         nodes {
                             id,
                             number,
@@ -43,5 +43,20 @@
                 }
             }
         ]]>
-    </query-topic-issues>
+    </query-issue-comments>
+    <get-issue-details>
+        <![CDATA[
+            query($ghp_username:String!, $ghp_repository:String!, $issue_number:Int!) {
+                repository(owner: $ghp_username,name: $ghp_repository) {
+                    issue(number: $issue_number) {
+                        id,
+                        number,
+                        url,
+                        title,
+                        body
+                    }
+                }
+            }
+        ]]>
+    </get-issue-details>
 </graphql>

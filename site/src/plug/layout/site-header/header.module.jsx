@@ -49,7 +49,7 @@ function NavItem(option) {
 export default function Header({ className, ...extra }) {
     const [show, setShow] = useState(false);
     return (
-        <header className={classNames(styles.root, className)} {...extra}>
+        <header className={classNames(className, styles.root)} {...extra}>
             <Link className={styles.logo} to="/">
                 {/* <img src={process.env.REACT_APP_LEGO} alt={process.env.REACT_APP_TITLE} /> */}
                 <b>{process.env.REACT_APP_TITLE}</b>

@@ -94,7 +94,7 @@ export function TopicGroupList() {
         ghp_labels: 'X-TOML/TOPIC',
     }));
     const [topic] = pathGet(fetched || {}, 'data.repository.issues.nodes');
-    console.log('topic issues', topic);
+    console.log('topic', topic);
     return topic ? (
         <Fragment>
             <Helmet>

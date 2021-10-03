@@ -6,25 +6,25 @@ import { get as pathGet } from 'object-path';
 
 import Markdown from 'markdown-to-jsx';
 
-import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
-
-import { Loading } from 'plug/extra/status/status.module.jsx';
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
+import { Loading } from 'plug/extra/status/status.module.jsx';
+
+import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 
 import styles from './blog.module.css';
 
 export function BlogPostSummary({ post }) {
-    const { meta, content } = parseMarkdown(post.body);
+    const { meta, excerpt, content } = parseMarkdown(post.body);
     console.log('blog post meta', meta);
     return (
         <div className={styles.post_summary}>
             <a href={`/post/${post.number}`}>
                 <h2>{post.title}</h2>
             </a>
-            <article className={classNames(post.kind)}>
-                <Markdown children={content} options={{
+            <article className={classNames(styles.excerpt, post.kind)}>
+                <Markdown children={(excerpt || content).trim()} options={{
                     createElement: (type, props, children) => {
                         if (props.key === 'outer') {
                             props.className = 'outer markdown';
@@ -43,7 +43,7 @@ function BlogList() {
         ghp_labels: 'X-BLOG',
     }));
     const issues = pathGet(fetched, 'data.repository.issues');
-    console.log('blog issues', issues);
+    console.log('blog', issues);
     return (
         <Fragment>
             <Helmet>

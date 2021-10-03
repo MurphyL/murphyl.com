@@ -5,3 +5,7 @@
 .root .post_summary {
     margin: 0;
 }
+
+.root .post_summary .excerpt {
+    margin: 0;
+}

@@ -17,7 +17,7 @@ const Paragraph = ({ children }) => {
         }
     }
     return (
-        <p className="paragraph">{ children }</p>
+        <p className={styles.paragraph}>{ children }</p>
     );
 };
 

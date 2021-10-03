@@ -33,7 +33,7 @@ function MarkdownPost() {
     return (
         <article className={styles.root}>
             <h2>{post.title}</h2>
-            <section>
+            <section className={styles.content}>
                 <Markdown children={content || ''} options={markdownOptions} />
             </section>
         </article>

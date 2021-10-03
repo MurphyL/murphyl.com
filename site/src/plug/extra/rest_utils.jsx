@@ -50,7 +50,10 @@ export const parseTOML = (data = '') => {
 
 export const parseMarkdown = (data = '') => {
     const { data: meta, excerpt, content } = matter(data, {
+        excerpt: true,
         language: 'toml',
+        delims: ['```', '```'],
+        excerpt_separator: '<!-- more -->',
         engines: {
             toml: TOML.parse.bind(TOML),
         }

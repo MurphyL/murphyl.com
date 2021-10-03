@@ -28,7 +28,7 @@ const definedOption = {
         },
         a: {
             component: function OuterLink({ href, children }) {
-                return /^http/.test(href) ? (<a href={href} target="_blank">{children}</a>) : (<Link to={href}>{children}</Link>);
+                return /^http/.test(href) ? (<a href={href} rel="noopener noreferrer" target="_blank">{children}</a>) : (<Link to={href}>{children}</Link>);
             }
         },
         p: {

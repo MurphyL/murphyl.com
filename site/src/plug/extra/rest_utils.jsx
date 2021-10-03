@@ -49,8 +49,13 @@ export const parseTOML = (data = '') => {
 };
 
 export const parseMarkdown = (data = '') => {
-    const { data: meta, content } = matter(data);
-    return { meta, content };
+    const { data: meta, excerpt, content } = matter(data, {
+        language: 'toml',
+        engines: {
+            toml: TOML.parse.bind(TOML),
+        }
+    });
+    return { meta, excerpt, content };
 };
 
 export const fetchGraphQlMapper = selectorFamily({

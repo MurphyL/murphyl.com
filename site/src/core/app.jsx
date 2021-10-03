@@ -21,7 +21,7 @@ import { DynamicSchemaViewer } from 'view/kits/schema/viewer/schema-viewer.modul
 
 import About from 'view/about/about.module.jsx';
 
-import { TopicList, TopicPost } from 'view/topic/topic.module.jsx';
+import { TopicGroupList, TopicDetails } from 'view/topic/topic.module.jsx';
 
 import { fetchGraphQlMapper } from 'plug/extra/rest_utils.jsx';
 
@@ -39,14 +39,14 @@ function SiteRouter() {
                     <Route path={['/topics', '/collections']} exact={true}>
                         <SiteLayout>
                             <Suspense fallback={<Loading />}>
-                                <TopicList />
+                                <TopicGroupList />
                             </Suspense>
                         </SiteLayout>
                     </Route>
                     <Route path={['/topics/:unique', '/collections/:unique']} exact={true}>
                         <SiteLayout>
                             <Suspense fallback={<Loading />}>
-                                <TopicPost />
+                                <TopicDetails />
                             </Suspense>
                         </SiteLayout>
                     </Route>

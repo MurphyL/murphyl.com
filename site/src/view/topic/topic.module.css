@@ -1,17 +1,17 @@
 /** list **/
-.list {
+.group_list {
     margin: 0;
 }
 
-.list .card_group {
+.group_list .card_group {
     margin: 0;
 }
 
-.list .card_group .group_title {
+.group_list .card_group .group_title {
     font-weight: 700;
 }
 
-.list .card_group .group_cards {
+.group_list .card_group .card_list {
     margin: 5px 0;
 }
 
@@ -55,44 +55,4 @@
     width: 26px;
     height: 26px;
     background-color: #ffffff;
-}
-
-/** post **/
-
-.post {
-    margin: root;
-}
-
-.post .profile {
-    display: flex;
-    margin: 20px 0;
-}
-
-.post .profile .logo {
-    padding: 10px;
-    width: 60px;
-    height: 60px;
-
-    border: 1px solid #dfdfdf;
-    cursor: pointer;
-}
-
-.post .profile .meta {
-    flex: 1;
-    margin: 0 0;
-}
-
-.post .profile .meta h3,
-.post .profile .meta p {
-    margin: 0;
-    text-indent: 5px;
-}
-
-.post .profile .meta h3 {
-    line-height: 32px;
-    border-bottom: 1px solid #dfdfdf;
-}
-
-.post .profile .meta p {
-    line-height: 30px;
 }

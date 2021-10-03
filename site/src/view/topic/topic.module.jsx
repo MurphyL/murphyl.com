@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
@@ -16,7 +16,10 @@ function TopicCard({ card }) {
         <div className={styles.card}>
             <div className={styles.card_container}>
                 <div className={styles.title}>
-                    <Link to={{ pathname: `/topics/${card.unique}`, search: '?from=topic-list', state: card }}>{card.title || '这里什么也没有！'}</Link>
+                    <Link to={{
+                        pathname: `/topics/${card.unique}`,
+                        state: { [`card-${card.unique}`]: card }
+                    }}>{card.title || '这里什么也没有！'}</Link>
                 </div>
                 <div className={styles.desc}>{card.desc || '这里什么也没有！'}</div>
             </div>
@@ -29,7 +32,7 @@ function TopicGroup({ id, bodyText }) {
     return (
         <div className={styles.card_group} data-group={id} data-unique={unique}>
             <h3 className={styles.group_title}>{title || '无标题'}</h3>
-            <div className={styles.group_cards}>
+            <div className={styles.card_list}>
                 {(items || []).map((card, index) => (
                     <TopicCard key={index} card={card} />
                 ))}
@@ -38,19 +41,54 @@ function TopicGroup({ id, bodyText }) {
     );
 };
 
-export function TopicPost() {
+function TopicMeta({ topic }) {
+    return (
+        <Fragment>
+            <Helmet>
+                <title>{topic.title} - {process.env.REACT_APP_TITLE}</title>
+            </Helmet>
+            <div className={styles.meta}>
+                <h3>{topic.title}</h3>
+                <p>{topic.desc}</p>
+            </div>
+        </Fragment>
+    );
+}
+
+function AjaxTopicMeta({ unique }) {
+    return (
+        <Fragment>
+            <span>ajax - {unique}</span>
+            <TopicMeta />
+        </Fragment>
+    );
+}
+
+export function TopicDetails() {
     const { unique } = useParams();
+    const { state } = useLocation();
     const fetched = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
         ghp_labels: `X-POST/${unique.toUpperCase()}`,
     }));
-    console.log(`X-POST/${unique.toUpperCase()}`, fetched);
+    const topics = pathGet(fetched || {}, 'data.repository.issues.nodes');
+    const meta = (state || {})[`card-${unique}`]
+    console.log(`X-POST/${unique.toUpperCase()}`, meta, topics);
     return (
-        <div>post</div>
+        <Fragment>
+            {meta ? <TopicMeta topic={meta} /> : <AjaxTopicMeta unique={unique} />}
+            <ul>
+                {(topics || []).map((topic, index) => (
+                    <li key={index}>
+                        <Link to={`/post/${topic.number}`}>{topic.title}</Link>
+                    </li>
+                ))}
+            </ul>
+        </Fragment>
     );
 };
 
-export function TopicList() {
+export function TopicGroupList() {
     const fetched = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
         ghp_labels: 'X-TOML/TOPIC',
@@ -62,7 +100,7 @@ export function TopicList() {
             <Helmet>
                 <title>{topic.title} - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            <div className={styles.list}>
+            <div className={styles.group_list}>
                 {topic.comments && (topic.comments.nodes || []).map((group, index) => (
                     <TopicGroup key={index} {...group} />
                 ))}

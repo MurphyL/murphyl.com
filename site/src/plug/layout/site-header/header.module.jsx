@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
-
 import { Link } from "react-router-dom";
+
+import classNames from 'classnames';
 
 import styles from './header.module.css';
 
@@ -21,7 +21,7 @@ const navItems = [{
         link: '/snippet',
     }, {
         label: '动态页面帮助',
-        link: '/schema/page/dynamic-page-manual',
+        link: '/schema/view/SiteLayout/dynamic-page-manual',
     }]
 }, {
     label: '关于',

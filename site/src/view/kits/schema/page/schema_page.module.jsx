@@ -7,11 +7,13 @@ import ReactJsonSchema from 'react-json-schema';
 
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
-import options from 'plug/extra/schema_options.jsx';
 import MarkdownRender from 'plug/extra/markdown_render.jsx';
+import SiteLayout from 'plug/layout/site-layout/site-layout.module.jsx';
 
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 import { parseMarkdown, parseTOML } from 'plug/extra/rest_utils.jsx';
+
+import options from 'plug/extra/schema_options.jsx';
 
 import styles from './schema_page.module.css';
 
@@ -19,7 +21,7 @@ const view = new ReactJsonSchema();
 
 view.setComponentMap({ ...options } || {});
 
-export function SchemaRenderer({ unique }) {
+export function SchemaRenderer({ unique, disableLayout }) {
     const { version } = useParams();
     const fetched = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
@@ -36,7 +38,7 @@ export function SchemaRenderer({ unique }) {
     const pageUnique = [unique, version].join('/');
     const page = mapper[pageUnique] || mapper[alias[unique]] || { title: '404', type: 'toml/schema' };
     console.log('page schema:', pageUnique, alias, mapper, page.layout);
-    const PageLayout = options[page.layout] ? options[page.layout] : Fragment;
+    const PageLayout = (!disableLayout && options[page.layout]) ? options[page.layout] : Fragment;
     return (
         <div className={styles.root}>
             <Helmet>
@@ -68,13 +70,24 @@ export function SchemaComponent() {
             </div>
         </div>
     );
-}
+};
 
-export function SchemaLoader() {
+export function SchemaView() {
+    const { unique } = useParams();
+    return (
+        <SiteLayout>
+            <Suspense fallback={<Loading />}>
+                <SchemaRenderer unique={unique} disableLayout={true} />
+            </Suspense>
+        </SiteLayout>
+    );
+};
+
+export function SchemaPage() {
     const { unique } = useParams();
     return (
         <Suspense fallback={<Loading />}>
             <SchemaRenderer unique={unique} />
         </Suspense>
     );
-}
+};

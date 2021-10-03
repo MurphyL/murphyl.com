@@ -16,7 +16,7 @@ import Post from 'view/post/post.module.jsx';
 
 import Snippet from 'view/kits/snippet/snippet.module.jsx';
 
-import { SchemaLoader, SchemaComponent, SchemaRenderer } from 'view/kits/schema/page/schema_page.module.jsx';
+import { SchemaPage, SchemaView, SchemaComponent, SchemaRenderer } from 'view/kits/schema/page/schema_page.module.jsx';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/topic.module.jsx';
 
@@ -34,7 +34,8 @@ function SiteRouter() {
                         <SchemaRenderer unique="about" />
                     </Route>
                     <Route path="/post/:unique" exact={true} component={Post} />
-                    <Route path={["/schema/page/:unique", "/schema/page/:unique/:version"]} exact={true} component={SchemaLoader} />
+                    <Route path={["/schema/page/:unique", "/schema/page/:unique/:version"]} exact={true} component={SchemaPage} />
+                    <Route path={["/schema/view/:layout/:unique", "/schema/view/:layout/:unique/:version"]} exact={true} component={SchemaView} />
                     <Route path={["/schema/component/:unique", "/schema/component/:unique"]} exact={true} component={SchemaComponent} />
                     <Route path={['/topics', '/collections']} exact={true}>
                         <SiteLayout>

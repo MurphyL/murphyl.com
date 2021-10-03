@@ -2,8 +2,6 @@ import React from 'react';
 
 import styles from './definition.module.css';
 
-console.log(styles);
-
 export const Title = ({ level, children }) => {
     return React.createElement(level, { className: styles.title }, children);
 }

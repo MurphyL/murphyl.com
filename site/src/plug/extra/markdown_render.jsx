@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import Markdown2JSX from 'markdown-to-jsx';
 
 import { Title, Paragraph, Prepare } from 'plug/extra/definition/definition.module.jsx';
@@ -23,6 +25,11 @@ const definedOption = {
         },
         h5: {
             component: function H3(props) { return <Title level='h5' {...props} /> }
+        },
+        a: {
+            component: function OuterLink({ href, children }) {
+                return /^http/.test(href) ? (<a href={href} target="_blank">{children}</a>) : (<Link to={href}>{children}</Link>);
+            }
         },
         p: {
             component: Paragraph

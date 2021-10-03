@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
 
-import Markdown from 'markdown-to-jsx';
+import MarkdownRender from 'plug/extra/markdown_render.jsx';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
@@ -25,14 +25,7 @@ export function BlogPostSummary({ post }) {
                 <h2>{post.title}</h2>
             </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
-                <Markdown children={(excerpt || content).trim()} options={{
-                    createElement: (type, props, children) => {
-                        if (props.key === 'outer') {
-                            props.className = 'outer markdown';
-                        }
-                        return React.createElement(type, props, children);
-                    },
-                }} />
+                <MarkdownRender content={(excerpt || content).trim()} />
             </article>
         </div>
     );

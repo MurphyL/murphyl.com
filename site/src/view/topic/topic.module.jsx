@@ -107,6 +107,6 @@ export function TopicGroupList() {
             </div>
         </Fragment>
     ) : (
-        <div>加载错误</div>
+        <div>配置数据加载错误</div>
     );
 };

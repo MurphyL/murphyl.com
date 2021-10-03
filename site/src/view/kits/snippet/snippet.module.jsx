@@ -13,7 +13,7 @@ import styles from './snippet.module.css';
 function SnippetNav() {
     const snippets = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
-        tags: (process.env.REACT_APP_GHP_CODE_TAG || 'X-BLOG,X-POST').split(','),
+        ghp_labels: 'X-CODE',
     }));
     return (
         <div className={styles.navi}>{JSON.stringify(snippets)}</div>

@@ -10,7 +10,6 @@ import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 
-import { get as pathGet } from 'object-path';
 import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
 import MarkdownRender from 'plug/extra/markdown_render.jsx';
@@ -21,11 +20,11 @@ Markdown.displayName = 'MarkdownRender';
 
 function MarkdownPost() {
     const { unique } = useParams();
-    const fetched = useRecoilValue(callGithubAPI({
+    const post = useRecoilValue(callGithubAPI({
         key: 'get-issue-details',
         issue_number: parseInt(unique),
+        path: 'data.repository.issue'
     }));
-    const post = pathGet(fetched || {}, 'data.repository.issue');
     const { meta, content } = parseMarkdown(post.body);
     console.log('文章', unique, meta, post);
     return (

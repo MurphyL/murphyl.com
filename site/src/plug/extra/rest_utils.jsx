@@ -76,7 +76,7 @@ export const fetchGraphQlMapper = selectorFamily({
 
 export const callGithubAPI = selectorFamily({
     key: 'call-github-api-v4',
-    get: ({ key, ...extra }) => () => {
+    get: ({ key, path, ...extra }) => () => {
         const mapper = useContext(MapperContext);
         const graphql = pathGet(mapper, [key, '_cdata']);
         if (!graphql) {
@@ -95,7 +95,7 @@ export const callGithubAPI = selectorFamily({
                 Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`
             }
         }).then(({ status, data }) => {
-            return status === 200 ? data : null;
+            return status === 200 ? (path ? pathGet(data, path) : data) : null;
         }).catch(err => {
             console.error('Github API 调用出错：', err.message);
             return null;

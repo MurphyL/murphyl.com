@@ -27,6 +27,7 @@
                             number,
                             url,
                             title,
+                            body,
                             createdViaEmail,
                             publishedAt,
                             comments(first: 100) {

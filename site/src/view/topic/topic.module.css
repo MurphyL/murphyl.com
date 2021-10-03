@@ -16,7 +16,17 @@
 }
 /** group */
 .group_viewer {
+    display: flex;
     margin: 0;
+
+}
+
+.group_viewer .group_tree {
+    width: 300px;
+}
+
+.group_viewer .group_reader {
+    flex: 1;
 }
 
 /** card **/

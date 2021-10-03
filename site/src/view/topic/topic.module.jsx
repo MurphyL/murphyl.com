@@ -1,10 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
 import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
 
-import { get as pathGet } from 'object-path';
 // import simpleIcons from 'simple-icons';
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 import { parseTOML } from 'plug/extra/rest_utils.jsx';
@@ -72,20 +71,37 @@ function AjaxTopicMeta({ unique }) {
 };
 
 export function TopicGroupViewer() {
+    const [selected] = useState(0);
     const { group } = useParams();
+    const groupList = useRecoilValue(callGithubAPI({
+        key: 'query-issue-comments',
+        ghp_labels: `X-TOPIC/${group.toUpperCase()}`,
+        path: 'data.repository.issues.nodes'
+    }));
+    console.log(groupList);
     return (
-        <div className={styles.group_viewer}>group viewer - {group}</div>
+        <div className={styles.group_viewer}>
+            <dl className={styles.group_tree}>
+                {(groupList || []).map((item, index) => (
+                    <Fragment key={index}>
+                        <dt>{item.title}</dt>
+                        <dd></dd>
+                    </Fragment>
+                ))}
+            </dl>
+            <div className={styles.group_reader}>group viewer - {group} - {JSON.stringify(groupList[selected])}</div>
+        </div>
     );
 };
 
 export function TopicDetails() {
     const { unique } = useParams();
     const { state } = useLocation();
-    const fetched = useRecoilValue(callGithubAPI({
+    const topics = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
         ghp_labels: `X-POST/${unique.toUpperCase()}`,
+        path: 'data.repository.issues.nodes'
     }));
-    const topics = pathGet(fetched || {}, 'data.repository.issues.nodes');
     const meta = (state || {})[`card-${unique}`]
     console.log(`X-POST/${unique.toUpperCase()}`, meta, topics);
     return (
@@ -103,11 +119,12 @@ export function TopicDetails() {
 };
 
 export function TopicGroupList() {
-    const fetched = useRecoilValue(callGithubAPI({
+    const topics = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
-        ghp_labels: 'X-TOPIC',
+        ghp_labels: 'X-TOML/TOPIC',
+        path: 'data.repository.issues.nodes'
     }));
-    const [topic] = pathGet(fetched || {}, 'data.repository.issues.nodes');
+    const [topic] = topics;
     console.log('topic', topic);
     return topic ? (
         <Fragment>

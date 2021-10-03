@@ -2,7 +2,6 @@ import React, { Fragment, Suspense } from 'react';
 import { useParams } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
-import { get as pathGet } from 'object-path';
 import ReactJsonSchema from 'react-json-schema';
 
 import { Loading } from 'plug/extra/status/status.module.jsx';
@@ -23,13 +22,14 @@ view.setComponentMap({ ...options } || {});
 
 export function SchemaRenderer({ unique, disableLayout }) {
     const { version } = useParams();
-    const fetched = useRecoilValue(callGithubAPI({
+    const pages = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
         ghp_labels: `X-PAGE`,
+        path: 'data.repository.issues.nodes'
     }));
     const alias = {};
     const mapper = {};
-    (pathGet(fetched || {}, 'data.repository.issues.nodes') || []).forEach(page => {
+    (pages || []).forEach(page => {
         const { meta, content } = parseMarkdown(page.body);
         const keys = [meta.unique, meta.version].join('/');
         alias[meta.unique] =keys;

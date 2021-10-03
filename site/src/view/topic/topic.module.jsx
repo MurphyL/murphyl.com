@@ -11,13 +11,13 @@ import { parseTOML } from 'plug/extra/rest_utils.jsx';
 
 import styles from './topic.module.css';
 
-function TopicCard({ card }) {
+function TopicCard({ group, card }) {
     return (
         <div className={styles.card}>
             <div className={styles.card_container}>
                 <div className={styles.title}>
                     <Link to={{
-                        pathname: `/topics/${card.unique}`,
+                        pathname: `/topics/${group}/${card.unique}`,
                         state: { [`card-${card.unique}`]: card }
                     }}>{card.title || '这里什么也没有！'}</Link>
                 </div>
@@ -31,10 +31,12 @@ function TopicGroup({ id, bodyText }) {
     const { unique, title, items } = parseTOML(bodyText);
     return (
         <div className={styles.card_group} data-group={id} data-unique={unique}>
-            <h3 className={styles.group_title}>{title || '无标题'}</h3>
+            <h3 className={styles.group_title}>
+                <Link to={`/topics/${unique}`}>{title || '无标题'}</Link>
+            </h3>
             <div className={styles.card_list}>
                 {(items || []).map((card, index) => (
-                    <TopicCard key={index} card={card} />
+                    <TopicCard key={index} group={unique} card={card} />
                 ))}
             </div>
         </div>
@@ -45,7 +47,7 @@ function TopicMeta({ topic }) {
     return (
         <Fragment>
             <Helmet>
-                <title>{topic.title} - {process.env.REACT_APP_TITLE}</title>
+                <title>{topic.title} - 分类文章 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             <div className={styles.meta}>
                 <h3>{topic.title}</h3>
@@ -56,13 +58,25 @@ function TopicMeta({ topic }) {
 }
 
 function AjaxTopicMeta({ unique }) {
+    const fetched = useRecoilValue(callGithubAPI({
+        key: 'query-issue-list',
+        ghp_labels: `X-POST/${unique.toUpperCase()}`,
+    }));
+    console.log(fetched);
     return (
         <Fragment>
             <span>ajax - {unique}</span>
             <TopicMeta />
         </Fragment>
     );
-}
+};
+
+export function TopicGroupViewer() {
+    const { group } = useParams();
+    return (
+        <div className={styles.group_viewer}>group viewer - {group}</div>
+    );
+};
 
 export function TopicDetails() {
     const { unique } = useParams();
@@ -91,14 +105,14 @@ export function TopicDetails() {
 export function TopicGroupList() {
     const fetched = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
-        ghp_labels: 'X-TOML/TOPIC',
+        ghp_labels: 'X-TOPIC',
     }));
     const [topic] = pathGet(fetched || {}, 'data.repository.issues.nodes');
     console.log('topic', topic);
     return topic ? (
         <Fragment>
             <Helmet>
-                <title>{topic.title} - {process.env.REACT_APP_TITLE}</title>
+                <title>{topic.title} - 主题 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             <div className={styles.group_list}>
                 {topic.comments && (topic.comments.nodes || []).map((group, index) => (

@@ -7,7 +7,6 @@ import MapperContext from 'plug/extra/mepper_context.jsx';
 
 import { ErrorBoundary, Loading } from 'plug/extra/status/status.module.jsx';
 
-
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
 import Home from 'view/home/home.module.jsx';
@@ -17,11 +16,9 @@ import Post from 'view/post/post.module.jsx';
 
 import Snippet from 'view/kits/snippet/snippet.module.jsx';
 
-import { DynamicSchemaViewer } from 'view/kits/schema/viewer/schema-viewer.module.jsx';
+import { SchemaLoader, SchemaRenderer } from 'view/kits/schema/page/schema_page.module.jsx';
 
-import About from 'view/about/about.module.jsx';
-
-import { TopicGroupList, TopicDetails } from 'view/topic/topic.module.jsx';
+import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/topic.module.jsx';
 
 import { fetchGraphQlMapper } from 'plug/extra/rest_utils.jsx';
 
@@ -33,9 +30,11 @@ function SiteRouter() {
                 <Switch>
                     <Route path="/" exact={true} component={Home} />
                     <Route path="/blog" exact={true} component={Blog} />
+                    <Route path={["/about", "/about/:version"]} exact={true}>
+                        <SchemaRenderer unique="about" />
+                    </Route>
                     <Route path="/post/:unique" exact={true} component={Post} />
-                    <Route path="/about" exact={true} component={About} />
-                    <Route path="/schema/:unique" exact={true} component={DynamicSchemaViewer} />
+                    <Route path={["/schema/page/:unique", "/schema/page/:unique/:version"]} exact={true} component={SchemaLoader} />
                     <Route path={['/topics', '/collections']} exact={true}>
                         <SiteLayout>
                             <Suspense fallback={<Loading />}>
@@ -43,7 +42,12 @@ function SiteRouter() {
                             </Suspense>
                         </SiteLayout>
                     </Route>
-                    <Route path={['/topics/:unique', '/collections/:unique']} exact={true}>
+                    <Route path={['/topics/:group', '/collections/:group']} exact={true}>
+                        <Suspense fallback={<Loading />}>
+                            <TopicGroupViewer />
+                        </Suspense>
+                    </Route>
+                    <Route path={['/topics/:group/:unique', '/collections/:group/:unique']} exact={true}>
                         <SiteLayout>
                             <Suspense fallback={<Loading />}>
                                 <TopicDetails />

@@ -1,0 +1,13 @@
+.root {
+    margin: 0;
+}
+
+/** page */
+.root .page {
+    margin: 0;
+}
+
+/** NOT FOUND */
+.root .not_found {
+    margin: 10px;
+}

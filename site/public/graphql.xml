@@ -21,7 +21,7 @@
         <![CDATA[
             query($ghp_username:String!, $ghp_repository:String!, $ghp_issue_states:[IssueState!]!, $ghp_labels:[String!]!) {
                 repository(owner: $ghp_username, name: $ghp_repository) {
-                    issues(labels: $ghp_labels states: $ghp_issue_states, first: 10) {
+                    issues(labels: $ghp_labels, states: $ghp_issue_states, first: 20) {
                         nodes {
                             id,
                             number,

@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from "react-router-dom";
 import { useRecoilValue } from 'recoil';
 import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
@@ -20,9 +21,9 @@ export function BlogPostSummary({ post }) {
     console.log('blog post meta', meta);
     return (
         <div className={styles.post_summary}>
-            <a href={`/post/${post.number}`}>
+            <Link to={`/post/${post.number}`}>
                 <h2>{post.title}</h2>
-            </a>
+            </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
                 <Markdown children={(excerpt || content).trim()} options={{
                     createElement: (type, props, children) => {

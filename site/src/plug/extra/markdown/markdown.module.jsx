@@ -1,45 +1,48 @@
 import React from 'react';
+import Markdown from 'markdown-to-jsx';
 
 import styles from './markdown.module.css';
+
+Markdown.displayName = 'Markdown2JSX';
 
 const Title = ({ type, children }) => {
     return React.createElement(type, { className: styles.title }, children);
 }
 
-const H3 = (props) => (<Title type='h3' { ...props } />);
+const H3 = (props) => (<Title type='h3' {...props} />);
 
 const Paragraph = ({ children }) => {
-    if(children && Array.isArray(children)) {
-        if(children[0] && children[0].type === 'img') {
+    if (children && Array.isArray(children)) {
+        if (children[0] && children[0].type === 'img') {
             return (
-                <p className={styles.image}>{ children }</p>
+                <p className={styles.image}>{children}</p>
             )
         }
     }
     return (
-        <p className={styles.paragraph}>{ children }</p>
+        <p className={styles.paragraph}>{children}</p>
     );
 };
 
 const FlexImage = ({ items, alt }) => {
     return (
         <div className="flex-wrapper">
-            { (JSON.parse(items) || []).map((item, index) => (
-                <div className={`flex-item ${styles.image}`} key={ index }>
-                    <img src={ item } alt={ alt || ''} />
+            {(JSON.parse(items) || []).map((item, index) => (
+                <div className={`flex-item ${styles.image}`} key={index}>
+                    <img src={item} alt={alt || ''} />
                 </div>
-            )) }
+            ))}
         </div>
     );
 };
 
 const Prepare = ({ children }) => {
     return (
-        <div className="prepare">{ children }</div>
+        <div className="prepare">{children}</div>
     );
 };
 
-export default {
+const definedOption = {
     overrides: {
         h1: {
             component: H3
@@ -51,13 +54,13 @@ export default {
             component: H3
         },
         h4: {
-            component:  (props) => (<Title type='h4' { ...props } />)
+            component: (props) => (<Title type='h4' {...props} />)
         },
         h5: {
-            component:  (props) => (<Title type='h5' { ...props } />)
+            component: (props) => (<Title type='h5' {...props} />)
         },
         h6: {
-            component:  (props) => (<Title type='h6' { ...props } />)
+            component: (props) => (<Title type='h6' {...props} />)
         },
         p: {
             component: Paragraph
@@ -83,3 +86,9 @@ export default {
         }
     }
 };
+
+export default function MarkdownRender({ content, options }) {
+    return (
+        <Markdown children={content || ''} options={options || definedOption} />
+    );
+}

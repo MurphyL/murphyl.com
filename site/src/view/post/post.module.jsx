@@ -13,13 +13,11 @@ import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 import { get as pathGet } from 'object-path';
 import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
-import markdownOptions from 'plug/extra/markdown/markdown.module.jsx';
+import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
 import styles from './post.module.css';
 
 Markdown.displayName = 'MarkdownRender';
-
-
 
 function MarkdownPost() {
     const { unique } = useParams();
@@ -34,7 +32,7 @@ function MarkdownPost() {
         <article className={styles.root}>
             <h2>{post.title}</h2>
             <section className={styles.content}>
-                <Markdown children={content || ''} options={markdownOptions} />
+                <MarkdownRender content={content || ''} />
             </section>
         </article>
     );

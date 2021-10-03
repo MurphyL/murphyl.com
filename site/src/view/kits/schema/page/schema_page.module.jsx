@@ -8,7 +8,7 @@ import ReactJsonSchema from 'react-json-schema';
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
 import options from 'plug/extra/schema_options.jsx';
-import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
+import MarkdownRender from 'plug/extra/markdown_render.jsx';
 
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 import { parseMarkdown, parseTOML } from 'plug/extra/rest_utils.jsx';
@@ -17,13 +17,7 @@ import styles from './schema_page.module.css';
 
 const view = new ReactJsonSchema();
 
-function SchemaPage({ children }) {
-    return (
-        <div className={styles.page}>{children}</div>
-    );
-}
-
-view.setComponentMap({ ...options, SchemaPage } || {});
+view.setComponentMap({ ...options } || {});
 
 export function SchemaRenderer({ unique }) {
     const { version } = useParams();
@@ -31,15 +25,17 @@ export function SchemaRenderer({ unique }) {
         key: 'query-issue-list',
         ghp_labels: `X-PAGE`,
     }));
+    const alias = {};
     const mapper = {};
     (pathGet(fetched || {}, 'data.repository.issues.nodes') || []).forEach(page => {
         const { meta, content } = parseMarkdown(page.body);
         const keys = [meta.unique, meta.version].join('/');
+        alias[meta.unique] =keys;
         mapper[keys] = { ...page, ...meta, source: content };
     });
     const pageUnique = [unique, version].join('/');
-    const page = mapper[pageUnique] || { title: '404', type: 'toml/schema' };
-    console.log('page schema:', pageUnique, mapper, page.layout);
+    const page = mapper[pageUnique] || mapper[alias[unique]] || { title: '404', type: 'toml/schema' };
+    console.log('page schema:', pageUnique, alias, mapper, page.layout);
     const PageLayout = options[page.layout] ? options[page.layout] : Fragment;
     return (
         <div className={styles.root}>
@@ -57,6 +53,19 @@ export function SchemaRenderer({ unique }) {
                     <MarkdownRender content={page.source} />
                 </PageLayout>
             )}
+        </div>
+    );
+};
+
+export function SchemaComponent() {
+    const { unique } = useParams();
+    const DemoComponent = options[unique] || (() => <b>Nothing</b>);
+    return (
+        <div className={styles.demo}>
+            <h3>component - {unique}</h3>
+            <div className={styles.demo_board}>
+                <DemoComponent role="demo" />
+            </div>
         </div>
     );
 }

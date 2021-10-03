@@ -13,7 +13,7 @@ import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 import { get as pathGet } from 'object-path';
 import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
-import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
+import MarkdownRender from 'plug/extra/markdown_render.jsx';
 
 import styles from './post.module.css';
 

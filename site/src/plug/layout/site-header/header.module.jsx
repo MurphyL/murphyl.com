@@ -19,6 +19,9 @@ const navItems = [{
     children: [{
         label: '代码片段',
         link: '/snippet',
+    }, {
+        label: '动态页面帮助',
+        link: '/schema/page/dynamic-page-manual',
     }]
 }, {
     label: '关于',

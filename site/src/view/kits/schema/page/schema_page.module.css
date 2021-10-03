@@ -7,6 +7,24 @@
     margin: 0;
 }
 
+/** component */
+.demo {
+    margin: 0;
+}
+
+.demo h3 {
+    margin: 0;
+    padding: 20px;
+}
+
+.demo .demo_board {
+    position: relative;
+    margin: 0 auto;
+    width: calc(100% - 30px);
+    min-height: 600px;
+    border: 1px solid var(--shadow-color);
+}
+
 /** NOT FOUND */
 .root .not_found {
     margin: 10px;

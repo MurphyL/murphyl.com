@@ -1,5 +1,4 @@
 .root {
-    position: fixed;
     z-index: 99;
     width: 50px;
     height: 50px;
@@ -9,26 +8,30 @@
     opacity: 0.3;
 }
 
+.root[data-role='component'] {
+    position: fixed;
+}
+
 .root:hover {
     opacity: 1;
 }
 
-.root[data-postion='lt'] {
+.root[data-role='component'][data-postion='lt'] {
     left: 10px;
     top: 10px;
 }
 
-.root[data-postion='rt'] {
+.root[data-role='component'][data-postion='rt'] {
     right: 10px;
     top: 10px;
 }
 
-.root[data-postion='lb'] {
+.root[data-role='component'][data-postion='lb'] {
     left: 10px;
     bottom: 10px;
 }
 
-.root[data-postion='rb'] {
+.root[data-role='component'][data-postion='rb'] {
     right: 10px;
     bottom: 10px;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import classNames from 'classnames';
 
@@ -30,9 +30,9 @@ const navItems = [{
 
 function NavItem(option) {
     return (typeof (option.link) === 'string') ? (
-        <Link className={styles.navi_item} to={option.link}>
+        <NavLink className={styles.navi_item} to={option.link} activeClassName={styles.selected} exact={true}>
             <span className={styles.navi_text}>{option.label}</span>
-        </Link>
+        </NavLink>
     ) : (
         <span className={styles.navi_item}>
             <span className={styles.navi_text}>{option.label}</span>
@@ -40,7 +40,7 @@ function NavItem(option) {
                 <ul>
                     {option.children.map((nav, index) => (
                         <li key={index}>
-                            <Link to={nav.link}>{nav.label}</Link>
+                            <NavLink to={nav.link} activeClassName="selected">{nav.label}</NavLink>
                         </li>
                     ))}
                 </ul>

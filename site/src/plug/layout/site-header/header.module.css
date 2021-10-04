@@ -46,6 +46,11 @@
 	cursor: pointer;
 }
 
+.root .navi .navi_item.selected {
+	color: indigo;
+	font-weight: 700;
+}
+
 .root .navi .navi_item:hover .navi_hover {
 	display: block;
 }

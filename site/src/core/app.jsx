@@ -30,9 +30,7 @@ function SiteRouter() {
                 <Switch>
                     <Route path="/" exact={true} component={Home} />
                     <Route path="/blog" exact={true} component={Blog} />
-                    <Route path={["/about", "/about/:version"]} exact={true}>
-                        <SchemaRenderer unique="about" />
-                    </Route>
+                    <Route path={["/about", "/about/:version"]} exact={true} children={<SchemaRenderer unique="about" />} />
                     <Route path="/post/:unique" exact={true} component={Post} />
                     <Route path={["/schema/page/:unique", "/schema/page/:unique/:version"]} exact={true} component={SchemaPage} />
                     <Route path={["/schema/view/:layout/:unique", "/schema/view/:layout/:unique/:version"]} exact={true} component={SchemaView} />
@@ -55,6 +53,15 @@ function SiteRouter() {
                                 <TopicDetails />
                             </Suspense>
                         </SiteLayout>
+                    </Route>
+                    <Route path="/v1" exact={true}>
+                        <Route path="/topics">
+                            <div>topic</div>
+                        </Route>
+                        <Route path="/snippet">
+                            <div>topic</div>
+                        </Route>
+                        <Route>404</Route>
                     </Route>
                     <Route path="/snippet" exact={true} component={Snippet} />
                     <Route>404</Route>

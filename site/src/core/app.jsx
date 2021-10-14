@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import MapperContext from 'plug/extra/mepper_context.jsx';
 
-import { ErrorBoundary, Loading } from 'plug/extra/status/status.module.jsx';
+import { ErrorBoundary, Dynamic, Loading } from 'plug/extra/status/status.module.jsx';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
@@ -18,7 +18,8 @@ import Snippet from 'view/kits/snippet/snippet.module.jsx';
 
 import { SchemaPage, SchemaView, SchemaComponent, SchemaRenderer } from 'view/kits/schema/page/schema_page.module.jsx';
 
-import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/topic.module.jsx';
+import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic_v1.module.jsx';
+import { TopicViewer } from 'view/topic/v2/topic_v2.module.jsx';
 
 import { fetchGraphQlMapper } from 'plug/extra/rest_utils.jsx';
 
@@ -34,35 +35,17 @@ function SiteRouter() {
                     <Route path="/post/:unique" exact={true} component={Post} />
                     <Route path={["/schema/page/:unique", "/schema/page/:unique/:version"]} exact={true} component={SchemaPage} />
                     <Route path={["/schema/view/:layout/:unique", "/schema/view/:layout/:unique/:version"]} exact={true} component={SchemaView} />
-                    <Route path={["/schema/component/:unique", "/schema/component/:unique"]} exact={true} component={SchemaComponent} />
-                    <Route path={['/topics', '/collections']} exact={true}>
-                        <SiteLayout>
-                            <Suspense fallback={<Loading />}>
-                                <TopicGroupList />
-                            </Suspense>
-                        </SiteLayout>
+                    <Route path="/schema/component/:unique" exact={true} component={SchemaComponent} />
+                    <Route path={['/topics', '/v1/topics']} exact={true}>
+                        <Dynamic children={<TopicGroupList />} layout={SiteLayout} />
                     </Route>
-                    <Route path={['/topics/:group', '/collections/:group']} exact={true}>
-                        <Suspense fallback={<Loading />}>
-                            <TopicGroupViewer />
-                        </Suspense>
+                    <Route path={['/topics/:group', '/v1/topics/:group']} exact={true}>
+                        <Dynamic children={<TopicGroupViewer />} />
                     </Route>
-                    <Route path={['/topics/:group/:unique', '/collections/:group/:unique']} exact={true}>
-                        <SiteLayout>
-                            <Suspense fallback={<Loading />}>
-                                <TopicDetails />
-                            </Suspense>
-                        </SiteLayout>
+                    <Route path={['/topics/:group/:unique', '/v1/topics/:group/:unique']} exact={true}>
+                        <Dynamic children={<TopicDetails />} layout={SiteLayout} />
                     </Route>
-                    <Route path="/v1" exact={true}>
-                        <Route path="/topics">
-                            <div>topic</div>
-                        </Route>
-                        <Route path="/snippet">
-                            <div>topic</div>
-                        </Route>
-                        <Route>404</Route>
-                    </Route>
+                    <Route path={["/v2/topics", "/v2/topics/:group", "/v2/topics/:group/:unique"]} exact={true} component={TopicViewer} />
                     <Route path="/snippet" exact={true} component={Snippet} />
                     <Route>404</Route>
                 </Switch>

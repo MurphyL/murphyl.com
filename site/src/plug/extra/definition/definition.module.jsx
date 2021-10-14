@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './definition.module.css';
 
-export const Title = ({ level, children }) => {
+export const Title = ({ level = 'h2', children }) => {
     return React.createElement(level, { className: styles.title }, children);
 }
 

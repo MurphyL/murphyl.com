@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment, Suspense } from 'react';
 
 import styles from './status.module.css';
 
 export const Loading = ({ message }) => {
 	return (
 		<div className={styles.loading}>
-			<div className="spin">
+			<div className={styles.spin}>
 				<img src="/image/squares.svg" alt="loading spin" />
 			</div>
 			<div>{message || '加载中……'}</div>
@@ -18,6 +18,17 @@ export const Error = ({ message }) => {
 		<div className={styles.error}>
 			<span>{message}</span>
 		</div>
+	);
+};
+
+export const Dynamic = ({ children, layout }) => {
+	const Layout = layout || Fragment;
+	return (
+		<Layout>
+			<Suspense fallback={<Loading />}>
+				{children}
+			</Suspense>
+		</Layout>
 	);
 };
 

@@ -7,10 +7,9 @@ import ReactJsonSchema from 'react-json-schema';
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
 import MarkdownRender from 'plug/extra/markdown_render.jsx';
-import SiteLayout from 'plug/layout/site-layout/site-layout.module.jsx';
 
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
-import { parseMarkdown, parseTOML } from 'plug/extra/rest_utils.jsx';
+import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
 import options from 'plug/extra/schema_options.jsx';
 
@@ -21,40 +20,28 @@ const view = new ReactJsonSchema();
 view.setComponentMap({ ...options } || {});
 
 export function SchemaRenderer({ unique, disableLayout }) {
-    const { version } = useParams();
     const pages = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
         ghp_labels: `X-PAGE`,
         path: 'data.repository.issues.nodes'
     }));
-    const alias = {};
     const mapper = {};
-    (pages || []).forEach(page => {
-        const { meta, content } = parseMarkdown(page.body);
-        const keys = [meta.unique, meta.version].join('/');
-        alias[meta.unique] =keys;
-        mapper[keys] = { ...page, ...meta, source: content };
+    (pages || []).forEach(({ body, ...info }) => {
+        const { meta, content } = parseMarkdown(body);
+        mapper[meta.unique] = { ...info, ...meta, source: content };
     });
-    const pageUnique = [unique, version].join('/');
-    const page = mapper[pageUnique] || mapper[alias[unique]] || { title: '404', type: 'toml/schema' };
-    console.log('page schema:', pageUnique, alias, mapper, page.layout);
-    const PageLayout = (!disableLayout && options[page.layout]) ? options[page.layout] : Fragment;
+    const page = mapper[unique] || { title: 'NOT FOUND', text: '404', type: 'toml/schema' };
+    const { layout, type, title, source, url: sourceUrl, ...schema } = page;
+    console.log('page schema:', unique, mapper, layout);
+    const PageLayout = (!disableLayout && options[layout]) ? options[layout] : Fragment;
     return (
         <div className={styles.root}>
             <Helmet>
-                <title>{page.title} - {process.env.REACT_APP_TITLE}</title>
+                <title>{title} - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            {page.type === 'toml/schema' ? (
-                view.parseSchema(page.source ? parseTOML(page.source) : {
-                    component: 'div',
-                    className: styles.not_found,
-                    text: 'Page not found'
-                })
-            ) : (
-                <PageLayout>
-                    <MarkdownRender content={page.source} />
-                </PageLayout>
-            )}
+            <PageLayout>
+                {type === 'toml/schema' ? view.parseSchema(Object.assign({ component: 'div' }, schema)) : <MarkdownRender content={source} />}
+            </PageLayout>
         </div>
     );
 };
@@ -73,13 +60,14 @@ export function SchemaComponent() {
 };
 
 export function SchemaView() {
-    const { unique } = useParams();
+    const { layout, unique } = useParams();
+    const Layout = options[layout] || Fragment;
     return (
-        <SiteLayout>
+        <Layout>
             <Suspense fallback={<Loading />}>
                 <SchemaRenderer unique={unique} disableLayout={true} />
             </Suspense>
-        </SiteLayout>
+        </Layout>
     );
 };
 

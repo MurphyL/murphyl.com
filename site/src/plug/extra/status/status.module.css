@@ -2,6 +2,10 @@
     margin: 10px 0;
 }
 
+.loading .spin {
+    margin: 0;
+}
+
 .error {
     margin: 10px 0;
 }

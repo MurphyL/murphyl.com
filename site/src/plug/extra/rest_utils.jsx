@@ -6,7 +6,6 @@ import TOML from '@iarna/toml';
 
 import { get as pathGet } from 'object-path';
 
-import { xml2js } from 'xml-js';
 import * as matter from 'gray-matter';
 
 import MapperContext from 'plug/extra/mepper_context.jsx';
@@ -36,14 +35,6 @@ export const resolveMarkdown = (promise, label = '') => {
     });
 };
 
-export const parseXML = (data = '') => {
-    return xml2js(data, {
-        compact: true,
-        ignoreComment: true,
-        ignoreDeclaration: true
-    });
-};
-
 export const parseTOML = (data = '') => {
     return TOML.parse(data);
 };
@@ -64,10 +55,9 @@ export const parseMarkdown = (data = '') => {
 export const fetchGraphQlMapper = selectorFamily({
     key: 'fetch-graphql',
     get: () => async () => {
-        const { data, status } = await axios.get('/graphql.xml');
+        const { data, status } = await axios.get('/graphql.toml');
         if (status === 200) {
-            const { graphql } = parseXML(data);
-            return graphql;
+            return parseTOML(data);
         } else {
             return null;
         }
@@ -78,7 +68,7 @@ export const callGithubAPI = selectorFamily({
     key: 'call-github-api-v4',
     get: ({ key, path, ...extra }) => () => {
         const mapper = useContext(MapperContext);
-        const graphql = pathGet(mapper, [key, '_cdata']);
+        const graphql = mapper[key];
         if (!graphql) {
             throw new Error('查询语句为空！');
         }

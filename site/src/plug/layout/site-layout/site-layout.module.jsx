@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import Header from 'plug/layout/site-header/header.module.jsx';
 import Footer from 'plug/layout/site-footer/footer.module.jsx';
 
 import styles from './site-layout.module.css';
-import { Fragment } from 'react/cjs/react.production.min';
 
 export default function SiteLayout({ children }) {
     return (

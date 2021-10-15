@@ -6,6 +6,7 @@
 .root .toml_editor {
     padding: 3px;
     flex: 1;
+    overflow-y: hidden;
 }
 
 .root .json_viewer {

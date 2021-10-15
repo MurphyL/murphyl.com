@@ -36,7 +36,7 @@ const tomlEditorOptions = {
 
 export default function TomlEditor() {
     const [toml, setTOML] = useState('# 好像暂时无法高亮');
-    const [json, setJSON] = useState(null);
+    const [json, setJSON] = useState({});
     useEffect(() => {
         toast.dismiss();
         try {

@@ -18,7 +18,7 @@ export default function DiffEditor() {
     return (
         <Fragment>
             <Helmet>
-                <title>比较文本内容 - {process.env.REACT_APP_TITLE}</title>
+                <title>文本比较 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             <div className={styles.root}>
                 <MonacoDiffEditor {...editorOptions} />

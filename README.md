@@ -1,3 +1,8 @@
+```sh
+npm i -S --legacy-peer-deps pkg-name
+
+npm config set legacy-peer-deps true
+```
 ## 参考
 
 - [project-awesome.org](https://project-awesome.org/)
@@ -21,12 +26,15 @@
 - [Badge](https://shields.io)
 - [TOML Editor](https://pseitz.github.io/toml-to-json-online-converter/)
 - [极客教程](https://geek-docs.com/)
+- [GraphQL Document - Queries and Mutations](https://graphql.org/learn/queries/)
 
 ## 日期格式
 
 - [Java - Date and Time Patterns](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html)
 
 ## 语句
+
+> https://docs.github.com/en/graphql/overview/explorer
 
 ```graphql
 query {

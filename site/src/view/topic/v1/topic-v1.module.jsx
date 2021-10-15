@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 import { parseTOML } from 'plug/extra/rest_utils.jsx';
 
-import styles from './topic_v1.module.css';
+import styles from './topic-v1.module.css';
 
 
 const notify = () => toast((t) => (

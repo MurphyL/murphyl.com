@@ -5,7 +5,7 @@ import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
 
 import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
-import styles from './topic_v2.module.css';
+import styles from './topic-v2.module.css';
 
 const TopicGroup = ({ group }) => {
     const nodes = group.comments.nodes.map(node => {

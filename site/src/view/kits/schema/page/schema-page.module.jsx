@@ -13,7 +13,7 @@ import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
 
 import options from 'plug/extra/schema_options.jsx';
 
-import styles from './schema_page.module.css';
+import styles from './schema-page.module.css';
 
 const view = new ReactJsonSchema();
 
@@ -32,7 +32,7 @@ export function SchemaRenderer({ unique, disableLayout }) {
     });
     const page = mapper[unique] || { title: 'NOT FOUND', text: '404', type: 'toml/schema' };
     const { layout, type, title, source, url: sourceUrl, ...schema } = page;
-    console.log('page schema:', unique, mapper, layout);
+    console.log('page schema:', unique, mapper);
     const PageLayout = (!disableLayout && options[layout]) ? options[layout] : Fragment;
     return (
         <div className={styles.root}>

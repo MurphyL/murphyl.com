@@ -16,10 +16,13 @@ import Post from 'view/post/post.module.jsx';
 
 import Snippet from 'view/kits/snippet/snippet.module.jsx';
 
-import { SchemaPage, SchemaView, SchemaComponent, SchemaRenderer } from 'view/kits/schema/page/schema_page.module.jsx';
+import TomlEditor from 'view/kits/editor/toml/toml-editor.module.jsx';
+import DiffEditor from 'view/kits/editor/diff/diff-editor.module.jsx';
 
-import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic_v1.module.jsx';
-import { TopicViewer } from 'view/topic/v2/topic_v2.module.jsx';
+import { SchemaPage, SchemaView, SchemaComponent, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
+
+import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
+import { TopicViewer } from 'view/topic/v2/topic-v2.module.jsx';
 
 import { fetchGraphQlMapper } from 'plug/extra/rest_utils.jsx';
 
@@ -47,6 +50,8 @@ function SiteRouter() {
                     </Route>
                     <Route path={["/v2/topics", "/v2/topics/:group", "/v2/topics/:group/:unique"]} exact={true} component={TopicViewer} />
                     <Route path="/snippet" exact={true} component={Snippet} />
+                    <Route path="/kits/toml-editor" exact={true} component={TomlEditor} />
+                    <Route path="/kits/diff-editor" exact={true} component={DiffEditor} />
                     <Route>404</Route>
                 </Switch>
             </BrowserRouter>

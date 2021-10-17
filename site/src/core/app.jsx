@@ -19,6 +19,7 @@ import Snippet from 'view/kits/snippet/snippet.module.jsx';
 import Chameleon from 'view/kits/chameleon/chameleon.module.jsx';
 import DiffEditor from 'view/kits/editor/diff/diff-editor.module.jsx';
 
+import API_Explorer from 'view/kits/explorer/api/api-explorer.module.jsx';
 import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
@@ -50,6 +51,7 @@ function SiteRouter() {
                     <Route path="/kits/snippet" exact={true} component={Snippet} />
                     <Route path="/kits/diff-editor" exact={true} component={DiffEditor} />
                     <Route path="/kits/chameleon" exact={true} component={Chameleon} />
+                    <Route path="/kits/api/explorer" exact={true} component={API_Explorer} />
                     <Route>404</Route>
                 </Switch>
             </BrowserRouter>

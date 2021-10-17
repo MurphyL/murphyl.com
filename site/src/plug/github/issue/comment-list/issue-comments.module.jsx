@@ -9,12 +9,19 @@ import { get as pathGet } from 'object-path';
 
 import styles from './issue-comments.module.css';
 
-export function IssueComment({ title, type, content }) {
+export function IssueComment({ title, type, ...extra }) {
     switch (type) {
         case 'markdown/tab':
             return (
                 <div className={styles.markdown} data-title={title}>
-                    <MarkdownRender content={content || ''} />
+                    <MarkdownRender content={extra.content || ''} />
+                </div>
+            );
+        case 'toml/schema':
+            return (
+                <div>
+                    <table>
+                    </table>
                 </div>
             );
         default:

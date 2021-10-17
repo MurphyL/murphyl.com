@@ -3,8 +3,7 @@
     height: 100vh;
 }
 
-.root .editor,
-.root .viewer {
+.root .editor, .root .viewer {
     position: relative;
 }
 
@@ -16,9 +15,14 @@
 
 .root .viewer {
     padding: 5px;
-    width: 28%;
+    width: 35%;
+    overflow-y: scroll;
     border-left: 5px solid var(--shadow-color);
     user-select: none;
+}
+
+.root .viewer>span {
+    height: 100%;
 }
 
 .root .viewer.wide {
@@ -27,7 +31,6 @@
 
 .root .toolbar {
     position: absolute;
-
     bottom: 10px;
     left: 10px;
 }

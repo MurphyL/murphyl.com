@@ -2,21 +2,15 @@ import React, { Suspense } from 'react';
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from 'recoil';
 
-import Markdown from 'markdown-to-jsx';
-
 import { Loading } from 'plug/extra/status/status.module';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
-import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
+import { callGithubAPI, parseMarkdown } from 'plug/extra/rest-utils.jsx';
 
-import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
-
-import MarkdownRender from 'plug/extra/markdown_render.jsx';
+import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
 import styles from './post.module.css';
-
-Markdown.displayName = 'MarkdownRender';
 
 function MarkdownPost() {
     const { unique } = useParams();

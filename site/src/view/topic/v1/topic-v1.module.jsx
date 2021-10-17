@@ -6,8 +6,7 @@ import { useRecoilValue } from 'recoil';
 import toast, { Toaster } from 'react-hot-toast';
 
 // import simpleIcons from 'simple-icons';
-import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
-import { parseTOML } from 'plug/extra/rest_utils.jsx';
+import { callGithubAPI, parseTOML } from 'plug/extra/rest-utils.jsx';
 
 import styles from './topic-v1.module.css';
 

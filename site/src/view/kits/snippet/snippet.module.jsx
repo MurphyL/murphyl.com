@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import DriftNavi from 'plug/extra/drift-navi/drift-navi.module.jsx';
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
-import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './snippet.module.css';
 

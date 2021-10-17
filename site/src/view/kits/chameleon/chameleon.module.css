@@ -1,0 +1,42 @@
+.root {
+    display: flex;
+    height: 100vh;
+}
+
+.root .editor,
+.root .viewer {
+    position: relative;
+}
+
+.root .editor {
+    padding: 3px;
+    flex: 1;
+    overflow-y: hidden;
+}
+
+.root .viewer {
+    padding: 5px;
+    width: 28%;
+    border-left: 5px solid var(--shadow-color);
+    user-select: none;
+}
+
+.root .viewer.wide {
+    width: 55%;
+}
+
+.root .toolbar {
+    position: absolute;
+
+    bottom: 10px;
+    left: 10px;
+}
+
+.root .toolbar>* {
+    margin-right: 5px;
+}
+
+.root .toolbar select {
+    height: 22px;
+    line-height: 22px;
+}

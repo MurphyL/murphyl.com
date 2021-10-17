@@ -5,6 +5,8 @@ import Markdown2JSX from 'markdown-to-jsx';
 
 import { Title, Paragraph, Prepare } from 'plug/extra/definition/definition.module.jsx';
 
+import styles from './markdown.module.css';
+
 Markdown.displayName = 'Markdown2JSX';
 
 const H2 = (props) => <Title level='h2' {...props} />;
@@ -39,6 +41,7 @@ const definedOption = {
         },
         table: {
             props: {
+                className: styles.table,
                 border: 1,
                 cellSpacing: 0,
                 cellPadding: 0,

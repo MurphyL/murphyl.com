@@ -8,7 +8,7 @@ import { get as pathGet } from 'object-path';
 
 import * as matter from 'gray-matter';
 
-import MapperContext from 'plug/extra/mepper_context.jsx';
+import MapperContext from 'plug/extra/mepper-context.jsx';
 
 import { Error } from 'plug/extra/status/status.module.jsx';
 
@@ -39,6 +39,10 @@ export const parseTOML = (data = '') => {
     return TOML.parse(data);
 };
 
+export const stringifyTOML = (data) => {
+    return TOML.stringify(data).trim();
+};
+
 export const parseMarkdown = (data = '') => {
     const { data: meta, excerpt, content } = matter(data, {
         excerpt: true,
@@ -49,7 +53,7 @@ export const parseMarkdown = (data = '') => {
             toml: TOML.parse.bind(TOML),
         }
     });
-    return { meta, excerpt, content };
+    return { ...meta, excerpt, content };
 };
 
 export const fetchGraphQlMapper = selectorFamily({
@@ -74,6 +78,7 @@ export const callGithubAPI = selectorFamily({
         }
         return axios.post('https://api.github.com/graphql', {
             query: graphql,
+            graphql: key,
             variables: {
                 ghp_username: process.env.REACT_APP_GHP_USERNAME,
                 ghp_repository: process.env.REACT_APP_GHP_REPOSITORY,
@@ -82,7 +87,7 @@ export const callGithubAPI = selectorFamily({
             }
         }, {
             headers: {
-                Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`
+                Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`,
             }
         }).then(({ status, data }) => {
             return status === 200 ? (path ? pathGet(data, path) : data) : null;

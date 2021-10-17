@@ -1,3 +1,7 @@
 .root {
     height: 100vh;
 }
+
+.root .body {
+    margin: 0;
+}

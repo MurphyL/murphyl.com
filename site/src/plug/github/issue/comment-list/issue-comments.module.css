@@ -1,0 +1,38 @@
+.root {
+    height: 100vh;
+    background-color: var(--shadow-color);
+}
+
+.root .header {
+    position: sticky;
+    margin: 0;
+    height: 32px;
+}
+
+.root .header .group {
+    display: inline-block;
+}
+
+.root .header .group .item,
+.root .header .group .title {
+    display: inline-block;
+    margin: 3px 2px 0;
+    padding: 2px 15px;
+    cursor: pointer;
+    user-select: none;
+    line-height: 25px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.root .board,
+.root .header .group .item {
+    background-color: white;
+}
+
+.root .board {
+    margin: 0 5px;
+    padding: 5px;
+    border-radius: 2px;
+    border-bottom-right-radius: 3px;
+}

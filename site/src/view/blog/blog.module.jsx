@@ -5,14 +5,13 @@ import { useRecoilValue } from 'recoil';
 import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
 
-import MarkdownRender from 'plug/extra/markdown_render.jsx';
+import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
-import { parseMarkdown } from 'plug/extra/rest_utils.jsx';
-import { callGithubAPI } from 'plug/extra/rest_utils.jsx';
+import { parseMarkdown, callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './blog.module.css';
 

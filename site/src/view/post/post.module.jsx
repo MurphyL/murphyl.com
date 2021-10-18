@@ -1,6 +1,7 @@
-import React, { Suspense } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from 'recoil';
+import { Helmet } from 'react-helmet-async';
 
 import { Loading } from 'plug/extra/status/status.module';
 
@@ -22,12 +23,17 @@ function MarkdownPost() {
     const { meta, content } = parseMarkdown(post.body);
     console.log('文章', unique, meta, post);
     return (
-        <article className={styles.root}>
-            <h2>{post.title}</h2>
-            <section className={styles.content}>
-                <MarkdownViewer content={content || ''} />
-            </section>
-        </article>
+        <Fragment>
+            <Helmet>
+                <title>{post.title} - 文章 - {process.env.REACT_APP_TITLE}</title>
+            </Helmet>
+            <article className={styles.root}>
+                <h2>{post.title}</h2>
+                <section className={styles.content}>
+                    <MarkdownViewer content={content || ''} />
+                </section>
+            </article>
+        </Fragment>
     );
 };
 

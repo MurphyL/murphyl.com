@@ -20,6 +20,7 @@ import SnippetExplorer from 'view/kits/explorer/snippet/snippet.module.jsx';
 import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.jsx';
 import MarkdownEditor from 'view/kits/editor/markdown/markdown-editor.module.jsx';
 import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
+import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/maker/expression-maker.module.jsx';
 
 
 import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
@@ -55,6 +56,8 @@ function SiteRouter() {
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
                     <Route path="/kits/explorer/api" exact={true} component={API_Explorer} />
                     <Route path="/kits/explorer/snippet" exact={true} component={SnippetExplorer} />
+                    <Route path="/kits/expression/maker/cron" exact={true} component={CronExpressionMaker} />
+                    <Route path="/kits/expression/maker/docker" exact={true} component={DockerCommandMaker} />
                     <Route>404</Route>
                 </Switch>
             </BrowserRouter>

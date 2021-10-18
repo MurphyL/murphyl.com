@@ -7,11 +7,13 @@ import { get as pathGet } from 'object-path';
 
 import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
+import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
-import { parseMarkdown, callGithubAPI } from 'plug/extra/rest-utils.jsx';
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './blog.module.css';
 

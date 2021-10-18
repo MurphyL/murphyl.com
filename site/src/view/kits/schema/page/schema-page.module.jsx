@@ -7,7 +7,9 @@ import { Loading } from 'plug/extra/status/status.module.jsx';
 
 import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
-import { callGithubAPI, parseMarkdown } from 'plug/extra/rest-utils.jsx';
+import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import renderer from 'plug/extra/schema-options.jsx';
 

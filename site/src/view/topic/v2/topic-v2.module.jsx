@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
 import { NavLink } from "react-router-dom";
-import { callGithubAPI, parseMarkdown } from 'plug/extra/rest-utils.jsx';
+
+import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './topic-v2.module.css';
 

@@ -2,14 +2,13 @@ import React, { Fragment, useState } from "react";
 
 import { Helmet } from 'react-helmet-async';
 
+import TOML from '@iarna/toml';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 
 import MonacoEditor from 'react-monaco-editor';
 import JSONViewer from 'react-json-view';
 import { CodeBlock } from '@atlaskit/code';
-
-import { parseTOML, stringifyTOML } from 'plug/extra/rest-utils.jsx';
 
 import styles from './chameleon-editor.module.css';
 
@@ -45,7 +44,7 @@ const viewerOptions = {
         realtime: true,
         render: (code) => {
             try {
-                return parseTOML(code);
+                return TOML.parse(code);
             } catch (e) {
                 return { error: 'TOML 转 JSON 出错！' };
             }
@@ -61,7 +60,7 @@ const viewerOptions = {
         realtime: true,
         render: (code) => {
             try {
-                return stringifyTOML(JSON.parse(code));
+                return TOML.stringify(JSON.parse(code));
             } catch (e) {
                 return '# JSON 转换为 TOML 出错！';
             }

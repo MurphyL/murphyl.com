@@ -2,9 +2,10 @@ import React, { Fragment } from "react";
 
 import { Helmet } from 'react-helmet-async';
 
-import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
+import { MonacoDiffEditor } from "react-monaco-editor";
+// import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
 
-import styles from './diff-editor.module.css';
+import styles from './difference.module.css';
 
 const editorOptions = {
     options: {
@@ -14,7 +15,7 @@ const editorOptions = {
     loading: '编辑器正在初始化……'
 };
 
-export default function DiffEditor() {
+export default function DifferenceEditor() {
     return (
         <Fragment>
             <Helmet>

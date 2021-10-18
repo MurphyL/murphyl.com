@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async';
 
 import copy from 'copy-to-clipboard';
 
-import MonacoEditor from "@monaco-editor/react";
+import MonacoEditor from 'react-monaco-editor';
+// import MonacoEditor from "@monaco-editor/react";
 import JSONViewer from 'react-json-view';
 
 import classNames from 'classnames';

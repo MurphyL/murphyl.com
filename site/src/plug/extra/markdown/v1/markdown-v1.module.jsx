@@ -2,6 +2,8 @@ import React from 'react';
 
 import ReactMarkdown from 'react-markdown';
 
+import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
+
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
 
@@ -19,7 +21,7 @@ const options = {
     }
 };
 
-export default function MarkdownViewer({ code }) {
+export function MarkdownViewerV1({ code }) {
     return (
         <ReactMarkdown children={code} components={components} {...options} />
     );
@@ -37,3 +39,5 @@ export const parseMarkdown = (data = '') => {
     });
     return { ...meta, excerpt, content };
 };
+
+export const MarkdownViewer = MarkdownRender;

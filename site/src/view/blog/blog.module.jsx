@@ -5,9 +5,7 @@ import { useRecoilValue } from 'recoil';
 import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
 
-import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
-
-import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
@@ -26,7 +24,7 @@ export function BlogPostSummary({ post }) {
                 <h2>{post.title}</h2>
             </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
-                <MarkdownRender content={(excerpt || content).trim()} />
+                <MarkdownViewer content={(excerpt || content)} />
             </article>
         </div>
     );

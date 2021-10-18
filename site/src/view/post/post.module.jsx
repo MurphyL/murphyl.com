@@ -6,11 +6,9 @@ import { Loading } from 'plug/extra/status/status.module';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
-import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
-
-import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
 import styles from './post.module.css';
 
@@ -27,7 +25,7 @@ function MarkdownPost() {
         <article className={styles.root}>
             <h2>{post.title}</h2>
             <section className={styles.content}>
-                <MarkdownRender content={content || ''} />
+                <MarkdownViewer content={content || ''} />
             </section>
         </article>
     );

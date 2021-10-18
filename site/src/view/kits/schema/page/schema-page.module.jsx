@@ -7,7 +7,9 @@ import { Loading } from 'plug/extra/status/status.module.jsx';
 
 import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
-import { callGithubAPI, parseMarkdown } from 'plug/extra/rest-utils.jsx';
+import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import renderer from 'plug/extra/schema-options.jsx';
 
@@ -32,7 +34,7 @@ export function SchemaRenderer({ unique }) {
             <Helmet>
                 <title>{page.title} - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            {type === 'toml/schema' ? renderer(Object.assign({ component: 'div' }, schema)) : <MarkdownRender content={source} />}
+            {type === 'toml/schema' ? renderer(schema) : <MarkdownRender content={source} />}
         </div>
     );
 };

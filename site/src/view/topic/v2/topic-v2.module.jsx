@@ -2,7 +2,9 @@ import React, { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Link, useParams } from "react-router-dom";
 
-import { callGithubAPI, parseMarkdown } from 'plug/extra/rest-utils.jsx';
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
+
+import { MarkdownViewerV1, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import styles from './topic-v2.module.css';
 
@@ -14,9 +16,9 @@ const params = {
 
 const get = (rows, group, unique) => {
     let result = rows.find(row => row.unique === group);
-    if(result && unique) {
+    if (result && unique) {
         return result.children.find(item => item.unique === unique);
-    } 
+    }
     return result;
 };
 
@@ -29,9 +31,9 @@ export const TopicViewer = () => {
         const { content, unique, ...issueExtra } = parseMarkdown(issueContent);
         // 解析 issue comment 内容，评论内容排序
         const children = comments.nodes.map(({ body: comment, ...commentInfo }) => {
-            return { ...commentInfo, ...parseMarkdown(comment) };
+            return { node: 'comment', ...commentInfo, ...parseMarkdown(comment) };
         }).sort((a, b) => a.sort - b.sort);
-        return { sort: 99999, ...issueExtra, content, unique, ...issueInfo, children };
+        return { node: 'issue', sort: 99999, ...issueExtra, content, unique, ...issueInfo, children };
     }).sort((a, b) => a.sort - b.sort);
     console.log('topic issues', topics, get(topics, group, unique));
     const { content } = (get(topics, group, unique) || {});
@@ -45,9 +47,9 @@ export const TopicViewer = () => {
                         </dt>
                         <dd>
                             <ul>
-                                {group.children.map((node, index) => (
+                                {group.children.map(({ unique, title }, index) => (
                                     <li key={index}>
-                                        <Link to={`/v2/topics/${group.unique}/${node.unique}`}>{node.title}</Link>
+                                        <Link to={`/v2/topics/${group.unique}/${unique}`}>{title || unique}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -55,7 +57,9 @@ export const TopicViewer = () => {
                     </Fragment>
                 ))}
             </dl>
-            <div className={styles.board}>{content}</div>
+            <div className={styles.board}>
+                <MarkdownViewerV1 code={content} />
+            </div>
         </div>
     );
 };

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
 // import classNames from 'classnames';
-import { parseMarkdown } from 'plug/extra/rest-utils.jsx';
+import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import { get as pathGet } from 'object-path';
 

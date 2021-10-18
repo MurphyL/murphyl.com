@@ -5,8 +5,10 @@ import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
 import toast, { Toaster } from 'react-hot-toast';
 
+import TOML from '@iarna/toml';
+
 // import simpleIcons from 'simple-icons';
-import { callGithubAPI, parseTOML } from 'plug/extra/rest-utils.jsx';
+import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './topic-v1.module.css';
 
@@ -34,7 +36,7 @@ function TopicCard({ group, card }) {
 };
 
 function TopicGroup({ id, body }) {
-    const { unique, title, items } = parseTOML(body);
+    const { unique, title, items } = TOML.parse(body);
     return (
         <div className={styles.card_group} data-group={id} data-unique={unique}>
             <h3 className={styles.group_title}>

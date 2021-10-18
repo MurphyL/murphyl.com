@@ -1,0 +1,8 @@
+.root :global(.sp-gutter) {
+    background-color: var(--shadow-color);
+}
+
+.root:global(.horizontal .sp-gutter) {
+    border-left: 3px solid var(--shadow-color);
+    border-right: 3px solid var(--shadow-color);
+}

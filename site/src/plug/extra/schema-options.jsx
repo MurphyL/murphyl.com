@@ -5,7 +5,7 @@ import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
 
 import TabLayout from "plug/layout/tab-layout/tab-layout.module.jsx";
 
-import IssueCommentsView from "plug/github/issue/comment-list/issue-comments.module.jsx";
+import IssueCommentsView from "plug/github/issue/comments/issue-comments.module.jsx";
 
 import { Title, Paragraph, Prepare } from 'plug/extra/definition/definition.module.jsx';
 
@@ -22,4 +22,4 @@ renderer.setComponentMap({
     IssueCommentsView
 });
 
-export default (schema) => renderer.parseSchema(schema);
+export default (schema) => renderer.parseSchema(Object.assign({ component: 'div' }, schema));

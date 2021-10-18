@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import ReactMarkdown from 'react-markdown';
 import { Code, CodeBlock } from '@atlaskit/code';
-import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
 
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
@@ -38,7 +37,7 @@ const options = {
     }
 };
 
-export function MarkdownViewerV1({ code }) {
+export function MarkdownViewer({ code }) {
     return (
         <ReactMarkdown children={code} components={components} {...options} />
     );
@@ -56,5 +55,3 @@ export const parseMarkdown = (data = '') => {
     });
     return { ...meta, excerpt, content };
 };
-
-export const MarkdownViewer = MarkdownRender;

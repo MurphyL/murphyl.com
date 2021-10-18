@@ -30,7 +30,7 @@ function MarkdownPost() {
             <article className={styles.root}>
                 <h2>{post.title}</h2>
                 <section className={styles.content}>
-                    <MarkdownViewer content={content || ''} />
+                    <MarkdownViewer code={content || ''} />
                 </section>
             </article>
         </Fragment>

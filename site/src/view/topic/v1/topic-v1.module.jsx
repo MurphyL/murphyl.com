@@ -1,9 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
 import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
-import toast, { Toaster } from 'react-hot-toast';
 
 import TOML from '@iarna/toml';
 
@@ -12,12 +11,6 @@ import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './topic-v1.module.css';
 
-
-const notify = () => toast((t) => (
-    <div>新版本已经发布，前往<Link to={'/v2/topics'}>查看新版本</Link></div>
-), {
-    duration: 5000
-});
 
 function TopicCard({ group, card }) {
     return (
@@ -128,9 +121,6 @@ export function TopicDetails() {
 };
 
 export function TopicGroupList() {
-    useEffect(() => {
-        notify();
-    }, []);
     const topics = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
         ghp_labels: 'X-TOML/TOPIC',
@@ -143,7 +133,6 @@ export function TopicGroupList() {
             <Helmet>
                 <title>{topic.title} - 主题 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            <Toaster />
             <div className={styles.group_list}>
                 {topic.comments && (topic.comments.nodes || []).map((group, index) => (
                     <TopicGroup key={index} {...group} />

@@ -24,7 +24,7 @@ export function BlogPostSummary({ post }) {
                 <h2>{post.title}</h2>
             </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
-                <MarkdownViewer content={(excerpt || content)} />
+                <MarkdownViewer code={(excerpt || content)} />
             </article>
         </div>
     );

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-import MarkdownRender from 'plug/extra/markdown/markdown.module.jsx';
-
 // import classNames from 'classnames';
-import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import { get as pathGet } from 'object-path';
 
@@ -14,7 +12,7 @@ export function IssueComment({ title, type, ...extra }) {
         case 'markdown/tab':
             return (
                 <div className={styles.markdown} data-title={title}>
-                    <MarkdownRender content={extra.content || ''} />
+                    <MarkdownViewer content={extra.content || ''} />
                 </div>
             );
         case 'toml/schema':

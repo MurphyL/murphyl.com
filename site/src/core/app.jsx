@@ -14,8 +14,7 @@ import Home from 'view/home/home.module.jsx';
 import Blog from 'view/blog/blog.module.jsx';
 import Post from 'view/post/post.module.jsx';
 
-import API_Explorer from 'view/kits/explorer/api/api-explorer.module.jsx';
-import SnippetExplorer from 'view/kits/explorer/snippet/snippet.module.jsx';
+import Notebook from 'view/kits/explorer/note/note.module.jsx';
 
 import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.jsx';
 import MarkdownEditor from 'view/kits/editor/markdown/markdown-editor.module.jsx';
@@ -26,7 +25,6 @@ import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/ma
 import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
-import { TopicViewer } from 'view/topic/v2/topic-v2.module.jsx';
 
 import { fetchGraphQlMapper } from 'plug/extra/rest-utils.jsx';
 
@@ -50,12 +48,10 @@ function SiteRouter() {
                     <Route path={['/topics/:group/:unique', '/v1/topics/:group/:unique']} exact={true}>
                         <Dynamic children={<TopicDetails />} layout={SiteLayout} />
                     </Route>
-                    <Route path={["/v2/topics", "/v2/topics/:group", "/v2/topics/:group/:unique"]} exact={true} component={TopicViewer} />
                     <Route path="/kits/editor/chameleon" exact={true} component={ChameleonEditor} />
                     <Route path="/kits/editor/markdown" exact={true} component={MarkdownEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
-                    <Route path="/kits/explorer/api" exact={true} component={API_Explorer} />
-                    <Route path="/kits/explorer/snippet" exact={true} component={SnippetExplorer} />
+                    <Route path={["/notebook", "/notebook/:group", "/notebook/:group/:unique"]} exact={true} component={Notebook} />
                     <Route path="/kits/expression/maker/cron" exact={true} component={CronExpressionMaker} />
                     <Route path="/kits/expression/maker/docker" exact={true} component={DockerCommandMaker} />
                     <Route>404</Route>

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import MonacoEditor from 'react-monaco-editor';
 
-import { MarkdownViewerV1 } from "plug/extra/markdown/v1/markdown-v1.module";
+import { MarkdownViewer } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import styles from './markdown-editor.module.css';
 
@@ -31,7 +31,7 @@ export default function MarkdownEditor() {
                     <MonacoEditor {...editorOptions} value={text} onChange={setText} />
                 </div>
                 <div className={styles.viewer}>
-                    <MarkdownViewerV1 code={text} />
+                    <MarkdownViewer code={text} />
                 </div>
             </div>
         </Fragment>

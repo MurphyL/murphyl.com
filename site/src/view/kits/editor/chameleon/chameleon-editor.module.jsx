@@ -2,19 +2,16 @@ import React, { Fragment, useState } from "react";
 
 import { Helmet } from 'react-helmet-async';
 
+import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 
 import MonacoEditor from 'react-monaco-editor';
-// import MonacoEditor from "@monaco-editor/react";
 import JSONViewer from 'react-json-view';
-
-import classNames from 'classnames';
-
 import { CodeBlock } from '@atlaskit/code';
 
 import { parseTOML, stringifyTOML } from 'plug/extra/rest-utils.jsx';
 
-import styles from './chameleon.module.css';
+import styles from './chameleon-editor.module.css';
 
 JSONViewer.displayName = 'JSONViewer';
 
@@ -37,7 +34,8 @@ const editorOptions = {
     loading: '编辑器正在初始化……',
     options: {
         codeLens: false,
-        contextmenu: false
+        contextmenu: false,
+        fontFamily: 'Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace'
     },
 };
 

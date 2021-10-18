@@ -5,14 +5,15 @@ import { Helmet } from 'react-helmet-async';
 import { MonacoDiffEditor } from "react-monaco-editor";
 // import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
 
-import styles from './difference.module.css';
+import styles from './difference-editor.module.css';
 
 const editorOptions = {
+    loading: '编辑器正在初始化……',
     options: {
         contextmenu: false,
-        originalEditable: true
-    },
-    loading: '编辑器正在初始化……'
+        originalEditable: true,
+        fontFamily: 'Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace'
+    }
 };
 
 export default function DifferenceEditor() {

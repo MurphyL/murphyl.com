@@ -14,11 +14,14 @@ import Home from 'view/home/home.module.jsx';
 import Blog from 'view/blog/blog.module.jsx';
 import Post from 'view/post/post.module.jsx';
 
-import SnippetExplorer from 'view/kits/explorer/snippet/snippet.module.jsx';
-import ChameleonEditor from 'view/kits/editor/chameleon/chameleon.module.jsx';
-import DifferenceEditor from 'view/kits/editor/difference/difference.module.jsx';
-
 import API_Explorer from 'view/kits/explorer/api/api-explorer.module.jsx';
+import SnippetExplorer from 'view/kits/explorer/snippet/snippet.module.jsx';
+
+import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.jsx';
+import MarkdownEditor from 'view/kits/editor/markdown/markdown-editor.module.jsx';
+import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
+
+
 import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
@@ -48,6 +51,7 @@ function SiteRouter() {
                     </Route>
                     <Route path={["/v2/topics", "/v2/topics/:group", "/v2/topics/:group/:unique"]} exact={true} component={TopicViewer} />
                     <Route path="/kits/editor/chameleon" exact={true} component={ChameleonEditor} />
+                    <Route path="/kits/editor/markdown" exact={true} component={MarkdownEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
                     <Route path="/kits/explorer/api" exact={true} component={API_Explorer} />
                     <Route path="/kits/explorer/snippet" exact={true} component={SnippetExplorer} />

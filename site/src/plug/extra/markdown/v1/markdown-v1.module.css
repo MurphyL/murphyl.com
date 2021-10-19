@@ -5,3 +5,20 @@
 .root .title {
     margin: 0;
 }
+
+.root .code {
+    margin: 0;
+}
+
+.root .link {
+    text-decoration: none;
+    color: rgb(68, 68, 68);
+}
+
+.root .list {
+    margin: 0;
+}
+
+.root .list .item {
+    margin: 0;
+}

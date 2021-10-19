@@ -26,6 +26,11 @@
     padding: 0 0 0 20px;
 }
 
+.root .tree dl a {
+    text-decoration: none;
+    color: rgb(68, 68, 68);
+}
+
 .root .board {
     flex: 1;
     height: 100vh;
@@ -37,11 +42,25 @@
     padding: 10px;
     line-height: 30px;
     box-shadow: 0 2px 2px 0 var(--shadow-color);
+    user-select: none;
 }
 
 .root .board .header .toolbar {
     flex: 1;
     text-align: right;
+}
+
+.root .board .header .toolbar a {
+    padding: 2px 5px;
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid var(--shadow-color);
+    border-radius: 3px;
+    color: rgb(68, 68, 68);
+}
+
+.root .board .header .toolbar a:hover {
+    color: rgba(68, 68, 68, 0.7);
 }
 
 .root .board .content {

@@ -1,45 +1,45 @@
 import React from 'react';
 
-import { Link } from "react-router-dom";
+import classNames from 'classnames';
+
 import ReactMarkdown from 'react-markdown';
 import { Code, CodeBlock } from '@atlaskit/code';
 
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
 
+import { Title } from 'plug/extra/definition/definition.module.jsx';
+
 import styles from './markdown-v1.module.css';
 
-const components = {
-    h1: ({ children }) => <h2 className={styles.title}>{children}</h2>,
-    h2: ({ children }) => <h2 className={styles.title}>{children}</h2>,
-    h3: ({ children }) => <h3 className={styles.title}>{children}</h3>,
-    h4: ({ children }) => <h4 className={styles.title}>{children}</h4>,
-    h5: ({ children }) => <h5 className={styles.title}>{children}</h5>,
-    h6: ({ children }) => <h6 className={styles.title}>{children}</h6>,
-    code: ({ inline, children, className }) => {
-        if (inline) {
-            return <Code>{children}</Code>
-        } else {
-            return <CodeBlock language={className.replace(/^language-/, '')} text={children.join('\n').trim()} />;
-        }
-    }
-};
-
+// https://www.npmjs.com/package/react-markdown
 const options = {
     className: styles.root,
-    sourcePos: true,
-    linkTarget: (href, children, title) => {
-        return (/^http/.test(href)) ? (
-            <a href={href} title={title} target="_blank" rel="noopener noreferrer">{children}</a>
-        ) : (
-            <Link to={href}>{children}</Link>
-        );
+    skipHtml: true,
+    components: {
+        a: ({ children, href }) => <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">{children}</a>,
+        h1: ({ children }) => <Title level="h2">{children}</Title>,
+        h2: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
+        h3: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
+        h4: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
+        h5: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
+        h6: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
+        ul: ({ children }) => <ul className={classNames(styles.list)}>{children}</ul>,
+        ol: ({ children }) => <ol className={classNames(styles.list)}>{children}</ol>,
+        li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
+        code: ({ inline, children, className }) => {
+            if (inline) {
+                return <Code className={styles.code}>{children}</Code>;
+            } else {
+                return <CodeBlock language={className.replace(/^language-/, '')} text={children.join('\n').trim()} />;
+            }
+        }
     }
 };
 
 export function MarkdownViewer({ code }) {
     return (
-        <ReactMarkdown children={code} components={components} {...options} />
+        <ReactMarkdown children={code} {...options} />
     );
 };
 

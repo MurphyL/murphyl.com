@@ -43,7 +43,7 @@ export default function Notebook() {
     const current = get(topics, group, unique);
     return (
         <div className={styles.root}>
-            <div className={styles.tree}>
+            <aside className={styles.tree}>
                 <dl>
                     {topics.map((group, index) => (
                         <Fragment key={index}>
@@ -62,8 +62,8 @@ export default function Notebook() {
                         </Fragment>
                     ))}
                 </dl>
-            </div>
-            <div className={styles.board}>
+            </aside>
+            <main className={styles.board}>
                 {current ? (
                     <Fragment>
                         <Helmet>
@@ -87,8 +87,7 @@ export default function Notebook() {
                         <div>404</div>
                     </Fragment>
                 )}
-
-            </div>
+            </main>
         </div>
     );
 };

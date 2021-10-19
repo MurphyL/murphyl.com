@@ -7,14 +7,10 @@ import TabLayout from "plug/layout/tab-layout/tab-layout.module.jsx";
 
 import IssueCommentsView from "plug/github/issue/comments/issue-comments.module.jsx";
 
-import { Title, Paragraph, Prepare } from 'plug/extra/definition/definition.module.jsx';
 
 const renderer = new ReactJsonSchema();
 
 renderer.setComponentMap({
-    Title,
-    Paragraph,
-    Prepare,
     DriftNav,
     SiteLayout,
     TabLayout,

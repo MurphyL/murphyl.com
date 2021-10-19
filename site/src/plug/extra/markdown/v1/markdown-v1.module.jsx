@@ -8,8 +8,6 @@ import { Code, CodeBlock } from '@atlaskit/code';
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
 
-import { Title } from 'plug/extra/definition/definition.module.jsx';
-
 import styles from './markdown-v1.module.css';
 
 // https://www.npmjs.com/package/react-markdown
@@ -18,15 +16,23 @@ const options = {
     skipHtml: true,
     components: {
         a: ({ children, href }) => <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">{children}</a>,
-        h1: ({ children }) => <Title level="h2">{children}</Title>,
-        h2: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
-        h3: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
-        h4: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
-        h5: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
-        h6: ({ children, node }) => <Title level={node.tagName}>{children}</Title>,
+        h1: ({ children }) => <h2 className={styles.title}>{children}</h2>,
+        h2: ({ children }) => <h2 className={styles.title}>{children}</h2>,
+        h3: ({ children }) => <h3 className={styles.title}>{children}</h3>,
+        h4: ({ children }) => <h4 className={styles.title}>{children}</h4>,
+        h5: ({ children }) => <h5 className={styles.title}>{children}</h5>,
+        h6: ({ children }) => <h6 className={styles.title}>{children}</h6>,
         ul: ({ children }) => <ul className={classNames(styles.list)}>{children}</ul>,
         ol: ({ children }) => <ol className={classNames(styles.list)}>{children}</ol>,
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
+        pre: ({ children, node }) => {
+            const options = {
+                className: (node.children[0] && node.children[0].tagName === 'code') ? styles.code_block : styles.prepare
+            };
+            return (
+                <pre {...options}>{children}</pre>
+            );
+        },
         code: ({ inline, children, className }) => {
             if (inline) {
                 return <Code className={styles.code}>{children}</Code>;
@@ -34,7 +40,8 @@ const options = {
                 const language = className ? className.replace(/^language-/, '') : null;
                 return <CodeBlock language={language} text={children.join('\n').trim()} />;
             }
-        }
+        },
+        blockquote: ({children}) => <blockquote className={styles.blockquote}>{children}</blockquote>
     }
 };
 

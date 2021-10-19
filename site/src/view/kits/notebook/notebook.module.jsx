@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Helmet } from 'react-helmet-async';
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
@@ -24,7 +24,6 @@ const get = (rows, group, unique) => {
 };
 
 export default function Notebook() {
-    const history = useHistory();
     const { group, unique } = useParams();
     // 转换，排序
     const topics = (useRecoilValue(callGithubAPI(params)) || []).map((issue) => {
@@ -37,10 +36,7 @@ export default function Notebook() {
         }).sort((a, b) => a.sort - b.sort);
         return { node: 'issue', sort: 99999, ...issueExtra, content, unique, ...issueInfo, children };
     }).sort((a, b) => a.sort - b.sort);
-    if (!group && topics.length) {
-        history.push(`/notebook/${topics[0].unique}`);
-    }
-    const current = get(topics, group, unique);
+    const current = group ? get(topics, group, unique) : topics[0];
     return (
         <div className={styles.root}>
             <aside className={styles.tree}>

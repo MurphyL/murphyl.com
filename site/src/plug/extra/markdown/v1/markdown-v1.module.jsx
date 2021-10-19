@@ -31,7 +31,8 @@ const options = {
             if (inline) {
                 return <Code className={styles.code}>{children}</Code>;
             } else {
-                return <CodeBlock language={className.replace(/^language-/, '')} text={children.join('\n').trim()} />;
+                const language = className ? className.replace(/^language-/, '') : null;
+                return <CodeBlock language={language} text={children.join('\n').trim()} />;
             }
         }
     }

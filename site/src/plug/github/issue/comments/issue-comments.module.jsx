@@ -5,6 +5,8 @@ import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v
 
 import { get as pathGet } from 'object-path';
 
+import renderSchema from 'plug/extra/schema-options.jsx';
+
 import styles from './issue-comments.module.css';
 
 export function IssueComment({ title, type, ...extra }) {
@@ -18,8 +20,7 @@ export function IssueComment({ title, type, ...extra }) {
         case 'toml/schema':
             return (
                 <div>
-                    <table>
-                    </table>
+                    {renderSchema(extra)}
                 </div>
             );
         default:
@@ -29,9 +30,8 @@ export function IssueComment({ title, type, ...extra }) {
     }
 }
 
-export default function IssueCommentList({ title, comments = {} }) {
+export default function IssueComments({ title, comments = {} }) {
     const [tab, setTab] = useState(0);
-    console.log(tab);
     return (
         <div className={styles.root}>
             <div className={styles.header}>

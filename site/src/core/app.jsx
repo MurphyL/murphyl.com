@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilValue } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import MapperContext from 'plug/extra/mepper-context.jsx';
+import { ThemeContext, MapperContext } from 'plug/extra/mepper-context.jsx';
 
 import { ErrorBoundary, Dynamic, Loading } from 'plug/extra/status/status.module.jsx';
 
@@ -14,7 +14,7 @@ import Home from 'view/home/home.module.jsx';
 import Blog from 'view/blog/blog.module.jsx';
 import Post from 'view/post/post.module.jsx';
 
-import Notebook from 'view/kits/explorer/note/note.module.jsx';
+import Notebook from 'view/kits/notebook/notebook.module.jsx';
 
 import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.jsx';
 import MarkdownEditor from 'view/kits/editor/markdown/markdown-editor.module.jsx';
@@ -65,13 +65,15 @@ export default function App() {
     return (
         <StrictMode>
             <HelmetProvider>
-                <ErrorBoundary>
-                    <RecoilRoot>
-                        <Suspense fallback={<Loading />}>
-                            <SiteRouter />
-                        </Suspense>
-                    </RecoilRoot>
-                </ErrorBoundary>
+                <ThemeContext.Provider value="default">
+                    <ErrorBoundary>
+                        <RecoilRoot>
+                            <Suspense fallback={<Loading />}>
+                                <SiteRouter />
+                            </Suspense>
+                        </RecoilRoot>
+                    </ErrorBoundary>
+                </ThemeContext.Provider>
             </HelmetProvider>
         </StrictMode>
     );

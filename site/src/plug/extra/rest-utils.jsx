@@ -6,7 +6,7 @@ import TOML from '@iarna/toml';
 
 import { get as pathGet } from 'object-path';
 
-import MapperContext from 'plug/extra/mepper-context.jsx';
+import { MapperContext } from 'plug/extra/mepper-context.jsx';
 
 import { Error } from 'plug/extra/status/status.module.jsx';
 

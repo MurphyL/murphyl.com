@@ -1,0 +1,49 @@
+.root {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.root .tree {
+    margin: 0;
+    width: 300px;
+    height: 100vh;
+    overflow-y: auto;
+    user-select: none;
+    border-right: 1px solid var(--shadow-color);
+}
+
+.root .tree dl {
+    margin: 10px;
+}
+
+.root .tree dl dd {
+    margin: 0;
+}
+
+.root .tree dl dd ul {
+    margin: 5px 0;
+    padding: 0 0 0 20px;
+}
+
+.root .board {
+    flex: 1;
+    height: 100vh;
+    overflow: auto;
+}
+
+.root .board .header {
+    display: flex;
+    padding: 10px;
+    line-height: 30px;
+    box-shadow: 0 2px 2px 0 var(--shadow-color);
+}
+
+.root .board .header .toolbar {
+    flex: 1;
+    text-align: right;
+}
+
+.root .board .content {
+    padding: 10px;
+}

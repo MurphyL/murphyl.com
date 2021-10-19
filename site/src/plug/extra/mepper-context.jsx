@@ -1,7 +1,9 @@
-import React from 'react'
+import { createContext } from 'react'
 
-const MapperContext = React.createContext()
-
+export const MapperContext = createContext()
 MapperContext.displayName = 'MapperContext';
 
-export default MapperContext;
+export const ThemeContext = createContext()
+ThemeContext.displayName = 'ThemeContext';
+
+

@@ -7,7 +7,7 @@ import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
-import styles from './note.module.css';
+import styles from './notebook.module.css';
 
 const params = {
     key: 'query-issue-comments',
@@ -40,36 +40,44 @@ export default function Notebook() {
     if (!group && topics.length) {
         history.push(`/notebook/${topics[0].unique}`);
     }
-    console.log('topic issues', topics, get(topics, group, unique));
     const current = get(topics, group, unique);
     return (
         <div className={styles.root}>
-            <dl className={styles.tree}>
-                {topics.map((group, index) => (
-                    <Fragment key={index}>
-                        <dt>
-                            <Link to={`/notebook/${group.unique}`}>{group.title}</Link>
-                        </dt>
-                        <dd>
-                            <ul>
-                                {group.children.map(({ unique, title }, index) => (
-                                    <li key={index}>
-                                        <Link to={`/notebook/${group.unique}/${unique}`}>{title || unique}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </dd>
-                    </Fragment>
-                ))}
-            </dl>
+            <div className={styles.tree}>
+                <dl>
+                    {topics.map((group, index) => (
+                        <Fragment key={index}>
+                            <dt>
+                                <Link to={`/notebook/${group.unique}`}>{group.title}</Link>
+                            </dt>
+                            <dd>
+                                <ul>
+                                    {group.children.map(({ unique, title }, index) => (
+                                        <li key={index}>
+                                            <Link to={`/notebook/${group.unique}/${unique}`}>{title || unique}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </dd>
+                        </Fragment>
+                    ))}
+                </dl>
+            </div>
             <div className={styles.board}>
                 {current ? (
                     <Fragment>
                         <Helmet>
                             <title>{current.title} - {process.env.REACT_APP_TITLE}</title>
                         </Helmet>
-                        <a href={current.url} target="_blank" rel="noopener noreferrer">编辑</a>
-                        <MarkdownViewer code={current.content} />
+                        <div className={styles.header}>
+                            <b>{current.title}</b>
+                            <div className={styles.toolbar}>
+                                <a href={current.url} target="_blank" rel="noopener noreferrer">编辑</a>
+                            </div>
+                        </div>
+                        <div className={styles.content}>
+                            <MarkdownViewer code={current.content} />
+                        </div>
                     </Fragment>
                 ) : (
                     <Fragment>

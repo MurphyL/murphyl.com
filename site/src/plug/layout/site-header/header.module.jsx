@@ -15,38 +15,16 @@ const navItems = [{
     label: '博客',
     link: '/blog',
 }, {
-    label: '工具',
-    children: [{
-        label: '代码片段',
-        link: '/snippet',
-    }, {
-        label: '动态页面帮助',
-        link: '/schema/view/SiteLayout/dynamic-page-manual',
-    }]
-}, {
     label: '关于',
     link: '/about',
 }];
 
 function NavItem(option) {
-    return (typeof (option.link) === 'string') ? (
+    return (
         <NavLink className={styles.navi_item} to={option.link} activeClassName={styles.selected} exact={true}>
             <span className={styles.navi_text}>{option.label}</span>
         </NavLink>
-    ) : (
-        <span className={styles.navi_item}>
-            <span className={styles.navi_text}>{option.label}</span>
-            <div className={styles.navi_hover}>
-                <ul>
-                    {option.children.map((nav, index) => (
-                        <li key={index}>
-                            <NavLink to={nav.link} activeClassName="selected">{nav.label}</NavLink>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </span>
-    )
+    );
 }
 
 export default function Header({ className, ...extra }) {

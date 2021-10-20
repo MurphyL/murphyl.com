@@ -13,6 +13,7 @@ export default function Footer({ className, ...extra }) {
                     <dd>
                         <ul>
                             <li><Link to="/blog" rel="noopener noreferrer">博客</Link></li>
+                            <li><Link to="/notebook" rel="noopener noreferrer">笔记</Link></li>
                         </ul>
                     </dd>
                 </dl>

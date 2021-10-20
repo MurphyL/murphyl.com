@@ -32,7 +32,7 @@ export function SchemaRenderer({ unique }) {
             <Helmet>
                 <title>{page.title} - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer content={source} />}
+            {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer code={source} />}
         </div>
     );
 };

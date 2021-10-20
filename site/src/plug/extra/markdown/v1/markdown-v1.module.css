@@ -3,10 +3,20 @@
 }
 
 .root .title {
-    margin: 0;
+    margin: 15px 0 10px;
 }
 
 .root .code {
+    margin: 0;
+}
+
+.root .blockquote {
+    margin: 0;
+    text-indent: 10px;
+    border-left: 5px solid var(--shadow-color);
+}
+
+.root .code_block {
     margin: 0;
 }
 

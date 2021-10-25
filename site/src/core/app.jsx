@@ -46,7 +46,7 @@ function SiteRouter() {
                     <Route path={['/topics/:group/:unique', '/v1/topics/:group/:unique']} exact={true}>
                         <Dynamic children={<TopicDetails />} layout={SiteLayout} />
                     </Route>
-                    <Route path="/kits/editor/chameleon" exact={true} component={ChameleonEditor} />
+                    <Route path={["/kits/editor/chameleon", "/kits/editor/chameleon/:unique"]} exact={true} component={ChameleonEditor} />
                     <Route path="/kits/editor/markdown" exact={true} component={MarkdownEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
                     <Route path={["/notebook", "/notebook/:group", "/notebook/:group/:unique"]} exact={true} component={Notebook} />

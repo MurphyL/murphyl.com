@@ -1,7 +1,9 @@
 import React, { StrictMode, Suspense } from 'react';
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import graphql from '../graphql.json';
 
 import { ThemeContext, MapperContext } from 'plug/extra/mepper-context.jsx';
 
@@ -21,15 +23,11 @@ import MarkdownEditor from 'view/kits/editor/markdown/markdown-editor.module.jsx
 import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
 import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/maker/expression-maker.module.jsx';
 
-
 import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
 
-import { fetchGraphQlMapper } from 'plug/extra/rest-utils.jsx';
-
 function SiteRouter() {
-    const graphql = useRecoilValue(fetchGraphQlMapper());
     return (
         <MapperContext.Provider value={graphql}>
             <BrowserRouter>

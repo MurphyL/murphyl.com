@@ -20,6 +20,12 @@
     margin: 0;
 }
 
+.root .code_block :global(.linenumber) {
+    margin: 0 5px 0 0;
+    padding-left: 0 5px 0 5px;
+    border-right: 1px solid var(--shadow-color);
+}
+
 .root .link {
     text-decoration: none;
     color: rgb(68, 68, 68);

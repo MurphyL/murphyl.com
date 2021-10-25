@@ -101,11 +101,11 @@ function CodeViewer({ type, code }) {
             );
         case 'format_json':
             return (
-                <CodeBlock language="json" text={code} />
+                <MonacoEditor language="json" value={code} {...editorOptions} />
             );
         default:
             return (
-                <CodeBlock language="toml" text="# 不支持的源码类型" />
+                <CodeBlock language="shell" text="# 不支持的源码类型" />
             );
     }
 }

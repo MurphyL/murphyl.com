@@ -3,7 +3,7 @@ import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import graphql from '../graphql.json';
+import graphql from './graphql.json';
 
 import { ThemeContext, MapperContext } from 'plug/extra/mepper-context.jsx';
 

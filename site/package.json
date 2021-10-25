@@ -24,12 +24,13 @@
     "react-router-dom": "^5.3.0",
     "react-split-views": "^1.0.4",
     "recoil": "latest",
-    "simple-icons": "^5.19.0"
+    "simple-icons": "^5.19.0",
+    "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "config": "toml2json src/core/graphql.toml src/graphql.json",
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "config": "toml2json src/core/graphql.toml src/core/graphql.json",
+    "start": "npm run config && react-scripts start",
+    "build": "npm run config && react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

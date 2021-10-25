@@ -3,6 +3,8 @@ node_modules/
 site/public/data
 site/build/
 
+site/src/graphql.json
+
 
 package-lock.json
 

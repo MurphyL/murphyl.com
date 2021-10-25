@@ -18,13 +18,15 @@ const jsonViewerOptions = {
     style: {
         fontSize: '14px'
     },
+    name: null,
     onAdd: false,
     onEdit: false,
     onDelete: false,
     collapsed: false,
     iconStyle: 'circle',
+    quotesOnKeys: false,
     shouldCollapse: false,
-    enableClipboard: false,
+    enableClipboard: true,
     displayDataTypes: false,
     displayObjectSize: false
 };
@@ -32,9 +34,14 @@ const jsonViewerOptions = {
 const editorOptions = {
     loading: '编辑器正在初始化……',
     options: {
+        fontSize: 14,
         codeLens: false,
         contextmenu: false,
-        fontFamily: 'Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace'
+        formatOnPaste: true,
+        renderFinalNewline: true,
+        snippetSuggestions: false,
+        renderWhitespace: 'selection',
+        fontFamily: 'Menlo,Monaco,Consolas,Andale Mono,lucida console,Courier New,monospace'
     },
 };
 

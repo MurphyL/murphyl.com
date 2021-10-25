@@ -76,9 +76,9 @@ const viewerOptions = {
         realtime: true,
         render: (code) => {
             try {
-                return JSON.stringify(JSON.parse(code), null, '   ');
+                return JSON.parse(code);
             } catch (e) {
-                return JSON.stringify({ error: '解析 JSON 出错！' }, null, '   ');
+                return { error: '解析 JSON 出错！' };
             }
         },
         toolbar: (value) => (
@@ -92,16 +92,13 @@ const viewerOptions = {
 function CodeViewer({ type, code }) {
     switch (type) {
         case 'toml2json':
+        case 'format_json':
             return (
                 <JSONViewer src={code} {...jsonViewerOptions} />
             );
         case 'json2toml':
             return (
                 <CodeBlock language="toml" text={code} />
-            );
-        case 'format_json':
-            return (
-                <MonacoEditor language="json" value={code} {...editorOptions} />
             );
         default:
             return (

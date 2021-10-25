@@ -18,6 +18,7 @@ const options = {
     skipHtml: true,
     components: {
         a: ({ children, href }) => <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">{children}</a>,
+        p: ({ children }) => <p className={styles.paragraph}>{ children }</p>,
         h1: ({ children }) => <h2 className={styles.title}>{children}</h2>,
         h2: ({ children }) => <h2 className={styles.title}>{children}</h2>,
         h3: ({ children }) => <h3 className={styles.title}>{children}</h3>,

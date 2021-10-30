@@ -16,11 +16,11 @@ function RowExpandable({ data }) {
     );
 }
 
-export default function DataTable({ columns, rows = [] }) {
+export default function DataTable({ columns, expandable, rows = [] }) {
     const cols = (columns || []).map(({ name, path }) => ({
         name, selector: (row) => path ? pathGet(row, path) : '-'
     }));
-    const options = { columns: cols, data: rows, expandableRows: true };
+    const options = { columns: cols, data: rows, expandableRows: expandable };
     return (
         <div className={styles.root}>
             <DataTableComponent {...options} expandableRowsComponent={RowExpandable} />

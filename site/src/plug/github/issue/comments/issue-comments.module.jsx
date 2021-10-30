@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from 'react';
 
 import classNames from 'classnames';
-import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
-
 import { get as pathGet } from 'object-path';
 
 import renderSchema from 'plug/extra/schema-options.jsx';
+import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+
+import DynamicLink from 'plug/extra/dynamic/link/dynamic-link.module';
 
 import styles from './issue-comments.module.css';
 
@@ -24,7 +25,7 @@ export function IssueComment({ title, type, content, ...extra }) {
 
 export default function IssueComments({ title, comments }) {
     const [tab, setTab] = useState(0);
-    const nodes = (comments.nodes || []).map(({ body }) => parseMarkdown(body));
+    const nodes = (comments.nodes || []).map(({ url, body }) => ({ url, ...parseMarkdown(body) }));
     return (
         <div className={styles.root}>
             <div className={styles.header}>
@@ -34,9 +35,13 @@ export default function IssueComments({ title, comments }) {
                         <span key={index} className={classNames(styles.item, { [styles.selected]: index === tab })} onClick={() => setTab(index)}>{title}</span>
                     ))}
                 </div>
+                <div className={styles.toolbar}>
+                    { nodes[tab] && (<DynamicLink className={styles.button} link={nodes[tab].url}>编辑</DynamicLink>) }
+                    
+                </div>
             </div>
             <div className={styles.board}>
-                <IssueComment {...pathGet(nodes, [tab])} />
+                <IssueComment {...(pathGet(nodes, [tab]) || { component: 'div', text: 'Nothing~' })} />
             </div>
         </div>
     );

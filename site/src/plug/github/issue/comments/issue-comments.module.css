@@ -6,6 +6,7 @@
 
 .root .header {
     position: sticky;
+    display: flex;
     margin: 0;
     height: 32px;
     
@@ -14,6 +15,23 @@
 
 .root .header .group {
     display: inline-block;
+    flex: 1;
+}
+
+.root .header .toolbar {
+    margin: 0 10px;
+    line-height: 32px;
+}
+
+.root .header .toolbar .button {
+    margin: 0;
+    padding: 2px 5px;
+    background-color: white;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid var(--shadow-color);
+    border-radius: 5px;
+    color: black;
 }
 
 .root .header .group .item,

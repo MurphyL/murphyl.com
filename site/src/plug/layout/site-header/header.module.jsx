@@ -21,7 +21,7 @@ export default function Header({ className, ...extra }) {
     const [show, setShow] = useState(false);
     const { site } = useContext(MapperContext);
     const items = pathGet(site, 'headr.navi') || [];
-    const { path, slug } = icons.Get('github');
+    // const { path, slug } = icons.Get('github');
     return (
         <header className={classNames(className, styles.root)} {...extra}>
             <Link className={styles.logo} to="/">

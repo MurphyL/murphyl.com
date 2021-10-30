@@ -1,12 +1,15 @@
 .root {
+    margin: 0;
+    padding: 0 0 10px;
     max-height: 100vh;
-    background-color: var(--shadow-color);
 }
 
 .root .header {
     position: sticky;
     margin: 0;
     height: 32px;
+    
+    background-color: var(--shadow-color);
 }
 
 .root .header .group {
@@ -35,12 +38,10 @@
 }
 
 .root .board {
-    margin: 0 5px 100px;
-    padding: 5px 1px 5px 5px;
+    margin: 0 5px;
+    padding: 5px 1px 25px 5px;
     border-radius: 2px;
     border-bottom-right-radius: 3px;
-
-    overflow-y: auto;
 }
 
 .root .board .markdown {

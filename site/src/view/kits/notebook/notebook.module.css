@@ -51,6 +51,7 @@
 }
 
 .root .board .header .toolbar a {
+    margin-left: 5px;
     padding: 2px 5px;
     text-decoration: none;
     font-size: 12px;

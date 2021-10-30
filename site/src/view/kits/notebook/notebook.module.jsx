@@ -68,6 +68,7 @@ export default function Notebook() {
                         <div className={styles.header}>
                             <b>{current.title}</b>
                             <div className={styles.toolbar}>
+                                <Link to="/">主页</Link>
                                 <a href={current.url} target="_blank" rel="noopener noreferrer">编辑</a>
                             </div>
                         </div>

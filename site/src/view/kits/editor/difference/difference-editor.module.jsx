@@ -3,7 +3,6 @@ import React, { Fragment } from "react";
 import { Helmet } from 'react-helmet-async';
 
 import { MonacoDiffEditor } from "react-monaco-editor";
-// import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
 
 import styles from './difference-editor.module.css';
 

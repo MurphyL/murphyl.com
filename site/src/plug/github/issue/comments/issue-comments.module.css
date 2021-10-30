@@ -1,5 +1,5 @@
 .root {
-    height: 100vh;
+    max-height: 100vh;
     background-color: var(--shadow-color);
 }
 
@@ -30,11 +30,17 @@
     background-color: white;
 }
 
+.root .header .group .item.selected {
+    color: darkblue;
+}
+
 .root .board {
-    margin: 0 5px;
-    padding: 5px;
+    margin: 0 5px 100px;
+    padding: 5px 1px 5px 5px;
     border-radius: 2px;
     border-bottom-right-radius: 3px;
+
+    overflow-y: auto;
 }
 
 .root .board .markdown {

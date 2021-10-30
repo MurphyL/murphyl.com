@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from "react";
 
+import { useParams } from "react-router-dom";
+
 import { Helmet } from 'react-helmet-async';
 
 import TOML from '@iarna/toml';
@@ -18,13 +20,15 @@ const jsonViewerOptions = {
     style: {
         fontSize: '14px'
     },
+    name: null,
     onAdd: false,
     onEdit: false,
     onDelete: false,
     collapsed: false,
     iconStyle: 'circle',
+    quotesOnKeys: false,
     shouldCollapse: false,
-    enableClipboard: false,
+    enableClipboard: true,
     displayDataTypes: false,
     displayObjectSize: false
 };
@@ -32,9 +36,14 @@ const jsonViewerOptions = {
 const editorOptions = {
     loading: '编辑器正在初始化……',
     options: {
+        fontSize: 14,
         codeLens: false,
         contextmenu: false,
-        fontFamily: 'Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace'
+        formatOnPaste: true,
+        renderFinalNewline: true,
+        snippetSuggestions: false,
+        renderWhitespace: 'selection',
+        fontFamily: 'Menlo,Monaco,Consolas,Andale Mono,lucida console,Courier New,monospace'
     },
 };
 
@@ -76,9 +85,9 @@ const viewerOptions = {
         realtime: true,
         render: (code) => {
             try {
-                return JSON.stringify(JSON.parse(code), null, '   ');
+                return JSON.parse(code);
             } catch (e) {
-                return JSON.stringify({ error: '解析 JSON 出错！' }, null, '   ');
+                return { error: '解析 JSON 出错！' };
             }
         },
         toolbar: (value) => (
@@ -92,6 +101,7 @@ const viewerOptions = {
 function CodeViewer({ type, code }) {
     switch (type) {
         case 'toml2json':
+        case 'format_json':
             return (
                 <JSONViewer src={code} {...jsonViewerOptions} />
             );
@@ -99,13 +109,9 @@ function CodeViewer({ type, code }) {
             return (
                 <CodeBlock language="toml" text={code} />
             );
-        case 'format_json':
-            return (
-                <CodeBlock language="json" text={code} />
-            );
         default:
             return (
-                <CodeBlock language="toml" text="# 不支持的源码类型" />
+                <CodeBlock language="shell" text="# 不支持的源码类型" />
             );
     }
 }
@@ -113,7 +119,8 @@ function CodeViewer({ type, code }) {
 CodeViewer.displayName = 'CodeViewer';
 
 export default function Chameleon() {
-    const [type, setType] = useState('toml2json');
+    const { unique } = useParams();
+    const [type, setType] = useState(unique || 'toml2json');
     const [source, setSource] = useState('# 输入内容……');
     const [target, setTarget] = useState(source);
     const onCodeChange = (source) => {
@@ -138,7 +145,7 @@ export default function Chameleon() {
                 <div className={styles.editor}>
                     <MonacoEditor language={option.editor} {...editorOptions} value={source} onChange={onCodeChange} />
                     <div className={styles.toolbar}>
-                        <select className={styles.type} onChange={(e) => setType(e.target.value)}>
+                        <select className={styles.type} defaultValue={type} onChange={(e) => setType(e.target.value)}>
                             <option value="toml2json">TOML 转 JSON</option>
                             <option value="json2toml">JSON 转 TOML</option>
                             <option value="format_json">JSON 格式化</option>

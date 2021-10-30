@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// import classNames from 'classnames';
+import classNames from 'classnames';
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import { get as pathGet } from 'object-path';
@@ -30,27 +30,21 @@ export function IssueComment({ title, type, ...extra }) {
     }
 }
 
-export default function IssueComments({ title, comments = {} }) {
+export default function IssueComments({ title, comments }) {
     const [tab, setTab] = useState(0);
+    const nodes = (comments.nodes || []).map(({ body }) => parseMarkdown(body));
     return (
         <div className={styles.root}>
             <div className={styles.header}>
                 <div className={styles.group}>
                     <b className={styles.title}>{title}</b>
-                    {(comments.nodes || []).map(({ body }, index) => {
-                        const comment = parseMarkdown(body);
-                        return (
-                            <span key={index} className={styles.item} onClick={() => setTab(comment)}>{comment.title}</span>
-                        );
-                    })}
+                    {nodes.map(({ title }, index) => (
+                        <span key={index} className={classNames(styles.item, { [styles.selected]: index === tab })} onClick={() => setTab(index)}>{title}</span>
+                    ))}
                 </div>
             </div>
             <div className={styles.board}>
-                {isNaN(tab) ? (
-                    <IssueComment {...tab} />
-                ) : (
-                    <IssueComment {...parseMarkdown(pathGet(comments, 'nodes.0.body'))} />
-                )}
+                <IssueComment {...parseMarkdown(pathGet(comments, `nodes.${tab}.body`))} />
             </div>
         </div>
     );

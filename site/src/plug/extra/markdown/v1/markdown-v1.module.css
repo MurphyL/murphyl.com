@@ -2,22 +2,36 @@
     margin: 0;
 }
 
+.root p {
+    margin: 0;
+}
+
 .root .title {
     margin: 15px 0 10px;
 }
 
 .root .code {
-    margin: 0;
+    margin: 0 3px;
+}
+
+.root .paragraph {
+    margin: 5px 0;
 }
 
 .root .blockquote {
-    margin: 0;
-    text-indent: 10px;
+    margin: 5px 0;
+    padding: 3px 10px;
     border-left: 5px solid var(--shadow-color);
 }
 
 .root .code_block {
-    margin: 0;
+    margin: 5px 0;
+}
+
+.root .code_block :global(.linenumber) {
+    margin: 0 5px 0 0;
+    padding-left: 0 5px 0 5px;
+    border-right: 1px solid var(--shadow-color);
 }
 
 .root .link {

@@ -1,9 +1,11 @@
 import React, { StrictMode, Suspense } from 'react';
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { ThemeContext, MapperContext } from 'plug/extra/x-context.jsx';
+import graphql from './graphql.json';
+
 
 import { ErrorBoundary, Dynamic, Loading } from 'plug/extra/status/status.module.jsx';
 
@@ -20,15 +22,11 @@ import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.
 import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
 import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/maker/expression-maker.module.jsx';
 
-
 import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
 
-import { fetchGraphQlMapper } from 'plug/extra/rest-utils.jsx';
-
 function SiteRouter() {
-    const graphql = useRecoilValue(fetchGraphQlMapper());
     return (
         <MapperContext.Provider value={graphql}>
             <BrowserRouter>
@@ -47,7 +45,7 @@ function SiteRouter() {
                     <Route path={['/topics/:group/:unique', '/v1/topics/:group/:unique']} exact={true}>
                         <Dynamic children={<TopicDetails />} layout={SiteLayout} />
                     </Route>
-                    <Route path="/kits/editor/chameleon" exact={true} component={ChameleonEditor} />
+                    <Route path={["/kits/editor/chameleon", "/kits/editor/chameleon/:unique"]} exact={true} component={ChameleonEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
                     <Route path={["/notebook", "/notebook/:group", "/notebook/:group/:unique"]} exact={true} component={Notebook} />
                     <Route path="/kits/expression/maker/cron" exact={true} component={CronExpressionMaker} />

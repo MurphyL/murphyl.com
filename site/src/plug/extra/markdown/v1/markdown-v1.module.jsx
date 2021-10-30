@@ -2,6 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
+import { get as pathGet } from 'object-path';
+
 import ReactMarkdown from 'react-markdown';
 import { Code, CodeBlock } from '@atlaskit/code';
 
@@ -16,6 +18,7 @@ const options = {
     skipHtml: true,
     components: {
         a: ({ children, href }) => <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">{children}</a>,
+        p: ({ children }) => <p className={styles.paragraph}>{ children }</p>,
         h1: ({ children }) => <h2 className={styles.title}>{children}</h2>,
         h2: ({ children }) => <h2 className={styles.title}>{children}</h2>,
         h3: ({ children }) => <h3 className={styles.title}>{children}</h3>,
@@ -27,7 +30,7 @@ const options = {
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
         pre: ({ children, node }) => {
             const options = {
-                className: (node.children[0] && node.children[0].tagName === 'code') ? styles.code_block : styles.prepare
+                className: (pathGet(node, 'children.0.tagName') === 'code') ? styles.code_block : styles.prepare
             };
             return (
                 <pre {...options}>{children}</pre>
@@ -38,7 +41,7 @@ const options = {
                 return <Code className={styles.code}>{children}</Code>;
             } else {
                 const language = className ? className.replace(/^language-/, '') : null;
-                return <CodeBlock language={language} text={children.join('\n').trim()} />;
+                return <CodeBlock className="x" language={language} text={children.join('\n').trim()} />;
             }
         },
         blockquote: ({children}) => <blockquote className={styles.blockquote}>{children}</blockquote>

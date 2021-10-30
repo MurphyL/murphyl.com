@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 
+import { useParams } from "react-router-dom";
+
 import { Helmet } from 'react-helmet-async';
 
 import styles from './expression-maker.module.css';
@@ -40,4 +42,9 @@ export function DockerCommandMaker() {
             </div>
         </MarkerLayout>
     );
+}
+
+export default function ExpressionMaker() {
+    const { unique } = useParams();
+    return unique;
 }

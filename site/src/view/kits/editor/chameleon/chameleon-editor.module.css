@@ -3,7 +3,12 @@
     height: 100vh;
 }
 
-.root .editor, .root .viewer {
+.root .rjv {
+    margin: 0;
+}
+
+.root .editor, 
+.root .viewer {
     position: relative;
 }
 

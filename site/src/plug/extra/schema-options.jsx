@@ -11,7 +11,9 @@ import TabLayout from "plug/layout/tab-layout/tab-layout.module";
 
 import IssueComments from "plug/github/issue/comments/issue-comments.module";
 
-import DynamicTable from "plug/extra/dynamic-table/dynamic-table.module";
+import DynamicLink from "plug/extra/dynamic/link/dynamic-link.module";
+import DynamicList from "plug/extra/dynamic/list/dynamic-list.module";
+import DynamicTable from "plug/extra/dynamic/table/dynamic-table.module";
 
 const renderer = new ReactJsonSchema();
 
@@ -21,6 +23,9 @@ renderer.setComponentMap({
     DriftNav,
     SiteLayout,
     TabLayout,
+
+    DynamicLink,
+    DynamicList,
     DynamicTable,
 
     IssueComments

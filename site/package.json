@@ -5,7 +5,7 @@
   "dependencies": {
     "@atlaskit/code": "^14.1.4",
     "@iarna/toml": "^2.2.5",
-    "array-tree-filter": "^2.1.0",
+    "@murphyl/toml2json": "^1.0.2",
     "axios": "latest",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
@@ -24,11 +24,13 @@
     "react-router-dom": "^5.3.0",
     "react-split-views": "^1.0.4",
     "recoil": "latest",
-    "simple-icons": "^5.19.0"
+    "simple-icons": "^5.19.0",
+    "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "graphql": "toml2json src/core/graphql.toml src/core/graphql.json",
+    "start": "npm run graphql && react-scripts start",
+    "build": "npm run graphql && react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

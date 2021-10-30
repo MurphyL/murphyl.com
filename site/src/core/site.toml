@@ -30,3 +30,7 @@ link = '/notebook'
 [[footer.links]]
 label = '此间·我们'
 link = 'https://cijian.us'
+
+[[footer.links]]
+label = '常用工具'
+link = '/schema/page/sitemap'

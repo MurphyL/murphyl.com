@@ -37,7 +37,6 @@ export default function IssueComments({ title, comments }) {
                 </div>
                 <div className={styles.toolbar}>
                     { nodes[tab] && (<DynamicLink className={styles.button} link={nodes[tab].url}>编辑</DynamicLink>) }
-                    
                 </div>
             </div>
             <div className={styles.board}>

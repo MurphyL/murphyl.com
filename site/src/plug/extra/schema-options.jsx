@@ -11,6 +11,8 @@ import TabLayout from "plug/layout/tab-layout/tab-layout.module";
 
 import IssueComments from "plug/github/issue/comments/issue-comments.module";
 
+import IssueCommentsTable from "plug/github/issue/comments-table/issue-comments-table.module";
+
 import DynamicLink from "plug/extra/dynamic/link/dynamic-link.module";
 import DynamicList from "plug/extra/dynamic/list/dynamic-list.module";
 import DynamicTable from "plug/extra/dynamic/table/dynamic-table.module";
@@ -28,7 +30,8 @@ renderer.setComponentMap({
     DynamicList,
     DynamicTable,
 
-    IssueComments
+    IssueComments,
+    IssueCommentsTable
 });
 
 export default (schema) => {

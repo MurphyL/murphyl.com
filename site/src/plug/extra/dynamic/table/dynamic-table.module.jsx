@@ -8,6 +8,8 @@ import DataTableComponent from 'react-data-table-component';
 
 import styles from './dynamic-table.module.css';
 
+DataTableComponent.displayName = 'DataTableComponent';
+
 function RowExpandable({ data }) {
     return (
         <div className={styles.expandable}>

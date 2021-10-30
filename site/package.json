@@ -27,6 +27,7 @@
     "react-split-views": "^1.0.4",
     "recoil": "latest",
     "simple-icons": "^5.19.0",
+    "styled-components": "^5.3.3",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

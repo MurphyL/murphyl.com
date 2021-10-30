@@ -36,3 +36,11 @@
     border-radius: 2px;
     border-bottom-right-radius: 3px;
 }
+
+.root .board .markdown {
+    margin: 0;
+}
+
+.root .board .schema {
+    margin: 0;
+}

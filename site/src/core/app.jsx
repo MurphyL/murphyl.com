@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilValue } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { ThemeContext, MapperContext } from 'plug/extra/mepper-context.jsx';
+import { ThemeContext, MapperContext } from 'plug/extra/x-context.jsx';
 
 import { ErrorBoundary, Dynamic, Loading } from 'plug/extra/status/status.module.jsx';
 
@@ -17,7 +17,6 @@ import Post from 'view/post/post.module.jsx';
 import Notebook from 'view/kits/notebook/notebook.module.jsx';
 
 import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.jsx';
-import MarkdownEditor from 'view/kits/editor/markdown/markdown-editor.module.jsx';
 import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
 import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/maker/expression-maker.module.jsx';
 
@@ -49,7 +48,6 @@ function SiteRouter() {
                         <Dynamic children={<TopicDetails />} layout={SiteLayout} />
                     </Route>
                     <Route path="/kits/editor/chameleon" exact={true} component={ChameleonEditor} />
-                    <Route path="/kits/editor/markdown" exact={true} component={MarkdownEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
                     <Route path={["/notebook", "/notebook/:group", "/notebook/:group/:unique"]} exact={true} component={Notebook} />
                     <Route path="/kits/expression/maker/cron" exact={true} component={CronExpressionMaker} />

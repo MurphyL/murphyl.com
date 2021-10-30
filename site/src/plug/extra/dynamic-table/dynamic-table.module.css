@@ -1,3 +1,7 @@
 .root {
-    width: 100%;
+    margin: 0;
+}
+
+.root .expandable {
+    margin: 5px;
 }

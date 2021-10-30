@@ -19,7 +19,7 @@ export function IssueComment({ title, type, ...extra }) {
             );
         case 'toml/schema':
             return (
-                <div>
+                <div className={styles.schema}>
                     {renderSchema(extra)}
                 </div>
             );

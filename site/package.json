@@ -13,6 +13,7 @@
     "gray-matter": "^4.0.3",
     "object-path": "^0.11.8",
     "react": "^17.0.2",
+    "react-data-table-component": "^7.4.4",
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.1.2",
     "react-hot-toast": "^2.1.1",

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, NavLink } from "react-router-dom";
 
-import icons from 'simple-icons';
+// import icons from 'simple-icons';
 import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
 

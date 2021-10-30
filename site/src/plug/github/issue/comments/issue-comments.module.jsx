@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 
 import classNames from 'classnames';
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -9,25 +9,17 @@ import renderSchema from 'plug/extra/schema-options.jsx';
 
 import styles from './issue-comments.module.css';
 
-export function IssueComment({ title, type, ...extra }) {
-    switch (type) {
-        case 'markdown/tab':
-            return (
-                <div className={styles.markdown} data-title={title}>
-                    <MarkdownViewer content={extra.content || ''} />
-                </div>
-            );
-        case 'toml/schema':
-            return (
-                <div className={styles.schema}>
-                    {renderSchema(extra)}
-                </div>
-            );
-        default:
-            return (
-                <div>other</div>
-            );
-    }
+export function IssueComment({ title, type, content, ...extra }) {
+    return (
+        <Fragment>
+            <div className={styles.schema}>
+                {renderSchema(extra)}
+            </div>
+            <div className={styles.markdown}>
+                <MarkdownViewer code={content || ''} />
+            </div>
+        </Fragment>
+    );
 }
 
 export default function IssueComments({ title, comments }) {
@@ -44,7 +36,7 @@ export default function IssueComments({ title, comments }) {
                 </div>
             </div>
             <div className={styles.board}>
-                <IssueComment {...parseMarkdown(pathGet(comments, `nodes.${tab}.body`))} />
+                <IssueComment {...pathGet(nodes, [tab])} />
             </div>
         </div>
     );

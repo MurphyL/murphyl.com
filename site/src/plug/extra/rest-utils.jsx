@@ -25,7 +25,7 @@ export const fetchGraphQlMapper = selectorFamily({
 export const callGithubAPI = selectorFamily({
     key: 'call-github-api-v4',
     get: ({ key, path, ...extra }) => () => {
-        const mapper = useContext(MapperContext);
+        const { graphql: mapper } = useContext(MapperContext);
         const graphql = mapper[key];
         if (!graphql) {
             throw new Error('查询语句为空！');

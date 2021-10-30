@@ -3,7 +3,7 @@ node_modules/
 site/public/data
 site/build/
 
-site/src/core/graphql.json
+site/src/cache
 
 
 package-lock.json

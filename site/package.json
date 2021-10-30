@@ -31,9 +31,10 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "graphql": "toml2json src/core/graphql.toml src/core/graphql.json",
-    "start": "npm run graphql && react-scripts start",
-    "build": "npm run graphql && react-scripts build"
+    "site": "toml2json src/core/site.toml src/cache/site.json",
+    "graphql": "toml2json src/core/graphql.toml src/cache/graphql.json",
+    "start": "npm run site && npm run graphql && react-scripts start",
+    "build": "npm run site && npm run graphql && react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"

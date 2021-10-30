@@ -4,7 +4,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { ThemeContext, MapperContext } from 'plug/extra/x-context.jsx';
-import graphql from './graphql.json';
+
+import site from 'cache/site.json';
+import graphql from 'cache/graphql.json';
 
 
 import { ErrorBoundary, Dynamic, Loading } from 'plug/extra/status/status.module.jsx';
@@ -28,7 +30,7 @@ import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/to
 
 function SiteRouter() {
     return (
-        <MapperContext.Provider value={graphql}>
+        <MapperContext.Provider value={{ graphql, site }}>
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact={true} component={Home} />

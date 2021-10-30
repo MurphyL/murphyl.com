@@ -1,0 +1,32 @@
+[headr]
+
+[[headr.navi]]
+label = '首页'
+link = '/'
+
+[[headr.navi]]
+label = '主题'
+link = '/topics'
+
+[[headr.navi]]
+label = '博客'
+link = '/blog'
+
+[[headr.navi]]
+label = '关于'
+link = '/about'
+
+
+[footer]
+
+[[footer.sitemap]]
+label = '博客'
+link = '/blog'
+
+[[footer.sitemap]]
+label = '笔记'
+link = '/notebook'
+
+[[footer.links]]
+label = '此间·我们'
+link = 'https://cijian.us'

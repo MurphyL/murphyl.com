@@ -9,7 +9,7 @@ import SiteLayout from "plug/layout/site-layout/site-layout.module";
 
 import TabLayout from "plug/layout/tab-layout/tab-layout.module";
 
-import IssueComments from "plug/github/issue/comments/issue-comments.module";
+import IssueComments from "plug/github/issue/comments-tab/issue-comments-tab.module";
 
 import IssueCommentsTable from "plug/github/issue/comments-table/issue-comments-table.module";
 

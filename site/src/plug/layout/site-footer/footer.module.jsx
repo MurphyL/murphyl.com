@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { get as pathGet } from 'object-path';
 import classNames from 'classnames';
+
+import { MapperContext } from 'plug/extra/x-context';
 
 import styles from './footer.module.css';
 
 export default function Footer({ className, ...extra }) {
+    const { site } = useContext(MapperContext);
+    const footer = pathGet(site, 'footer') || {};
     return (
         <footer className={classNames(className, styles.root)} {...extra}>
             <div className={styles.sitemap}>
@@ -12,8 +17,11 @@ export default function Footer({ className, ...extra }) {
                     <dt>站点地图</dt>
                     <dd>
                         <ul>
-                            <li><Link to="/blog" rel="noopener noreferrer">博客</Link></li>
-                            <li><Link to="/notebook" rel="noopener noreferrer">笔记</Link></li>
+                            {(footer.sitemap || []).map((item, index) => (
+                                <li key={index}>
+                                    <Link to={item.link} rel="noopener noreferrer">{item.label}</Link>
+                                </li>
+                            ))}
                         </ul>
                     </dd>
                 </dl>
@@ -21,7 +29,11 @@ export default function Footer({ className, ...extra }) {
                     <dt>友情链接</dt>
                     <dd>
                         <ul>
-                            <li><a href="https://cijian.us" target="_blank" rel="noopener noreferrer">此间·我们</a></li>
+                            {(footer.links || []).map((item, index) => (
+                                <li key={index}>
+                                    <a href={item.link} target="_blank" rel="noopener noreferrer">{item.label}</a>
+                                </li>
+                            ))}
                         </ul>
                     </dd>
                 </dl>

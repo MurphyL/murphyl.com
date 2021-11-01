@@ -6,9 +6,9 @@ import TOML from '@iarna/toml';
 
 import { get as pathGet } from 'object-path';
 
-import { MapperContext } from 'plug/extra/mepper-context.jsx';
+import { MapperContext } from 'plug/extra/x-context';
 
-import { Error } from 'plug/extra/status/status.module.jsx';
+import { Error } from 'plug/extra/status/status.module';
 
 export const fetchGraphQlMapper = selectorFamily({
     key: 'fetch-graphql',
@@ -25,7 +25,7 @@ export const fetchGraphQlMapper = selectorFamily({
 export const callGithubAPI = selectorFamily({
     key: 'call-github-api-v4',
     get: ({ key, path, ...extra }) => () => {
-        const mapper = useContext(MapperContext);
+        const { graphql: mapper } = useContext(MapperContext);
         const graphql = mapper[key];
         if (!graphql) {
             throw new Error('查询语句为空！');

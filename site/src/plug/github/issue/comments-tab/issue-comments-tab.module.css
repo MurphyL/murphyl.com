@@ -1,0 +1,71 @@
+.root {
+    margin: 0;
+    padding: 0 0 10px;
+    max-height: 100vh;
+}
+
+.root .header {
+    position: sticky;
+    display: flex;
+    margin: 0;
+    height: 32px;
+    
+    background-color: var(--shadow-color);
+}
+
+.root .header .group {
+    display: inline-block;
+    flex: 1;
+}
+
+.root .header .toolbar {
+    margin: 0 10px;
+    line-height: 32px;
+}
+
+.root .header .toolbar .button {
+    margin: 0;
+    padding: 2px 5px;
+    background-color: white;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid var(--shadow-color);
+    border-radius: 5px;
+    color: black;
+}
+
+.root .header .group .item,
+.root .header .group .title {
+    display: inline-block;
+    margin: 3px 2px 0;
+    padding: 2px 15px;
+    cursor: pointer;
+    user-select: none;
+    line-height: 25px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.root .board,
+.root .header .group .item {
+    background-color: white;
+}
+
+.root .header .group .item.selected {
+    color: darkblue;
+}
+
+.root .board {
+    margin: 0 5px;
+    padding: 5px 1px 25px 5px;
+    border-radius: 2px;
+    border-bottom-right-radius: 3px;
+}
+
+.root .board .markdown {
+    margin: 0;
+}
+
+.root .board .schema {
+    margin: 0;
+}

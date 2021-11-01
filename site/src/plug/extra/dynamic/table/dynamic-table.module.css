@@ -1,0 +1,36 @@
+.root {
+    margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.root th,
+.root td {
+    border: 1px solid var(--shadow-color);
+}
+
+.root th,
+.root td {
+    padding: 5px;
+}
+
+.root thead tr {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.root tbody tr.row_even {
+    background-color: rgba(0, 0, 0, 0);
+    
+}
+
+.root tbody tr.row_odd {
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+.root tbody tr td:nth-child(odd) {
+    opacity: 0.5;
+}
+
+.root tbody tr td:nth-child(even) {
+    opacity: 0.9;
+}

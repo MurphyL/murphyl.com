@@ -13,6 +13,10 @@ label = '博客'
 link = '/blog'
 
 [[headr.navi]]
+label = '笔记'
+link = '/notebook'
+
+[[headr.navi]]
 label = '关于'
 link = '/about'
 

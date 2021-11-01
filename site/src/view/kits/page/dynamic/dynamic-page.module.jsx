@@ -2,7 +2,9 @@ import React, { Fragment } from 'react';
 
 import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
+
 import { Helmet } from 'react-helmet-async';
+import { get as pathGet } from 'object-path';
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
@@ -11,22 +13,38 @@ import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import styles from './dynamic-page.module.css';
 
+const linkOptions = {
+    target: '_blank',
+    rel: 'noopener noreferrer'
+};
+
 const columns = [{
-    name: '页面',
+    name: '模块',
     path: 'unique',
     formater: (value, row) => {
-        let url = `/page/schema/${row.unique}`;
-        if (row.version) { 
-            url += `-${row.version}`;
+        let unique = value;
+        const labels = (pathGet(row, 'labels.nodes') || []).map(({ name }) => name);
+        if (labels.includes('X-TOPIC')) {
+            return (
+                <a href={`/topics/${unique}`} title={row.title} {...linkOptions}>{unique}</a>
+            );
+        } else {
+            let url = `/page/schema/${row.unique}`;
+            if (row.version) {
+                url += `-${row.version}`;
+                unique += ` - ${row.version}`;
+            }
+            return (
+                <a href={url} title={row.title} {...linkOptions}>{unique}</a>
+            );
         }
-        return (
-            <a href={url} target="_blank" rel="noopener noreferrer" title={row.title}>{value}</a>
-        );
+
     }
 }, {
-    name: '版本',
-    path: 'version',
+    name: '标签',
+    path: 'labels.nodes',
     align: 'center',
+    formater: (value) => value.map(({ name }) => name).join('，')
 }, {
     name: '类型',
     path: 'type',
@@ -46,7 +64,7 @@ const columns = [{
 export default function DynamicPage() {
     const pages = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
-        ghp_labels: `X-PAGE`,
+        ghp_labels: [`X-PAGE`, `X-TOPIC`],
         path: 'data.repository.issues.nodes'
     })).map(({ body, ...meta }) => ({ ...meta, ...parseMarkdown(body) }));
     return (
@@ -54,7 +72,7 @@ export default function DynamicPage() {
             <Helmet>
                 <title>动态页面 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
-            <DynamicTable className={styles.root} columns={columns} rows={pages} />
+            <DynamicTable className={styles.root} columns={columns} rows={pages} valueGetter={(row, path) => pathGet(row, path)} />
         </Fragment>
     );
 }

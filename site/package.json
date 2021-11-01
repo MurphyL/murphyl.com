@@ -9,7 +9,6 @@
     "axios": "latest",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
-    "export-from-json": "^1.4.1",
     "gray-matter": "^4.0.3",
     "object-path": "^0.11.8",
     "react": "^17.0.2",
@@ -27,7 +26,7 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "graphql": "toml2json src/core/graphql.toml src/core/graphql.json",
+    "graphql": "toml2json src/core/graphql.toml src/cache/graphql.json",
     "start": "npm run graphql && react-scripts start",
     "build": "npm run graphql && react-scripts build"
   },

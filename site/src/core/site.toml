@@ -5,10 +5,6 @@ label = '首页'
 link = '/'
 
 [[headr.navi]]
-label = '主题'
-link = '/topics'
-
-[[headr.navi]]
 label = '博客'
 link = '/blog'
 

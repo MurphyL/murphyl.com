@@ -25,6 +25,7 @@ query-issue-comments = '''
                     title,
                     body,
                     publishedAt,
+                    updatedAt,
                     labels(first: 10) {
                         nodes {
                             name
@@ -36,7 +37,8 @@ query-issue-comments = '''
                             id,
                             url,
                             body,
-                            publishedAt
+                            publishedAt,
+                            updatedAt
                         }
                     }
                 }

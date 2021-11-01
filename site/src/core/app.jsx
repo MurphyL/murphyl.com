@@ -8,9 +8,7 @@ import graphql from 'cache/graphql.toml.json';
 
 import { MapperContext } from 'plug/extra/x-context.jsx';
 
-import { ErrorBoundary, Dynamic, Loading } from 'plug/extra/status/status.module.jsx';
-
-import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
+import { ErrorBoundary, Loading } from 'plug/extra/status/status.module.jsx';
 
 import Home from 'view/home/home.module.jsx';
 
@@ -26,8 +24,6 @@ import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/ma
 import DynamicPage from 'view/kits/page/dynamic/dynamic-page.module';
 import { SchemaPage, SchemaRenderer } from 'view/kits/page/schema/schema-page.module';
 
-import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
-
 function SiteRouter() {
     return (
         <MapperContext.Provider value={{ site, graphql }}>
@@ -39,15 +35,6 @@ function SiteRouter() {
                     <Route path="/post/:unique" exact={true} component={Post} />
                     <Route path="/page/list" exact={true} component={DynamicPage} />
                     <Route path="/page/schema/:unique" exact={true} component={SchemaPage} />
-                    <Route path={['/topics', '/v1/topics']} exact={true}>
-                        <Dynamic children={<TopicGroupList />} layout={SiteLayout} />
-                    </Route>
-                    <Route path={['/topics/:group', '/v1/topics/:group']} exact={true}>
-                        <Dynamic children={<TopicGroupViewer />} />
-                    </Route>
-                    <Route path={['/topics/:group/:unique', '/v1/topics/:group/:unique']} exact={true}>
-                        <Dynamic children={<TopicDetails />} layout={SiteLayout} />
-                    </Route>
                     <Route path={["/kits/editor/chameleon", "/kits/editor/chameleon/:unique"]} exact={true} component={ChameleonEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
                     <Route path={["/notebook", "/notebook/:group", "/notebook/:group/:unique"]} exact={true} component={Notebook} />

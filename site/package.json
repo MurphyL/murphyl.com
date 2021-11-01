@@ -22,8 +22,7 @@
     "react-monaco-editor": "latest",
     "react-router-dom": "^5.3.0",
     "react-split-views": "^1.0.4",
-    "recoil": "latest",
-    "simple-icons": "^5.19.0"
+    "recoil": "latest"
   },
   "scripts": {
     "toml": "toml2json src/core/site.toml src/core/graphql.toml src/cache/",

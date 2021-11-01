@@ -18,6 +18,8 @@ const linkOptions = {
     rel: 'noopener noreferrer'
 };
 
+const ts = (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+
 const columns = [{
     name: '模块',
     path: 'unique',
@@ -26,7 +28,7 @@ const columns = [{
         const labels = (pathGet(row, 'labels.nodes') || []).map(({ name }) => name);
         if (labels.includes('X-TOPIC')) {
             return (
-                <a href={`/topics/${unique}`} title={row.title} {...linkOptions}>{unique}</a>
+                <a href={`/notebook/${unique}`} title={row.title} {...linkOptions}>{unique}</a>
             );
         } else {
             let url = `/page/schema/${row.unique}`;
@@ -53,7 +55,9 @@ const columns = [{
     name: '发布时间',
     path: 'publishedAt',
     align: 'center',
-    formater: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss')
+    formater: (value, row) => {
+        return `${ts(value)} / ${ts(row.updatedAt)}`
+    }
 }, {
     name: '操作',
     path: 'url',

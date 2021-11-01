@@ -7,6 +7,7 @@
     "@iarna/toml": "^2.2.5",
     "axios": "latest",
     "classnames": "^2.3.1",
+    "cogo-toast": "^4.2.3",
     "copy-to-clipboard": "^3.3.1",
     "dayjs": "^1.10.7",
     "gray-matter": "^4.0.3",
@@ -26,7 +27,7 @@
     "simple-icons": "^5.19.0"
   },
   "scripts": {
-    "toml": "toml2json -v src/core/site.toml src/core/graphql.toml src/cache/",
+    "toml": "toml2json src/core/site.toml src/core/graphql.toml src/cache/",
     "prestart": "npm run toml",
     "prebuild": "npm run toml",
     "start": "react-scripts start",

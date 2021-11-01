@@ -1,9 +1,5 @@
 import React, { Fragment } from "react";
 
-import classNames from 'classnames';
-
-import { get as pathGet } from 'object-path';
-
 import styles from './dynamic-table.module.css';
 
 const tableOptions = {
@@ -11,9 +7,11 @@ const tableOptions = {
     cellSpacing: 0,
 };
 
-export default function DataTable({ className, expandable, columns = [], rows = [] }) {
+const defaultValueGetter = (row, path) => row[path];
+
+export default function DataTable({ className, valueGetter = defaultValueGetter, expandable, columns = [], rows = [] }) {
     return (
-        <table className={classNames(styles.root, className)} {...tableOptions}>
+        <table className={`${styles.root} ${className || ''}`.trim()} {...tableOptions}>
             <thead>
                 <tr>
                     {columns.map(({ name, path }, index) => (
@@ -26,7 +24,7 @@ export default function DataTable({ className, expandable, columns = [], rows = 
                     <Fragment key={ri}>
                         <tr className={[styles[`row_${(ri % 2) ? 'odd' : 'even'}`]]}>
                             {columns.map(({ formater, path }, ci) => {
-                                let value = path ? pathGet(row, path) : null;
+                                let value = path ? valueGetter(row, path) : null;
                                 if (formater) {
                                     value = formater(value, row, ci);
                                 }

@@ -3,6 +3,7 @@ import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import site from 'cache/site.toml.json';
 import graphql from 'cache/graphql.toml.json';
 
 import { MapperContext } from 'plug/extra/x-context.jsx';
@@ -28,7 +29,7 @@ import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/to
 
 function SiteRouter() {
     return (
-        <MapperContext.Provider value={{ graphql }}>
+        <MapperContext.Provider value={{ site, graphql }}>
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact={true} component={Home} />

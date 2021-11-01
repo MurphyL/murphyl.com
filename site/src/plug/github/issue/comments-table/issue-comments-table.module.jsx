@@ -2,7 +2,11 @@ import React from "react";
 
 import dayjs from 'dayjs';
 
+import { get as pathGet } from 'object-path';
+
 import DynamicTable from 'plug/extra/dynamic/table/dynamic-table.module';
+
+// import DynamicTable from '@murphyl/drc-table';
 
 import renderSchema from 'plug/extra/schema-options.jsx';
 
@@ -36,6 +40,6 @@ export default function IssueCommentsTable({ columns, comments }) {
         return { ...meta, ...parseMarkdown(body) };
     });
     return (
-        <DynamicTable className={styles.root} columns={cols} rows={nodes} />
+        <DynamicTable className={styles.root} value={(row, path) => pathGet(row, path)} columns={cols} rows={nodes} />
     );
 }

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
+import { Helmet } from 'react-helmet-async';
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
@@ -11,12 +12,22 @@ import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 import styles from './dynamic-page.module.css';
 
 const columns = [{
-    name: '名称',
-    path: 'title',
-    formater: (value, row) => (<a href={`/page/schema/${row.unique}`} target="_blank" rel="noopener noreferrer">{value}</a>)
+    name: '页面',
+    path: 'unique',
+    formater: (value, row) => {
+        console.log(row);
+        let url = `/page/schema/${row.unique}`;
+        if (row.version) { 
+            url += `-${row.version}`;
+        }
+        return (
+            <a href={url} target="_blank" rel="noopener noreferrer" title={row.title}>{value}</a>
+        );
+    }
 }, {
-    name: 'Unique',
-    path: 'unique'
+    name: '版本',
+    path: 'version',
+    align: 'center',
 }, {
     name: '类型',
     path: 'type',
@@ -40,6 +51,11 @@ export default function DynamicPage() {
         path: 'data.repository.issues.nodes'
     })).map(({ body, ...meta }) => ({ ...meta, ...parseMarkdown(body) }));
     return (
-        <DynamicTable className={styles.root} columns={columns} rows={pages} />
+        <Fragment>
+            <Helmet>
+                <title>动态页面 - {process.env.REACT_APP_TITLE}</title>
+            </Helmet>
+            <DynamicTable className={styles.root} columns={columns} rows={pages} />
+        </Fragment>
     );
 }

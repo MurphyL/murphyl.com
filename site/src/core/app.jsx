@@ -23,7 +23,8 @@ import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.
 import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
 import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/maker/expression-maker.module.jsx';
 
-import { SchemaPage, SchemaRenderer } from 'view/kits/schema/page/schema-page.module.jsx';
+import DynamicPage from 'view/kits/page/dynamic/dynamic-page.module';
+import { SchemaPage, SchemaRenderer } from 'view/kits/page/schema/schema-page.module';
 
 import { TopicGroupList, TopicGroupViewer, TopicDetails } from 'view/topic/v1/topic-v1.module.jsx';
 
@@ -36,7 +37,8 @@ function SiteRouter() {
                     <Route path="/blog" exact={true} component={Blog} />
                     <Route path={["/about", "/about/:version"]} exact={true} children={<SchemaRenderer unique="about" />} />
                     <Route path="/post/:unique" exact={true} component={Post} />
-                    <Route path="/schema/page/:unique" exact={true} component={SchemaPage} />
+                    <Route path="/page/dynamic" exact={true} component={DynamicPage} />
+                    <Route path="/page/schema/:unique" exact={true} component={SchemaPage} />
                     <Route path={['/topics', '/v1/topics']} exact={true}>
                         <Dynamic children={<TopicGroupList />} layout={SiteLayout} />
                     </Route>

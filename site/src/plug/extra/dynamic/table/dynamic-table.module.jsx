@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { Fragment } from "react";
 
 import styles from './dynamic-table.module.css';
@@ -23,13 +24,16 @@ export default function DataTable({ className, valueGetter = defaultValueGetter,
                 {(rows || []).map((row, ri) => (
                     <Fragment key={ri}>
                         <tr className={[styles[`row_${(ri % 2) ? 'odd' : 'even'}`]]}>
-                            {columns.map(({ formater, path }, ci) => {
+                            {columns.map(({ formater, path, align }, ci) => {
                                 let value = path ? valueGetter(row, path) : null;
                                 if (formater) {
                                     value = formater(value, row, ci);
                                 }
+                                const options = {
+                                    className: classNames(styles[align])
+                                };
                                 return (
-                                    <td key={ci} data-path={path}>{value || '-'}</td>
+                                    <td {...options} key={ci} data-path={path}>{value || '-'}</td>
                                 );
                             })}
                         </tr>

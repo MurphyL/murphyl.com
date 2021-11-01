@@ -37,7 +37,7 @@ function SiteRouter() {
                     <Route path="/blog" exact={true} component={Blog} />
                     <Route path={["/about", "/about/:version"]} exact={true} children={<SchemaRenderer unique="about" />} />
                     <Route path="/post/:unique" exact={true} component={Post} />
-                    <Route path="/page/dynamic" exact={true} component={DynamicPage} />
+                    <Route path="/page/list" exact={true} component={DynamicPage} />
                     <Route path="/page/schema/:unique" exact={true} component={SchemaPage} />
                     <Route path={['/topics', '/v1/topics']} exact={true}>
                         <Dynamic children={<TopicGroupList />} layout={SiteLayout} />

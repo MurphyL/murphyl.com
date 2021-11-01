@@ -15,7 +15,6 @@ const columns = [{
     name: '页面',
     path: 'unique',
     formater: (value, row) => {
-        console.log(row);
         let url = `/page/schema/${row.unique}`;
         if (row.version) { 
             url += `-${row.version}`;

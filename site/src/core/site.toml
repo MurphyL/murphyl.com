@@ -31,7 +31,16 @@ link = '/notebook'
 label = '动态页面'
 link = '/page/list'
 
+
+
 [[footer.links]]
 label = '此间·我们'
 link = 'https://cijian.us'
 
+[[footer.links]]
+label = '比较文本'
+link = '/kits/editor/difference'
+
+[[footer.links]]
+label = '变色龙'
+link = '/kits/editor/chameleon'

@@ -1,7 +1,7 @@
 {
   "name": "murphyl.com",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@atlaskit/code": "^14.1.4",
     "@iarna/toml": "^2.2.5",

@@ -1,5 +1,8 @@
 .root {
-    margin: 0;
+    padding: 5px;
+}
+
+.root table {
     width: 100%;
     border-collapse: collapse;
 }
@@ -28,9 +31,27 @@
 }
 
 .root tbody tr td:nth-child(odd) {
-    opacity: 0.5;
+    color: rgba(0, 0, 0, 0.9);
 }
 
 .root tbody tr td:nth-child(even) {
-    opacity: 0.9;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.root tbody tr td a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+.root tbody tr td.left {
+    text-align: left;
+}
+
+.root tbody tr td.right {
+    text-align: right;
+}
+
+.root tbody tr td.center {
+    text-align: center;
 }

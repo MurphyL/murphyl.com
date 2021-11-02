@@ -5,12 +5,12 @@ label = '首页'
 link = '/'
 
 [[headr.navi]]
-label = '主题'
-link = '/topics'
-
-[[headr.navi]]
 label = '博客'
 link = '/blog'
+
+[[headr.navi]]
+label = '笔记'
+link = '/notebook'
 
 [[headr.navi]]
 label = '关于'
@@ -27,10 +27,11 @@ link = '/blog'
 label = '笔记'
 link = '/notebook'
 
+[[footer.sitemap]]
+label = '动态页面'
+link = '/page/list'
+
 [[footer.links]]
 label = '此间·我们'
 link = 'https://cijian.us'
 
-[[footer.links]]
-label = '常用工具'
-link = '/schema/page/sitemap'

@@ -23,6 +23,9 @@ export function SchemaRenderer({ unique }) {
     (pages || []).forEach(({ body, ...info }) => {
         const { content, ...meta } = parseMarkdown(body);
         mapper[meta.unique] = { ...info, ...meta, source: content };
+        if (meta.version) {
+            mapper[`${meta.unique}-${meta.version}`] = { ...info, ...meta, source: content };
+        }
     });
     const page = mapper[unique] || { title: 'NOT FOUND', text: '404', type: 'toml/schema' };
     const { layout, type, source, url: sourceUrl, ...schema } = page;

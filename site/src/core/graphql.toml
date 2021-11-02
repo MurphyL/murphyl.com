@@ -25,13 +25,20 @@ query-issue-comments = '''
                     title,
                     body,
                     publishedAt,
+                    updatedAt,
+                    labels(first: 10) {
+                        nodes {
+                            name
+                        }
+                    },
                     comments(first: 100) {
                         nodes {
                             databaseId,
                             id,
                             url,
                             body,
-                            publishedAt
+                            publishedAt,
+                            updatedAt
                         }
                     }
                 }

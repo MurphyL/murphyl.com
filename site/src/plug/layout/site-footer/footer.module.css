@@ -24,6 +24,7 @@
 
 .root .sitemap .section dd ul {
 	padding-left: 15px;
+	line-height: 25px;
 }
 
 .root .copyright {

@@ -47,7 +47,7 @@ const convert = (methods, source, encoding) => {
         if (methods === 'Base64') {
             return encoding ? fromBase64(source) : toBase64(source);
         }
-        return source;
+        return `${methods} - ${source}`;
     }
     if (Array.isArray(methods)) {
         return `${JSON.stringify(methods)} - ${source}`;

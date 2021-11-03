@@ -1,0 +1,27 @@
+.root {
+    height: 100vh;
+}
+
+.root .editor {
+    height: 30%;
+    border-bottom: 1px solid var(--shadow-color);
+}
+
+.root .toolbar {
+    padding: 8px;
+}
+
+.root .toolbar .part {
+    display: inline-block;
+    margin-right: 10px;
+    user-select: none;
+}
+
+.root .toolbar .selector {
+    width: 300px;
+}
+
+.root .board {
+    padding: 5px;
+    border-top: 1px solid var(--shadow-color);
+}

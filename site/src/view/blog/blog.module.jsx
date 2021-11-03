@@ -2,7 +2,7 @@ import React, { Fragment, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from "react-router-dom";
 import { useRecoilValue } from 'recoil';
-import MiddleEllipsis from "react-middle-ellipsis";
+import TruncateMarkup from 'react-truncate-markup';
 
 import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
@@ -26,9 +26,9 @@ export function BlogPostSummary({ post }) {
                 <h2>{post.title}</h2>
             </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
-                <MiddleEllipsis>
+                <TruncateMarkup lines={3}>
                     <MarkdownViewer code={(excerpt || content)} />
-                </MiddleEllipsis>
+                </TruncateMarkup>
             </article>
         </div>
     );

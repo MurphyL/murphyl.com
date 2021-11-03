@@ -1,37 +1,51 @@
 .root {
-    z-index: 99;
-    width: 50px;
-    height: 50px;
-    background-color: #fff;
-    border: 1px solid grey;
-    border-radius: 50px;
-    opacity: 0.3;
+    display: inline-block;
+    user-select: none;
+    cursor: pointer;
+    opacity: 0.8;
 }
 
-.root[data-role='component'] {
+.root:global(.top), .root:global(.right), .root:global(.bottom), .root:global(.left) {
     position: fixed;
+}
+
+.root:global(.top) {
+    top: 30px;
+}
+
+.root:global(.right) {
+    right: 20px;
+}
+
+.root:global(.bottom) {
+    bottom: 30px;
+}
+
+.root:global(.left) {
+    left: 20px;
 }
 
 .root:hover {
     opacity: 1;
 }
 
-.root[data-role='component'][data-postion='lt'] {
-    left: 10px;
-    top: 10px;
+.root .item {
+    background-color: #1da8a4;
 }
 
-.root[data-role='component'][data-postion='rt'] {
-    right: 10px;
-    top: 10px;
+.root .item {
+    padding: 5px 20px;
+    text-align: center;
+    line-height: 25px;
 }
 
-.root[data-role='component'][data-postion='lb'] {
-    left: 10px;
-    bottom: 10px;
+.root .item, .root .item a {
+    color: #fff;
 }
 
-.root[data-role='component'][data-postion='rb'] {
-    right: 10px;
-    bottom: 10px;
+.root .item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
 }

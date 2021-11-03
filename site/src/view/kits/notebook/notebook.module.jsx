@@ -3,6 +3,8 @@ import { useRecoilValue } from 'recoil';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from "react-router-dom";
 
+import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
+
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -75,6 +77,9 @@ export default function Notebook() {
                         <div className={styles.content}>
                             <MarkdownViewer code={current.content} />
                         </div>
+                        <DriftNavi postion={['right', 'bottom']}>
+                            <Link to="/">首页</Link>
+                        </DriftNavi>
                     </Fragment>
                 ) : (
                     <Fragment>

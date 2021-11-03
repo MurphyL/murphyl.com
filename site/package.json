@@ -18,10 +18,10 @@
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
-    "react-middle-ellipsis": "^1.2.1",
-    "react-monaco-editor": "latest",
+    "react-monaco-editor": "^0.46.0",
     "react-router-dom": "^5.3.0",
     "react-split-views": "^1.0.4",
+    "react-truncate-markup": "^5.1.0",
     "recoil": "latest"
   },
   "scripts": {
@@ -47,7 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@murphyl/toml2json": "latest",
-    "react-scripts": "3.4.1"
+    "@murphyl/toml2json": "^1.2.0",
+    "react-scripts": "^3.4.1"
   }
 }

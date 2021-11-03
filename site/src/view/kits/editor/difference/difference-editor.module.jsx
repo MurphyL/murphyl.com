@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
 
 import { Helmet } from 'react-helmet-async';
+import { Link } from "react-router-dom";
 
 import { MonacoDiffEditor } from "react-monaco-editor";
+
+import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
 
 import styles from './difference-editor.module.css';
 
@@ -24,6 +27,9 @@ export default function DifferenceEditor() {
             <div className={styles.root}>
                 <MonacoDiffEditor {...editorOptions} />
             </div>
+            <DriftNavi postion={['bottom', 'left']}>
+                <Link to="/">首页</Link>
+            </DriftNavi>
         </Fragment>
     );
 }

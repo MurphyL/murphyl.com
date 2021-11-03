@@ -118,7 +118,7 @@ function CodeViewer({ type, code }) {
 
 CodeViewer.displayName = 'CodeViewer';
 
-export default function Chameleon() {
+function Chameleon() {
     const { unique } = useParams();
     const [type, setType] = useState(unique || 'toml2json');
     const [source, setSource] = useState('# 输入内容……');
@@ -161,5 +161,15 @@ export default function Chameleon() {
                 </div>
             </div>
         </Fragment>
+    );
+}
+
+export default function ChameleonX() {
+    const { unique } = useParams();
+    if(unique === 'x') {
+        return 'x';
+    }
+    return (
+        <Chameleon />
     );
 }

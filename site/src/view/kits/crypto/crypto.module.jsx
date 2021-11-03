@@ -69,7 +69,7 @@ export default function CryptoText() {
                     <MultiSelect options={options} hasSelectAll={false} value={selected} onChange={setSelected} overrideStrings={overrides} />
                 </div>
                 <label className={styles.part}>
-                    <span>解码：</span>
+                    <span>解密：</span>
                     <input type="checkbox" defaultChecked={encoding} onChange={e => setEncoding(e.target.checked)} />
                 </label>
             </div>
@@ -77,7 +77,7 @@ export default function CryptoText() {
                 {selected.map((item, index) => (
                     <div key={index}>
                         <span>{item.label}：</span>
-                        <span>{convert(item.value, source, encoding)}</span>
+                        <code>{convert(item.value, source, encoding)}</code>
                     </div>
                 ))}
             </div>

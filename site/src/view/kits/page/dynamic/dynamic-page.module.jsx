@@ -24,6 +24,28 @@ const linkOptions = {
 const ts = (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss');
 
 const columns = [{
+    name: '标题',
+    path: 'title',
+    formater: (value, row) => {
+        let unique = row.unique;
+        const labels = (pathGet(row, 'labels.nodes') || []).map(({ name }) => name);
+        if (labels.includes('X-TOPIC')) {
+            return (
+                <a href={`/notebook/${unique}`} title={row.title} {...linkOptions}>{value}</a>
+            );
+        } else {
+            let url = `/page/schema/${row.unique}`;
+            if (row.version) {
+                url += `-${row.version}`;
+                unique += ` - ${row.version}`;
+            }
+            return (
+                <a href={url} title={row.title} {...linkOptions}>{value}</a>
+            );
+        }
+
+    }
+}, {
     name: '模块',
     path: 'unique',
     formater: (value, row) => {

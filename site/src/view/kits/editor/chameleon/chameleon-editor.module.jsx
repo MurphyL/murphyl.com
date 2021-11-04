@@ -28,7 +28,7 @@ const jsonViewerOptions = {
     iconStyle: 'circle',
     quotesOnKeys: false,
     shouldCollapse: false,
-    enableClipboard: true,
+    enableClipboard: false,
     displayDataTypes: false,
     displayObjectSize: false
 };

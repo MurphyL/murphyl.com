@@ -19,28 +19,35 @@ link = '/about'
 
 [footer]
 
-[[footer.sitemap]]
+[footer.sitemap]
+label = '站点地图'
+
+[[footer.sitemap.links]]
 label = '博客'
 link = '/blog'
 
-[[footer.sitemap]]
+[[footer.sitemap.links]]
 label = '笔记'
 link = '/notebook'
 
-[[footer.sitemap]]
+[[footer.sitemap.links]]
 label = '动态页面'
 link = '/page/list'
 
+[footer.kits]
+label = '常用工具'
 
-
-[[footer.links]]
-label = '此间·我们'
-link = 'https://cijian.us'
-
-[[footer.links]]
+[[footer.kits.links]]
 label = '比较文本'
 link = '/kits/editor/difference'
 
-[[footer.links]]
+[[footer.kits.links]]
 label = '变色龙'
 link = '/kits/editor/chameleon'
+
+[footer.social]
+label = '友情链接'
+
+[[footer.social.links]]
+label = '此间·我们'
+link = 'https://cijian.us'

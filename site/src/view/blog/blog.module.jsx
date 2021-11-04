@@ -22,7 +22,7 @@ export function BlogPostSummary({ post }) {
     return (
         <div className={styles.post_summary}>
             <Link to={`/post/${post.number}`}>
-                <h2>{post.title}</h2>
+                <h3>{post.title}</h3>
             </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
                 <MarkdownViewer code={(excerpt || content)} />

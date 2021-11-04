@@ -5,24 +5,24 @@
 	border-top: 1px solid var(--shadow-color);
 }
 
-.root .sitemap {
+.root .navi {
 	display: flex;
 }
 
 
-.root .sitemap .section {
+.root .navi .section {
 	flex: 1;
 }
 
-.root .sitemap .section dt {
+.root .navi .section dt {
 	font-weight: 800;
 }
 
-.root .sitemap .section dd {
+.root .navi .section dd {
 	margin: 0;
 }
 
-.root .sitemap .section dd ul {
+.root .navi .section dd ul {
 	padding-left: 15px;
 	line-height: 25px;
 }

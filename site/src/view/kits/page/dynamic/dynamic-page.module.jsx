@@ -24,45 +24,21 @@ const linkOptions = {
 const ts = (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss');
 
 const columns = [{
-    name: '标题',
+    name: '模块',
     path: 'title',
     formater: (value, row) => {
-        let unique = row.unique;
         const labels = (pathGet(row, 'labels.nodes') || []).map(({ name }) => name);
         if (labels.includes('X-TOPIC')) {
             return (
-                <a href={`/notebook/${unique}`} title={row.title} {...linkOptions}>{value}</a>
+                <a href={`/notebook/${row.unique}`} title={row.title} {...linkOptions}>{value}</a>
             );
         } else {
             let url = `/page/schema/${row.unique}`;
             if (row.version) {
                 url += `-${row.version}`;
-                unique += ` - ${row.version}`;
             }
             return (
                 <a href={url} title={row.title} {...linkOptions}>{value}</a>
-            );
-        }
-
-    }
-}, {
-    name: '模块',
-    path: 'unique',
-    formater: (value, row) => {
-        let unique = value;
-        const labels = (pathGet(row, 'labels.nodes') || []).map(({ name }) => name);
-        if (labels.includes('X-TOPIC')) {
-            return (
-                <a href={`/notebook/${unique}`} title={row.title} {...linkOptions}>{unique}</a>
-            );
-        } else {
-            let url = `/page/schema/${row.unique}`;
-            if (row.version) {
-                url += `-${row.version}`;
-                unique += ` - ${row.version}`;
-            }
-            return (
-                <a href={url} title={row.title} {...linkOptions}>{unique}</a>
             );
         }
 

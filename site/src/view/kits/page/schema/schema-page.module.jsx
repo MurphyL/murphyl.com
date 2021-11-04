@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
+
+import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
 
 import { Loading } from 'plug/extra/status/status.module.jsx';
 
@@ -36,6 +38,9 @@ export function SchemaRenderer({ unique }) {
                 <title>{page.title} - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer code={source} />}
+            <DriftNavi postion={['bottom', 'right']}>
+                <Link to="/">首页</Link>
+            </DriftNavi>
         </div>
     );
 };

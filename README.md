@@ -31,6 +31,8 @@ git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/pl
 - [极客教程](https://geek-docs.com/)
 - [GraphQL Document - Queries and Mutations](https://graphql.org/learn/queries/)
 - [Atlaskit - Drawer](https://atlaskit.atlassian.com/packages/design-system/drawer)
+- jmespath
+- react-code-blocks
 
 ## 日期格式
 

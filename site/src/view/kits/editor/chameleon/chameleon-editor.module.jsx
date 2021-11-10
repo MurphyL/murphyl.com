@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { Helmet } from 'react-helmet-async';
 
+import YAML from 'js-yaml';
 import TOML from '@iarna/toml';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
@@ -11,6 +12,8 @@ import copy from 'copy-to-clipboard';
 import JSONViewer from 'react-json-view';
 import MonacoEditor from 'react-monaco-editor';
 import { CodeBlock } from '@atlaskit/code';
+
+import { MarkdownViewer } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import styles from './chameleon-editor.module.css';
 
@@ -53,9 +56,15 @@ const createEditorOptions = (type) => {
         case 'toml2json':
             options['language'] = 'toml';
             break;
+        case 'yaml2json':
+            options['language'] = 'toml';
+            break;
         case 'json2toml':
         case 'json_editor':
             options['language'] = 'json';
+            break;
+        case 'markdown_editor':
+            options['language'] = 'markdown';
             break;
         default:
     }
@@ -67,6 +76,12 @@ const convert = (type, code) => {
         case 'toml2json':
             try {
                 return TOML.parse(code);
+            } catch (e) {
+                return { error: 'TOML 转 JSON 出错！' };
+            }
+        case 'yaml2json':
+            try {
+                return YAML.load(code);
             } catch (e) {
                 return { error: 'TOML 转 JSON 出错！' };
             }
@@ -83,12 +98,14 @@ const convert = (type, code) => {
                 return { error: '解析 JSON 出错！' };
             }
         default:
+            return code;
     }
 };
 
 function ViewBoard({ type, code }) {
     switch (type) {
         case 'toml2json':
+        case 'yaml2json':
         case 'json_editor':
             return (
                 <JSONViewer src={code} {...jsonViewerOptions} />
@@ -99,6 +116,12 @@ function ViewBoard({ type, code }) {
                     <CodeBlock language="toml" text={code} />
                     <div className={styles.toolbar}>
                     </div>
+                </Fragment>
+            );
+        case 'markdown_editor':
+            return (
+                <Fragment>
+                    <MarkdownViewer code={code} />
                 </Fragment>
             );
         default:
@@ -123,7 +146,9 @@ function Chameleon() {
                         <select defaultValue={type} onChange={(e) => setType(e.target.value)}>
                             <option value="toml2json">TOML 编辑器</option>
                             <option value="json_editor">JSON 编辑器</option>
+                            <option value="yaml2json">YAML 转 JSON</option>
                             <option value="json2toml">JSON 转 TOML</option>
+                            <option value="markdown_editor">Markdown 编辑器</option>
                         </select>
                         <button onClick={() => copy(source)}>拷贝</button>
                         {(type === 'json2toml' || type === 'json_editor') && (

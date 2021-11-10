@@ -53,10 +53,10 @@ const editorOptions = {
 const createEditorOptions = (type) => {
     const options = editorOptions;
     switch (type) {
-        case 'toml2json':
+        case 'toml_editor':
             options['language'] = 'toml';
             break;
-        case 'yaml2json':
+        case 'yaml_editor':
             options['language'] = 'toml';
             break;
         case 'json2toml':
@@ -73,13 +73,13 @@ const createEditorOptions = (type) => {
 
 const convert = (type, code) => {
     switch (type) {
-        case 'toml2json':
+        case 'toml_editor':
             try {
                 return TOML.parse(code);
             } catch (e) {
                 return { error: 'TOML 转 JSON 出错！' };
             }
-        case 'yaml2json':
+        case 'yaml_editor':
             try {
                 return YAML.load(code);
             } catch (e) {
@@ -104,8 +104,8 @@ const convert = (type, code) => {
 
 function ViewBoard({ type, code }) {
     switch (type) {
-        case 'toml2json':
-        case 'yaml2json':
+        case 'toml_editor':
+        case 'yaml_editor':
         case 'json_editor':
             return (
                 <JSONViewer src={code} {...jsonViewerOptions} />
@@ -132,7 +132,7 @@ ViewBoard.displayName = 'ViewBoard';
 
 function Chameleon() {
     const { unique } = useParams();
-    const [type, setType] = useState(unique || 'toml2json');
+    const [type, setType] = useState(unique || 'toml_editor');
     const [source, setSource] = useState('# 输入内容……');
     return (
         <Fragment>
@@ -144,9 +144,9 @@ function Chameleon() {
                     <MonacoEditor {...createEditorOptions(type)} value={source} onChange={setSource} />
                     <div className={styles.toolbar}>
                         <select defaultValue={type} onChange={(e) => setType(e.target.value)}>
-                            <option value="toml2json">TOML 编辑器</option>
+                            <option value="toml_editor">TOML 编辑器</option>
                             <option value="json_editor">JSON 编辑器</option>
-                            <option value="yaml2json">YAML 转 JSON</option>
+                            <option value="yaml_editor">YAML 编辑器</option>
                             <option value="json2toml">JSON 转 TOML</option>
                             <option value="markdown_editor">Markdown 编辑器</option>
                         </select>

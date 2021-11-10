@@ -30,9 +30,6 @@
     height: 100%;
 }
 
-.root .viewer.wide {
-    width: 55%;
-}
 
 .root .toolbar {
     position: absolute;
@@ -44,7 +41,12 @@
     margin-right: 5px;
 }
 
-.root .toolbar select {
-    height: 22px;
-    line-height: 22px;
+.root .editor .toolbar button,
+.root .editor .toolbar select {
+    height: 30px;
+}
+
+.root .editor .toolbar select {
+    line-height: 30px;
+    outline: none;
 }

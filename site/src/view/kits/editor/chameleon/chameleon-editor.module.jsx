@@ -8,8 +8,8 @@ import TOML from '@iarna/toml';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 
-import MonacoEditor from 'react-monaco-editor';
 import JSONViewer from 'react-json-view';
+import MonacoEditor from 'react-monaco-editor';
 import { CodeBlock } from '@atlaskit/code';
 
 import styles from './chameleon-editor.module.css';
@@ -47,95 +47,70 @@ const editorOptions = {
     },
 };
 
-const viewerOptions = {
-    toml2json: {
-        editor: 'toml',
-        realtime: true,
-        render: (code) => {
+const createEditorOptions = (type) => {
+    const options = editorOptions;
+    switch (type) {
+        case 'toml2json':
+            options['language'] = 'toml';
+            break;
+        case 'json2toml':
+        case 'json_editor':
+            options['language'] = 'json';
+            break;
+        default:
+    }
+    return options;
+};
+
+const convert = (type, code) => {
+    switch (type) {
+        case 'toml2json':
             try {
                 return TOML.parse(code);
             } catch (e) {
                 return { error: 'TOML 转 JSON 出错！' };
             }
-        },
-        toolbar: (value) => (
-            <Fragment>
-                <button onClick={() => copy(JSON.stringify(value, null, '   '))}>拷贝</button>
-            </Fragment>
-        ),
-    },
-    json2toml: {
-        editor: 'json',
-        realtime: true,
-        render: (code) => {
+        case 'json2toml':
             try {
                 return TOML.stringify(JSON.parse(code));
             } catch (e) {
                 return '# JSON 转换为 TOML 出错！';
             }
-        },
-        toolbar: (value) => (
-            <Fragment>
-                <button onClick={() => copy(value)}>拷贝</button>
-            </Fragment>
-        ),
-    },
-    format_json: {
-        editor: 'json',
-        realtime: true,
-        render: (code) => {
+        case 'json_editor':
             try {
                 return JSON.parse(code);
             } catch (e) {
                 return { error: '解析 JSON 出错！' };
             }
-        },
-        toolbar: (value) => (
-            <Fragment>
-                <button onClick={() => copy(JSON.stringify(value, null, '   '))}>拷贝</button>
-            </Fragment>
-        ),
-    },
+        default:
+    }
 };
 
-function CodeViewer({ type, code }) {
+function ViewBoard({ type, code }) {
     switch (type) {
         case 'toml2json':
-        case 'format_json':
+        case 'json_editor':
             return (
                 <JSONViewer src={code} {...jsonViewerOptions} />
             );
         case 'json2toml':
             return (
-                <CodeBlock language="toml" text={code} />
+                <Fragment>
+                    <CodeBlock language="toml" text={code} />
+                    <div className={styles.toolbar}>
+                    </div>
+                </Fragment>
             );
         default:
-            return (
-                <CodeBlock language="shell" text="# 不支持的源码类型" />
-            );
     }
 }
 
-CodeViewer.displayName = 'CodeViewer';
+ViewBoard.displayName = 'ViewBoard';
 
 function Chameleon() {
     const { unique } = useParams();
     const [type, setType] = useState(unique || 'toml2json');
     const [source, setSource] = useState('# 输入内容……');
-    const [target, setTarget] = useState(source);
-    const onCodeChange = (source) => {
-        setSource(source);
-        if (viewerOptions[type].realtime) {
-            setTarget(source);
-        }
-    };
-    const option = viewerOptions[type];
-    if (!option) {
-        return (
-            <div>不支持的转换器</div>
-        );
-    }
-    const value = option.render(target);
     return (
         <Fragment>
             <Helmet>
@@ -143,21 +118,21 @@ function Chameleon() {
             </Helmet>
             <div className={styles.root}>
                 <div className={styles.editor}>
-                    <MonacoEditor language={option.editor} {...editorOptions} value={source} onChange={onCodeChange} />
+                    <MonacoEditor {...createEditorOptions(type)} value={source} onChange={setSource} />
                     <div className={styles.toolbar}>
-                        <select className={styles.type} defaultValue={type} onChange={(e) => setType(e.target.value)}>
-                            <option value="toml2json">TOML 转 JSON</option>
+                        <select defaultValue={type} onChange={(e) => setType(e.target.value)}>
+                            <option value="toml2json">TOML 编辑器</option>
+                            <option value="json_editor">JSON 编辑器</option>
                             <option value="json2toml">JSON 转 TOML</option>
-                            <option value="format_json">JSON 格式化</option>
                         </select>
                         <button onClick={() => copy(source)}>拷贝</button>
+                        {(type === 'json2toml' || type === 'json_editor') && (
+                            <button onClick={() => setSource(JSON.stringify(JSON.parse(source), null, 4))}>格式化</button>
+                        )}
                     </div>
                 </div>
-                <div className={classNames(styles.viewer, { [styles.wide]: option.wide })}>
-                    <CodeViewer type={type} code={value} />
-                    <div className={styles.toolbar}>
-                        {option.toolbar && option.toolbar(value)}
-                    </div>
+                <div className={classNames(styles.viewer)}>
+                    <ViewBoard type={type} code={convert(type, source)} />
                 </div>
             </div>
         </Fragment>
@@ -166,7 +141,7 @@ function Chameleon() {
 
 export default function ChameleonX() {
     const { unique } = useParams();
-    if(unique === 'x') {
+    if (unique === 'x') {
         return 'x';
     }
     return (

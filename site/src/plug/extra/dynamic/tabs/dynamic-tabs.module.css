@@ -1,0 +1,31 @@
+.root {
+    height: 100vh;
+}
+
+.root .keys .key {
+    display: inline-block;
+    
+    padding: 5px 25px;
+
+    cursor: pointer;
+}
+
+.root.navi .keys {
+    line-height: 30px;
+    border-bottom: 1px solid grey;
+}
+
+.root.navi .keys .key.selected {
+    border-bottom: 1px solid #2aa0ea;
+    background-color: var(--shadow-color);
+    opacity: 0.8;
+}
+
+.root .body {
+    height: calc(100% - 42px);
+}
+
+.root .body .content {
+    padding: 5px;
+    height: calc(100% - 5px * 2);
+}

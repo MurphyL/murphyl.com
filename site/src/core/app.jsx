@@ -15,6 +15,7 @@ import Home from 'view/home/home.module.jsx';
 import Blog from 'view/blog/blog.module.jsx';
 import Post from 'view/post/post.module.jsx';
 
+import JSONKits from 'view/kits/json/json-kits.module.jsx';
 import CryptoKit from 'view/kits/crypto/crypto.module.jsx';
 import Notebook from 'view/kits/notebook/notebook.module.jsx';
 
@@ -36,6 +37,7 @@ function SiteRouter() {
                     <Route path="/post/:unique" exact={true} component={Post} />
                     <Route path="/page/list" exact={true} component={DynamicPage} />
                     <Route path="/page/schema/:unique" exact={true} component={SchemaPage} />
+                    <Route path="/kits/json" exact={true} component={JSONKits} />
                     <Route path="/kits/crypto" exact={true} component={CryptoKit} />
                     <Route path={["/kits/editor/chameleon", "/kits/editor/chameleon/:unique"]} exact={true} component={ChameleonEditor} />
                     <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />

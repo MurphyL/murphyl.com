@@ -11,7 +11,7 @@ import copy from 'copy-to-clipboard';
 
 import JSONViewer from 'react-json-view';
 import MonacoEditor from 'react-monaco-editor';
-import { CodeBlock } from '@atlaskit/code';
+import { CodeBlock } from 'react-code-blocks';
 
 import { MarkdownViewer } from "plug/extra/markdown/v1/markdown-v1.module";
 

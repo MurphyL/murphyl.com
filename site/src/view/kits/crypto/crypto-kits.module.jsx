@@ -5,7 +5,7 @@ import { toBase64, fromBase64 } from 'js-base64';
 
 import Select from 'react-select';
 
-import styles from './crypto.module.css';
+import styles from './crypto-kits.module.css';
 
 const options = [
     { label: 'Base64', value: 'Base64' },

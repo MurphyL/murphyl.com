@@ -18,9 +18,7 @@ export default function Tabs({ children, type = 'default', selected: current = 0
                 ))}
             </div>
             <div className={styles.body}>
-                <div className={styles.content}>
-                    {tabs[selected]}
-                </div>
+                {tabs[selected]}
             </div>
         </div>
     );

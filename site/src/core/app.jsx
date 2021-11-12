@@ -3,6 +3,8 @@ import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import loadable from '@loadable/component';
+
 import site from 'cache/site.toml.json';
 import graphql from 'cache/graphql.toml.json';
 
@@ -10,20 +12,6 @@ import { MapperContext } from 'plug/extra/x-context.jsx';
 
 import { ErrorBoundary, Loading } from 'plug/extra/status/status.module.jsx';
 
-import Home from 'view/home/home.module.jsx';
-
-import Blog from 'view/blog/blog.module.jsx';
-import Post from 'view/post/post.module.jsx';
-
-import JSONKits from 'view/kits/json/json-kits.module.jsx';
-import CryptoKit from 'view/kits/crypto/crypto.module.jsx';
-import Notebook from 'view/kits/notebook/notebook.module.jsx';
-
-import ChameleonEditor from 'view/kits/editor/chameleon/chameleon-editor.module.jsx';
-import DifferenceEditor from 'view/kits/editor/difference/difference-editor.module.jsx';
-import { CronExpressionMaker, DockerCommandMaker } from 'view/kits/expression/maker/expression-maker.module.jsx';
-
-import DynamicPage from 'view/kits/page/dynamic/dynamic-page.module';
 import { SchemaPage, SchemaRenderer } from 'view/kits/page/schema/schema-page.module';
 
 function SiteRouter() {
@@ -31,19 +19,17 @@ function SiteRouter() {
         <MapperContext.Provider value={{ site, graphql }}>
             <BrowserRouter>
                 <Switch>
-                    <Route path="/" exact={true} component={Home} />
-                    <Route path="/blog" exact={true} component={Blog} />
+                    <Route path={['/', '/home']} exact={true} component={loadable(() => import('view/home/home.module'))} />
                     <Route path={["/about", "/about/:version"]} exact={true} children={<SchemaRenderer unique="about" />} />
-                    <Route path="/post/:unique" exact={true} component={Post} />
-                    <Route path="/page/list" exact={true} component={DynamicPage} />
+                    <Route path="/blog" exact={true} component={loadable(() => import('view/blog/blog.module'))} />
+                    <Route path="/post/:unique" exact={true} component={loadable(() => import('view/post/post.module'))} />
+                    <Route path="/page/list" exact={true} component={loadable(() => import('view/kits/page/dynamic/dynamic-page.module'))} />
+                    <Route path={['/notebook', '/notebook/:group', '/notebook/:group/:unique']} exact={true} component={loadable(() => import('view/kits/notebook/notebook.module'))} />
+                    <Route path="/kits/json" exact={true} component={loadable(() => import('view/kits/json/json-kits.module'))} />
+                    <Route path="/kits/crypto" exact={true} component={loadable(() => import('view/kits/crypto/crypto-kits.module'))} />
+                    <Route path="/kits/editor/difference" exact={true} component={loadable(() => import('view/kits/editor/difference/difference-editor.module'))} />
+                    <Route path={['/kits/editor/chameleon', '/kits/editor/chameleon/:unique']} exact={true} component={loadable(() => import('view/kits/editor/chameleon/chameleon-editor.module'))} />
                     <Route path="/page/schema/:unique" exact={true} component={SchemaPage} />
-                    <Route path="/kits/json" exact={true} component={JSONKits} />
-                    <Route path="/kits/crypto" exact={true} component={CryptoKit} />
-                    <Route path={["/kits/editor/chameleon", "/kits/editor/chameleon/:unique"]} exact={true} component={ChameleonEditor} />
-                    <Route path="/kits/editor/difference" exact={true} component={DifferenceEditor} />
-                    <Route path={["/notebook", "/notebook/:group", "/notebook/:group/:unique"]} exact={true} component={Notebook} />
-                    <Route path="/kits/expression/maker/cron" exact={true} component={CronExpressionMaker} />
-                    <Route path="/kits/expression/maker/docker" exact={true} component={DockerCommandMaker} />
                     <Route>404</Route>
                 </Switch>
             </BrowserRouter>

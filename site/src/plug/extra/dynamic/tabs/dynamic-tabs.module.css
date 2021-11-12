@@ -24,8 +24,3 @@
 .root .body {
     height: calc(100% - 42px);
 }
-
-.root .body .content {
-    padding: 5px;
-    height: calc(100% - 5px * 2);
-}

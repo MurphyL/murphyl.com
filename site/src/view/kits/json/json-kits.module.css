@@ -1,3 +1,5 @@
-.root .item {
-    height: 100%;
+.root .json_editor {
+    padding: 3px;
+    width: calc(100% - 3px * 2);
+    height: calc(100% - 3px * 2);
 }

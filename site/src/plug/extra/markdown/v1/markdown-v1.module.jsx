@@ -5,7 +5,8 @@ import classNames from 'classnames';
 import { get as pathGet } from 'object-path';
 
 import ReactMarkdown from 'react-markdown';
-import { Code, CodeBlock } from '@atlaskit/code';
+
+import { CodeBlock } from "react-code-blocks";
 
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
@@ -38,10 +39,12 @@ const options = {
         },
         code: ({ inline, children, className }) => {
             if (inline) {
-                return <Code className={styles.code}>{children}</Code>;
+                return <span className={styles.code}>{children}</span>;
             } else {
                 const language = className ? className.replace(/^language-/, '') : null;
-                return <CodeBlock className="x" language={language} text={children.join('\n').trim()} />;
+                return (
+                    <CodeBlock showLineNumbers={true} language={language} text={children.join('\n').trim()} />
+                );
             }
         },
         blockquote: ({children}) => <blockquote className={styles.blockquote}>{children}</blockquote>

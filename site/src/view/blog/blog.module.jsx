@@ -45,9 +45,11 @@ function BlogList() {
                 <title>博客 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             <div className={styles.root}>
-                {(issues || []).map((issue, index) => (
+                {(issues && Array.isArray(issues) && issues.length) ? (issues || []).map((issue, index) => (
                     <PostSummary key={index} post={issue} />
-                ))}
+                )) : (
+                    <div>暂无文章……</div>
+                )}
             </div>
         </Fragment>
     );

@@ -19,6 +19,7 @@ const Router = () => useRoutes([{
         { path: '/blog', element: createElement(loadable(() => import('view/blog/blog.module'))) },
         { path: '/post/:unique', element: createElement(loadable(() => import('view/post/post.module'))) },
         { path: '/page/list', element: createElement(loadable(() => import('view/kits/page/dynamic/dynamic-page.module'))) },
+        { path: '/kits/json', element: createElement(loadable(() => import('view/kits/json/json-kits.module'))) },
         {
             path: '/notebook',
             element: createElement(loadable(() => import('view/kits/notebook/notebook.module'))),

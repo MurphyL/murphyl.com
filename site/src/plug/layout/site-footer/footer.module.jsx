@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { get as pathGet } from 'object-path';
 import classNames from 'classnames';
 
@@ -20,7 +20,9 @@ export default function Footer({ className, ...extra }) {
                             <ul>
                                 {(links || []).map((item, index) => (
                                     <li key={index}>
-                                        <Link to={item.link} rel="noopener noreferrer">{item.label}</Link>
+                                        <Link to={item.link} rel="noopener noreferrer">
+                                            <a>{item.label}</a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>

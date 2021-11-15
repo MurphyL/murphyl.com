@@ -1,5 +1,5 @@
-import React, { Fragment, Suspense } from 'react';
-import { useParams } from "react-router-dom";
+import React, { Fragment, Suspense, memo } from 'react';
+
 import { useRecoilValue } from 'recoil';
 import { Helmet } from 'react-helmet-async';
 
@@ -13,8 +13,7 @@ import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './post.module.css';
 
-function MarkdownPost() {
-    const { unique } = useParams();
+const MarkdownPost = memo(({ unique }) => {
     const post = useRecoilValue(callGithubAPI({
         key: 'get-issue-details',
         issue_number: parseInt(unique),
@@ -35,13 +34,13 @@ function MarkdownPost() {
             </article>
         </Fragment>
     );
-};
+});
 
-export default function Post() {
+export default function Post({ params }) {
     return (
         <SiteLayout>
             <Suspense fallback={<Loading />}>
-                <MarkdownPost />
+                <MarkdownPost {...params} />
             </Suspense>
         </SiteLayout>
     );

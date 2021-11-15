@@ -24,10 +24,10 @@
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
     "react-monaco-editor": "^0.46.0",
-    "react-router-dom": "^6.0.2",
     "react-select": "^5.2.1",
     "react-split-views": "^1.0.4",
-    "recoil": "latest"
+    "recoil": "latest",
+    "wouter": "^2.8.0-alpha.2"
   },
   "scripts": {
     "toml": "toml2json src/core/site.toml src/core/graphql.toml src/cache/",

@@ -1,7 +1,8 @@
-import React, { StrictMode, createElement } from 'react';
+import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter, Outlet, useRoutes } from "react-router-dom";
+
+import { Router, Route } from "wouter";
 
 import loadable from '@loadable/component';
 
@@ -12,14 +13,25 @@ import { MapperContext } from 'plug/extra/x-context.jsx';
 
 import { ErrorBoundary } from 'plug/extra/status/status.module.jsx';
 
+/** 
 const Router = () => useRoutes([{
     path: '/',
     children: [
-        { index: true, element: createElement(loadable(() => import('view/home/home.module'))) },
-        { path: '/blog', element: createElement(loadable(() => import('view/blog/blog.module'))) },
-        { path: '/post/:unique', element: createElement(loadable(() => import('view/post/post.module'))) },
-        { path: '/page/list', element: createElement(loadable(() => import('view/kits/page/dynamic/dynamic-page.module'))) },
-        { path: '/kits/json', element: createElement(loadable(() => import('view/kits/json/json-kits.module'))) },
+        {
+            index: true, element: createElement(loadable(() => import('view/home/home.module')))
+        },
+        {
+            path: '/blog', element: createElement(loadable(() => import('view/blog/blog.module')))
+        },
+        {
+            path: '/post/:unique', element: createElement(loadable(() => import('view/post/post.module')))
+        },
+        {
+            path: '/page/list', element: createElement(loadable(() => import('view/kits/page/dynamic/dynamic-page.module')))
+        },
+        {
+            path: '/kits/json', element: createElement(loadable(() => import('view/kits/json/json-kits.module')))
+        },
         {
             path: '/notebook',
             element: createElement(loadable(() => import('view/kits/notebook/notebook.module'))),
@@ -34,7 +46,7 @@ const Router = () => useRoutes([{
         },
     ]
 }]);
-
+*/
 /**
 function SiteRouter() {
     return (
@@ -64,9 +76,15 @@ export default function App() {
                 <ErrorBoundary>
                     <RecoilRoot>
                         <MapperContext.Provider value={{ site, graphql }}>
-                            <BrowserRouter>
-                                <Router />
-                            </BrowserRouter>
+                            <Router>
+                                <Route path="/" component={loadable(() => import('view/home/home.module'))} />
+                                <Route path="/blog" component={loadable(() => import('view/blog/blog.module'))} />
+                                <Route path="/post/:unique" component={loadable(() => import('view/post/post.module'))} />
+                                <Route path="/page/list" component={loadable(() => import('view/kits/page/dynamic/dynamic-page.module'))} />
+                                <Route path="/kits/json" component={loadable(() => import('view/kits/json/json-kits.module'))} />
+                                <Route path="/kits/crypto" component={loadable(() => import('view/kits/crypto/crypto-kits.module'))} />
+                                <Route path="/kits/editor/chameleon" component={loadable(() => import('view/kits/editor/chameleon/chameleon-editor.module'))} />
+                            </Router>
                         </MapperContext.Provider>
                     </RecoilRoot>
                 </ErrorBoundary>

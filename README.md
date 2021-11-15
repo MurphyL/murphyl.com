@@ -3,6 +3,7 @@ npm i -S --legacy-peer-deps pkg-name
 
 npm config set legacy-peer-deps true
 
+yarn upgrade --latest
 
 git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/plug/drc
 ```

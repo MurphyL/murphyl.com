@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from "react-router-dom";
@@ -25,7 +25,7 @@ const get = (rows, group, unique) => {
     return result;
 };
 
-export default function Notebook() {
+function Board() {
     const { group, unique } = useParams();
     // 转换，排序
     const topics = (useRecoilValue(callGithubAPI(params)) || []).map((issue) => {
@@ -93,3 +93,11 @@ export default function Notebook() {
         </div>
     );
 };
+
+export default function Notebook() {
+    return (
+        <Suspense fallback={<div>londing……</div>}>
+            <Board />
+        </Suspense>
+    );
+}

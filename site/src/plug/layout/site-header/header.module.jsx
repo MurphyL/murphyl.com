@@ -11,7 +11,7 @@ import styles from './header.module.css';
 
 function NavItem(option) {
     return (
-        <NavLink className={styles.navi_item} to={option.link} activeClassName={styles.selected} exact={true}>
+        <NavLink className={styles.navi_item} to={option.link}>
             <span className={styles.navi_text}>{option.label}</span>
         </NavLink>
     );

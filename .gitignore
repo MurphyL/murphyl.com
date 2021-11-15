@@ -4,6 +4,7 @@ site/build/
 
 site/src/cache
 
+yarn.lock
 package-lock.json
 
 # misc

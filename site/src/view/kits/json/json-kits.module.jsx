@@ -9,6 +9,14 @@ import DynamicPage from "plug/extra/dynamic/page/dynamic-page.module";
 
 import styles from './json-kits.module.css';
 
+/**
+ * - https://jsonlint.com/
+ * - https://www.npmjs.com/package/flat
+ * - https://www.npmjs.com/package/ajv
+ * - https://www.npmjs.com/package/parse-json
+ * - https://jsonformatter.curiousconcept.com/
+ */
+
 export default function JSONKits() {
     return (
         <DynamicPage className={styles.root} title="JSON 工具集">

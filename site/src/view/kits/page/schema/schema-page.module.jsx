@@ -1,11 +1,6 @@
-import React, { Suspense } from 'react';
-import { Link, useParams } from "react-router-dom";
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
-
-import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
-
-import { Loading } from 'plug/extra/status/status.module.jsx';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
@@ -15,7 +10,7 @@ import renderer from 'plug/extra/schema-options.jsx';
 
 import styles from './schema-page.module.css';
 
-export function SchemaRenderer({ unique }) {
+export default function SchemaRenderer({ unique }) {
     const pages = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
         ghp_labels: `X-PAGE`,
@@ -26,7 +21,7 @@ export function SchemaRenderer({ unique }) {
         const { content, ...meta } = parseMarkdown(body);
         mapper[meta.unique] = { ...info, ...meta, source: content };
         if (meta.version) {
-            mapper[`${meta.unique}-${meta.version}`] = { ...info, ...meta, source: content };
+            mapper[`${meta.unique}-${meta.version}`] = mapper[meta.unique];
         }
     });
     const page = mapper[unique] || { title: 'NOT FOUND', text: '404', type: 'toml/schema' };
@@ -38,19 +33,6 @@ export function SchemaRenderer({ unique }) {
                 <title>{page.title} - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer code={source} />}
-            <DriftNavi postion={['bottom', 'right']}>
-                <Link to="/">首页</Link>
-            </DriftNavi>
         </div>
-    );
-};
-
-
-export function SchemaPage() {
-    const { unique } = useParams();
-    return (
-        <Suspense fallback={<Loading />}>
-            <SchemaRenderer unique={unique} />
-        </Suspense>
     );
 };

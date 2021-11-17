@@ -20,6 +20,8 @@ import Home from 'view/home/home.module';
 import Blog from 'view/blog/blog.module';
 import Post from 'view/post/post.module';
 
+import SchemaRenderer from 'view/kits/page/schema/schema-page.module';
+
 const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
 
 const DynamicPage = loadable(() => import('view/kits/page/dynamic/dynamic-page.module'));
@@ -36,6 +38,9 @@ const Views = () => useRoutes([{
     }, {
         path: 'post/:unique',
         element: <Dynamic title="文章" children={<Post />} />
+    }, {
+        path: 'about',
+        element: <Dynamic title="关于" children={<SchemaRenderer unique="about-v2" />} />
     }]
 }, {
     path: '/kits',

@@ -5,8 +5,6 @@ import { Link, useParams } from "react-router-dom";
 
 import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
 
-import { Loading } from 'plug/extra/status/status.module.jsx';
-
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -48,13 +46,13 @@ export default function Notebook() {
                     {topics.map((group, index) => (
                         <Fragment key={index}>
                             <dt>
-                                <Link to={`/notebook/${group.unique}`}>{group.title}</Link>
+                                <Link to={`/kits/notebook/${group.unique}`}>{group.title}</Link>
                             </dt>
                             <dd>
                                 <ul>
                                     {group.children.map(({ unique, title }, index) => (
                                         <li key={index}>
-                                            <Link to={`/notebook/${group.unique}/${unique}`}>{title || unique}</Link>
+                                            <Link to={`/kits/notebook/${group.unique}/${unique}`}>{title || unique}</Link>
                                         </li>
                                     ))}
                                 </ul>

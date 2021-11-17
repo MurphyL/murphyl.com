@@ -24,14 +24,12 @@ export const Error = ({ message }) => {
 
 export const Dynamic = ({ children, title }) => {
 	return (
-		<Fragment>
+		<Suspense fallback={<Loading />}>
 			<Helmet>
 				<title>{(title ? `${title} - ` : '') + process.env.REACT_APP_TITLE}</title>
 			</Helmet>
-			<Suspense fallback={<Loading />}>
-				{children}
-			</Suspense>
-		</Fragment>
+			{children}
+		</Suspense>
 	);
 };
 

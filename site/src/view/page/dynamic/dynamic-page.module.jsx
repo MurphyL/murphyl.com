@@ -1,10 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { useRecoilValue } from 'recoil';
-import { Helmet } from 'react-helmet-async';
-import { Link } from "wouter";
-
-import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
 
 import dayjs from 'dayjs';
 import { get as pathGet } from 'object-path';
@@ -73,14 +69,6 @@ export default function DynamicPage() {
         path: 'data.repository.issues.nodes'
     })).map(({ body, ...meta }) => ({ ...meta, ...parseMarkdown(body) }));
     return (
-        <Fragment>
-            <Helmet>
-                <title>动态页面 - {process.env.REACT_APP_TITLE}</title>
-            </Helmet>
-            <DynamicTable className={styles.root} columns={columns} rows={pages} valueGetter={(row, path) => pathGet(row, path)} />
-            <DriftNavi postion={['bottom', 'right']}>
-                <Link to="/">首页</Link>
-            </DriftNavi>
-        </Fragment>
+        <DynamicTable className={styles.root} columns={columns} rows={pages} valueGetter={(row, path) => pathGet(row, path)} />
     );
 }

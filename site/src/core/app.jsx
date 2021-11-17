@@ -20,11 +20,11 @@ import Home from 'view/home/home.module';
 import Blog from 'view/blog/blog.module';
 import Post from 'view/post/post.module';
 
-import SchemaRenderer from 'view/kits/page/schema/schema-page.module';
+import SchemaViewer from 'view/page/schema/schema-page.module';
 
 const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
 
-const DynamicPage = loadable(() => import('view/kits/page/dynamic/dynamic-page.module'));
+const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
 const Views = () => useRoutes([{
     path: '/',
@@ -40,7 +40,7 @@ const Views = () => useRoutes([{
         element: <Dynamic title="文章" children={<Post />} />
     }, {
         path: 'about',
-        element: <Dynamic title="关于" children={<SchemaRenderer unique="about-v2" />} />
+        element: <Dynamic title="关于" children={<SchemaViewer unique="about-v2" />} />
     }]
 }, {
     path: '/kits',
@@ -69,28 +69,6 @@ const Views = () => useRoutes([{
     element: <div>404</div>
 }]);
 
-/**
-function SiteRouter() {
-    return (
-        <MapperContext.Provider value={{ site, graphql }}>
-            <BrowserRouter>
-                <Route path={['/', '/home']} exact={true} component={loadable(() => import('view/home/home.module'))} />
-                <Route path={["/about", "/about/:version"]} exact={true} children={<SchemaRenderer unique="about" />} />
-                <Route path="/blog" exact={true} component={loadable(() => import('view/blog/blog.module'))} />
-                <Route path="/post/:unique" exact={true} component={loadable(() => import('view/post/post.module'))} />
-                <Route path="/page/list" exact={true} component={loadable(() => import('view/kits/page/dynamic/dynamic-page.module'))} />
-                <Route path={['/notebook', '/notebook/:group', '/notebook/:group/:unique']} exact={true} component={loadable(() => import('view/kits/notebook/notebook.module'))} />
-                <Route path="/kits/json" exact={true} component={loadable(() => import('view/kits/json/json-kits.module'))} />
-                <Route path="/kits/crypto" exact={true} component={loadable(() => import('view/kits/crypto/crypto-kits.module'))} />
-                <Route path="/kits/editor/difference" exact={true} component={loadable(() => import('view/kits/editor/difference/difference-editor.module'))} />
-                <Route path={['/kits/editor/chameleon', '/kits/editor/chameleon/:unique']} exact={true} component={loadable(() => import('view/kits/editor/chameleon/chameleon-editor.module'))} />
-                <Route path="/page/schema/:unique" exact={true} component={SchemaPage} />
-                <Route>404</Route>
-            </BrowserRouter>
-        </MapperContext.Provider>
-    )
-};
- */
 export default function App() {
     return (
         <StrictMode>
@@ -101,15 +79,6 @@ export default function App() {
                             <BrowserRouter>
                                 <Views />
                             </BrowserRouter>
-                            {/* <Router>
-                                <Route path="/" component={loadable(() => import('view/home/home.module'))} />
-                                <Route path="/blog" component={loadable(() => import('view/blog/blog.module'))} />
-                                <Route path="/post/:unique" component={loadable(() => import('view/post/post.module'))} />
-                                <Route path="/page/list" component={loadable(() => import('view/kits/page/dynamic/dynamic-page.module'))} />
-                                <Route path="/kits/json" component={loadable(() => import('view/kits/json/json-kits.module'))} />
-                                <Route path="/kits/crypto" component={loadable(() => import('view/kits/crypto/crypto-kits.module'))} />
-                                <Route path="/kits/editor/chameleon" component={loadable(() => import('view/kits/editor/chameleon/chameleon-editor.module'))} />
-                            </Router> */}
                         </MapperContext.Provider>
                     </RecoilRoot>
                 </ErrorBoundary>

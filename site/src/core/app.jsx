@@ -6,8 +6,8 @@ import { BrowserRouter, useRoutes } from "react-router-dom";
 
 import loadable from '@loadable/component';
 
-import site from 'cache/site.toml.json';
-import graphql from 'cache/graphql.toml.json';
+import site from 'data/cache/site.toml.json';
+import graphql from 'data/cache/graphql.toml.json';
 
 import { MapperContext } from 'plug/extra/x-context';
 

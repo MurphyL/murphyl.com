@@ -31,7 +31,7 @@
     "wouter": "^2.8.0-alpha.2"
   },
   "scripts": {
-    "toml": "toml2json -v src/core/site.toml src/core/graphql.toml src/cache/",
+    "toml": "toml2json -v src/data/site.toml src/data/graphql.toml src/data/cache/",
     "prestart": "npm run toml",
     "prebuild": "npm run toml",
     "start": "react-scripts start",

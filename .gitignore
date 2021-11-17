@@ -3,6 +3,7 @@ node_modules/
 site/build/
 
 site/src/cache
+site/src/data/cache
 
 yarn.lock
 package-lock.json

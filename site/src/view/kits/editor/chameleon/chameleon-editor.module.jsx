@@ -1,7 +1,5 @@
 import React, { Fragment, useState } from "react";
 
-import { useParams } from "react-router-dom";
-
 import { Helmet } from 'react-helmet-async';
 
 import YAML from 'js-yaml';
@@ -131,9 +129,10 @@ function ViewBoard({ type, code }) {
 ViewBoard.displayName = 'ViewBoard';
 
 function Chameleon() {
-    const { unique } = useParams();
+    // const { unique } = useParams();
     const [type, setType] = useState(unique || 'toml_editor');
     const [source, setSource] = useState('# 输入内容……');
+    const unique = 'x';
     return (
         <Fragment>
             <Helmet>
@@ -164,11 +163,8 @@ function Chameleon() {
     );
 }
 
-export default function ChameleonX() {
-    const { unique } = useParams();
-    if (unique === 'x') {
-        return 'x';
-    }
+export default function ChameleonX(params) {
+    console.log(params);
     return (
         <Chameleon />
     );

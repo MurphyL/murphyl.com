@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import { useRecoilValue } from 'recoil';
 import { Helmet } from 'react-helmet-async';
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
 

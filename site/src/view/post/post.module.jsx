@@ -2,10 +2,7 @@ import React, { Fragment, Suspense, memo } from 'react';
 
 import { useRecoilValue } from 'recoil';
 import { Helmet } from 'react-helmet-async';
-
-import { Loading } from 'plug/extra/status/status.module';
-
-import SiteLayout from "plug/layout/site-layout/site-layout.module.jsx";
+import { useParams } from "react-router-dom";
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
@@ -13,7 +10,8 @@ import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import styles from './post.module.css';
 
-const MarkdownPost = memo(({ unique }) => {
+const MarkdownPost = memo(() => {
+    const { unique } = useParams();
     const post = useRecoilValue(callGithubAPI({
         key: 'get-issue-details',
         issue_number: parseInt(unique),
@@ -36,12 +34,4 @@ const MarkdownPost = memo(({ unique }) => {
     );
 });
 
-export default function Post({ params }) {
-    return (
-        <SiteLayout>
-            <Suspense fallback={<Loading />}>
-                <MarkdownPost {...params} />
-            </Suspense>
-        </SiteLayout>
-    );
-};
+export default MarkdownPost;

@@ -28,7 +28,7 @@ link = '/blog'
 
 [[footer.sitemap.links]]
 label = '笔记'
-link = '/notebook'
+link = '/kits/notebook'
 
 [[footer.sitemap.links]]
 label = '动态页面'

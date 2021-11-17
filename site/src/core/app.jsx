@@ -2,51 +2,68 @@ import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { Router, Route } from "wouter";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 
 import loadable from '@loadable/component';
 
 import site from 'cache/site.toml.json';
 import graphql from 'cache/graphql.toml.json';
 
-import { MapperContext } from 'plug/extra/x-context.jsx';
+import { MapperContext } from 'plug/extra/x-context';
 
-import { ErrorBoundary } from 'plug/extra/status/status.module.jsx';
+import { Dynamic, ErrorBoundary } from 'plug/extra/status/status.module';
 
-/** 
-const Router = () => useRoutes([{
+import DriftLayout from "plug/layout/drift-layout/drift-layout.module";
+import SiteLayout from "plug/layout/site-layout/site-layout.module";
+
+import Home from 'view/home/home.module';
+import Blog from 'view/blog/blog.module';
+import Post from 'view/post/post.module';
+
+const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
+
+const DynamicPage = loadable(() => import('view/kits/page/dynamic/dynamic-page.module'));
+
+const Views = () => useRoutes([{
     path: '/',
-    children: [
-        {
-            index: true, element: createElement(loadable(() => import('view/home/home.module')))
-        },
-        {
-            path: '/blog', element: createElement(loadable(() => import('view/blog/blog.module')))
-        },
-        {
-            path: '/post/:unique', element: createElement(loadable(() => import('view/post/post.module')))
-        },
-        {
-            path: '/page/list', element: createElement(loadable(() => import('view/kits/page/dynamic/dynamic-page.module')))
-        },
-        {
-            path: '/kits/json', element: createElement(loadable(() => import('view/kits/json/json-kits.module')))
-        },
-        {
-            path: '/notebook',
-            element: createElement(loadable(() => import('view/kits/notebook/notebook.module'))),
-            children: [{
-                path: '/notebook/:group',
-                element: <Outlet />,
-                children: [{
-                    path: '/notebook/:group/:unique',
-                    element: <Outlet />,
-                }]
-            }]
-        },
-    ]
+    element: <SiteLayout />,
+    children: [{
+        index: true,
+        element: <Home />
+    }, {
+        path: 'blog',
+        element: <Dynamic title="博客" children={<Blog />} />
+    }, {
+        path: 'post/:unique',
+        element: <Dynamic title="文章" children={<Post />} />
+    }]
+}, {
+    path: '/kits',
+    element: <DriftLayout />,
+    children: [{
+        path: 'cli/manual',
+        element: <div>hello</div>
+    }, {
+        path: 'json',
+        element: <div>json</div>
+    }, {
+        path: 'crypto',
+        element: <div>crypto</div>
+    }, {
+        path: 'notebook',
+        element: <Dynamic title="笔记" children={<Notebook />} />
+    }, {
+        path: '*',
+        element: <div>未实现工具</div>
+    }]
+}, {
+    path: '/page/list',
+    element: <Dynamic title="动态页面" children={<DynamicPage />} />
+}, {
+    path: '*',
+    element: <div>404</div>
 }]);
-*/
+
 /**
 function SiteRouter() {
     return (
@@ -76,7 +93,10 @@ export default function App() {
                 <ErrorBoundary>
                     <RecoilRoot>
                         <MapperContext.Provider value={{ site, graphql }}>
-                            <Router>
+                            <BrowserRouter>
+                                <Views />
+                            </BrowserRouter>
+                            {/* <Router>
                                 <Route path="/" component={loadable(() => import('view/home/home.module'))} />
                                 <Route path="/blog" component={loadable(() => import('view/blog/blog.module'))} />
                                 <Route path="/post/:unique" component={loadable(() => import('view/post/post.module'))} />
@@ -84,7 +104,7 @@ export default function App() {
                                 <Route path="/kits/json" component={loadable(() => import('view/kits/json/json-kits.module'))} />
                                 <Route path="/kits/crypto" component={loadable(() => import('view/kits/crypto/crypto-kits.module'))} />
                                 <Route path="/kits/editor/chameleon" component={loadable(() => import('view/kits/editor/chameleon/chameleon-editor.module'))} />
-                            </Router>
+                            </Router> */}
                         </MapperContext.Provider>
                     </RecoilRoot>
                 </ErrorBoundary>

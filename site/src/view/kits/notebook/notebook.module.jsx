@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 
 import DriftNavi from 'plug/extra/drift-navi/drift-navi.module';
 
+import { Loading } from 'plug/extra/status/status.module.jsx';
+
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -25,7 +27,7 @@ const get = (rows, group, unique) => {
     return result;
 };
 
-function Board() {
+export default function Notebook() {
     const { group, unique } = useParams();
     // 转换，排序
     const topics = (useRecoilValue(callGithubAPI(params)) || []).map((issue) => {
@@ -93,11 +95,3 @@ function Board() {
         </div>
     );
 };
-
-export default function Notebook() {
-    return (
-        <Suspense fallback={<div>londing……</div>}>
-            <Board />
-        </Suspense>
-    );
-}

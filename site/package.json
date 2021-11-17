@@ -6,6 +6,7 @@
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "@loadable/component": "^5.15.0",
+    "@monaco-editor/react": "^4.3.1",
     "ajv": "^8.7.1",
     "axios": "latest",
     "classnames": "^2.3.1",
@@ -23,12 +24,11 @@
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
-    "react-monaco-editor": "^0.46.0",
     "react-router-dom": "^6.0.2",
     "react-select": "^5.2.1",
     "react-split-views": "^1.0.4",
-    "recoil": "latest",
-    "wouter": "^2.8.0-alpha.2"
+    "react-toast": "^1.0.3",
+    "recoil": "latest"
   },
   "scripts": {
     "toml": "toml2json -v src/data/site.toml src/data/graphql.toml src/data/cache/",

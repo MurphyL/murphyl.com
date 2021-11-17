@@ -1,8 +1,8 @@
 import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
-
 import { BrowserRouter, useRoutes } from "react-router-dom";
+
 
 import loadable from '@loadable/component';
 
@@ -22,8 +22,8 @@ import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
+const JSONKits = loadable(() => import('view/kits/json/json-kits.module'));
 const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
-
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
 const Views = () => useRoutes([{
@@ -50,7 +50,7 @@ const Views = () => useRoutes([{
         element: <div>hello</div>
     }, {
         path: 'json',
-        element: <div>json</div>
+        element: <Dynamic title="JSON 工具集" children={<JSONKits />} />
     }, {
         path: 'crypto',
         element: <div>crypto</div>
@@ -63,7 +63,7 @@ const Views = () => useRoutes([{
     }]
 }, {
     path: '/page/list',
-    element: <Dynamic title="动态页面" children={<DynamicPage />} />
+    element: <DriftLayout children={<Dynamic title="动态页面" children={<DynamicPage />} />} />
 }, {
     path: '*',
     element: <div>404</div>

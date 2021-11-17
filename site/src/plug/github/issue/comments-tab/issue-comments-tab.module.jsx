@@ -6,7 +6,7 @@ import { get as pathGet } from 'object-path';
 import renderSchema from 'plug/extra/schema-options.jsx';
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
-import DynamicLink from 'plug/extra/dynamic/link/dynamic-link.module';
+import DynamicLink from 'plug/dynamic/link/dynamic-link.module';
 
 import styles from './issue-comments-tab.module.css';
 

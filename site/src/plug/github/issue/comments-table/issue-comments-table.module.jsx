@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import { get as pathGet } from 'object-path';
 
-import DynamicTable from 'plug/extra/dynamic/table/dynamic-table.module';
+import DynamicTable from 'plug/dynamic/table/dynamic-table.module';
 
 // import DynamicTable from '@murphyl/drc-table';
 

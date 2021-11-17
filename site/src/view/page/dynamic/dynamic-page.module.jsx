@@ -7,7 +7,7 @@ import { get as pathGet } from 'object-path';
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
-import DynamicTable from 'plug/extra/dynamic/table/dynamic-table.module';
+import DynamicTable from 'plug/dynamic/table/dynamic-table.module';
 import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import styles from './dynamic-page.module.css';

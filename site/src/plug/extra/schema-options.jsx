@@ -13,9 +13,9 @@ import IssueComments from "plug/github/issue/comments-tab/issue-comments-tab.mod
 
 import IssueCommentsTable from "plug/github/issue/comments-table/issue-comments-table.module";
 
-import DynamicLink from "plug/extra/dynamic/link/dynamic-link.module";
-import DynamicList from "plug/extra/dynamic/list/dynamic-list.module";
-import DynamicTable from "plug/extra/dynamic/table/dynamic-table.module";
+import DynamicLink from "plug/dynamic/link/dynamic-link.module";
+import DynamicList from "plug/dynamic/list/dynamic-list.module";
+import DynamicTable from "plug/dynamic/table/dynamic-table.module";
 
 const renderer = new ReactJsonSchema();
 

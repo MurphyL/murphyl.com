@@ -58,12 +58,12 @@ function Footer({ className, ...extra }) {
     );
 }
 
-export default function SiteLayout() {
+export default function SiteLayout({ children }) {
     return (
         <Fragment>
             <Header />
             <main className={styles.main}>
-                <Outlet />
+                {children ? children : <Outlet />}
             </main>
             <Footer />
         </Fragment>

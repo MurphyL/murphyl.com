@@ -13,7 +13,7 @@ export default function Tabs({ children, type = 'default', selected: current = 0
             <div className={styles.keys}>
                 {tabs.map((child, index) => (
                     <div key={index} className={classNames(styles.key, { [styles.selected]: selected === index })} onClick={() => setSelected(index)}>
-                        {child.props.title || `Tab ${index + 1}`}
+                        {child.props.name || `Tab ${index + 1}`}
                     </div>
                 ))}
             </div>

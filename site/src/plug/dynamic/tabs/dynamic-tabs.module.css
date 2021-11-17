@@ -23,4 +23,5 @@
 
 .root .body {
     height: calc(100% - 42px);
+    overflow-y: hidden;
 }

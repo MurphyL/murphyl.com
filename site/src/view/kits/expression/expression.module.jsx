@@ -3,8 +3,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import durationFormat from 'format-duration';
 
-import { NaviTabs } from "plug/dynamic/tabs/dynamic-tabs.module";
-import { DynamicTable } from "plug/dynamic/table/dynamic-table.module";
+import { DynamicTable, NaviTabs } from "plug/dynamic";
 
 import styles from './expression.module.css';
 

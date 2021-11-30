@@ -34,6 +34,7 @@ git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/pl
 - [Atlaskit - Drawer](https://atlaskit.atlassian.com/packages/design-system/drawer)
 - jmespath
 - react-code-blocks
+- https://www.npmjs.com/package/react-splitter-layout
 
 ## 日期格式
 

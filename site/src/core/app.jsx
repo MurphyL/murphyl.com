@@ -26,6 +26,8 @@ const JSONKits = loadable(() => import('view/kits/json/json-kits.module'));
 const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
+const Expression = loadable(() => import('view/kits/expression/expression.module'));
+
 const Views = () => useRoutes([{
     path: '/',
     element: <SiteLayout />,
@@ -51,6 +53,9 @@ const Views = () => useRoutes([{
     }, {
         path: 'json',
         element: <Dynamic title="JSON 工具集" children={<JSONKits />} />
+    }, {
+        path: 'expression',
+        element: <Dynamic title="表达式工具集" children={<Expression />} />
     }, {
         path: 'crypto',
         element: <div>crypto</div>

@@ -1,12 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { ToastContainer, toast } from 'react-toast'
 import classNames from "classnames";
 
 import CodeEditor from "plug/extra/code-editor";
 
-import Tabs from "plug/dynamic/tabs/dynamic-tabs.module";
-import DynamicPage from "plug/dynamic/page/dynamic-page.module";
+import { NaviTabs } from "plug/dynamic/tabs/dynamic-tabs.module";
 
 import styles from './json-kits.module.css';
 
@@ -28,16 +27,16 @@ const validate = (rows) => {
 export default function JSONKits() {
     const editor = <CodeEditor language="json" onValidate={validate} />;
     return (
-        <DynamicPage className={styles.root} title="JSON 工具集">
-            <Tabs type="navi" logo={'Hello'}>
+        <Fragment>
+            <NaviTabs logo={'Hello'}>
                 <div className={styles.json_editor} name="JSON 编辑器">
                     {editor}
                 </div>
                 <div className={classNames(styles.json_editor)} name="JSON 转 CSV">
                     {editor}
                 </div>
-            </Tabs>
+            </NaviTabs>
             <ToastContainer position="bottom-left" />
-        </DynamicPage>
+        </Fragment>
     );
 }

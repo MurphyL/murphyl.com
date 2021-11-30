@@ -5,11 +5,11 @@ import classNames from "classnames";
 
 import styles from './dynamic-tabs.module.css';
 
-export default function Tabs({ children, type = 'default', selected: current = 0 }) {
+export default function Tabs({ className, children, selected: current = 0 }) {
     const [selected, setSelected] = useState(current);
     const tabs = Children.toArray(children);
     return (
-        <div className={classNames(styles.root, styles[type])}>
+        <div className={classNames(styles.root, className)}>
             <div className={styles.keys}>
                 {tabs.map((child, index) => (
                     <div key={index} className={classNames(styles.key, { [styles.selected]: selected === index })} onClick={() => setSelected(index)}>
@@ -21,5 +21,11 @@ export default function Tabs({ children, type = 'default', selected: current = 0
                 {tabs[selected]}
             </div>
         </div>
+    );
+}
+
+export function NaviTabs({ className, ...extra }) {
+    return (
+        <Tabs className={classNames(styles.navi, className)} {...extra} />
     );
 }

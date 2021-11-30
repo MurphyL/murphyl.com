@@ -50,4 +50,44 @@ export default function DataTable({ className, valueGetter = defaultValueGetter,
         </div>
 
     );
+};
+
+export function DynamicTable({ className, columns = [], data = [], hideHeaders = false }) {
+    if (!Array.isArray(columns)) {
+        return (
+            <span>数据表字段配置错误</span>
+        );
+    }
+    if (columns.length === 0) {
+        return (
+            <span>数据表字段个数必须大于0</span>
+        );
+    }
+    if (!Array.isArray(data)) {
+        return (
+            <span>数据值不是数组</span>
+        );
+    }
+    return (
+        <table className={classNames(styles.root, className)}>
+            {!hideHeaders && (
+                <thead>
+                    <tr>
+                        {columns.map(({ name }, index) => (
+                            <th key={index}>{name || '-'}</th>
+                        ))}
+                    </tr>
+                </thead>
+            )}
+            <tbody>
+                {(data.length > 0) ? (
+                    data.map((row, ri) => (
+                        <tr data-row-number={ri + 1}></tr>
+                    ))
+                ) : (
+                    <span>没有数据</span>
+                )}
+            </tbody>
+        </table>
+    );
 }

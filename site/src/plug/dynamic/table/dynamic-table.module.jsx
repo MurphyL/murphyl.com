@@ -74,7 +74,7 @@ export function DynamicTable({ className, columns = [], data = [], hideHeaders =
                 <thead>
                     <tr>
                         {columns.map(({ name }, index) => (
-                            <th key={index}>{name || nullValuePlaceholder}</th>
+                            <th key={index} data-column-number={index + 1}>{name || nullValuePlaceholder}</th>
                         ))}
                     </tr>
                 </thead>
@@ -84,7 +84,7 @@ export function DynamicTable({ className, columns = [], data = [], hideHeaders =
                     data.map((row, ri) => (
                         <tr key={ri} data-row-number={ri + 1}>
                             {columns.map(({ name }, ci) => (
-                                <td key={ci}>{row[name] || nullValuePlaceholder}</td>
+                                <td key={ci} data-column-number={ci + 1}>{row[name] || nullValuePlaceholder}</td>
                             ))}
                         </tr>
                     ))

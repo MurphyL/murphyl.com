@@ -85,7 +85,11 @@ export function DynamicTable({ className, columns = [], data = [], hideHeaders =
                         <tr data-row-number={ri + 1}></tr>
                     ))
                 ) : (
-                    <span>没有数据</span>
+                    <tr>
+                        <td colSpan={columns.length}>
+                            <div style={{ textAlign: 'center', lineHeight: '5rem' }}>暂无数据</div>
+                        </td>
+                    </tr>
                 )}
             </tbody>
         </table>

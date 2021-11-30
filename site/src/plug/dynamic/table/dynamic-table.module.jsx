@@ -52,7 +52,7 @@ export default function DataTable({ className, valueGetter = defaultValueGetter,
     );
 };
 
-export function DynamicTable({ className, columns = [], data = [], hideHeaders = false, nullValuePlaceholder='-' }) {
+export function DynamicTable({ className, columns = [], data = [], hideHeaders = false, nullValuePlaceholder = '-' }) {
     if (!Array.isArray(columns)) {
         return (
             <span>数据表字段配置错误</span>

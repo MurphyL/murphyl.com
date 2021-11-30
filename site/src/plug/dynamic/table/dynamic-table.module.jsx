@@ -52,7 +52,7 @@ export default function DataTable({ className, valueGetter = defaultValueGetter,
     );
 };
 
-export function DynamicTable({ className, columns = [], data = [], hideHeaders = false }) {
+export function DynamicTable({ className, columns = [], data = [], hideHeaders = false, nullValuePlaceholder='-' }) {
     if (!Array.isArray(columns)) {
         return (
             <span>数据表字段配置错误</span>
@@ -74,7 +74,7 @@ export function DynamicTable({ className, columns = [], data = [], hideHeaders =
                 <thead>
                     <tr>
                         {columns.map(({ name }, index) => (
-                            <th key={index}>{name || '-'}</th>
+                            <th key={index}>{name || nullValuePlaceholder}</th>
                         ))}
                     </tr>
                 </thead>
@@ -82,7 +82,11 @@ export function DynamicTable({ className, columns = [], data = [], hideHeaders =
             <tbody>
                 {(data.length > 0) ? (
                     data.map((row, ri) => (
-                        <tr data-row-number={ri + 1}></tr>
+                        <tr key={ri} data-row-number={ri + 1}>
+                            {columns.map(({ name }, ci) => (
+                                <td key={ci}>{row[name] || nullValuePlaceholder}</td>
+                            ))}
+                        </tr>
                     ))
                 ) : (
                     <tr>

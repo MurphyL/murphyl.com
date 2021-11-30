@@ -25,14 +25,16 @@ const formatDuration = (hours, minutes, seconds) => {
 
 function CronExpressionMaker() {
     const [ expr, setExpr ] = useState('0 0 1 * * ? *');
-    const desc = (text) => {
-        const parts = text.trim().split(/\s/);
+    const parts = expr.trim().split(/\s/);
+    const desc = () => {
         if(parts.length !== 7) {
             return setExpr('解析表达式错误');
         }
         const time = formatDuration(parts[2], parts[1], parts[0]);
         return `${time}`;
     };
+    const fileds = [ 'second', 'minute', 'hour', 'day', 'month', 'week', 'year' ];
+    const values = [Object.fromEntries(fileds.map((part, index) => ([ part,  parts[index]])))];
     return (
         <div className={classNames(styles.kit, styles.maker, styles.cron)}>
             <div>
@@ -47,21 +49,7 @@ function CronExpressionMaker() {
             </div>
             <div>
                 <div>Parsing Details</div>
-                <DynamicTable hideHeaders={false} columns={[{
-                    name: 'second'
-                }, {
-                    name: 'minute'
-                }, {
-                    name: 'hour'
-                }, {
-                    name: 'day'
-                }, {
-                    name: 'month'
-                }, {
-                    name: 'week'
-                }, {
-                    name: 'year'
-                }]} />
+                <DynamicTable columns={fileds.map((part) => ({ name: part }))} data={values} hideHeaders={false} nullValuePlaceholder='-' />
             </div>
             <ul>
                 <li>

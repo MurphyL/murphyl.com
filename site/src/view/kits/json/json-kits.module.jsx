@@ -15,6 +15,7 @@ import styles from './json-kits.module.css';
  * - https://www.npmjs.com/package/ajv
  * - https://www.npmjs.com/package/parse-json
  * - https://jsonformatter.curiousconcept.com/
+ * - https://www.jstoolset.com/json-formatter
  */
 
 const validate = (rows) => {
@@ -28,11 +29,11 @@ export default function JSONKits() {
     const editor = <CodeEditor language="json" onValidate={validate} />;
     return (
         <Fragment>
-            <NaviTabs logo={'Hello'}>
-                <div className={styles.json_editor} name="JSON 编辑器">
+            <NaviTabs className={styles.root} logo={ <b>JSON 工具集</b> }>
+                <div className={styles.item} name="JSON 编辑器">
                     {editor}
                 </div>
-                <div className={classNames(styles.json_editor)} name="JSON 转 CSV">
+                <div className={classNames(styles.item)} name="JSON 转 CSV">
                     {editor}
                 </div>
             </NaviTabs>

@@ -1,12 +1,4 @@
-:global(body),
-:global(#root),
-.root {
-    height: 100%;
-}
-
-.root .json_editor {
-    overflow-y: hidden;
+.root .item {
     padding: 3px;
-    width: calc(100% - 3px * 2);
     height: calc(100% - 3px * 2);
 }

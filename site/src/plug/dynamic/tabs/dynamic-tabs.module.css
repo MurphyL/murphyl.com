@@ -2,12 +2,17 @@
     height: 100vh;
 }
 
-.root .keys .key {
+.root .keys .key,
+.root .keys .logo {
     display: inline-block;
     padding: 5px 25px;
-
-    font-size: 12px;
+    
     cursor: pointer;
+    user-select: none;
+}
+
+.root .keys .key {
+    font-size: 12px;
 }
 
 .root.navi .keys {

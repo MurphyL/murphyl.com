@@ -33,8 +33,11 @@ function CronExpressionMaker() {
         const time = formatDuration(parts[2], parts[1], parts[0]);
         return `${time}`;
     };
-    const fileds = ['second', 'minute', 'hour', 'day', 'month', 'week', 'year'];
-    const values = [Object.fromEntries(fileds.map((part, index) => ([part, parts[index]])))];
+    const fileds = ['second', 'minute', 'hour', 'day of month', 'month', 'day of week', 'year'];
+    const values = [
+        Object.fromEntries(fileds.map((part, index) => ([part, parts[index]]))),
+        Object.fromEntries(fileds.map((part) => ([part, part]))),
+    ];
     return (
         <div className={classNames(styles.kit, styles.maker, styles.cron)}>
             <div>
@@ -49,7 +52,7 @@ function CronExpressionMaker() {
             </div>
             <div>
                 <div>Parsing Details</div>
-                <DynamicTable columns={fileds.map((part) => ({ name: part }))} data={values} hideHeaders={false} nullValuePlaceholder='-' />
+                <DynamicTable columns={fileds.map((part) => ({ name: part }))} data={values} hideHeaders={true} nullValuePlaceholder='-' />
             </div>
             <ul>
                 <li>

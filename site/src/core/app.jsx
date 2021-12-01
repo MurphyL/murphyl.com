@@ -3,7 +3,6 @@ import { RecoilRoot } from 'recoil';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 
-
 import loadable from '@loadable/component';
 
 import site from 'data/cache/site.toml.json';
@@ -21,6 +20,7 @@ import Blog from 'view/blog/blog.module';
 import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
+
 
 const JSONKits = loadable(() => import('view/kits/json/json-kits.module'));
 const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
@@ -46,7 +46,6 @@ const Views = () => useRoutes([{
     }]
 }, {
     path: '/kits',
-    element: <DriftLayout />,
     children: [{
         path: 'cli/manual',
         element: <div>hello</div>

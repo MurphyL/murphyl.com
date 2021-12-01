@@ -1,11 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import { ToastContainer, toast } from 'react-toast'
 import classNames from "classnames";
 
+
 import CodeEditor from "plug/extra/code-editor";
 
 import { NaviTabs } from "plug/dynamic/tabs/dynamic-tabs.module";
+
+import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './json-kits.module.css';
 
@@ -26,18 +29,26 @@ const validate = (rows) => {
 };
 
 export default function JSONKits() {
-    const editor = <CodeEditor language="json" onValidate={validate} />;
+    const [value, setValue] = useState('{}');
+    const editor = <CodeEditor language="json" onValidate={validate} value={value} onChange={setValue} />;
     return (
         <Fragment>
-            <NaviTabs className={styles.root} logo={ <b>JSON 工具集</b> }>
+            <NaviTabs className={styles.root} logo={<b>JSON 工具集</b>}>
                 <div className={styles.item} name="JSON 编辑器">
-                    {editor}
+                    <div className={styles.editor}>
+                        {editor}
+                    </div>
+                    <DriftToolbar className={styles.toolbar}>
+                        <button onClick={() => { setValue(JSON.stringify(JSON.parse(value), null, 4)) }}>Beautify</button>
+                        <button onClick={() => { setValue(JSON.stringify(JSON.parse(value))) }}>Minify</button>
+                    </DriftToolbar>
                 </div>
                 <div className={classNames(styles.item)} name="JSON 转 CSV">
                     {editor}
                 </div>
             </NaviTabs>
             <ToastContainer position="bottom-left" />
+
         </Fragment>
     );
 }

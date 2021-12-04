@@ -29,7 +29,7 @@ export default function PostList() {
     const issues = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
         ghp_labels: 'X-BLOG',
-        path: 'data.repository.issues.nodes'
+        path: '$.data.repository.issues.nodes'
     }));
     console.log('blog', issues);
     return (

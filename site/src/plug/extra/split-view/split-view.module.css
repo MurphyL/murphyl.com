@@ -1,8 +1,12 @@
-.root :global(.sp-gutter) {
-    background-color: var(--shadow-color);
+.root {
+    width: 100%;
+    height: 100%;
 }
 
-.root:global(.horizontal .sp-gutter) {
-    border-left: 3px solid var(--shadow-color);
-    border-right: 3px solid var(--shadow-color);
+.root.horizontal {
+    display: flex;
+}
+
+.root :global(.gutter) {
+    background-color: var(--shadow-color);
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import dayjs from 'dayjs';
-import { get as pathGet } from 'object-path';
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
 
@@ -23,7 +23,7 @@ const columns = [{
     name: '模块',
     path: 'title',
     formater: (value, row) => {
-        const labels = (pathGet(row, 'labels.nodes') || []).map(({ name }) => name);
+        const labels = (JSONPath({json: row, path: '$.labels.nodes', wrap: false}) || []).map(({ name }) => name);
         if (labels.includes('X-TOPIC')) {
             return (
                 <a href={`/notebook/${row.unique}`} title={row.title} {...linkOptions}>{value}</a>
@@ -41,23 +41,23 @@ const columns = [{
     }
 }, {
     name: '标签',
-    path: 'labels.nodes',
+    path: '$.labels.nodes',
     align: 'center',
     formater: (value) => value.map(({ name }) => name).join('，')
 }, {
     name: '类型',
-    path: 'type',
+    path: '$.type',
     align: 'center',
 }, {
     name: '发布时间',
-    path: 'publishedAt',
+    path: '$.publishedAt',
     align: 'center',
     formater: (value, row) => {
         return `${ts(value)} / ${ts(row.updatedAt)}`
     }
 }, {
     name: '操作',
-    path: 'url',
+    path: '$.url',
     align: 'center',
     formater: (value) => (<a href={value} target="_blank" rel="noopener noreferrer">编辑</a>)
 }];
@@ -66,9 +66,9 @@ export default function DynamicPage() {
     const pages = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
         ghp_labels: [`X-PAGE`, `X-TOPIC`],
-        path: 'data.repository.issues.nodes'
+        path: '$.data.repository.issues.nodes'
     })).map(({ body, ...meta }) => ({ ...meta, ...parseMarkdown(body) }));
     return (
-        <DynamicTable className={styles.root} columns={columns} rows={pages} valueGetter={(row, path) => pathGet(row, path)} />
+        <DynamicTable className={styles.root} columns={columns} rows={pages} valueGetter={(row, path) => JSONPath({json: row, path, wrap: false})} />
     );
 }

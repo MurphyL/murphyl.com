@@ -15,7 +15,7 @@ const MarkdownPost = memo(() => {
     const post = useRecoilValue(callGithubAPI({
         key: 'get-issue-details',
         issue_number: parseInt(unique),
-        path: 'data.repository.issue'
+        path: '$.data.repository.issue'
     }));
     const { meta, content } = parseMarkdown(post.body);
     console.log('文章', unique, meta, post);

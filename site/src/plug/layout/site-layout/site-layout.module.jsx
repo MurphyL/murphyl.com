@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from 'react';
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 import classNames from 'classnames';
-import { get as pathGet } from 'object-path';
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import { MapperContext } from 'plug/extra/x-context';
 
@@ -18,7 +18,7 @@ function Header({ className, ...extra }) {
                 <span>{process.env.REACT_APP_TITLE}</span>
             </Link>
             <nav className={classNames(styles.navi, { show })}>
-                {(pathGet(site, 'headr.navi') || []).map((item, index) => (
+                {(JSONPath({ json: site, path: '$.headr.navi', wrap: false }) || []).map((item, index) => (
                     <Link key={index} to={item.link} className={classNames(styles.navi_item, { [styles.selected]: pathname === item.link })}>
                         <span className={styles.navi_text}>{item.label}</span>
                     </Link>
@@ -34,7 +34,7 @@ function Footer({ className, ...extra }) {
     return (
         <footer className={classNames(className, styles.footer)} {...extra}>
             <div className={styles.navi}>
-                {Object.entries(pathGet(site, 'footer') || {}).map(([key, { label, links }], index) => (
+                {Object.entries(JSONPath({ json: site, path: '$.footer', wrap: false }) || {}).map(([key, { label, links }], index) => (
                     <dl key={index} className={classNames(styles.section, styles[key])} data-group={key}>
                         <dt>{label}</dt>
                         <dd>

@@ -2,7 +2,7 @@ import React from "react";
 
 import dayjs from 'dayjs';
 
-import { get as pathGet } from 'object-path';
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import DynamicTable from 'plug/dynamic/table/dynamic-table.module';
 
@@ -16,7 +16,7 @@ import styles from './issue-comments-table.module.css';
 
 const defaultColumns = [{
     name: 'Module',
-    path: 'unique',
+    path: '$.unique',
     formater: (value, row) => {
         switch (row.type) {
             case 'toml/schema':
@@ -27,11 +27,11 @@ const defaultColumns = [{
     }
 }, {
     name: 'Published At',
-    path: 'publishedAt',
+    path: '$.publishedAt',
     formater: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss')
 }, {
     name: 'Description',
-    path: 'description',
+    path: '$.description',
 }];
 
 export default function IssueCommentsTable({ columns, comments }) {
@@ -40,6 +40,6 @@ export default function IssueCommentsTable({ columns, comments }) {
         return { ...meta, ...parseMarkdown(body) };
     });
     return (
-        <DynamicTable className={styles.root} value={(row, path) => pathGet(row, path)} columns={cols} rows={nodes} />
+        <DynamicTable className={styles.root} value={(row, path) => JSONPath({json: row, path: path, wrap: false})} columns={cols} rows={nodes} />
     );
 }

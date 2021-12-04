@@ -4,7 +4,7 @@ import { selectorFamily } from 'recoil';
 import axios from 'axios';
 import TOML from '@iarna/toml';
 
-import { get as pathGet } from 'object-path';
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import { MapperContext } from 'plug/extra/x-context';
 
@@ -44,7 +44,7 @@ export const callGithubAPI = selectorFamily({
                 Authorization: `bearer ${process.env.REACT_APP_GHP_TOKEN}`,
             }
         }).then(({ status, data }) => {
-            return status === 200 ? (path ? pathGet(data, path) : data) : null;
+            return status === 200 ? (path ? JSONPath({json: data, path, wrap: false}) : data) : null;
         }).catch(err => {
             console.error('Github API 调用出错：', err.message);
             return null;

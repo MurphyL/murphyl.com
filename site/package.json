@@ -5,29 +5,27 @@
   "license": "MIT",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "@icons-pack/react-simple-icons": "^4.6.1",
     "@loadable/component": "^5.15.0",
     "@monaco-editor/react": "^4.3.1",
-    "ajv": "^8.7.1",
     "axios": "latest",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
     "dayjs": "^1.10.7",
-    "flat": "^5.0.2",
     "format-duration": "^1.4.0",
     "gray-matter": "^4.0.3",
-    "js-base64": "^3.7.2",
-    "object-path": "^0.11.8",
-    "parse-json": "^6.0.0",
+    "jsonpath-plus-browser": "^5.0.6",
+    "parse-json": "^5.2.0",
     "react": "^17.0.2",
-    "react-code-blocks": "^0.0.9-0",
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.1.2",
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
+    "react-monaco-editor": "^0.46.0",
     "react-router-dom": "^6.0.2",
-    "react-select": "^5.2.1",
-    "react-split-views": "^1.0.4",
+    "react-split": "^2.0.13",
+    "react-tabs": "^3.2.3",
     "react-toast": "^1.0.3",
     "recoil": "latest"
   },
@@ -54,7 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@murphyl/toml2json": "^1.2.0",
+    "@murphyl/toml2json": "latest",
     "react-scripts": "latest"
   }
 }

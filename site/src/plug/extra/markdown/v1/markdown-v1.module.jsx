@@ -2,11 +2,9 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { get as pathGet } from 'object-path';
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import ReactMarkdown from 'react-markdown';
-
-import { CodeBlock } from "react-code-blocks";
 
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
@@ -31,7 +29,7 @@ const options = {
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
         pre: ({ children, node }) => {
             const options = {
-                className: (pathGet(node, 'children.0.tagName') === 'code') ? styles.code_block : styles.prepare
+                className: (JSONPath({json: node, path: '$.children.0.tagName', wrap: false}) === 'code') ? styles.code_block : styles.prepare
             };
             return (
                 <pre {...options}>{children}</pre>
@@ -43,7 +41,9 @@ const options = {
             } else {
                 const language = className ? className.replace(/^language-/, '') : null;
                 return (
-                    <CodeBlock showLineNumbers={true} language={language} text={children.join('\n').trim()} />
+                    <div showLineNumbers={true} language={language}>
+                        {children.join('\n').trim()}
+                    </div>
                 );
             }
         },

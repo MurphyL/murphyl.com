@@ -1,14 +1,20 @@
 .root {
-    position: fixed;
+    position: absolute;
 
     padding: 10px;
     border: 2px solid var(--shadow-color);
 
-    opacity: 0.2;
+    opacity: 0.5;
+
+    user-select: none;
 }
 
 .root:hover {
     opacity: 1;
+}
+
+.root.right {
+    right: 10px;
 }
 
 .root.bottom {
@@ -17,4 +23,23 @@
 
 .root.left {
     left: 10px;
+}
+
+.root svg,
+.root button,
+.root input {
+    margin-right: 5px;
+}
+
+.root button,
+.root input {
+    padding: 5px 10px;
+}
+
+.root input {
+    width: 45px;
+}
+
+.root svg {
+    vertical-align: middle;
 }

@@ -14,7 +14,7 @@ import styles from './notebook.module.css';
 const params = {
     key: 'query-issue-comments',
     ghp_labels: 'X-TOPIC',
-    path: 'data.repository.issues.nodes'
+    path: '$.data.repository.issues.nodes'
 };
 
 const get = (rows, group, unique) => {

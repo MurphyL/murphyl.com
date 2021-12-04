@@ -1,11 +1,15 @@
 import React from "react";
 
-import ReactSplitView from 'react-split-views';
+import classNames from 'classnames';
+
+import Split from 'react-split';
 
 import styles from './split-view.module.css';
 
-export default function SplitView({ children }) {
+export default function SplitView({ children, type = 'horizontal', ...extra }) {
     return (
-        <ReactSplitView className={styles.root}>{children}</ReactSplitView>
+        <Split className={classNames(styles.root, styles[type])} gutterSize={5} direction={type} {...extra}>
+            {children}
+        </Split>
     )
 }

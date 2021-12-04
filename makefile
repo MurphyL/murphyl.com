@@ -9,5 +9,5 @@ options=-e REACT_APP_GHP_ISSUE_STATES="OPEN,CLOSED" -e REACT_APP_GHP_TOKEN=$(GHP
 start: 
 	docker run --rm -it --name $(CONTAINER) $(options) -v $(CURDIR)/$(VERSION):/usr/murph murphyl/nodejs npm run start
 
-install: 
-	docker run --rm -it --name $(CONTAINER) $(options) -v $(CURDIR)/$(VERSION):/usr/murph murphyl/nodejs npm install
+vm: 
+	docker run --rm -it --name $(CONTAINER) $(options) -v $(CURDIR)/$(VERSION):/usr/murph murphyl/nodejs

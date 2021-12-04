@@ -14,7 +14,7 @@ export default function SchemaRenderer({ unique }) {
     const pages = useRecoilValue(callGithubAPI({
         key: 'query-issue-comments',
         ghp_labels: `X-PAGE`,
-        path: 'data.repository.issues.nodes'
+        path: '$.data.repository.issues.nodes'
     }));
     const mapper = {};
     (pages || []).forEach(({ body, ...info }) => {

@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 
 import classNames from 'classnames';
-import { get as pathGet } from 'object-path';
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import renderSchema from 'plug/extra/schema-options.jsx';
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -40,7 +40,7 @@ export default function IssueComments({ title, comments }) {
                 </div>
             </div>
             <div className={styles.board}>
-                <IssueComment {...(pathGet(nodes, [tab]) || { component: 'div', text: 'Nothing~' })} />
+                <IssueComment {...(JSONPath({json: nodes, path: `$.${tab}`, wrap: false}) || { component: 'div', text: 'Nothing~' })} />
             </div>
         </div>
     );

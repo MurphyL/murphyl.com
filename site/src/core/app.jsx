@@ -24,6 +24,7 @@ import SchemaViewer from 'view/page/schema/schema-page.module';
 
 const JSONKits = loadable(() => import('view/kits/json/json-kits.module'));
 const Notebook = loadable(() => import('view/kits/notebook/notebook.module'));
+const TextDiffer = loadable(() => import('view/kits/text-differ/text-differ.module'));
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
 const Expression = loadable(() => import('view/kits/expression/expression.module'));
@@ -50,6 +51,9 @@ const Views = () => useRoutes([{
     children: [{
         path: 'json',
         element: <Dynamic title="JSON 工具集" children={<JSONKits />} />
+    }, {
+        path: 'text-differ',
+        element: <Dynamic title="文本比较" children={<TextDiffer />} />
     }, {
         path: 'expression',
         element: <Dynamic title="表达式工具集" children={<Expression />} />

@@ -39,11 +39,11 @@ label = '常用工具'
 
 [[footer.kits.links]]
 label = '比较文本'
-link = '/kits/editor/difference'
+link = '/kits/text-differ'
 
 [[footer.kits.links]]
-label = '变色龙'
-link = '/kits/editor/chameleon'
+label = 'JSON 工具集'
+link = '/kits/json'
 
 [footer.social]
 label = '友情链接'

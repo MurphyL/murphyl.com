@@ -28,6 +28,7 @@
 .root svg,
 .root button,
 .root select,
+.root label,
 .root input {
     margin-right: 5px;
 }
@@ -47,7 +48,7 @@
     height: 30px;
 }
 
-.root input {
+.root input:not([type="checkbox"]) {
     width: 45px;
 }
 

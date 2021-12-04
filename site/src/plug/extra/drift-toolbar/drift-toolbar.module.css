@@ -27,13 +27,24 @@
 
 .root svg,
 .root button,
+.root select,
 .root input {
     margin-right: 5px;
 }
 
 .root button,
+.root select,
 .root input {
     padding: 5px 10px;
+}
+
+.root input,
+.root select {
+    outline: none;
+}
+
+.root select {
+    height: 30px;
 }
 
 .root input {

@@ -42,6 +42,10 @@ label = '比较文本'
 link = '/kits/text-differ'
 
 [[footer.kits.links]]
+label = 'SQL 工具集'
+link = '/kits/sql'
+
+[[footer.kits.links]]
 label = 'JSON 工具集'
 link = '/kits/json'
 

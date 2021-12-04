@@ -22,7 +22,6 @@
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
-    "react-monaco-editor": "^0.46.0",
     "react-router-dom": "^6.0.2",
     "react-split": "^2.0.13",
     "react-tabs": "^3.2.3",

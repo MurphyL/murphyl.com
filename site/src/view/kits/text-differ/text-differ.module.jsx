@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 
 import { Helmet } from 'react-helmet-async';
 
-import { MonacoDiffEditor } from "react-monaco-editor";
+import { DiffEditor } from "@monaco-editor/react";
+
+// import Editor from "@monaco-editor/react";
 
 import styles from './text-differ.module.css';
 
@@ -23,7 +25,7 @@ export default function DifferenceEditor() {
                 <title>文本比较 - {process.env.REACT_APP_TITLE}</title>
             </Helmet>
             <div className={styles.root}>
-                <MonacoDiffEditor {...editorOptions} />
+                <DiffEditor {...editorOptions} />
             </div>
         </Fragment>
     );

@@ -133,13 +133,7 @@ export default function JSONKits() {
                     <SplitView sizes={[50, 50]} minSize={[500, 500]}>
                         {editor}
                         <div className={styles.viewer}>
-                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting} value={(typeof (parsed) === 'string') ? parsed : TOML.stringify(parsed)} onChange={text => {
-                                try {
-                                    setValue(JSON.stringify(TOML.parse(text), null, indent));
-                                } catch (e) {
-
-                                }
-                            }} />
+                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting} value={(typeof (parsed) === 'string') ? parsed : TOML.stringify(parsed)} />
                         </div>
                     </SplitView>
                 </div>

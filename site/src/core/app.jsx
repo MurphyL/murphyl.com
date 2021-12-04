@@ -46,10 +46,8 @@ const Views = () => useRoutes([{
     }]
 }, {
     path: '/kits',
+    element: <DriftLayout />,
     children: [{
-        path: 'cli/manual',
-        element: <div>hello</div>
-    }, {
         path: 'json',
         element: <Dynamic title="JSON 工具集" children={<JSONKits />} />
     }, {

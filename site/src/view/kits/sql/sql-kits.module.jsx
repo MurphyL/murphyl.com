@@ -41,7 +41,7 @@ function SQLFormatter() {
                 <button onClick={() => {
                     setValue(format(value, {
                         language: 'postgresql',
-                        indent: Array(parseInt(indent) + 1).join(' '),
+                        indent: Array(parseInt(indent)).fill(' ').join(''),
                         uppercase: upper, // Defaults to false
                         linesBetweenQueries: 2, // Defaults to 1
                     }));

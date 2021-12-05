@@ -3,17 +3,18 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 
 import { format } from 'sql-formatter';
-import * as x from "@icons-pack/react-simple-icons";
+import { Sqlite } from "@icons-pack/react-simple-icons";
 
 import Editor from "@monaco-editor/react";
 
 import { NaviTabs } from "plug/dynamic/dynamic.module";
+import { Dynamic } from 'plug/extra/status/status.module';
+import CodeBlock from 'plug/extra/code-block/code-block.module';
+import SchemaViewer from 'view/page/schema/schema-page.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './sql-kits.module.css';
 
-const {Sqlite} = x;
-console.log(x);
 
 const editorSetting = {
     loading: '正在初始化……',
@@ -62,15 +63,22 @@ function SQLFormatter() {
 
 export default function SQLKits(params) {
     return (
-        <NaviTabs  logo={
+        <NaviTabs logo={
             <Link to="/" className={styles.logo_link} title="返回首页">
                 <Sqlite color="#003B57" />
                 <b>JSON 工具集</b>
             </Link>
         }>
             <SQLFormatter name="SQL 格式化" />
-            <div name="SQL 代码片段"></div>
-            <div name="SQL 帮助文档"></div>
+            <div name="SQL 代码片段">
+                <CodeBlock language="text/css" code={`
+                    /* Some example CSS */
+                    @import url("something.css");
+                `} />
+            </div>
+            <div name="SQL 帮助文档">
+                <Dynamic title="关于" children={<SchemaViewer unique="about-v2" />} />
+            </div>
             <div name="SQL 窗口函数"></div>
         </NaviTabs>
     );

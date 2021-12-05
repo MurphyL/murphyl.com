@@ -66,7 +66,13 @@ const Views = () => useRoutes([{
         element: <div>crypto</div>
     }, {
         path: 'notebook',
-        element: <Dynamic title="笔记" children={<Notebook />} />
+        children: [{
+            path: ':group',
+            children: [{
+                path: ':unique',
+                element: <Dynamic title="笔记" children={<Notebook />} />
+            }]
+        }],
     }, {
         path: '*',
         element: <div>未实现工具</div>

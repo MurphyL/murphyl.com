@@ -9,6 +9,8 @@ import ReactMarkdown from 'react-markdown';
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
 
+import CodeBlock from 'plug/extra/code-block/code-block.module';
+
 import styles from './markdown-v1.module.css';
 
 // https://www.npmjs.com/package/react-markdown
@@ -28,12 +30,13 @@ const options = {
         ol: ({ children }) => <ol className={classNames(styles.list)}>{children}</ol>,
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
         pre: ({ children, node }) => {
-            const options = {
-                className: (JSONPath({json: node, path: '$.children.0.tagName', wrap: false}) === 'code') ? styles.code_block : styles.prepare
-            };
-            return (
-                <pre {...options}>{children}</pre>
-            );
+            if(JSONPath({json: node, path: '$.children.0.tagName', wrap: false}) === 'code') {
+                return children;
+            } else {
+                return (
+                    <pre className={styles.prepare}>{children}</pre>
+                );
+            }
         },
         code: ({ inline, children, className }) => {
             if (inline) {
@@ -41,9 +44,7 @@ const options = {
             } else {
                 const language = className ? className.replace(/^language-/, '') : null;
                 return (
-                    <div showLineNumbers={true} language={language}>
-                        {children.join('\n').trim()}
-                    </div>
+                    <CodeBlock language={language} code={children.join('\n').trim()} />
                 );
             }
         },

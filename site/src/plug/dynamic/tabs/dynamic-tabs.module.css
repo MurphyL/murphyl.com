@@ -11,6 +11,21 @@
     user-select: none;
 }
 
+.root .keys .logo a {
+    text-decoration: none;
+    color: black;
+}
+
+.root .keys .logo a *:first-child {
+    margin-right: 8px;
+}
+
+.root .keys .logo a svg {
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+}
+
 .root .keys .key {
     font-size: 12px;
 }

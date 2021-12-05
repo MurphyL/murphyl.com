@@ -5,6 +5,7 @@ import TOML from '@iarna/toml';
 import parseJson from 'parse-json';
 import { JSONPath } from 'jsonpath-plus-browser';
 
+import { Link } from "react-router-dom";
 import Editor from "@monaco-editor/react";
 import { ToastContainer, toast } from 'react-toast';
 import { Json } from "@icons-pack/react-simple-icons";
@@ -80,7 +81,7 @@ const JSONPathTester = memo(({ indent, value }) => {
     return (
         <div className={styles.jp_tester}>
             <div className={styles.jsonpath}>
-                <textarea defaultValue={path} onChange={e => setPath(e.target.value)} />
+                <textarea defaultValue={path} onChange={e => setPath(e.target.value)} placeholder="输入 JSONPath 抽取数据……" />
             </div>
             <div className={styles.board}>
                 <Editor language={(typeof parsed === 'string') ? 'text' : 'json'} {...editorSetting} value={(typeof parsed === 'string') ? parsed : JSON.stringify(parsed, null, indent)} />
@@ -112,7 +113,12 @@ export default function JSONKits() {
     const parsed = resolve(value);
     return useMemo(() => (
         <Fragment>
-            <NaviTabs className={styles.root} logo={<b>JSON 工具集</b>}>
+            <NaviTabs className={styles.root} logo={
+                <Link to="/" className={styles.logo_link} title="返回首页">
+                    <Json color="#4E9BCD" />
+                    <b>JSON 工具集</b>
+                </Link>
+            }>
                 <div className={styles.item} name="JSON Editor">
                     <SplitView sizes={[75, 25]} minSize={[600, 400]}>
                         {editor}

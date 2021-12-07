@@ -1,5 +1,4 @@
-import React, { Component, Fragment, Suspense } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { Component, Suspense } from 'react';
 
 import styles from './status.module.css';
 
@@ -22,12 +21,9 @@ export const Error = ({ message }) => {
 	);
 };
 
-export const Dynamic = ({ children, title }) => {
+export const Dynamic = ({ children }) => {
 	return (
 		<Suspense fallback={<Loading />}>
-			<Helmet>
-				<title>{(title ? `${title} - ` : '') + process.env.REACT_APP_TITLE}</title>
-			</Helmet>
 			{children}
 		</Suspense>
 	);

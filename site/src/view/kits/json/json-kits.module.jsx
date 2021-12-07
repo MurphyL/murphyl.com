@@ -12,8 +12,11 @@ import { Json } from "@icons-pack/react-simple-icons";
 
 import JSONViewer from 'react-json-view';
 
-import SplitView from 'plug/extra/split-view/split-view.module';
+import { useDocumentTitle } from 'plug/hooks';
+
 import { NaviTabs } from "plug/dynamic/dynamic.module";
+
+import SplitView from 'plug/extra/split-view/split-view.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './json-kits.module.css';
@@ -70,7 +73,7 @@ const resolve = (text) => {
 }
 
 const JSONPathTester = memo(({ indent, value }) => {
-    const [path, setPath] = useState('');
+    const [path, setPath] = useState('$');
     const parsed = useMemo(() => {
         try {
             return JSONPath({ path: (path.trim().length > 0) ? path : '$', json: parseJson(value), wrap: false });
@@ -96,6 +99,7 @@ const JSONPathTester = memo(({ indent, value }) => {
 JSONPathTester.displayName = 'JSONPathTester';
 
 export default function JSONKits() {
+    useDocumentTitle('JSON 工具集');
     const [value, setValue] = useState('{}');
     const [indent, setIndent] = useState(4);
     const editor = useMemo(() => (
@@ -111,7 +115,7 @@ export default function JSONKits() {
         </div>
     ), [value, indent]);
     const parsed = resolve(value);
-    return useMemo(() => (
+    return (
         <Fragment>
             <NaviTabs className={styles.root} logo={
                 <Link to="/" className={styles.logo_link} title="返回首页">
@@ -146,5 +150,5 @@ export default function JSONKits() {
             </NaviTabs>
             <ToastContainer position="bottom-left" />
         </Fragment>
-    ), [value]);
+    );
 }

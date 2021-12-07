@@ -1,10 +1,11 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useRecoilValue } from 'recoil';
 
-import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+import { useDocumentTitle } from 'plug/hooks';
 
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
+import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+
 
 import renderer from 'plug/extra/schema-options.jsx';
 
@@ -25,13 +26,11 @@ export default function SchemaRenderer({ unique }) {
         }
     });
     const page = mapper[unique] || { title: 'NOT FOUND', text: '404', type: 'toml/schema' };
+    useDocumentTitle(page.title);
     const { layout, type, source, url: sourceUrl, ...schema } = page;
     console.log('page schema:', unique, mapper);
     return (
         <div className={styles.root}>
-            <Helmet>
-                <title>{page.title} - {process.env.REACT_APP_TITLE}</title>
-            </Helmet>
             {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer code={source} />}
         </div>
     );

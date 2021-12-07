@@ -7,6 +7,8 @@ import { Sqlite } from "@icons-pack/react-simple-icons";
 
 import Editor from "@monaco-editor/react";
 
+import { useDocumentTitle } from 'plug/hooks';
+
 import { NaviTabs } from "plug/dynamic/dynamic.module";
 import { Dynamic } from 'plug/extra/status/status.module';
 import CodeBlock from 'plug/extra/code-block/code-block.module';
@@ -26,6 +28,7 @@ const editorSetting = {
 };
 
 function SQLFormatter() {
+    useDocumentTitle('SQL 格式化');
     const [value, setValue] = useState('select 1 from dual');
     const [upper, setUpper] = useState(true);
     const [indent, setIndent] = useState(2);
@@ -61,7 +64,8 @@ function SQLFormatter() {
 }
 
 
-export default function SQLKits(params) {
+export default function SQLKits() {
+    useDocumentTitle('SQL 工具集');
     return (
         <NaviTabs logo={
             <Link to="/" className={styles.logo_link} title="返回首页">

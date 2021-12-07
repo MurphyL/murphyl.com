@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from "react-router-dom";
+
+import { useDocumentTitle } from 'plug/hooks';
 
 import { callGithubAPI } from 'plug/extra/rest-utils';
 
@@ -24,6 +25,7 @@ const get = (rows, group, unique) => {
 };
 
 export default function Notebook() {
+    useDocumentTitle('笔记');
     const { group, unique } = useParams();
     // 转换，排序
     const topics = (useRecoilValue(callGithubAPI(params)) || []).map((issue) => {
@@ -62,9 +64,6 @@ export default function Notebook() {
             <main className={styles.board}>
                 {current ? (
                     <Fragment>
-                        <Helmet>
-                            <title>{current.title} - {process.env.REACT_APP_TITLE}</title>
-                        </Helmet>
                         <div className={styles.header}>
                             <b>{current.title}</b>
                             <div className={styles.toolbar}>
@@ -78,9 +77,6 @@ export default function Notebook() {
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <Helmet>
-                            <title>没有相关的代码片段 - {process.env.REACT_APP_TITLE}</title>
-                        </Helmet>
                         <div>404</div>
                     </Fragment>
                 )}

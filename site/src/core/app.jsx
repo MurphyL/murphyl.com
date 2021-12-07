@@ -1,6 +1,5 @@
 import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
-import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 
 import loadable from '@loadable/component';
@@ -88,17 +87,15 @@ const Views = () => useRoutes([{
 export default function App() {
     return (
         <StrictMode>
-            <HelmetProvider>
-                <ErrorBoundary>
-                    <RecoilRoot>
-                        <MapperContext.Provider value={{ site, graphql }}>
-                            <BrowserRouter>
-                                <Views />
-                            </BrowserRouter>
-                        </MapperContext.Provider>
-                    </RecoilRoot>
-                </ErrorBoundary>
-            </HelmetProvider>
+            <ErrorBoundary>
+                <RecoilRoot>
+                    <MapperContext.Provider value={{ site, graphql }}>
+                        <BrowserRouter>
+                            <Views />
+                        </BrowserRouter>
+                    </MapperContext.Provider>
+                </RecoilRoot>
+            </ErrorBoundary>
         </StrictMode>
     );
 }

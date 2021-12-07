@@ -1,12 +1,15 @@
-import React, { Fragment, Suspense } from 'react';
+import React from 'react';
 
 import { Link } from "react-router-dom";
 import { useRecoilValue } from 'recoil';
 
 import classNames from 'classnames';
 
-import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
+import { useDocumentTitle } from 'plug/hooks';
+
+
 import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
+import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
 import styles from './blog.module.css';
 
@@ -26,6 +29,7 @@ export function PostSummary({ post }) {
 };
 
 export default function PostList() {
+    useDocumentTitle('博客');
     const issues = useRecoilValue(callGithubAPI({
         key: 'query-issue-list',
         ghp_labels: 'X-BLOG',

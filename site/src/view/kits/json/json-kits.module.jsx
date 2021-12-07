@@ -76,7 +76,7 @@ const JSONPathTester = memo(({ indent, value }) => {
     const [path, setPath] = useState('$');
     const parsed = useMemo(() => {
         try {
-            return JSONPath({ path: (path.trim().length > 0) ? path : '$', json: parseJson(value), wrap: false });
+            return JSONPath({ path: ((path.trim().length > 0) ? path : '$'), json: parseJson(value), wrap: false });
         } catch (e) {
             return e.message;
         }

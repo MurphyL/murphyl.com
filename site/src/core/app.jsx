@@ -65,8 +65,10 @@ const Views = () => useRoutes([{
         element: <div>crypto</div>
     }, {
         path: 'notebook',
+        element: <Dynamic title="笔记" children={<Notebook />} />,
         children: [{
             path: ':group',
+            element: <Dynamic title="笔记" children={<Notebook />} />,
             children: [{
                 path: ':unique',
                 element: <Dynamic title="笔记" children={<Notebook />} />

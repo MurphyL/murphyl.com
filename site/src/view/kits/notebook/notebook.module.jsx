@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Link, useParams } from "react-router-dom";
+
+import { JSONPath } from 'jsonpath-plus-browser';
 
 import { useDocumentTitle } from 'plug/hooks';
 
@@ -16,29 +18,19 @@ const params = {
     path: '$.data.repository.issues.nodes'
 };
 
-const get = (rows, group, unique) => {
-    let result = rows.find(row => row.unique === group);
-    if (result && unique) {
-        return result.children.find(item => item.unique === unique);
-    }
-    return result;
-};
-
 export default function Notebook() {
     useDocumentTitle('笔记');
     const { group, unique } = useParams();
-    // 转换，排序
-    const topics = (useRecoilValue(callGithubAPI(params)) || []).map((issue) => {
-        const { body: issueContent, comments, ...issueInfo } = issue;
-        // 解析 issue 内容
-        const { content, unique, ...issueExtra } = parseMarkdown(issueContent);
-        // 解析 issue comment 内容，评论内容排序
-        const children = comments.nodes.map(({ body: comment, ...commentInfo }) => {
-            return { node: 'comment', ...commentInfo, ...parseMarkdown(comment) };
+    const issues = useRecoilValue(callGithubAPI(params));
+    const topics = useMemo(() => (issues || []).map(({ url, title, body, publishedAt, comments: { nodes } }) => {
+        const { unique, sort = 9999, content } = parseMarkdown(body);
+        const children = nodes.map(({ url, body, publishedAt }) => {
+            const { unique, excerpt, ...extra} = parseMarkdown(body);
+            return { url, publishedAt, sort: 9999, unique: unique.trim(), ...extra };
         }).sort((a, b) => a.sort - b.sort);
-        return { node: 'issue', sort: 99999, ...issueExtra, content, unique, ...issueInfo, children };
-    }).sort((a, b) => a.sort - b.sort);
-    const current = group ? get(topics, group, unique) : topics[0];
+        return { unique: unique.trim(), url, title, sort, content, publishedAt, children };
+    }).sort((a, b) => a.sort - b.sort), [issues]);
+    const [current] = (JSONPath({ path: `$[?(@.unique==="${group}")]` + (unique ? `.children[?(@.unique==="${unique}")]` : ''), json: topics, wrap: false }) || []);
     return (
         <div className={styles.root}>
             <aside className={styles.tree}>

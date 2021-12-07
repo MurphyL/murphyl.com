@@ -30,7 +30,7 @@ export default function Notebook() {
         }).sort((a, b) => a.sort - b.sort);
         return { unique: unique.trim(), url, title, sort, content, publishedAt, children };
     }).sort((a, b) => a.sort - b.sort), [issues]);
-    const [current] = (JSONPath({ path: `$[?(@.unique==="${group}")]` + (unique ? `.children[?(@.unique==="${unique}")]` : ''), json: topics, wrap: false }) || []);
+    const [current] = (JSONPath({ path: `$[?(@.unique==="${group}")]` + (unique ? `.children[?(@.unique==="${unique}")]` : ''), json: topics, wrap: false }) || [ topics[0] ]);
     return (
         <div className={styles.root}>
             <aside className={styles.tree}>

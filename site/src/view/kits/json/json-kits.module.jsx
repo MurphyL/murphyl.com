@@ -122,6 +122,12 @@ const JSONPathTester = memo(({ indent, value }) => {
 
 JSONPathTester.displayName = 'JSONPathTester';
 
+const logo = (
+    <Link to="/" className={styles.logo_link} title="返回首页">
+        <Json color="#4E9BCD" />
+        <b>JSON 工具集</b>
+    </Link>
+);
 
 export default function JSONKits() {
     useDocumentTitle('JSON 工具集');
@@ -137,14 +143,23 @@ export default function JSONKits() {
                 <input type="number" defaultValue={indent} onChange={e => setIndent(parseInt(e.target.value))} title="缩进" />
                 <button onClick={() => { setValue(stringifyJSON(resolve(value))) }}>Minify</button>
                 <button>Copy</button>
-                <FormItem type="file" ref={file} name="选择文件" accept="application/json" onChange={(e) => {
-                    if (file.current.length === 0) {
+                <FormItem type="file" ref={file} name="选择文件" accept=".json,.toml" onChange={(filename) => {
+                    if (!filename || !file || !file.current || file.current.length === 0) {
                         return;
                     }
                     const reader = new FileReader();
+                    // TODO 解析 CSV/TOML/YAML
                     reader.readAsText(file.current.files[0]);
                     reader.onload = () => {
-                        setValue(reader.result);
+                        if (filename.endsWith('.json')) {
+                            setValue(reader.result);
+                        } else if (filename.endsWith('.toml')) {
+                            try {
+                                setValue(stringifyJSON(TOML.parse(reader.result), indent));
+                            } catch (e) {
+                                toast.error(`解析 TOML 文件出错：${e.message}`)
+                            }
+                        }
                     };
                 }} />
             </DriftToolbar>
@@ -153,12 +168,7 @@ export default function JSONKits() {
     const parsed = resolve(value);
     return (
         <Fragment>
-            <NaviTabs className={styles.root} logo={
-                <Link to="/" className={styles.logo_link} title="返回首页">
-                    <Json color="#4E9BCD" />
-                    <b>JSON 工具集</b>
-                </Link>
-            }>
+            <NaviTabs className={styles.root} logo={logo}>
                 <div className={styles.item} name="JSON Editor">
                     <SplitView sizes={[75, 25]} minSize={[600, 400]}>
                         {editor}
@@ -186,9 +196,6 @@ export default function JSONKits() {
                             <Editor language="toml" {...editorSetting(true)} value={(kindOf(parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
                         </div>
                     </SplitView>
-                </div>
-                <div className={classNames(styles.item)} name="CSV -> JSON">
-                    {editor}
                 </div>
             </NaviTabs>
             <ToastContainer position="bottom-left" />

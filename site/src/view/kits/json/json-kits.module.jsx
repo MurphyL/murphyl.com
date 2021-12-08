@@ -1,6 +1,9 @@
 import React, { Fragment, memo, useMemo, useState } from "react";
 
 import classNames from "classnames";
+
+import kindOf from 'kind-of';
+
 import TOML from '@iarna/toml';
 import parseJson from 'parse-json';
 import { JSONPath } from 'jsonpath-plus-browser';
@@ -98,6 +101,14 @@ const JSONPathTester = memo(({ indent, value }) => {
 
 JSONPathTester.displayName = 'JSONPathTester';
 
+const stringifyTOML = (data) => {
+    if (kindOf(data) === 'object') {
+        return TOML.stringify(data);
+    } else {
+        return `Can not stringify JSON data: ${JSON.stringify(data, null, 4)}`
+    }
+};
+
 export default function JSONKits() {
     useDocumentTitle('JSON 工具集');
     const [value, setValue] = useState('{}');
@@ -143,7 +154,7 @@ export default function JSONKits() {
                     <SplitView sizes={[50, 50]} minSize={[500, 500]}>
                         {editor}
                         <div className={styles.viewer}>
-                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting} value={(typeof (parsed) === 'string') ? parsed : TOML.stringify(parsed)} />
+                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting} value={(typeof (parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
                         </div>
                     </SplitView>
                 </div>

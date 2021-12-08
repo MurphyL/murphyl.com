@@ -1,6 +1,6 @@
 .root .item,
 .root .item .splitter,
-.root .item .splitter .editor {
+.root .item .editor {
     height: 100%;
 }
 

@@ -1,25 +1,25 @@
-import React, { Fragment, memo, useMemo, useState } from "react";
-
-import classNames from "classnames";
-
-import kindOf from 'kind-of';
-
-import TOML from '@iarna/toml';
-import parseJson from 'parse-json';
-import { JSONPath } from 'jsonpath-plus-browser';
+import React, { Fragment, memo, useMemo, useRef, useState } from "react";
 
 import { Link } from "react-router-dom";
-import Editor from "@monaco-editor/react";
-import { ToastContainer, toast } from 'react-toast';
-import { Json } from "@icons-pack/react-simple-icons";
-
 import JSONViewer from 'react-json-view';
+
+import { toast, ToastContainer } from 'react-toast';
+
+import kindOf from 'kind-of';
+import TOML from '@iarna/toml';
+import parseJSON from 'parse-json';
+import classNames from "classnames";
+import { JSONPath } from 'jsonpath-plus-browser';
+
+import Editor from "@monaco-editor/react";
+import { Json } from "@icons-pack/react-simple-icons";
 
 import { useDocumentTitle } from 'plug/hooks';
 
 import { NaviTabs } from "plug/dynamic/dynamic.module";
-
+import FormItem from 'plug/extra/form-item/form-input.module';
 import SplitView from 'plug/extra/split-view/split-view.module';
+
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './json-kits.module.css';
@@ -70,17 +70,37 @@ const validate = (rows) => {
 
 const resolve = (text) => {
     try {
-        return parseJson(text);
+        return parseJSON(text);
     } catch (e) {
         return e.message
     }
-}
+};
+
+const stringifyTOML = (data) => {
+    if (kindOf(data) === 'object') {
+        try {
+            return TOML.stringify(data);
+        } catch (e) {
+            return e.message;
+        }
+    } else {
+        return `Can not stringify JSON data: ${JSON.stringify(data, null, 4)}`
+    }
+};
+
+const stringifyJSON = (data, indent) => {
+    try {
+        return (indent > 0) ? JSON.stringify(data, null, indent) : JSON.stringify(data);
+    } catch (e) {
+        return e.message;
+    }
+};
 
 const JSONPathTester = memo(({ indent, value }) => {
     const [path, setPath] = useState('$');
     const parsed = useMemo(() => {
         try {
-            return JSONPath({ path: ((path.trim().length > 0) ? path : '$'), json: parseJson(value), wrap: false });
+            return JSONPath({ path: ((path.trim().length > 0) ? path : '$'), json: parseJSON(value), wrap: false });
         } catch (e) {
             return e.message;
         }
@@ -91,7 +111,7 @@ const JSONPathTester = memo(({ indent, value }) => {
                 <textarea defaultValue={path} onChange={e => setPath(e.target.value)} placeholder="输入 JSONPath 抽取数据……" />
             </div>
             <div className={styles.board}>
-                <Editor language={(typeof parsed === 'string') ? 'text' : 'json'} {...editorSetting(true)} value={(typeof parsed === 'string') ? parsed : JSON.stringify(parsed, null, indent)} />
+                <Editor language={(kindOf(parsed) === 'string') ? 'text' : 'json'} {...editorSetting(true)} value={(kindOf(parsed) === 'string') ? parsed : stringifyJSON(parsed, indent)} />
             </div>
             <DriftToolbar className={styles.toolbar}>
                 <button>Copy</button>
@@ -102,16 +122,10 @@ const JSONPathTester = memo(({ indent, value }) => {
 
 JSONPathTester.displayName = 'JSONPathTester';
 
-const stringifyTOML = (data) => {
-    if (kindOf(data) === 'object') {
-        return TOML.stringify(data);
-    } else {
-        return `Can not stringify JSON data: ${JSON.stringify(data, null, 4)}`
-    }
-};
 
 export default function JSONKits() {
     useDocumentTitle('JSON 工具集');
+    const file = useRef();
     const [value, setValue] = useState('{}');
     const [indent, setIndent] = useState(4);
     const editor = useMemo(() => (
@@ -119,10 +133,20 @@ export default function JSONKits() {
             <Editor language="json" {...editorSetting(false)} onValidate={validate} value={value} onChange={setValue} />
             <DriftToolbar className={styles.toolbar}>
                 <Json color="#4E9BCD" />
-                <button onClick={() => { setValue(JSON.stringify(resolve(value), null, indent)) }}>Beautify</button>
+                <button onClick={() => { setValue(stringifyJSON(resolve(value), indent)) }}>Beautify</button>
                 <input type="number" defaultValue={indent} onChange={e => setIndent(parseInt(e.target.value))} title="缩进" />
-                <button onClick={() => { setValue(JSON.stringify(resolve(value))) }}>Minify</button>
+                <button onClick={() => { setValue(stringifyJSON(resolve(value))) }}>Minify</button>
                 <button>Copy</button>
+                <FormItem type="file" ref={file} name="选择文件" accept="application/json" onChange={(e) => {
+                    if (file.current.length === 0) {
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.readAsText(file.current.files[0]);
+                    reader.onload = () => {
+                        setValue(reader.result);
+                    };
+                }} />
             </DriftToolbar>
         </div>
     ), [value, indent]);
@@ -139,7 +163,11 @@ export default function JSONKits() {
                     <SplitView sizes={[75, 25]} minSize={[600, 400]}>
                         {editor}
                         <div className={styles.viewer}>
-                            {(typeof (parsed) === 'string') ? <Editor language="text" {...editorSetting(true)} value={parsed} /> : <JSONViewer {...jsonViewerOptions} src={parsed} />}
+                            {(typeof (parsed) === 'string') ? (
+                                <Editor language="text" {...editorSetting(true)} value={parsed} />
+                            ) : (
+                                <JSONViewer {...jsonViewerOptions} src={parsed} />
+                            )}
                         </div>
                     </SplitView>
                 </div>
@@ -151,13 +179,16 @@ export default function JSONKits() {
                         </div>
                     </SplitView>
                 </div>
-                <div className={classNames(styles.item)} name="JSON <-> TOML">
+                <div className={classNames(styles.item)} name="JSON -> TOML">
                     <SplitView sizes={[50, 50]} minSize={[500, 500]}>
                         {editor}
                         <div className={styles.viewer}>
-                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting(true)} value={(typeof (parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
+                            <Editor language="toml" {...editorSetting(true)} value={(kindOf(parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
                         </div>
                     </SplitView>
+                </div>
+                <div className={classNames(styles.item)} name="CSV -> JSON">
+                    {editor}
                 </div>
             </NaviTabs>
             <ToastContainer position="bottom-left" />

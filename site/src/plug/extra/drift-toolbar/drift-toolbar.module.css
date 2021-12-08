@@ -3,7 +3,7 @@
 
     padding: 10px;
     border: 2px solid var(--shadow-color);
-
+    background-color: #fff;
     opacity: 0.5;
 
     user-select: none;
@@ -48,8 +48,12 @@
     height: 30px;
 }
 
-.root input:not([type="checkbox"]) {
+.root input:not([type="checkbox"]):not([type="file"]) {
     width: 45px;
+}
+
+.root input[type="file"] {
+    width: 150px;
 }
 
 .root svg {

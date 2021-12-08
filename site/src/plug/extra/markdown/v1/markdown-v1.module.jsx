@@ -9,7 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import * as matter from 'gray-matter';
 import TOML from '@iarna/toml';
 
-import CodeBlock from 'plug/extra/code-block/code-block.module';
+import { CodeBlock } from 'plug/extra/code/code.module';
 
 import styles from './markdown-v1.module.css';
 

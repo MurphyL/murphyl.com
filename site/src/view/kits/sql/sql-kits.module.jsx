@@ -5,27 +5,16 @@ import { Link } from "react-router-dom";
 import { format } from 'sql-formatter';
 import { Sqlite } from "@icons-pack/react-simple-icons";
 
-import Editor from "@monaco-editor/react";
+import { CodeEditor, CodeBlock } from 'plug/extra/code/code.module';
 
 import { useDocumentTitle } from 'plug/hooks';
 
 import { NaviTabs } from "plug/dynamic/dynamic.module";
 import { Dynamic } from 'plug/extra/status/status.module';
-import CodeBlock from 'plug/extra/code-block/code-block.module';
 import SchemaViewer from 'view/page/schema/schema-page.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './sql-kits.module.css';
-
-
-const editorSetting = {
-    loading: '正在初始化……',
-    language: 'sql',
-    options: {
-        fontSize: 18,
-        scrollBeyondLastLine: false,
-    }
-};
 
 function SQLFormatter() {
     useDocumentTitle('SQL 格式化');
@@ -34,7 +23,7 @@ function SQLFormatter() {
     const [indent, setIndent] = useState(2);
     return (
         <div style={{ padding: '3px', height: 'calc(100% - 3px * 2)' }}>
-            <Editor {...editorSetting} value={value} onChange={setValue} />
+            <CodeEditor language="sql" value={value} onChange={setValue} />
             <DriftToolbar>
                 <label>
                     <span>语法：</span>

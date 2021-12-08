@@ -1,4 +1,4 @@
-pre.root {
+.block {
     margin: 10px;
     padding: 15px;
 
@@ -6,6 +6,10 @@ pre.root {
     border-radius: 5px;
 }
 
-pre.root code {
+.block code {
     font-size: 16px;
+}
+
+.editor {
+    height: 100%;
 }

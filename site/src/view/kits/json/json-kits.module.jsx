@@ -1,6 +1,4 @@
-import React, { Fragment, forwardRef, memo, useMemo, useRef, useState } from "react";
-
-import useComponentSize from '@rehooks/component-size';
+import React, { Fragment, memo, useMemo, useRef, useState } from "react";
 
 import { Link } from "react-router-dom";
 import JSONViewer from 'react-json-view';
@@ -16,8 +14,9 @@ import stripJSON from 'strip-json-comments';
 import exportFromJSON from 'export-from-json';
 import { JSONPath } from 'jsonpath-plus-browser';
 
-import MonacoEditor from 'react-monaco-editor';
 import { Json } from "@icons-pack/react-simple-icons";
+
+import { CodeEditor } from 'plug/extra/code/code.module';
 
 import { useDocumentTitle } from 'plug/hooks';
 
@@ -114,10 +113,9 @@ const stringifyJSON = (data, indent) => {
     }
 };
 
-const JSONPathTester = memo(({ exchanger, indent, value, editorWidth, editorHeight }) => {
+const JSONPathTester = memo(({ exchanger, indent, value }) => {
     const viewerWrapper = useRef();
     const [path, setPath] = useState('$');
-    const { width: viewerWidth, height: viewerHeight } = useComponentSize(viewerWrapper);
     const parsed = useMemo(() => {
         try {
             const source = parseJSON(value);
@@ -135,7 +133,7 @@ const JSONPathTester = memo(({ exchanger, indent, value, editorWidth, editorHeig
                 <textarea defaultValue={path} onChange={e => setPath(e.target.value)} placeholder="输入 JSONPath 抽取数据……" />
             </div>
             <div className={styles.board} ref={viewerWrapper}>
-                <MonacoEditor language={(kindOf(parsed) === 'string') ? 'text' : 'json'} options={editorSetting(true)} width={viewerWidth} height={viewerHeight} value={stringifyJSON(parsed, indent)} />
+                <CodeEditor language={(kindOf(parsed) === 'string') ? 'text' : 'json'} options={editorSetting(true)} value={stringifyJSON(parsed, indent)} />
             </div>
             <DriftToolbar className={styles.toolbar}>
                 <button onClick={() => (kindOf(exchanger) === 'function') && exchanger(stringifyJSON(parsed, indent))}>&lt; Send</button>
@@ -155,11 +153,9 @@ export default function JSONKits() {
     const viewerWrapper = useRef();
     const [value, setValue] = useState('{}');
     const [indent, setIndent] = useState(4);
-    const { width: editorWidth, height: editorHeight } = useComponentSize(editorWrapper);
-    const { width: viewerWidth, height: viewerHeight } = useComponentSize(viewerWrapper);
     const editor = useMemo(() => (
         <div className={styles.editor} data-label="Source" ref={editorWrapper}>
-            <MonacoEditor language="json" options={editorSetting(false)} width={editorWidth} height={editorHeight} onValidate={validate} value={value} onChange={setValue} />
+            <CodeEditor language="json" onValidate={validate} value={value} onChange={setValue} />
             <DriftToolbar className={styles.toolbar}>
                 <Json color="#4E9BCD" />
                 <button onClick={() => { setValue(stringifyJSON(resolve(value), indent)) }}>Beautify</button>
@@ -214,7 +210,7 @@ export default function JSONKits() {
 
             </DriftToolbar>
         </div>
-    ), [value, indent, editorWidth, editorHeight]);
+    ), [value, indent]);
     const parsed = resolve(value);
     return (
         <Fragment>
@@ -224,7 +220,7 @@ export default function JSONKits() {
                         {editor}
                         <div className={styles.viewer} ref={viewerWrapper}>
                             {(typeof (parsed) === 'string') ? (
-                                <MonacoEditor language="text" options={editorSetting(true)} width={viewerWidth} height={viewerHeight} value={parsed} />
+                                <CodeEditor language="text" options={{ readOnly: true }} value={parsed} />
                             ) : (
                                 <JSONViewer {...jsonViewerOptions} src={parsed} />
                             )}
@@ -243,7 +239,7 @@ export default function JSONKits() {
                     <SplitView sizes={[50, 50]} minSize={[500, 500]}>
                         {editor}
                         <div className={styles.viewer} ref={viewerWrapper}>
-                            <MonacoEditor language="toml" options={editorSetting(true)} width={viewerWidth} height={viewerHeight} value={(kindOf(parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
+                            <CodeEditor language="toml" options={{ readOnly: true }} value={(kindOf(parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
                         </div>
                     </SplitView>
                 </div>

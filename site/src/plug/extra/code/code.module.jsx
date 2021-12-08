@@ -11,7 +11,7 @@ const editorOptions = {
     scrollBeyondLastLine: false,
 };
 
-export function CodeBlock(params) {
+export function CodeBlock({ language, code }) {
     const payload = useRef(null);
     useEffect(() => {
         if (null === payload || null === payload.current) {

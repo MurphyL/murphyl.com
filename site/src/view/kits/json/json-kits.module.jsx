@@ -1,4 +1,6 @@
-import React, { Fragment, memo, useMemo, useRef, useState } from "react";
+import React, { Fragment, forwardRef, memo, useMemo, useRef, useState } from "react";
+
+import useComponentSize from '@rehooks/component-size';
 
 import { Link } from "react-router-dom";
 import JSONViewer from 'react-json-view';
@@ -10,10 +12,11 @@ import TOML from '@iarna/toml';
 import { csvParse } from 'd3-dsv';
 import parseJSON from 'parse-json';
 import classNames from "classnames";
-import exportFromJSON from 'export-from-json'
+import stripJSON from 'strip-json-comments';
+import exportFromJSON from 'export-from-json';
 import { JSONPath } from 'jsonpath-plus-browser';
 
-import Editor from "@monaco-editor/react";
+import MonacoEditor from 'react-monaco-editor';
 import { Json } from "@icons-pack/react-simple-icons";
 
 import { useDocumentTitle } from 'plug/hooks';
@@ -36,12 +39,9 @@ import styles from './json-kits.module.css';
  */
 
 const editorSetting = (readOnly) => ({
-    loading: '正在初始化……',
-    options: {
-        readOnly,
-        fontSize: 18,
-        scrollBeyondLastLine: false,
-    }
+    readOnly,
+    fontSize: 18,
+    scrollBeyondLastLine: false,
 });
 
 const jsonViewerOptions = {
@@ -70,56 +70,6 @@ const validate = (rows) => {
     });
 };
 
-const resolve = (text) => {
-    try {
-        return parseJSON(text);
-    } catch (e) {
-        return e.message
-    }
-};
-
-const stringifyTOML = (data) => {
-    try {
-        return (kindOf(data) === 'array') ? TOML.stringify({ data }) : TOML.stringify(data);
-    } catch (e) {
-        return e.message;
-    }
-};
-
-const stringifyJSON = (data, indent) => {
-    try {
-        return (indent > 0) ? JSON.stringify(data, null, indent) : JSON.stringify(data);
-    } catch (e) {
-        return e.message;
-    }
-};
-
-const JSONPathTester = memo(({ indent, value }) => {
-    const [path, setPath] = useState('$');
-    const parsed = useMemo(() => {
-        try {
-            return JSONPath({ path: ((path.trim().length > 0) ? path : '$'), json: parseJSON(value), wrap: false });
-        } catch (e) {
-            return e.message;
-        }
-    }, [value, path]);
-    return (
-        <div className={styles.jp_tester}>
-            <div className={styles.jsonpath}>
-                <textarea defaultValue={path} onChange={e => setPath(e.target.value)} placeholder="输入 JSONPath 抽取数据……" />
-            </div>
-            <div className={styles.board}>
-                <Editor language={(kindOf(parsed) === 'string') ? 'text' : 'json'} {...editorSetting(true)} value={(kindOf(parsed) === 'string') ? parsed : stringifyJSON(parsed, indent)} />
-            </div>
-            <DriftToolbar className={styles.toolbar}>
-                <button>Copy</button>
-            </DriftToolbar>
-        </div>
-    );
-});
-
-JSONPathTester.displayName = 'JSONPathTester';
-
 const logo = (
     <Link to="/" className={styles.logo_link} title="返回首页">
         <Json color="#4E9BCD" />
@@ -134,15 +84,82 @@ const EXPORT_TYPES = {
     XML: 'xml/xml',
 };
 
+const resolve = (text) => {
+    try {
+        return parseJSON(stripJSON(text));
+    } catch (e) {
+        return e.message
+    }
+};
+
+const stringifyTOML = (data) => {
+    try {
+        return (kindOf(data) === 'array') ? TOML.stringify({ data }) : TOML.stringify(data);
+    } catch (e) {
+        return e.message;
+    }
+};
+
+const stringifyJSON = (data, indent) => {
+    if (!data) {
+        return '';
+    }
+    if (kindOf(data) === 'string') {
+        return data;
+    }
+    try {
+        return (indent > 0) ? JSON.stringify(data, null, indent) : JSON.stringify(data);
+    } catch (e) {
+        return e.message;
+    }
+};
+
+const JSONPathTester = memo(({ exchanger, indent, value, editorWidth, editorHeight }) => {
+    const viewerWrapper = useRef();
+    const [path, setPath] = useState('$');
+    const { width: viewerWidth, height: viewerHeight } = useComponentSize(viewerWrapper);
+    const parsed = useMemo(() => {
+        try {
+            const source = parseJSON(value);
+            if (kindOf(source) === 'string') {
+                return source;
+            }
+            return JSONPath({ path, json: source, wrap: false });
+        } catch (e) {
+            return e.message;
+        }
+    }, [value, path]);
+    return (
+        <div className={styles.jp_tester}>
+            <div className={styles.jsonpath}>
+                <textarea defaultValue={path} onChange={e => setPath(e.target.value)} placeholder="输入 JSONPath 抽取数据……" />
+            </div>
+            <div className={styles.board} ref={viewerWrapper}>
+                <MonacoEditor language={(kindOf(parsed) === 'string') ? 'text' : 'json'} options={editorSetting(true)} width={viewerWidth} height={viewerHeight} value={stringifyJSON(parsed, indent)} />
+            </div>
+            <DriftToolbar className={styles.toolbar}>
+                <button onClick={() => (kindOf(exchanger) === 'function') && exchanger(stringifyJSON(parsed, indent))}>&lt; Send</button>
+                <button>Copy</button>
+            </DriftToolbar>
+        </div>
+    );
+});
+
+JSONPathTester.displayName = 'JSONPathTester';
+
 export default function JSONKits() {
     useDocumentTitle('JSON 工具集');
     const fileInstance = useRef();
     const exportRule = useRef();
+    const editorWrapper = useRef();
+    const viewerWrapper = useRef();
     const [value, setValue] = useState('{}');
     const [indent, setIndent] = useState(4);
+    const { width: editorWidth, height: editorHeight } = useComponentSize(editorWrapper);
+    const { width: viewerWidth, height: viewerHeight } = useComponentSize(viewerWrapper);
     const editor = useMemo(() => (
-        <div className={styles.editor}>
-            <Editor language="json" {...editorSetting(false)} onValidate={validate} value={value} onChange={setValue} />
+        <div className={styles.editor} data-label="Source" ref={editorWrapper}>
+            <MonacoEditor language="json" options={editorSetting(false)} width={editorWidth} height={editorHeight} onValidate={validate} value={value} onChange={setValue} />
             <DriftToolbar className={styles.toolbar}>
                 <Json color="#4E9BCD" />
                 <button onClick={() => { setValue(stringifyJSON(resolve(value), indent)) }}>Beautify</button>
@@ -169,7 +186,7 @@ export default function JSONKits() {
                             try {
                                 setValue(stringifyJSON(TOML.parse(reader.result), indent));
                             } catch (e) {
-                                toast.error(`解析 TOML 文件出错：${e.message}`)
+                                toast.error(`解析 TOML 文件出错：${e.message}`);
                             }
                         }
                     };
@@ -183,7 +200,11 @@ export default function JSONKits() {
                     if (extension === 'toml') {
                         data = stringifyTOML(data);
                     }
-                    exportFromJSON({ data, fileName: `${extension}-${Date.now()}`, exportType, extension })
+                    try {
+                        exportFromJSON({ data, fileName: `${extension}-${Date.now()}`, exportType, extension });
+                    } catch (e) {
+                        toast.error(`导出${extension.toUpperCase()}数据出错：${e.message}`)
+                    }
                 }}>Export</button>
                 <select defaultValue={EXPORT_TYPES.JSON} ref={exportRule}>
                     {Object.entries(EXPORT_TYPES).map(([key, info], index) => (
@@ -193,7 +214,7 @@ export default function JSONKits() {
 
             </DriftToolbar>
         </div>
-    ), [value, indent]);
+    ), [value, indent, editorWidth, editorHeight]);
     const parsed = resolve(value);
     return (
         <Fragment>
@@ -201,9 +222,9 @@ export default function JSONKits() {
                 <div className={styles.item} name="JSON Editor">
                     <SplitView sizes={[75, 25]} minSize={[600, 400]}>
                         {editor}
-                        <div className={styles.viewer}>
+                        <div className={styles.viewer} ref={viewerWrapper}>
                             {(typeof (parsed) === 'string') ? (
-                                <Editor language="text" {...editorSetting(true)} value={parsed} />
+                                <MonacoEditor language="text" options={editorSetting(true)} width={viewerWidth} height={viewerHeight} value={parsed} />
                             ) : (
                                 <JSONViewer {...jsonViewerOptions} src={parsed} />
                             )}
@@ -214,15 +235,15 @@ export default function JSONKits() {
                     <SplitView sizes={[40, 60]} minSize={[400, 500]}>
                         {editor}
                         <div>
-                            <JSONPathTester value={value} indent={indent} />
+                            <JSONPathTester value={value} indent={indent} exchanger={setValue} />
                         </div>
                     </SplitView>
                 </div>
                 <div className={classNames(styles.item)} name="JSON -> TOML">
                     <SplitView sizes={[50, 50]} minSize={[500, 500]}>
                         {editor}
-                        <div className={styles.viewer}>
-                            <Editor language="toml" {...editorSetting(true)} value={(kindOf(parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
+                        <div className={styles.viewer} ref={viewerWrapper}>
+                            <MonacoEditor language="toml" options={editorSetting(true)} width={viewerWidth} height={viewerHeight} value={(kindOf(parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
                         </div>
                     </SplitView>
                 </div>

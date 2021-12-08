@@ -33,13 +33,14 @@ import styles from './json-kits.module.css';
  * - https://www.jstoolset.com/json-formatter
  */
 
-const editorSetting = {
+const editorSetting = (readOnly) => ({
     loading: '正在初始化……',
     options: {
+        readOnly,
         fontSize: 18,
         scrollBeyondLastLine: false,
     }
-};
+});
 
 const jsonViewerOptions = {
     style: {
@@ -90,7 +91,7 @@ const JSONPathTester = memo(({ indent, value }) => {
                 <textarea defaultValue={path} onChange={e => setPath(e.target.value)} placeholder="输入 JSONPath 抽取数据……" />
             </div>
             <div className={styles.board}>
-                <Editor language={(typeof parsed === 'string') ? 'text' : 'json'} {...editorSetting} value={(typeof parsed === 'string') ? parsed : JSON.stringify(parsed, null, indent)} />
+                <Editor language={(typeof parsed === 'string') ? 'text' : 'json'} {...editorSetting(true)} value={(typeof parsed === 'string') ? parsed : JSON.stringify(parsed, null, indent)} />
             </div>
             <DriftToolbar className={styles.toolbar}>
                 <button>Copy</button>
@@ -115,7 +116,7 @@ export default function JSONKits() {
     const [indent, setIndent] = useState(4);
     const editor = useMemo(() => (
         <div className={styles.editor}>
-            <Editor language="json" {...editorSetting} onValidate={validate} value={value} onChange={setValue} />
+            <Editor language="json" {...editorSetting(false)} onValidate={validate} value={value} onChange={setValue} />
             <DriftToolbar className={styles.toolbar}>
                 <Json color="#4E9BCD" />
                 <button onClick={() => { setValue(JSON.stringify(resolve(value), null, indent)) }}>Beautify</button>
@@ -138,7 +139,7 @@ export default function JSONKits() {
                     <SplitView sizes={[75, 25]} minSize={[600, 400]}>
                         {editor}
                         <div className={styles.viewer}>
-                            {(typeof (parsed) === 'string') ? <Editor language="text" {...editorSetting} value={parsed} /> : <JSONViewer {...jsonViewerOptions} src={parsed} />}
+                            {(typeof (parsed) === 'string') ? <Editor language="text" {...editorSetting(true)} value={parsed} /> : <JSONViewer {...jsonViewerOptions} src={parsed} />}
                         </div>
                     </SplitView>
                 </div>
@@ -154,7 +155,7 @@ export default function JSONKits() {
                     <SplitView sizes={[50, 50]} minSize={[500, 500]}>
                         {editor}
                         <div className={styles.viewer}>
-                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting} value={(typeof (parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
+                            <Editor language={(typeof (parsed) === 'string') ? 'text' : 'toml'} {...editorSetting(true)} value={(typeof (parsed) === 'string') ? parsed : stringifyTOML(parsed)} />
                         </div>
                     </SplitView>
                 </div>

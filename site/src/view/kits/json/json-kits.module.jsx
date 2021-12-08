@@ -7,8 +7,10 @@ import { toast, ToastContainer } from 'react-toast';
 
 import kindOf from 'kind-of';
 import TOML from '@iarna/toml';
+import { csvParse } from 'd3-dsv';
 import parseJSON from 'parse-json';
 import classNames from "classnames";
+import exportFromJSON from 'export-from-json'
 import { JSONPath } from 'jsonpath-plus-browser';
 
 import Editor from "@monaco-editor/react";
@@ -77,14 +79,10 @@ const resolve = (text) => {
 };
 
 const stringifyTOML = (data) => {
-    if (kindOf(data) === 'object') {
-        try {
-            return TOML.stringify(data);
-        } catch (e) {
-            return e.message;
-        }
-    } else {
-        return `Can not stringify JSON data: ${JSON.stringify(data, null, 4)}`
+    try {
+        return (kindOf(data) === 'array') ? TOML.stringify({ data }) : TOML.stringify(data);
+    } catch (e) {
+        return e.message;
     }
 };
 
@@ -129,9 +127,17 @@ const logo = (
     </Link>
 );
 
+const EXPORT_TYPES = {
+    JSON: 'json/json',
+    CSV: 'csv/csv',
+    TOML: 'txt/toml',
+    XML: 'xml/xml',
+};
+
 export default function JSONKits() {
     useDocumentTitle('JSON 工具集');
-    const file = useRef();
+    const fileInstance = useRef();
+    const exportRule = useRef();
     const [value, setValue] = useState('{}');
     const [indent, setIndent] = useState(4);
     const editor = useMemo(() => (
@@ -143,16 +149,22 @@ export default function JSONKits() {
                 <input type="number" defaultValue={indent} onChange={e => setIndent(parseInt(e.target.value))} title="缩进" />
                 <button onClick={() => { setValue(stringifyJSON(resolve(value))) }}>Minify</button>
                 <button>Copy</button>
-                <FormItem type="file" ref={file} name="选择文件" accept=".json,.toml" onChange={(filename) => {
-                    if (!filename || !file || !file.current || file.current.length === 0) {
+                <FormItem type="file" ref={fileInstance} name="Read from file" accept=".json,.toml,.csv" onChange={(filename) => {
+                    if (!filename || !fileInstance || !fileInstance.current || fileInstance.current.length === 0) {
                         return;
                     }
                     const reader = new FileReader();
                     // TODO 解析 CSV/TOML/YAML
-                    reader.readAsText(file.current.files[0]);
+                    reader.readAsText(fileInstance.current.files[0]);
                     reader.onload = () => {
                         if (filename.endsWith('.json')) {
                             setValue(reader.result);
+                        } else if (filename.endsWith('.csv')) {
+                            try {
+                                setValue(stringifyJSON(csvParse(reader.result), indent));
+                            } catch (e) {
+                                toast.error(`解析 CSV 文件出错：${e.message}`)
+                            }
                         } else if (filename.endsWith('.toml')) {
                             try {
                                 setValue(stringifyJSON(TOML.parse(reader.result), indent));
@@ -162,6 +174,23 @@ export default function JSONKits() {
                         }
                     };
                 }} />
+                <button onClick={() => {
+                    if (!exportRule || !exportRule.current) {
+                        return;
+                    }
+                    const [exportType, extension] = exportRule.current.value.split('/');
+                    let data = parseJSON(value);
+                    if (extension === 'toml') {
+                        data = stringifyTOML(data);
+                    }
+                    exportFromJSON({ data, fileName: `${extension}-${Date.now()}`, exportType, extension })
+                }}>Export</button>
+                <select defaultValue={EXPORT_TYPES.JSON} ref={exportRule}>
+                    {Object.entries(EXPORT_TYPES).map(([key, info], index) => (
+                        <option key={index} value={info}>{key}</option>
+                    ))}
+                </select>
+
             </DriftToolbar>
         </div>
     ), [value, indent]);

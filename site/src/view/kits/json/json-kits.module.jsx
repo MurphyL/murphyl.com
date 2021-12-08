@@ -179,7 +179,7 @@ export default function JSONKits() {
                         return;
                     }
                     const [exportType, extension] = exportRule.current.value.split('/');
-                    let data = parseJSON(value);
+                    let data = resolve(value);
                     if (extension === 'toml') {
                         data = stringifyTOML(data);
                     }

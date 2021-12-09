@@ -13,7 +13,7 @@ const defaultValueGetter = (row, path) => row[path];
 export default function DataTable({ className, valueGetter = defaultValueGetter, expandable, columns = [], rows = [] }) {
     return (
         <div className={classNames(styles.root, className)}>
-            <table {...tableOptions}>
+            <table className={styles.instance} {...tableOptions}>
                 <thead>
                     <tr>
                         {columns.map(({ name, path }, index) => (

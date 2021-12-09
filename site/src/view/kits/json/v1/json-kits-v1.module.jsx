@@ -1,18 +1,24 @@
-import { useMemo } from 'react';
+import { createContext, useContext, useMemo, useRef, useState } from "react";
+
+import JSONView from 'react-json-view';
+import { Outlet } from "react-router-dom";
 
 import doCopy from 'copy-to-clipboard';
 
+import { toast, ToastContainer } from 'react-toast';
+
+import TOML from '@iarna/toml';
 import unsafeParseJSON from 'parse-json';
 import safeStringifyJSON from 'json-stringify-safe';
 
 import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
 
+import FormItem from 'plug/extra/form-item/form-input.module';
+
 import { CodeEditor } from 'plug/extra/code/code.module';
-import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 import SplitView from 'plug/extra/split-view/split-view.module';
-import { createContext, useContext, useState } from "react";
-import JSONView from 'react-json-view';
-import { Outlet, useNavigate } from "react-router-dom";
+import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
+
 import styles from './json-kits-v1.module.css';
 
 const SourceContext = createContext();
@@ -83,36 +89,8 @@ function JSONViewer() {
     );
 };
 
-function OptionsBoard() {
-    const { options, updateOption } = useContext(SourceContext);
-    return (
-        <div className={styles.options}>
-            <dl>
-                <dt><b>Editor</b> Options:</dt>
-                <dd>
-                    <div>
-                        <label>
-                            <span>格式化缩进</span>
-                            <input type="number" defaultValue={options.editor.indent} onChange={(e) => { updateOption({ indent: parseInt(e.target.value) }) }} />
-                        </label>
-                    </div>
-                </dd>
-                <dt><b>Viewer</b> Options:</dt>
-                <dd>
-                    <div>
-                        <label>
-                            <span>格式化缩进</span>
-                            <input type="number" defaultValue={options.editor.indent} onChange={(e) => { updateOption({ indent: parseInt(e.target.value) }) }} />
-                        </label>
-                    </div>
-                </dd>
-            </dl>
-        </div>
-    );
-};
-
-export function JSONKits() {
-    const navigate = useNavigate();
+export function Layout() {
+    const readerInstance = useRef();
     const [source, setSource] = useState('{}');
     const [options, setOptions] = useState(KIT_OPTIONS);
     const editor = useMemo(() => (
@@ -134,14 +112,39 @@ export function JSONKits() {
                     <button onClick={() => setSource(stringifyJSON(parseJSON(source), (options.editor.indent || 4)))}>Beautify</button>
                     <button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Minify</button>
                     <button onClick={() => doCopy(source)}>Copy</button>
-                    <button onClick={() => navigate('./settings')}>Setting</button>
+                    <FormItem type="file" placeholder="Read a file..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(filename) => {
+                        if (!filename || !readerInstance || !readerInstance.current || readerInstance.current.length === 0) {
+                            return;
+                        }
+                        const reader = new FileReader();
+                        // TODO 解析 CSV/TOML/YAML
+                        reader.readAsText(readerInstance.current.files[0]);
+                        reader.onload = () => {
+                            if (filename.endsWith('.json')) {
+                                setSource(reader.result);
+                            } else if (filename.endsWith('.csv')) {
+                                try {
+                                    setSource(stringifyJSON(csvParse(reader.result), 4));
+                                } catch (e) {
+                                    toast.error(`解析 CSV 文件出错：${e.message}`)
+                                }
+                            } else if (filename.endsWith('.toml')) {
+                                try {
+                                    setSource(stringifyJSON(TOML.parse(reader.result), 4));
+                                } catch (e) {
+                                    toast.error(`解析 TOML 文件出错：${e.message}`);
+                                }
+                            }
+                        };
+                    }} />
                 </DriftToolbar>
             </SourceContext.Provider>
+            <ToastContainer position="bottom-right" />
         </NaviLayout>
     );
 };
 
-export default [{
+export const Routes = [{
     index: true,
     element: <JSONViewer />
 }, {
@@ -150,9 +153,6 @@ export default [{
 }, {
     path: 'to-toml',
     element: <div>to toml</div>
-}, {
-    path: 'settings',
-    element: <OptionsBoard />
 }, {
     path: '*',
     element: <div>json 404</div>

@@ -1,13 +1,19 @@
 .root {
+    --form-item-height: 25px;
     border: 1px solid #efefef;
 }
 
 .root[form-input-type="file"] {
+    position: relative;
+    top: 1px;
     display: inline-block;
+    padding-right: 20px;
+    height: var(--form-item-height);
+    text-overflow: ellipsis;
     border: 1px solid rgb(118, 118, 118);
     border-radius: 2px;
     font-size: 14px;
-    line-height: 25px;
+    line-height: var(--form-item-height);
 }
 
 .root[form-input-type="file"] span {
@@ -15,7 +21,10 @@
 }
 
 .root input[type="file"] {
-    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
     padding: 0;
-    height: 25px;
+    opacity: 0;
 }

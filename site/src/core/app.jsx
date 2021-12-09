@@ -9,7 +9,7 @@ import graphql from 'data/cache/graphql.toml.json';
 
 import { MapperContext } from 'plug/extra/x-context';
 
-import { Dynamic, ErrorBoundary } from 'plug/extra/status/status.module';
+import { Dynamic, ErrorBoundary, Loading } from 'plug/extra/status/status.module';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module";
 import DriftLayout from "plug/layout/drift-layout/drift-layout.module";
@@ -20,7 +20,7 @@ import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
-import JSONKitsRouter, { JSONKits } from 'view/kits/json/v1/json-kits-v1.module';
+import * as JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
 import kits from 'view/kits/kits-router.js';
 
@@ -48,18 +48,22 @@ const Views = () => useRoutes([{
     children: kits
 }, {
     path: '/kits/json/v1',
-    element: <JSONKits />,
-    children: JSONKitsRouter
+    element: <JSONKits.Layout />,
+    children: JSONKits.Routes
 }, {
-    path: '/notebook',
-    element: <Outlet />,
+    path: '/schema',
+    element: <DriftLayout />,
     children: [{
-        path: ':group',
-        element: <Outlet />,
+        path: 'page',
+        element: <Dynamic title="动态页面" children={<DynamicPage />} />,
     }]
 }, {
-    path: '/page/list',
-    element: <DriftLayout children={<Dynamic title="动态页面" children={<DynamicPage />} />} />
+    path: '/demo',
+    element: <DriftLayout />,
+    children: [{
+        path: 'loading',
+        element: <Loading color="red" />,
+    }]
 }, {
     path: '*',
     element: <div>404</div>

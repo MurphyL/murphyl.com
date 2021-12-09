@@ -1,0 +1,2 @@
+- [ ] 分类调整：`X-SCHEMA`、`X-TOML`、`X-NOTE`
+- [ ] Cron Parser 依赖：https://www.npmjs.com/package/cron-converter

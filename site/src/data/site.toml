@@ -16,6 +16,10 @@ link = '/kits/notebook'
 label = '关于'
 link = '/about'
 
+[router]
+[[router.notebook]]
+label = '笔记'
+link = '/notebook'
 
 [footer]
 

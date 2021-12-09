@@ -1,0 +1,13 @@
+.root :global(.gutter) {
+    opacity: 0.3;
+}
+/** 编辑器 **/
+.root .source .editor {
+    margin: 5px;
+    height: calc(100% - 5px * 2);
+}
+
+/** 设置界面 **/
+.root .options {
+    padding: 5px;
+}

@@ -16,6 +16,7 @@
     "export-from-json": "^1.4.1",
     "format-duration": "^1.4.0",
     "gray-matter": "^4.0.3",
+    "json-stringify-safe": "^5.0.1",
     "jsonpath-plus-browser": "^5.0.6",
     "monaco-editor": "^0.30.1",
     "parse-json": "^5.2.0",

@@ -7,7 +7,6 @@ import ReactJsonSchema from 'react-json-schema';
 import DriftNav from "plug/extra/drift-navi/drift-navi.module";
 import SiteLayout from "plug/layout/site-layout/site-layout.module";
 
-import TabLayout from "plug/layout/tab-layout/tab-layout.module";
 
 import IssueComments from "plug/github/issue/comments-tab/issue-comments-tab.module";
 
@@ -24,7 +23,6 @@ renderer.setComponentMap({
 
     DriftNav,
     SiteLayout,
-    TabLayout,
 
     DynamicLink,
     DynamicList,

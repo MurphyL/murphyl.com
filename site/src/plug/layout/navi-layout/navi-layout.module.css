@@ -1,0 +1,47 @@
+:global(#root) {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.root {
+    --header-height: 30px;
+    height: 100%;
+}
+
+.root .header {
+    display: flex;
+    padding: 5px 10px;
+    line-height: var(--header-height);
+    box-shadow: 0 1px 1px 0 var(--shadow-color);
+}
+
+.root .header .group {
+    flex: 1;
+}
+
+.root .header a {
+    display: inline-block;
+    padding: 0 20px;
+    color: #3e3e3e;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.root .header .logo a {
+    border-right: 1px solid var(--shadow-color);
+}
+
+.root .header .group.left a {
+    border-right: 1px solid var(--shadow-color);
+}
+
+.root .header .group.right {
+    text-align: right;
+}
+
+.root .body {
+    margin: 0;
+
+    height: calc(100% - var(--header-height) - 5px * 2);
+}

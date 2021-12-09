@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 
+import classNames from "classnames";
+
 import useComponentSize from '@rehooks/component-size';
 
 import MonacoEditor, { MonacoDiffEditor, monaco } from 'react-monaco-editor';
@@ -31,22 +33,22 @@ export function CodeBlock({ language, code }) {
 }
 
 
-export function CodeEditor({ options = {}, ...extra }) {
+export function CodeEditor({ className, options = {}, ...extra }) {
     const wrapper = useRef();
     const { width, height } = useComponentSize(wrapper);
     return (
-        <div className={styles.editor} ref={wrapper}>
+        <div className={classNames(styles.editor, className)} ref={wrapper}>
             <MonacoEditor {...extra} options={Object.assign(editorOptions, options)} width={width} height={height} />
         </div>
     );
 }
 
 
-export function DiffEditor({ options = {}, ...extra }) {
+export function DiffEditor({ className, options = {}, ...extra }) {
     const wrapper = useRef();
     const { width, height } = useComponentSize(wrapper);
     return (
-        <div className={styles.editor} ref={wrapper}>
+        <div className={classNames(styles.editor, className)} ref={wrapper}>
             <MonacoDiffEditor  {...extra} options={Object.assign(editorOptions, options)} width={width} height={height} />
         </div>
     );

@@ -135,8 +135,8 @@ export const JSONViewer = memo(({ className, name, data = {}, onChange = false }
     }
     const options = {
         style: {
-            fontSize: '16px',
-            fontFamily: '"SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace'
+            fontSize: '18px',
+            fontFamily: 'Consolas, "Courier New", monospace'
         },
         name: (kindOf(name) === 'string') ? name : false,
         onAdd: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,
@@ -147,7 +147,7 @@ export const JSONViewer = memo(({ className, name, data = {}, onChange = false }
         quotesOnKeys: false,
         shouldCollapse: false,
         enableClipboard: false,
-        displayDataTypes: true,
+        displayDataTypes: false,
         displayObjectSize: false
     };
     return (

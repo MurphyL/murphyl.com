@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
-import { BrowserRouter, Outlet, useRoutes } from "react-router-dom";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 
 import loadable from '@loadable/component';
 
@@ -20,15 +20,14 @@ import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
-import { DiffEditor } from 'plug/extra/code/code.module';
-
+import * as SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import * as JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
 import kits from 'view/kits/kits-router.js';
 
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
-const Views = () => useRoutes([{
+const RouteViews = () => useRoutes([{
     path: '/',
     element: <SiteLayout />,
     children: [{
@@ -49,6 +48,10 @@ const Views = () => useRoutes([{
     element: <DriftLayout />,
     children: kits
 }, {
+    path: '/kits/sql/v1',
+    element: <SQLKits.Layout />,
+    children: SQLKits.Routes
+}, {
     path: '/kits/json/v1',
     element: <JSONKits.Layout />,
     children: JSONKits.Routes
@@ -65,9 +68,6 @@ const Views = () => useRoutes([{
     children: [{
         path: 'loading',
         element: <Loading color="red" />,
-    }, {
-        path: 'text-differ',
-        element: <DiffEditor />,
     }]
 }, {
     path: '*',
@@ -81,7 +81,7 @@ export default function App() {
                 <RecoilRoot>
                     <MapperContext.Provider value={{ site, graphql }}>
                         <BrowserRouter>
-                            <Views />
+                            <RouteViews />
                         </BrowserRouter>
                     </MapperContext.Provider>
                 </RecoilRoot>

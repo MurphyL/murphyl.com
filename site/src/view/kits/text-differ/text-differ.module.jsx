@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { DiffEditor } from 'plug/extra/code/code.module';
+import { DiffEditor } from 'plug/extra/source-code/source-code.module';
 
 import { useDocumentTitle } from 'plug/hooks';
 

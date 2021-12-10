@@ -10,7 +10,6 @@ import SiteLayout from "plug/layout/site-layout/site-layout.module";
 
 import IssueComments from "plug/github/issue/comments-tab/issue-comments-tab.module";
 
-import IssueCommentsTable from "plug/github/issue/comments-table/issue-comments-table.module";
 
 import DynamicLink from "plug/dynamic/link/dynamic-link.module";
 import DynamicList from "plug/dynamic/list/dynamic-list.module";
@@ -29,7 +28,6 @@ renderer.setComponentMap({
     DynamicTable,
 
     IssueComments,
-    IssueCommentsTable
 });
 
 export default (schema) => {

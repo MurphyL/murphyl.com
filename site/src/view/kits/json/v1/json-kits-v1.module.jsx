@@ -1,4 +1,4 @@
-import { createContext, memo, useContext, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useMemo, useRef, useState } from "react";
 
 import { Outlet } from "react-router-dom";
 
@@ -21,12 +21,12 @@ import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.modu
 import SplitView from 'plug/extra/split-view/split-view.module';
 import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
-import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/code/code.module';
+import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
 
 import styles from './json-kits-v1.module.css';
 
 
-const SourceContext = createContext();
+const JSONKitsContext = createContext();
 
 const stringifyJSON = (data, indent = 4) => {
     if (!data) {
@@ -80,9 +80,9 @@ const JSON_KITS_NAVI = [{
     name: 'JSON -> TOML',
 }];
 
-function JSONEditor() {
+const JSONEditor = () => {
     useDocumentTitle('JSON 编辑器');
-    const { source, setSource } = useContext(SourceContext);
+    const { source, setSource } = useContext(JSONKitsContext);
     const data = useMemo(() => parseJSON(source), [source]);
     return (
         <div className={classNames(styles.right, styles.viewer)}>
@@ -98,10 +98,11 @@ function JSONEditor() {
 };
 
 const PathQuery = () => {
+    useDocumentTitle('JSONPath Query');
     const textarea = useRef(null);
     const [path, setPath] = useState('$');
     const { height: textareaHeight } = useComponentSize(textarea);
-    const { source } = useContext(SourceContext);
+    const { source } = useContext(JSONKitsContext);
     const data = useMemo(() => parseJSON(source), [source]);
     const result = useJSONPath(data, path);
     return (
@@ -116,9 +117,9 @@ const PathQuery = () => {
     );
 };
 
-function TOMLConvertrer() {
-    useDocumentTitle('TOML 编辑器');
-    const { source } = useContext(SourceContext);
+const TOMLConvertrer = () => {
+    useDocumentTitle('JSON -> TOML');
+    const { source } = useContext(JSONKitsContext);
     return (
         <div className={classNames(styles.right, styles.toml)}>
             <CodeEditor language="toml" value={stringifyTOML(parseJSON(source))} minimap={false} readOnly={true} />
@@ -134,9 +135,9 @@ export function Layout() {
         <CodeEditor className={styles.editor} language="json" value={source} onChange={setSource} />
     ), [source])
     return (
-        <NaviLayout items={JSON_KITS_NAVI}>
-            <SourceContext.Provider value={{ source, setSource }}>
-                <SplitView className={styles.root} sizes={[55, 45]} minSize={[600, 400]}>
+        <NaviLayout className={styles.root} items={JSON_KITS_NAVI}>
+            <JSONKitsContext.Provider value={{ source, setSource }}>
+                <SplitView sizes={[55, 45]} minSize={[600, 400]}>
                     <div className={styles.left}>
                         {editor}
                     </div>
@@ -150,7 +151,6 @@ export function Layout() {
                         if (!loaded) {
                             return;
                         }
-                        // TODO 解析 CSV/TOML/YAML
                         const { name, content } = loaded;
                         if (name.endsWith('.json')) {
                             setSource(stripJSONComments(content));
@@ -171,11 +171,13 @@ export function Layout() {
                         }
                     }} />
                 </DriftToolbar>
-            </SourceContext.Provider>
+            </JSONKitsContext.Provider>
             <ToastContainer position="bottom-right" />
         </NaviLayout>
     );
 };
+
+Layout.displayName = 'JSONKits.Layout@v1';
 
 export const Routes = [{
     index: true,

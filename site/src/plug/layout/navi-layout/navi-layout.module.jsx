@@ -5,9 +5,9 @@ import classNames from 'classnames';
 
 import styles from './navi-layout.module.css';
 
-export default function TabLayout({ children, items = [] }) {
+export default function NaviLayout({ className, children, items = [] }) {
     return (
-        <div className={styles.root}>
+        <div className={classNames(styles.root, className)}>
             <div className={styles.header}>
                 <div className={styles.logo}>
                     <Link to="/">首页</Link>

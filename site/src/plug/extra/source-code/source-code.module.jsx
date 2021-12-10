@@ -1,4 +1,4 @@
-import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 
 import kindOf from 'kind-of';
 import classNames from "classnames";
@@ -7,12 +7,12 @@ import * as monaco from 'monaco-editor';
 
 import JSONView from 'react-json-view';
 
-import styles from './code.module.css';
+import styles from './source-code.module.css';
 
 const PLAINTEXT = 'plaintext';
 
 const editorOptions = {
-    fontSize: 18,
+    fontSize: '18px',
     width: '100%',
     height: '100%',
     automaticLayout: true,

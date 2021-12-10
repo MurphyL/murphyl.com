@@ -8,6 +8,7 @@
     "@icons-pack/react-simple-icons": "^4.6.1",
     "@loadable/component": "^5.15.0",
     "@rehooks/component-size": "^1.0.3",
+    "@sqltools/formatter": "^1.2.3",
     "axios": "latest",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
@@ -29,7 +30,6 @@
     "react-split": "^2.0.13",
     "react-toast": "^1.0.3",
     "recoil": "latest",
-    "sql-formatter": "^4.0.2",
     "strip-json-comments": "^4.0.0"
   },
   "scripts": {

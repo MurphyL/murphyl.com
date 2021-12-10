@@ -2,14 +2,14 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { JSONPath } from 'jsonpath-plus-browser';
+import { useJSONPath } from 'plug/hooks';
+
+import TOML from '@iarna/toml';
+import * as matter from 'gray-matter';
 
 import ReactMarkdown from 'react-markdown';
 
-import * as matter from 'gray-matter';
-import TOML from '@iarna/toml';
-
-import { CodeBlock } from 'plug/extra/code/code.module';
+import { CodeBlock } from 'plug/extra/source-code/source-code.module';
 
 import styles from './markdown-v1.module.css';
 
@@ -19,7 +19,7 @@ const options = {
     skipHtml: true,
     components: {
         a: ({ children, href }) => <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">{children}</a>,
-        p: ({ children }) => <p className={styles.paragraph}>{ children }</p>,
+        p: ({ children }) => <p className={styles.paragraph}>{children}</p>,
         h1: ({ children }) => <h2 className={styles.title}>{children}</h2>,
         h2: ({ children }) => <h2 className={styles.title}>{children}</h2>,
         h3: ({ children }) => <h3 className={styles.title}>{children}</h3>,
@@ -30,7 +30,8 @@ const options = {
         ol: ({ children }) => <ol className={classNames(styles.list)}>{children}</ol>,
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
         pre: ({ children, node }) => {
-            if(JSONPath({json: node, path: '$.children.0.tagName', wrap: false}) === 'code') {
+            const tagName = useJSONPath(node, '$.children.0.tagName');
+            if (tagName === 'code') {
                 return children;
             } else {
                 return (
@@ -44,19 +45,15 @@ const options = {
             } else {
                 const language = className ? className.replace(/^language-/, '') : null;
                 return (
-                    <CodeBlock language={language} code={children.join('\n').trim()} />
+                    <CodeBlock language={language} value={children.join('\n').trim()} />
                 );
             }
         },
-        blockquote: ({children}) => <blockquote className={styles.blockquote}>{children}</blockquote>
+        blockquote: ({ children }) => <blockquote className={styles.blockquote}>{children}</blockquote>
     }
 };
 
-export function MarkdownViewer({ code }) {
-    return (
-        <ReactMarkdown children={code} {...options} />
-    );
-};
+export const MarkdownViewer = ({ code }) => <ReactMarkdown children={code} {...options} />;
 
 export const parseMarkdown = (data = '') => {
     const { data: meta, excerpt, content } = matter(data, {

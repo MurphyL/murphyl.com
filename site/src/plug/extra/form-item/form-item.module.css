@@ -14,6 +14,11 @@
     height: var(--form-item-height);
 }
 
+/** 下拉框 **/
+.root.select {
+    height: var(--form-item-height);
+}
+
 /** 多行块 **/
 .root.textarea {
     position: relative;

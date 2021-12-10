@@ -113,8 +113,8 @@ export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue,
     }, [language]);
     useEffect(() => {
         const [original, modified] = value;
-        originalModel && originalModel.setValue(original);
-        modifiedModel && modifiedModel.setValue(modified);
+        originalModel && original && originalModel.setValue(original);
+        modifiedModel && modified && modifiedModel.setValue(modified);
     }, [value]);
     return useMemo(() => (
         <div className={classNames(styles.editor, styles.diff, className)} ref={instance} />

@@ -20,12 +20,12 @@ export default function DifferenceEditor() {
             <DiffEditor value={values} />
             <DriftToolbar>
                 <Label>Load files:</Label>
-                <FileInput placeholder="nothing here" multiple={true} onChange={([left, right]) => {
-                    console.log(left, right);
-                    setValues([
-                        `/** Left - load [${left.fileType}] file from ${left.filename} **/\n\n${left.content}`,
-                        `/** Right - load [${left.fileType}] file from ${right.filename} **/\n\n${right.content}`
-                    ])
+                <FileInput placeholder="nothing…" multiple={true} onChange={(files) => {
+                    // `/** Right - load [${left.fileType}] file from ${right.filename} **/\n\n${right.content}`
+                    if (!files || !Array.isArray(files) || files.length === 0) {
+                        return;
+                    }
+                    setValues(files.map(item => `/** Load [${item.fileType}] file from ${item.filename} **/\n\n${item.content}`));
                 }} />
             </DriftToolbar>
         </div>

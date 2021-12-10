@@ -11,11 +11,19 @@
 }
 
 .block code {
-    
     font-size: 18px;
     font-family: "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
 }
 
 .editor {
+    height: 100%;
+}
+
+.diff {
+    margin: 0;
+}
+
+.json_view {
+    overflow-y: auto;
     height: 100%;
 }

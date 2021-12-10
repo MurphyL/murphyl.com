@@ -23,7 +23,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
     const instance = useRef(ref);
     const [value, setValue] = useState();
     const onValueChanged = useMemo(() => {
-        const changeRefrenceValue = (value) => kindOf(onChange) === 'function' && onChange(value);
+        const changeRefrenceValue = (value) => (kindOf(onChange) === 'function') && onChange(value);
         return (value) => {
             if (type === 'file') {
                 if (!value || !instance || !instance.current || instance.current.length === 0) {
@@ -49,7 +49,6 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                     extra.multiple ? changeRefrenceValue(files) : changeRefrenceValue(files[0]);
                 });
             } else {
-                setValue(value);
                 changeRefrenceValue(value);
             }
         }
@@ -77,6 +76,10 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                 <span className={styles.placeholder}>{value || extra.placeholder || PLACEHOLDERS[type]}</span>
             </label>
         );
+    } else if (type === 'textarea') {
+        return (
+            <textarea className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} onChange={e => { onValueChanged(e.target.value) }} />
+        );
     }
     return (
         <div className={styles.root} form-item-type="text">
@@ -96,6 +99,8 @@ export const Select = ({ type, ...props }) => <FormItem {...props} type="select"
 
 export const TextInput = ({ type, ...props }) => <FormItem {...props} type="text" />;
 
-export const FileInput = ({ type, ...props }) => <FormItem {...props} type="file" />;
+export const TextArea = ({ type, ...props }) => <FormItem {...props} type="textarea" />;
+
+export const FileInput = forwardRef(({ type, ...props }, ref) => <FormItem {...props} ref={ref} type="file" />);
 
 export default FormItem;

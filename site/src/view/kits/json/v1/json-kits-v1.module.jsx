@@ -1,10 +1,11 @@
-import { createContext, useContext, useMemo, useRef, useState } from "react";
+import { createContext, memo, useContext, useMemo, useRef, useState } from "react";
 
 import { Outlet } from "react-router-dom";
 
 import { toast, ToastContainer } from 'react-toast';
 
 import kindOf from 'kind-of';
+import classNames from "classnames";
 
 import doCopy from 'copy-to-clipboard';
 import TOML from '@iarna/toml';
@@ -12,9 +13,9 @@ import { csvParse } from 'd3-dsv';
 import unsafeParseJSON from 'parse-json';
 import safeStringifyJSON from 'json-stringify-safe';
 
-import { useDocumentTitle } from 'plug/hooks';
+import { useDocumentTitle, useComponentSize, useJSONPath } from 'plug/hooks';
 
-import { Button, FileInput } from 'plug/extra/form-item/form-item.module';
+import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.module';
 
 import SplitView from 'plug/extra/split-view/split-view.module';
 import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
@@ -22,6 +23,7 @@ import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/code/code.module';
 
 import styles from './json-kits-v1.module.css';
+
 
 const SourceContext = createContext();
 
@@ -85,19 +87,34 @@ function JSONEditor() {
     useDocumentTitle('JSON 编辑器');
     const { source, setSource } = useContext(SourceContext);
     const data = useMemo(() => parseJSON(source), [source]);
-    return (kindOf(data) === 'string') ? (
-        <CodeBlock className={styles.error} language="text" value={data} />
-    ) : (
-        <JSONViewer className={styles.viewer} data={parseJSON(source)} onChange={(value) => {
-            setSource(stringifyJSON(value, 4));
-        }} />
+    return (
+        <div className={classNames(styles.right, styles.viewer)}>
+            {(kindOf(data) === 'string') ? (
+                <CodeBlock className={styles.error} language="text" value={data} />
+            ) : (
+                <JSONViewer data={data} onChange={(value) => {
+                    setSource(stringifyJSON(value, 4));
+                }} />
+            )}
+        </div>
     );
 };
 
-function PathQuery() {
+const PathQuery = () => {
+    const textarea = useRef(null);
+    const [path, setPath] = useState('$');
+    const { height: textareaHeight } = useComponentSize(textarea);
+    const { source } = useContext(SourceContext);
+    const data = useMemo(() => parseJSON(source), [source]);
+    const result = useJSONPath(data, path);
     return (
-        <div>
-
+        <div className={classNames(styles.right, styles.jsonpath)}>
+            <div ref={textarea}>
+                <TextArea value={path} data-after="JSONPath" placeholder="jsonpath..." onChange={setPath} />
+            </div>
+            <div className={styles.viewer} style={{ height: `calc(100% - ${textareaHeight}px)` }}>
+                <JSONViewer className={styles.viewer} name="query result" data={['array', 'object'].includes(kindOf(result)) ? result : [result]} />
+            </div>
         </div>
     );
 };
@@ -106,7 +123,9 @@ function TOMLConvertrer() {
     useDocumentTitle('TOML 编辑器');
     const { source } = useContext(SourceContext);
     return (
-        <CodeEditor className={styles.editor} language="toml" value={stringifyTOML(parseJSON(source))} minimap={false} readOnly={true} />
+        <div className={classNames(styles.right, styles.toml)}>
+            <CodeEditor language="toml" value={stringifyTOML(parseJSON(source))} minimap={false} readOnly={true} />
+        </div>
     );
 };
 
@@ -126,15 +145,13 @@ export function Layout() {
                     <div className={styles.left}>
                         {editor}
                     </div>
-                    <div className={styles.right}>
-                        <Outlet />
-                    </div>
+                    <Outlet />
                 </SplitView>
                 <DriftToolbar>
                     <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 4))}>Beautify</Button>
                     <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Minify</Button>
                     <Button onClick={() => doCopy(source, { debug: true })}>Copy</Button>
-                    <FileInput placeholder="Load data as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
+                    <FileInput placeholder="Load file as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
                         if (!loaded) {
                             return;
                         }

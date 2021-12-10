@@ -2,26 +2,24 @@
     opacity: 0.3;
 }
 
-.root .left {
-    margin: 5px;
-    height: calc(100% - 5px * 2);
-}
-
-/** 编辑器 **/
+.root .left,
 .root .right {
-    height: 100%;
-    overflow-y: scroll;
-}
-
-.root .right .editor,
-.root .right .error {
     margin: 5px;
     width: calc(100% - 5px * 2);
     height: calc(100% - 5px * 2);
 }
 
-.root .right .viewer {
-    padding: 5px 5px 10px;
+/** JSON Editor **/
+.root .right.viewer {
+    margin-right: 0;
+}
 
-    width: calc(100% - 5px * 2);
+/** Path Query **/
+.root .right.jsonpath textarea {
+    max-height: 5rem;
+}
+
+/** JSON -> TOML **/
+.root .right.toml {
+    overflow: hidden;
 }

@@ -117,7 +117,7 @@ export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue,
         modifiedModel && modifiedModel.setValue(modified);
     }, [value]);
     return useMemo(() => (
-        <div className={classNames(styles.editor, className)} ref={instance} />
+        <div className={classNames(styles.editor, styles.diff, className)} ref={instance} />
     ));
 });
 
@@ -129,7 +129,7 @@ DiffEditor.displayName = 'DiffEditor';
  * @param {*} param0 
  * @returns 
  */
-export const JSONViewer = memo(({ className, data = {}, onChange = false }) => {
+export const JSONViewer = memo(({ className, name, data = {}, onChange = false }) => {
     if (onChange && kindOf(onChange) !== 'function') {
         throw new Error('onChange must a function');
     }
@@ -138,7 +138,7 @@ export const JSONViewer = memo(({ className, data = {}, onChange = false }) => {
             fontSize: '16px',
             fontFamily: '"SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace'
         },
-        name: null,
+        name,
         onAdd: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,
         onEdit: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,
         onDelete: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,
@@ -151,7 +151,7 @@ export const JSONViewer = memo(({ className, data = {}, onChange = false }) => {
         displayObjectSize: false
     };
     return (
-        <div className={className}>
+        <div className={classNames(styles.json_view, className)}>
             <JSONView src={data} {...options} />
         </div>
     );

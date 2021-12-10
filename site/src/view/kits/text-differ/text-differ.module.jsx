@@ -21,11 +21,11 @@ export default function DifferenceEditor() {
             <DriftToolbar>
                 <Label>Load files:</Label>
                 <FileInput placeholder="nothing…" multiple={true} onChange={(files) => {
-                    // `/** Right - load [${left.fileType}] file from ${right.filename} **/\n\n${right.content}`
                     if (!files || !Array.isArray(files) || files.length === 0) {
                         return;
                     }
-                    setValues(files.map(item => `/** Load [${item.fileType}] file from ${item.filename} **/\n\n${item.content}`));
+                    const temp = files.length > 2 ? files.slice(0, 2) : files;
+                    setValues(temp.map(item => `/** Load [${item.fileType}] file from ${item.filename} **/\n\n${item.content}`));
                 }} />
             </DriftToolbar>
         </div>

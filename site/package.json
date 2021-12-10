@@ -29,7 +29,8 @@
     "react-split": "^2.0.13",
     "react-toast": "^1.0.3",
     "recoil": "latest",
-    "sql-formatter": "^4.0.2"
+    "sql-formatter": "^4.0.2",
+    "strip-json-comments": "^4.0.0"
   },
   "scripts": {
     "toml": "toml2json -v src/data/site.toml src/data/graphql.toml src/data/cache/",

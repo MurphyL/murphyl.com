@@ -51,7 +51,7 @@ link = '/kits/sql'
 
 [[footer.kits.links]]
 label = 'JSON 工具集'
-link = '/kits/json'
+link = '/kits/json/v1'
 
 [footer.social]
 label = '友情链接'

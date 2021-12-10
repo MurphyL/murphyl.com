@@ -138,7 +138,7 @@ export const JSONViewer = memo(({ className, name, data = {}, onChange = false }
             fontSize: '16px',
             fontFamily: '"SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace'
         },
-        name,
+        name: (kindOf(name) === 'string') ? name : false,
         onAdd: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,
         onEdit: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,
         onDelete: onChange ? ({ updated_src, existing_src }) => { onChange(updated_src, existing_src) } : false,

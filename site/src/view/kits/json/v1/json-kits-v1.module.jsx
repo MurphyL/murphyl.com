@@ -12,6 +12,7 @@ import TOML from '@iarna/toml';
 import { csvParse } from 'd3-dsv';
 import unsafeParseJSON from 'parse-json';
 import safeStringifyJSON from 'json-stringify-safe';
+import stripJSONComments from 'strip-json-comments';
 
 import { useDocumentTitle, useComponentSize, useJSONPath } from 'plug/hooks';
 
@@ -27,7 +28,7 @@ import styles from './json-kits-v1.module.css';
 
 const SourceContext = createContext();
 
-const stringifyJSON = (data, indent) => {
+const stringifyJSON = (data, indent = 4) => {
     if (!data) {
         return null;
     }
@@ -64,11 +65,7 @@ const parseTOML = (source) => {
     try {
         return TOML.parse(source);
     } catch (e) {
-        return {
-            ok: false,
-            action: 'Parse TOML error',
-            message: e.message
-        };
+        return e.message;
     }
 };
 
@@ -93,7 +90,7 @@ function JSONEditor() {
                 <CodeBlock className={styles.error} language="text" value={data} />
             ) : (
                 <JSONViewer data={data} onChange={(value) => {
-                    setSource(stringifyJSON(value, 4));
+                    setSource(stringifyJSON(value));
                 }} />
             )}
         </div>
@@ -134,9 +131,7 @@ export function Layout() {
     const readerInstance = useRef();
     const [source, setSource] = useState('{}');
     const editor = useMemo(() => (
-        <CodeEditor className={styles.editor} language="json" value={source} onChange={value => {
-            setSource(value);
-        }} />
+        <CodeEditor className={styles.editor} language="json" value={source} onChange={setSource} />
     ), [source])
     return (
         <NaviLayout items={JSON_KITS_NAVI}>
@@ -148,8 +143,8 @@ export function Layout() {
                     <Outlet />
                 </SplitView>
                 <DriftToolbar>
-                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 4))}>Beautify</Button>
-                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Minify</Button>
+                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Beautify</Button>
+                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 0))}>Minify</Button>
                     <Button onClick={() => doCopy(source, { debug: true })}>Copy</Button>
                     <FileInput placeholder="Load file as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
                         if (!loaded) {
@@ -158,17 +153,17 @@ export function Layout() {
                         // TODO 解析 CSV/TOML/YAML
                         const { filename, content } = loaded;
                         if (filename.endsWith('.json')) {
-                            setSource(content);
+                            setSource(stripJSONComments(content));
                         } else if (filename.endsWith('.csv')) {
                             try {
-                                setSource(stringifyJSON(csvParse(content), 4));
+                                setSource(stringifyJSON(csvParse(content)));
                             } catch (e) {
                                 console.log('解析 CSV 文件出错：', filename, e);
                                 toast.error(`解析 CSV 文件出错：${e.message}`)
                             }
                         } else if (filename.endsWith('.toml')) {
                             try {
-                                setSource(stringifyJSON(parseTOML(content), 4));
+                                setSource(stringifyJSON(parseTOML(content)));
                             } catch (e) {
                                 console.log('解析 TOML 文件出错：', filename, e);
                                 toast.error(`解析 TOML 文件出错：${e.message}`);

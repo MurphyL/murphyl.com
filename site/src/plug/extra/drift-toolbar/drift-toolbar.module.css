@@ -4,9 +4,13 @@
     padding: 10px;
     border: 2px solid var(--shadow-color);
     background-color: #fff;
-    opacity: 0.5;
+    opacity: 0.85;
 
     user-select: none;
+}
+
+.root:hover {
+    box-shadow: 0 2px 2px 0 var(--shadow-color);
 }
 
 .root:hover {

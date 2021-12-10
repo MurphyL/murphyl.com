@@ -20,6 +20,8 @@ import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
+import { DiffEditor } from 'plug/extra/code/code.module';
+
 import * as JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
 import kits from 'view/kits/kits-router.js';
@@ -63,6 +65,9 @@ const Views = () => useRoutes([{
     children: [{
         path: 'loading',
         element: <Loading color="red" />,
+    }, {
+        path: 'text-differ',
+        element: <DiffEditor />,
     }]
 }, {
     path: '*',

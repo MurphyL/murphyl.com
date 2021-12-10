@@ -1,13 +1,27 @@
 .root :global(.gutter) {
     opacity: 0.3;
 }
-/** 编辑器 **/
-.root .source .editor {
+
+.root .left {
     margin: 5px;
     height: calc(100% - 5px * 2);
 }
 
-/** 设置界面 **/
-.root .options {
-    padding: 5px;
+/** 编辑器 **/
+.root .right {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.root .right .editor,
+.root .right .error {
+    margin: 5px;
+    width: calc(100% - 5px * 2);
+    height: calc(100% - 5px * 2);
+}
+
+.root .right .viewer {
+    padding: 5px 5px 10px;
+
+    width: calc(100% - 5px * 2);
 }

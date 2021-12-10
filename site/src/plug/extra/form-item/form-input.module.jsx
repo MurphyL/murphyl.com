@@ -8,6 +8,7 @@ const PLACEHOLDERS = {
     file: '暂无文件……'
 };
 
+// https://zh-hans.reactjs.org/docs/hooks-reference.html#useimperativehandle
 const FormInput = forwardRef(({ type = 'text', name, accept, placeholder, onChange }, instance) => {
     const [value, setValue] = useState();
     const listener = useMemo(() => {

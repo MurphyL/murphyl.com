@@ -1,13 +1,19 @@
 .block {
     margin: 10px;
-    padding: 15px;
+    padding: 15px 15px 15px 20px;
+
+    overflow-x: scroll;
+
+    word-wrap: break-word;
 
     background-color: rgba(150, 150, 150, 0.1);
     border-radius: 5px;
 }
 
 .block code {
-    font-size: 16px;
+    
+    font-size: 18px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
 }
 
 .editor {

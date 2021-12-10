@@ -25,7 +25,6 @@
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
-    "react-monaco-editor": "^0.46.0",
     "react-router-dom": "^6.0.2",
     "react-split": "^2.0.13",
     "react-toast": "^1.0.3",
@@ -36,8 +35,8 @@
     "toml": "toml2json -v src/data/site.toml src/data/graphql.toml src/data/cache/",
     "prestart": "npm run toml",
     "prebuild": "npm run toml",
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,6 +55,8 @@
   },
   "devDependencies": {
     "@murphyl/toml2json": "latest",
+    "monaco-editor-webpack-plugin": "^6.0.0",
+    "react-app-rewired": "^2.1.8",
     "react-scripts": "latest"
   }
 }

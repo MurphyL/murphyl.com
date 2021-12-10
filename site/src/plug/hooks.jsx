@@ -6,7 +6,12 @@ import { JSONPath } from 'jsonpath-plus-browser';
 export { default as useComponentSize } from '@rehooks/component-size';
 
 export const useJSONPath = (data = {}, path) => {
-    return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
+    try { 
+        return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
+    } catch(e) {
+        return `Query error: ${e.message}`;
+    }
+    
 };
 
 export const useDocumentTitle = (title) => {

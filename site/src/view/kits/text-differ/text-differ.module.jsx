@@ -23,7 +23,7 @@ export default function DifferenceEditor() {
                     if (!files || !Array.isArray(files) || files.length === 0) {
                         return;
                     }
-                    setValues(files.map(file => `/** Load [${file.type}] file from ${file.name} **/\n\n${file.content}`));
+                    setValues(files.map(file => `/** Load from [${file.name}] **/\n\n${file.content}`));
                 }} />
             </DriftToolbar>
         </div>

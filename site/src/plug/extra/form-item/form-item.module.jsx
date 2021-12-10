@@ -26,10 +26,17 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         const changeRefrenceValue = (value) => (kindOf(onChange) === 'function') && onChange(value);
         return (value) => {
             if (type === 'file') {
-                if (!value || !instance || !instance.current || instance.current.length === 0) {
+                if (!value || !value.length) {
+                    setValue('');
                     return;
                 }
-                const files = Array.from(instance.current.files);
+                if (!instance || !instance.current || instance.current.length === 0) {
+                    return;
+                }
+                let files = Array.from(instance.current.files);
+                if (kindOf(extra.size) === 'number' && extra.size > 0) { 
+                    files = files.slice(0, extra.size);
+                }
                 setValue(files.map(file => file.name).join(', '));
                 Promise.all(files.map((file) => new Promise((resolve, reject) => {
                     const reader = new FileReader();
@@ -37,8 +44,8 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                         reader.readAsText(file);
                         reader.onload = () => {
                             resolve({
-                                filename: file.name,
-                                fileType: file.type,
+                                name: file.name,
+                                type: file.type,
                                 content: reader.result
                             });
                         };

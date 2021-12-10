@@ -38,6 +38,7 @@
     border-radius: 2px;
     font-size: 14px;
     line-height: calc(var(--form-item-height) - 1px * 2);
+    cursor: pointer;
 }
 
 .root.file .placeholder {

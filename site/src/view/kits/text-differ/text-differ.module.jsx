@@ -4,7 +4,6 @@ import { DiffEditor } from 'plug/extra/code/code.module';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-
 import { FileInput, Label } from 'plug/extra/form-item/form-item.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
@@ -20,12 +19,11 @@ export default function DifferenceEditor() {
             <DiffEditor value={values} />
             <DriftToolbar>
                 <Label>Load files:</Label>
-                <FileInput placeholder="nothing…" multiple={true} onChange={(files) => {
+                <FileInput placeholder="nothing…" multiple={true} size={2} onChange={(files) => {
                     if (!files || !Array.isArray(files) || files.length === 0) {
                         return;
                     }
-                    const temp = files.length > 2 ? files.slice(0, 2) : files;
-                    setValues(temp.map(item => `/** Load [${item.fileType}] file from ${item.filename} **/\n\n${item.content}`));
+                    setValues(files.map(file => `/** Load [${file.type}] file from ${file.name} **/\n\n${file.content}`));
                 }} />
             </DriftToolbar>
         </div>

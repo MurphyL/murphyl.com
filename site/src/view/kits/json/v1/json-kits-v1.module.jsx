@@ -151,21 +151,21 @@ export function Layout() {
                             return;
                         }
                         // TODO 解析 CSV/TOML/YAML
-                        const { filename, content } = loaded;
-                        if (filename.endsWith('.json')) {
+                        const { name, content } = loaded;
+                        if (name.endsWith('.json')) {
                             setSource(stripJSONComments(content));
-                        } else if (filename.endsWith('.csv')) {
+                        } else if (name.endsWith('.csv')) {
                             try {
                                 setSource(stringifyJSON(csvParse(content)));
                             } catch (e) {
-                                console.log('解析 CSV 文件出错：', filename, e);
+                                console.log('解析 CSV 文件出错：', name, e);
                                 toast.error(`解析 CSV 文件出错：${e.message}`)
                             }
-                        } else if (filename.endsWith('.toml')) {
+                        } else if (name.endsWith('.toml')) {
                             try {
                                 setSource(stringifyJSON(parseTOML(content)));
                             } catch (e) {
-                                console.log('解析 TOML 文件出错：', filename, e);
+                                console.log('解析 TOML 文件出错：', name, e);
                                 toast.error(`解析 TOML 文件出错：${e.message}`);
                             }
                         }

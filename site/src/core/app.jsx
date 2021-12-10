@@ -23,9 +23,13 @@ import SchemaViewer from 'view/page/schema/schema-page.module';
 import * as SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import * as JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
+import * as GithubKits from 'view/kits/github/github-kits.module';
+
 import kits from 'view/kits/kits-router.js';
 
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
+
+import * as FormItem from 'plug/extra/form-item/form-item.module';
 
 const RouteViews = () => useRoutes([{
     path: '/',
@@ -56,6 +60,10 @@ const RouteViews = () => useRoutes([{
     element: <JSONKits.Layout />,
     children: JSONKits.Routes
 }, {
+    path: '/kits/github',
+    element: <GithubKits.Layout />,
+    children: GithubKits.Routes
+}, {
     path: '/schema',
     element: <DriftLayout />,
     children: [{
@@ -68,6 +76,16 @@ const RouteViews = () => useRoutes([{
     children: [{
         path: 'loading',
         element: <Loading color="red" />,
+    }, {
+        path: 'form-item',
+        element: (
+            <div style={{ margin: '10px'}}>
+                <FormItem.Button>Hello</FormItem.Button>
+                <FormItem.Select>hello</FormItem.Select>
+                <FormItem.TextInput>hello</FormItem.TextInput>
+                <FormItem.FileInput>hello</FormItem.FileInput>
+            </div>
+        ),
     }]
 }, {
     path: '*',

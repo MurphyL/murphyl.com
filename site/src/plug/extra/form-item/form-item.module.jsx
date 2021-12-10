@@ -89,10 +89,9 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         );
     }
     return (
-        <div className={styles.root} form-item-type="text">
-            <span className={styles.label}>{value || PLACEHOLDERS[type]}</span>
+        <label className={classNames(styles.root, styles.input)} form-item-type="text">
             <input type="text" ref={instance} onChange={e => onValueChanged(e.target.value)} />
-        </div>
+        </label>
     );
 });
 

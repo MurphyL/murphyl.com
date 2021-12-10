@@ -90,6 +90,8 @@ CodeEditor.displayName = 'CodeEditor';
 
 export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue, value, minimap, onChange, ...extra }) => {
     const instance = useRef();
+    const [originalModel, setOriginalModel] = useState();
+    const [modifiedModel, setModifiedModel] = useState();
     useEffect(() => {
         if (null === instance || null === instance.current) {
             return;
@@ -98,15 +100,22 @@ export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue,
             id: `editor-${Date.now()}`,
             originalEditable: true
         }));
-        const [ original, modified ] = (kindOf(value) === 'array') ? value : [ value, value ];
+        const [original, modified] = (kindOf(value) === 'array') ? value : [value, value];
         var originalModel = monaco.editor.createModel(original, language);
         var modifiedModel = monaco.editor.createModel(modified, language);
         editorInstance.setModel({
             original: originalModel,
             modified: modifiedModel
         });
+        setOriginalModel(originalModel);
+        setModifiedModel(modifiedModel);
         return () => editorInstance && editorInstance.dispose();
     }, [language]);
+    useEffect(() => {
+        const [original, modified] = value;
+        originalModel && originalModel.setValue(original);
+        modifiedModel && modifiedModel.setValue(modified);
+    }, [value]);
     return useMemo(() => (
         <div className={classNames(styles.editor, className)} ref={instance} />
     ));

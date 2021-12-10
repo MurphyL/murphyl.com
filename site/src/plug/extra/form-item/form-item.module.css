@@ -1,0 +1,36 @@
+.root {
+    --form-item-height: 30px;
+}
+
+/** 标签 **/
+.root.label {
+    display: inline-block;
+    line-height: var(--form-item-height);
+}
+
+/** 按钮 **/
+.root.button {
+    padding: 0 10px;
+    height: var(--form-item-height);
+}
+
+/** 文件 **/
+.root.file {
+    position: relative;
+    display: inline-block;
+    height: calc(var(--form-item-height) - 1px * 2);
+    text-overflow: ellipsis;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 2px;
+    font-size: 14px;
+    line-height: calc(var(--form-item-height) - 1px * 2);
+}
+
+.root.file .placeholder {
+    display: inline-block;
+    padding: 0 20px 0 10px;
+}
+
+.root.file input[type="file"] {
+    display: none;
+}

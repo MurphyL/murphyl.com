@@ -14,7 +14,7 @@ import safeStringifyJSON from 'json-stringify-safe';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import FormItem from 'plug/extra/form-item/form-input.module';
+import { Button, FileInput } from 'plug/extra/form-item/form-item.module';
 
 import SplitView from 'plug/extra/split-view/split-view.module';
 import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
@@ -131,35 +131,32 @@ export function Layout() {
                     </div>
                 </SplitView>
                 <DriftToolbar>
-                    <button onClick={() => setSource(stringifyJSON(parseJSON(source), 4))}>Beautify</button>
-                    <button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Minify</button>
-                    <button onClick={() => doCopy(source, { debug: true })}>Copy</button>
-                    <FormItem type="file" placeholder="Read a file..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(filename) => {
-                        if (!filename || !readerInstance || !readerInstance.current || readerInstance.current.length === 0) {
+                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 4))}>Beautify</Button>
+                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Minify</Button>
+                    <Button onClick={() => doCopy(source, { debug: true })}>Copy</Button>
+                    <FileInput placeholder="Load data as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
+                        if (!loaded) {
                             return;
                         }
-                        const reader = new FileReader();
                         // TODO 解析 CSV/TOML/YAML
-                        reader.readAsText(readerInstance.current.files[0]);
-                        reader.onload = () => {
-                            if (filename.endsWith('.json')) {
-                                setSource(reader.result);
-                            } else if (filename.endsWith('.csv')) {
-                                try {
-                                    setSource(stringifyJSON(csvParse(reader.result), 4));
-                                } catch (e) {
-                                    console.log('解析 CSV 文件出错：', filename, e);
-                                    toast.error(`解析 CSV 文件出错：${e.message}`)
-                                }
-                            } else if (filename.endsWith('.toml')) {
-                                try {
-                                    setSource(stringifyJSON(parseTOML(reader.result), 4));
-                                } catch (e) {
-                                    console.log('解析 TOML 文件出错：', filename, e);
-                                    toast.error(`解析 TOML 文件出错：${e.message}`);
-                                }
+                        const { filename, content } = loaded;
+                        if (filename.endsWith('.json')) {
+                            setSource(content);
+                        } else if (filename.endsWith('.csv')) {
+                            try {
+                                setSource(stringifyJSON(csvParse(content), 4));
+                            } catch (e) {
+                                console.log('解析 CSV 文件出错：', filename, e);
+                                toast.error(`解析 CSV 文件出错：${e.message}`)
                             }
-                        };
+                        } else if (filename.endsWith('.toml')) {
+                            try {
+                                setSource(stringifyJSON(parseTOML(content), 4));
+                            } catch (e) {
+                                console.log('解析 TOML 文件出错：', filename, e);
+                                toast.error(`解析 TOML 文件出错：${e.message}`);
+                            }
+                        }
                     }} />
                 </DriftToolbar>
             </SourceContext.Provider>

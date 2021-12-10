@@ -21,7 +21,7 @@ import { CodeEditor } from 'plug/extra/code/code.module';
 import { useDocumentTitle } from 'plug/hooks';
 
 import { NaviTabs } from "plug/dynamic/dynamic.module";
-import FormItem from 'plug/extra/form-item/form-input.module';
+import FormItem from 'plug/extra/form-item/form-item.module';
 import SplitView from 'plug/extra/split-view/split-view.module';
 
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';

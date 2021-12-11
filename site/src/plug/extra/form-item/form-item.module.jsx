@@ -1,5 +1,7 @@
 import React, { forwardRef, useMemo, useRef, useState } from 'react';
 
+import { Link } from "react-router-dom";
+
 import kindOf from 'kind-of';
 import classNames from 'classnames';
 
@@ -7,14 +9,6 @@ import styles from './form-item.module.css';
 
 const PLACEHOLDERS = {
     file: '暂无文件……'
-};
-
-const FormItemWrapper = ({ type, children }) => {
-    return (
-        <label className={styles.root} form-input-type={type}>
-            {children}
-        </label>
-    );
 };
 
 
@@ -34,7 +28,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                     return;
                 }
                 let files = Array.from(instance.current.files);
-                if (kindOf(extra.size) === 'number' && extra.size > 0) { 
+                if (kindOf(extra.size) === 'number' && extra.size > 0) {
                     files = files.slice(0, extra.size);
                 }
                 setValue(files.map(file => file.name).join(', '));
@@ -108,5 +102,7 @@ export const TextInput = ({ type, ...props }) => <FormItem {...props} type="text
 export const TextArea = ({ type, ...props }) => <FormItem {...props} type="textarea" />;
 
 export const FileInput = forwardRef(({ type, ...props }, ref) => <FormItem {...props} ref={ref} type="file" />);
+
+export const LinkButton = ({ to, type, children, ...props }) => <Link to={to}><Button {...props}>{children}</Button></Link>
 
 export default FormItem;

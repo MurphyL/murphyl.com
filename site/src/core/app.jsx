@@ -51,7 +51,7 @@ const RouteViews = () => useRoutes([{
     children: [SQLKits, JSONKits]
 }, {
     path: '/kits/text/differ',
-    element: <TextDiffer />
+    element: <TextDiffer />,
 }, {
     path: '/schema',
     element: <DriftLayout />,

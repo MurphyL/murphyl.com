@@ -33,7 +33,7 @@
     "strip-json-comments": "^4.0.0"
   },
   "scripts": {
-    "toml": "toml2json -v src/data/site.toml src/data/graphql.toml src/data/cache/",
+    "toml": "toml2json -v src/data/toml/site.toml src/data/toml/graphql.toml src/data/cache/",
     "prestart": "npm run toml",
     "prebuild": "npm run toml",
     "start": "react-app-rewired start",

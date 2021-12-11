@@ -36,7 +36,7 @@ link = '/kits/notebook'
 
 [[footer.sitemap.links]]
 label = '动态页面'
-link = '/page/list'
+link = '/schema/page'
 
 [footer.kits]
 label = '常用工具'

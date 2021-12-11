@@ -20,3 +20,7 @@ export const useDocumentTitle = (title) => {
         return () => document.title = process.env.REACT_APP_TITLE;
     }, [title]);
 };
+
+export const useGithubAPI = () => {
+    return 0;
+};

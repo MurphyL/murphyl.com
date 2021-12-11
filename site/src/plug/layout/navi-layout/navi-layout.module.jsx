@@ -12,7 +12,6 @@ export default function NaviLayout({ className }) {
     const { pathname } = useLocation();
     const headerInstance = useRef();
     const { height } = useComponentSize(headerInstance);
-    console.log(pathname);
     const match = (path) => pathname.endsWith(path.replace(/^\./, ''));
     return (
         <div className={classNames(styles.root, className)} style={{ '--navi-header-height': `${height}px` }}>

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 
-import classNames from "classnames";
 import { format as formatSQL } from '@sqltools/formatter';
 
 import { useDocumentTitle } from 'plug/hooks';
 
+import { Dynamic } from 'plug/extra/status/status.module';
+
 import { CodeEditor } from 'plug/extra/source-code/source-code.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 import { Button, Label, Select } from 'plug/extra/form-item/form-item.module';
+
+import IssueSchema from "plug/github/issue/issue-schema/issue-schema.module";
 
 import styles from './sql-kits-v1.module.css';
 
@@ -43,14 +46,18 @@ const SQLFormatter = () => {
 const SQLSnippet = () => {
     useDocumentTitle('SQL 代码片段');
     return (
-        <div></div>
+        <Dynamic>
+            <IssueSchema label="X-SQL" unique="snippet" />
+        </Dynamic>
     );
 };
 
 const SQLManual = () => {
     useDocumentTitle('SQL 帮助文档');
     return (
-        <div></div>
+        <Dynamic>
+            <IssueSchema label="X-SQL" unique="manual" />
+        </Dynamic>
     );
 };
 

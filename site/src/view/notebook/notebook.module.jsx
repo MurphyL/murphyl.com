@@ -1,12 +1,11 @@
 import React, { Fragment, useMemo } from 'react';
-import { useRecoilValue } from 'recoil';
 import { Link, useParams } from "react-router-dom";
 
 import { JSONPath } from 'jsonpath-plus-browser';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import { callGithubAPI } from 'plug/extra/rest-utils';
+import { useIssueComments } from 'plug/github/graphql-utils';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
@@ -21,7 +20,7 @@ const params = {
 export default function Notebook() {
     useDocumentTitle('笔记');
     const { group, unique } = useParams();
-    const issues = useRecoilValue(callGithubAPI(params));
+    const issues = useIssueComments('X-TOPIC');
     const topics = useMemo(() => (issues || []).map(({ url, title, body, publishedAt, comments: { nodes } }) => {
         const { unique, sort = 9999, content } = parseMarkdown(body);
         const children = nodes.map(({ url, body, publishedAt }) => {

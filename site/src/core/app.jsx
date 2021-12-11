@@ -4,11 +4,6 @@ import { BrowserRouter, useRoutes } from "react-router-dom";
 
 import loadable from '@loadable/component';
 
-import site from 'data/cache/site.toml.json';
-import graphql from 'data/cache/graphql.toml.json';
-
-import { MapperContext } from 'plug/extra/x-context';
-
 import { Dynamic, ErrorBoundary, Loading } from 'plug/extra/status/status.module';
 
 import SiteLayout from "plug/layout/site-layout/site-layout.module";
@@ -17,6 +12,8 @@ import DriftLayout from "plug/layout/drift-layout/drift-layout.module";
 import Home from 'view/home/home.module';
 import Blog from 'view/blog/blog.module';
 import Post from 'view/post/post.module';
+
+import Notebook from 'view/notebook/notebook.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
@@ -50,6 +47,9 @@ const RouteViews = () => useRoutes([{
     element: <NaviLayout />,
     children: [SQLKits, JSONKits]
 }, {
+    path: '/kits/notebook',
+    element: <Dynamic><Notebook /></Dynamic>,
+}, {
     path: '/kits/text/differ',
     element: <TextDiffer />,
 }, {
@@ -76,11 +76,9 @@ export default function App() {
         <StrictMode>
             <ErrorBoundary>
                 <RecoilRoot>
-                    <MapperContext.Provider value={{ site, graphql }}>
-                        <BrowserRouter>
-                            <RouteViews />
-                        </BrowserRouter>
-                    </MapperContext.Provider>
+                    <BrowserRouter>
+                        <RouteViews />
+                    </BrowserRouter>
                 </RecoilRoot>
             </ErrorBoundary>
         </StrictMode>

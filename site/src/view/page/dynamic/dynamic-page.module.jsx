@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { useRecoilValue } from 'recoil';
-
 import dayjs from 'dayjs';
 import { JSONPath } from 'jsonpath-plus-browser';
 
-import { callGithubAPI } from 'plug/extra/rest-utils.jsx';
+import { useIssueComments } from 'plug/github/graphql-utils';
 
 import DynamicTable from 'plug/dynamic/table/dynamic-table.module';
 import { parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -63,11 +61,8 @@ const columns = [{
 }];
 
 export default function DynamicPage() {
-    const pages = useRecoilValue(callGithubAPI({
-        key: 'query-issue-comments',
-        ghp_labels: [`X-PAGE`, `X-TOPIC`],
-        path: '$.data.repository.issues.nodes'
-    })).map(({ body, ...meta }) => ({ ...meta, ...parseMarkdown(body) }));
+    useIssueComments( [`X-PAGE`, `X-TOPIC`]);
+    const pages = useIssueComments( [`X-PAGE`, `X-TOPIC`]).map(({ body, ...meta }) => ({ ...meta, ...parseMarkdown(body) }));
     return (
         <DynamicTable className={styles.root} columns={columns} rows={pages} valueGetter={(row, path) => JSONPath({json: row, path, wrap: false})} />
     );

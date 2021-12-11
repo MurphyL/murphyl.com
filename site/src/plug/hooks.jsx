@@ -24,3 +24,14 @@ export const useDocumentTitle = (title) => {
 export const useGithubAPI = () => {
     return 0;
 };
+
+const POSTIONS = {
+    t: 'top',
+    r: 'right',
+    b: 'bottom',
+    l: 'left',
+};
+
+export function usePostions(flags = 'lb') {
+    return flags.split('').map(flag => POSTIONS[flag]).filter(flag => flag);
+};

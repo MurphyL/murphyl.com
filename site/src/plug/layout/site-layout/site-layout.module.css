@@ -1,18 +1,22 @@
-.header a,
-.main a,
-.footer a {
+.root {
+	overflow-x: hidden;
+}
+
+.root .header a,
+.root .main a,
+.root .footer a {
     text-decoration: none;
     color: gray;
 }
 
-.main,
-.footer {
+.root .main,
+.root .footer {
     margin: 0 auto;
     width: var(--view-width);
 }
 
 /** component - header **/
-.header {
+.root .header {
 	position: sticky;
 	display: flex;
     padding: 0 10px;
@@ -26,7 +30,7 @@
 	z-index: 99;
 }
 
-.header .logo {
+.root .header .logo {
     display: inline-block;
     margin: 0;
 	width: 120px;
@@ -34,17 +38,17 @@
 	font-weight: 600;
 }
 
-.header .logo img {
+.root .header .logo img {
 	margin-right: 10px;
 	width: 28px;
 	height: 28px;
 }
 
-.header .logo b {
+.root .header .logo b {
 	font-size: 16px;
 }
 
-.header .navi {
+.root .header .navi {
     flex: 1;
     margin: 0;
     padding: 0;
@@ -52,7 +56,7 @@
     text-align: right;
 }
 
-.header .navi .navi_item {
+.root .header .navi .navi_item {
 	position: relative;
     display: inline-block;
 	padding: 0 1rem;
@@ -60,21 +64,21 @@
 	cursor: pointer;
 }
 
-.header .navi .navi_item.selected {
+.root .header .navi .navi_item.selected {
 	color: indigo;
 	font-weight: 700;
 }
 
-.header .navi .navi_item:hover .navi_hover {
+.root .header .navi .navi_item:hover .navi_hover {
 	display: block;
 }
 
-.header .navi .navi_item .navi_text {
+.root .header .navi .navi_item .navi_text {
 	display: inline-block;
 	line-height: 50px;
 }
 
-.header .navi .navi_item .navi_hover {
+.root .header .navi .navi_item .navi_hover {
 	position: absolute;
 	display: none;
 	right: 0px;
@@ -84,64 +88,64 @@
 	line-height: 24px;
 }
 
-.header .navi .navi_item .navi_hover ul {
+.root .header .navi .navi_item .navi_hover ul {
 	margin: 6px 0 0;
 	padding: 10px 0;
 	border: 2px solid #efefef;
 	border-radius: 5px;
 }
 
-.header .navi .navi_item .navi_hover ul li {
+.root .header .navi .navi_item .navi_hover ul li {
 	list-style: none;
 	line-height: 30px;
 }
 
-.header .navi .navi_item .navi_hover ul li:hover {
+.root .header .navi .navi_item .navi_hover ul li:hover {
 	background-color: #efefef;
 	opacity: 0.8;
 }
 
-.header .navi .trigger {
+.root .header .navi .trigger {
     display: none;
 }
 
 /** component - main **/
 
-.main {
+.root .main {
     padding: 10px;
     min-height: 500px;
 }
 
 /** component - footer **/
-.footer {
+.root .footer {
 	margin-top: 0;
 	min-height: 120px;
 	border-top: 1px solid var(--shadow-color);
 }
 
-.footer .navi {
+.root .footer .navi {
 	display: flex;
 }
 
 
-.footer .navi .section {
+.root .footer .navi .section {
 	flex: 1;
 }
 
-.footer .navi .section dt {
+.root .footer .navi .section dt {
 	font-weight: 800;
 }
 
-.footer .navi .section dd {
+.root .footer .navi .section dd {
 	margin: 0;
 }
 
-.footer .navi .section dd ul {
+.root .footer .navi .section dd ul {
 	padding-left: 15px;
 	line-height: 25px;
 }
 
-.footer .copyright {
+.root .footer .copyright {
 	text-align: center;
 	line-height: 3rem;
 }

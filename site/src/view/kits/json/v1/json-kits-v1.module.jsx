@@ -192,3 +192,18 @@ export const Routes = [{
     path: '*',
     element: <div>json 404</div>
 }];
+
+
+export default [{
+    index: true,
+    name: 'JSON Editor',
+    element: <JSONEditor />
+}, {
+    path: 'path-query',
+    name: 'Path Query',
+    element: <PathQuery />
+}, {
+    path: 'to-toml',
+    name: 'JSON -> TOML',
+    element: <TOMLConvertrer />
+}];

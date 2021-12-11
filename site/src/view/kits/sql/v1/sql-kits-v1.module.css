@@ -1,4 +1,4 @@
-.root .formatter {
+.root {
     margin: 5px;
     height: calc(100% - 5px * 2);
 }

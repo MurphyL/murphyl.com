@@ -60,12 +60,12 @@ function Footer({ className, ...extra }) {
 
 export default function SiteLayout() {
     return (
-        <Fragment>
+        <div className={styles.root}>
             <Header />
             <main className={styles.main}>
                 <Outlet />
             </main>
             <Footer />
-        </Fragment>
+        </div>
     );
 }

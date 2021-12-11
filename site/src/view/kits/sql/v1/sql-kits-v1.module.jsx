@@ -1,17 +1,15 @@
 import { useState } from "react";
 
-import { Outlet } from "react-router-dom";
-
 import { format as formatSQL } from '@sqltools/formatter';
 
 import { useDocumentTitle } from 'plug/hooks';
 
 import { CodeEditor } from 'plug/extra/source-code/source-code.module';
-import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 import { Button, Label, Select } from 'plug/extra/form-item/form-item.module';
 
 import styles from './sql-kits-v1.module.css';
+import classNames from "classnames";
 
 const SQL_KITS_NAVI = [{
     path: './',
@@ -37,7 +35,7 @@ const SQLFormatter = () => {
         }));
     };
     return (
-        <div className={styles.formatter}>
+        <div className={classNames(styles.root, styles.formatter)}>
             <CodeEditor language="sql" value={sql} onChange={setSQL} />
             <DriftToolbar>
                 <Button onClick={format}>Beautify</Button>
@@ -66,24 +64,18 @@ const SQLManual = () => {
     );
 };
 
-export function Layout() {
-    useDocumentTitle('SQL 工具集');
-    return (
-        <NaviLayout className={styles.root} items={SQL_KITS_NAVI}>
-            <Outlet />
-        </NaviLayout>
-    );
-};
+// Layout.displayName = 'SQLKits.Layout@v1';
 
-Layout.displayName = 'SQLKits.Layout@v1';
-
-export const Routes = [{
+export default [{
     index: true,
+    name: 'SQL 格式化',
     element: <SQLFormatter />
 }, {
     path: 'snippet',
+    name: 'SQL 代码片段',
     element: <SQLSnippet />
 }, {
     path: 'manual',
+    name: 'SQL 帮助文档',
     element: <SQLManual />
 }];

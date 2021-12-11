@@ -28,6 +28,10 @@ git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/pl
 - [GraphQL Document - Queries and Mutations](https://graphql.org/learn/queries/)
 - jmespath
 - [monaco-editor - code highlighting](https://microsoft.github.io/monaco-editor/playground.html#creating-the-editor-syntax-highlighting-for-html-elements)
+- npm.js - base
+- npm.js - vfile
+- Templage Engine - https://www.npmjs.com/package/sprintf-js
+- https://www.npmjs.com/package/nanoid
 
 ## 日期格式
 

@@ -1,12 +1,8 @@
-:global(#root) {
+.root {
+    --header-height: 30px;
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-}
-
-.root {
-    --header-height: 30px;
-    height: 100%;
 }
 
 .root .header {

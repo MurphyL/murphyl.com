@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link, Outlet } from "react-router-dom";
 
 import classNames from 'classnames';
@@ -24,4 +24,19 @@ export default function NaviLayout({ className, children, items = [] }) {
             </div>
         </div>
     );
+};
+
+NaviLayout.from = ({ path }, items) => {
+    const navi = items.filter(item => item.name).map(({ name, index, path }) => ({
+        name, path: `./${index ? '' : path}`
+    }));
+    return {
+        path,
+        element: <NaviLayout items={navi} />,
+        children: items.concat({
+            path: '*',
+            element: <div>404</div>
+
+        })
+    }
 };

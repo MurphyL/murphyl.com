@@ -20,16 +20,18 @@ import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
-import * as SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
+import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import * as JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
 import * as GithubKits from 'view/kits/github/github-kits.module';
 
 import kits from 'view/kits/kits-router.js';
 
-const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
-
 import * as FormItem from 'plug/extra/form-item/form-item.module';
+
+import NaviLayout from 'plug/layout/navi-layout/navi-layout.module';
+
+const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
 const RouteViews = () => useRoutes([{
     path: '/',
@@ -51,11 +53,9 @@ const RouteViews = () => useRoutes([{
     path: '/kits',
     element: <DriftLayout />,
     children: kits
-}, {
+}, NaviLayout.from({
     path: '/kits/sql/v1',
-    element: <SQLKits.Layout />,
-    children: SQLKits.Routes
-}, {
+}, SQLKits), {
     path: '/kits/json/v1',
     element: <JSONKits.Layout />,
     children: JSONKits.Routes
@@ -79,7 +79,7 @@ const RouteViews = () => useRoutes([{
     }, {
         path: 'form-item',
         element: (
-            <div style={{ margin: '10px'}}>
+            <div style={{ margin: '10px' }}>
                 <FormItem.Button>Hello</FormItem.Button>
                 <FormItem.Select>hello</FormItem.Select>
                 <FormItem.TextInput>hello</FormItem.TextInput>

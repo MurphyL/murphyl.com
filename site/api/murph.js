@@ -1,4 +1,3 @@
-const axios = require('axios');
 const kindOf = require('kind-of');
 
 export default (req, res) => {

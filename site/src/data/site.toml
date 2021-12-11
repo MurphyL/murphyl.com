@@ -47,7 +47,7 @@ link = '/kits/text/differ'
 
 [[footer.kits.links]]
 label = 'SQL 工具集'
-link = '/kits/sql'
+link = '/kits/sql/v1'
 
 [[footer.kits.links]]
 label = 'JSON 工具集'

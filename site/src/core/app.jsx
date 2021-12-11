@@ -21,13 +21,9 @@ import Post from 'view/post/post.module';
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
 import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
-import * as JSONKits from 'view/kits/json/v1/json-kits-v1.module';
+import JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
-import * as GithubKits from 'view/kits/github/github-kits.module';
-
-import kits from 'view/kits/kits-router.js';
-
-import * as FormItem from 'plug/extra/form-item/form-item.module';
+import TextDiffer from 'view/kits/text-differ/text-differ.module';
 
 import NaviLayout from 'plug/layout/navi-layout/navi-layout.module';
 
@@ -51,18 +47,11 @@ const RouteViews = () => useRoutes([{
     }]
 }, {
     path: '/kits',
-    element: <DriftLayout />,
-    children: kits
-}, NaviLayout.from({
-    path: '/kits/sql/v1',
-}, SQLKits), {
-    path: '/kits/json/v1',
-    element: <JSONKits.Layout />,
-    children: JSONKits.Routes
+    element: <NaviLayout />,
+    children: [SQLKits, JSONKits]
 }, {
-    path: '/kits/github',
-    element: <GithubKits.Layout />,
-    children: GithubKits.Routes
+    path: '/kits/text/differ',
+    element: <TextDiffer />
 }, {
     path: '/schema',
     element: <DriftLayout />,
@@ -76,16 +65,6 @@ const RouteViews = () => useRoutes([{
     children: [{
         path: 'loading',
         element: <Loading color="red" />,
-    }, {
-        path: 'form-item',
-        element: (
-            <div style={{ margin: '10px' }}>
-                <FormItem.Button>Hello</FormItem.Button>
-                <FormItem.Select>hello</FormItem.Select>
-                <FormItem.TextInput>hello</FormItem.TextInput>
-                <FormItem.FileInput>hello</FormItem.FileInput>
-            </div>
-        ),
     }]
 }, {
     path: '*',

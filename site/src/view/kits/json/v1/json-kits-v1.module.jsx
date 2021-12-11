@@ -1,6 +1,6 @@
-import { createContext, useContext, useMemo, useRef, useState } from "react";
+import { createContext, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useResolvedPath, useOutletContext } from "react-router-dom";
 
 import { toast, ToastContainer } from 'react-toast';
 
@@ -19,7 +19,6 @@ import { useDocumentTitle, useComponentSize, useJSONPath } from 'plug/hooks';
 import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.module';
 
 import SplitView from 'plug/extra/split-view/split-view.module';
-import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
 
@@ -69,17 +68,6 @@ const parseTOML = (source) => {
     }
 };
 
-const JSON_KITS_NAVI = [{
-    path: './',
-    name: 'JSON Editor',
-}, {
-    path: './path-query',
-    name: 'Path Query',
-}, {
-    path: './to-toml',
-    name: 'JSON -> TOML',
-}];
-
 const JSONEditor = () => {
     useDocumentTitle('JSON 编辑器');
     const { source, setSource } = useContext(JSONKitsContext);
@@ -127,15 +115,32 @@ const TOMLConvertrer = () => {
     );
 };
 
-export function Layout() {
+const PATHNAME_PREFIX = 'json/v1';
+
+const JSON_KITS_NAVI = [{
+    path: `./${PATHNAME_PREFIX}`,
+    name: 'JSON Editor',
+}, {
+    path:  `./${PATHNAME_PREFIX}/path-query`,
+    name: 'Path Query',
+}, {
+    path:  `./${PATHNAME_PREFIX}/to-toml`,
+    name: 'JSON -> TOML',
+}];
+
+function JSONKitsLayout() {
     useDocumentTitle('JSON 工具集');
     const readerInstance = useRef();
     const [source, setSource] = useState('{}');
+    const { setNaviItems } = useOutletContext();
+    useEffect(() => {
+        setNaviItems(JSON_KITS_NAVI);
+    }, []);
     const editor = useMemo(() => (
         <CodeEditor className={styles.editor} language="json" value={source} onChange={setSource} />
     ), [source])
     return (
-        <NaviLayout className={styles.root} items={JSON_KITS_NAVI}>
+        <div className={styles.root}>
             <JSONKitsContext.Provider value={{ source, setSource }}>
                 <SplitView sizes={[55, 45]} minSize={[600, 400]}>
                     <div className={styles.left}>
@@ -173,37 +178,23 @@ export function Layout() {
                 </DriftToolbar>
             </JSONKitsContext.Provider>
             <ToastContainer position="bottom-right" />
-        </NaviLayout>
+        </div>
     );
 };
 
-Layout.displayName = 'JSONKits.Layout@v1';
+JSONKitsLayout.displayName = 'JSONKits.Layout@v1';
 
-export const Routes = [{
-    index: true,
-    element: <JSONEditor />
-}, {
-    path: 'path-query',
-    element: <PathQuery />
-}, {
-    path: 'to-toml',
-    element: <TOMLConvertrer />
-}, {
-    path: '*',
-    element: <div>json 404</div>
-}];
-
-
-export default [{
-    index: true,
-    name: 'JSON Editor',
-    element: <JSONEditor />
-}, {
-    path: 'path-query',
-    name: 'Path Query',
-    element: <PathQuery />
-}, {
-    path: 'to-toml',
-    name: 'JSON -> TOML',
-    element: <TOMLConvertrer />
-}];
+export default {
+    path: PATHNAME_PREFIX,
+    element: <JSONKitsLayout />,
+    children: [{
+        index: true,
+        element: <JSONEditor />
+    }, {
+        path: 'path-query',
+        element: <PathQuery />
+    }, {
+        path: 'to-toml',
+        element: <TOMLConvertrer />
+    }]
+};

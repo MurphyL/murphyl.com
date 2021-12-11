@@ -1,42 +1,37 @@
-import React, { useMemo } from 'react';
-import { Link, Outlet } from "react-router-dom";
+import React, { useState, useRef } from 'react';
+import { Link, Outlet, useLocation } from "react-router-dom";
+
+import { useComponentSize } from 'plug/hooks';
 
 import classNames from 'classnames';
 
 import styles from './navi-layout.module.css';
 
-export default function NaviLayout({ className, children, items = [] }) {
+export default function NaviLayout({ className }) {
+    const [items, setItems] = useState([]);
+    const { pathname } = useLocation();
+    const headerInstance = useRef();
+    const { height } = useComponentSize(headerInstance);
+    console.log(pathname);
+    const match = (path) => pathname.endsWith(path.replace(/^\./, ''));
     return (
-        <div className={classNames(styles.root, className)}>
-            <div className={styles.header}>
+        <div className={classNames(styles.root, className)} style={{ '--navi-header-height': `${height}px` }}>
+            <div className={styles.header} ref={headerInstance}>
                 <div className={styles.logo}>
                     <Link to="/">首页</Link>
                 </div>
                 <div className={classNames(styles.group, styles.left)}>
-                    {items.map(({ path, name }, index) => (<Link key={index} to={path}>{name || path}</Link>))}
+                    {Array.isArray(items) && items.map(({ path, name }, index) => (
+                        <Link key={index} className={classNames({ [styles.current]: match(path) })} to={path}>{name || path}</Link>)
+                    )}
                 </div>
                 <div className={classNames(styles.group, styles.right)}>
 
                 </div>
             </div>
             <div className={styles.body}>
-                {children ? children : <Outlet />}
+                <Outlet context={{ setNaviItems: setItems }} />
             </div>
         </div>
     );
-};
-
-NaviLayout.from = ({ path }, items) => {
-    const navi = items.filter(item => item.name).map(({ name, index, path }) => ({
-        name, path: `./${index ? '' : path}`
-    }));
-    return {
-        path,
-        element: <NaviLayout items={navi} />,
-        children: items.concat({
-            path: '*',
-            element: <div>404</div>
-
-        })
-    }
 };

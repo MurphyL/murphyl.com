@@ -1,0 +1,5 @@
+.root .item {
+    margin: 5;
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+}

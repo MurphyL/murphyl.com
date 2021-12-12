@@ -1,6 +1,6 @@
 import { createContext, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react";
 
-import { Outlet, useResolvedPath, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 
 import { toast, ToastContainer } from 'react-toast';
 
@@ -23,7 +23,6 @@ import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
 
 import styles from './json-kits-v1.module.css';
-
 
 const JSONKitsContext = createContext();
 
@@ -121,10 +120,10 @@ export const JSON_KITS_NAVI = [{
     path: `./${PATHNAME_PREFIX}`,
     name: 'JSON Editor',
 }, {
-    path:  `./${PATHNAME_PREFIX}/path-query`,
+    path: `./${PATHNAME_PREFIX}/path-query`,
     name: 'Path Query',
 }, {
-    path:  `./${PATHNAME_PREFIX}/to-toml`,
+    path: `./${PATHNAME_PREFIX}/to-toml`,
     name: 'JSON -> TOML',
 }];
 
@@ -140,45 +139,45 @@ function JSONKitsLayout() {
         <CodeEditor className={styles.editor} language="json" value={source} onChange={setSource} />
     ), [source])
     return (
-        <div className={styles.root}>
+        <Fragment>
             <JSONKitsContext.Provider value={{ source, setSource }}>
-                <SplitView sizes={[55, 45]} minSize={[600, 400]}>
+                <SplitView className={styles.root} sizes={[55, 45]} minSize={[600, 400]}>
                     <div className={styles.left}>
                         {editor}
                     </div>
                     <Outlet />
                 </SplitView>
-                <DriftToolbar>
-                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Beautify</Button>
-                    <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 0))}>Minify</Button>
-                    <Button onClick={() => doCopy(source, { debug: true })}>Copy</Button>
-                    <FileInput placeholder="Load file as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
-                        if (!loaded) {
-                            return;
-                        }
-                        const { name, content } = loaded;
-                        if (name.endsWith('.json')) {
-                            setSource(stripJSONComments(content));
-                        } else if (name.endsWith('.csv')) {
-                            try {
-                                setSource(stringifyJSON(csvParse(content)));
-                            } catch (e) {
-                                console.log('解析 CSV 文件出错：', name, e);
-                                toast.error(`解析 CSV 文件出错：${e.message}`)
-                            }
-                        } else if (name.endsWith('.toml')) {
-                            try {
-                                setSource(stringifyJSON(parseTOML(content)));
-                            } catch (e) {
-                                console.log('解析 TOML 文件出错：', name, e);
-                                toast.error(`解析 TOML 文件出错：${e.message}`);
-                            }
-                        }
-                    }} />
-                </DriftToolbar>
             </JSONKitsContext.Provider>
-            <ToastContainer position="bottom-right" />
-        </div>
+            <DriftToolbar>
+                <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Beautify</Button>
+                <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 0))}>Minify</Button>
+                <Button onClick={() => doCopy(source, { debug: true })}>Copy</Button>
+                <FileInput placeholder="Load file as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
+                    if (!loaded) {
+                        return;
+                    }
+                    const { name, content } = loaded;
+                    if (name.endsWith('.json')) {
+                        setSource(stripJSONComments(content));
+                    } else if (name.endsWith('.csv')) {
+                        try {
+                            setSource(stringifyJSON(csvParse(content)));
+                        } catch (e) {
+                            console.log('解析 CSV 文件出错：', name, e);
+                            toast.error(`解析 CSV 文件出错：${e.message}`)
+                        }
+                    } else if (name.endsWith('.toml')) {
+                        try {
+                            setSource(stringifyJSON(parseTOML(content)));
+                        } catch (e) {
+                            console.log('解析 TOML 文件出错：', name, e);
+                            toast.error(`解析 TOML 文件出错：${e.message}`);
+                        }
+                    }
+                }} />
+            </DriftToolbar> 
+            {/* <ToastContainer position="bottom-right" />*/}
+        </Fragment>
     );
 };
 

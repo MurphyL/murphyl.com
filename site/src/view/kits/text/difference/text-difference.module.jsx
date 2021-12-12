@@ -11,7 +11,7 @@ import styles from './text-difference.module.css';
 
 const DEFAULT_VALUE = 'Paste text here…';
 
-export default function DifferenceEditor() {
+export default function TextDifference() {
     useDocumentTitle('文本比较');
     const [values, setValues] = useState([DEFAULT_VALUE, DEFAULT_VALUE]);
     return (

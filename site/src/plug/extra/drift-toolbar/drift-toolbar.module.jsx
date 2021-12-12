@@ -8,7 +8,7 @@ import styles from './drift-toolbar.module.css';
 export default function DriftToolbar({ className, postion = 'lb', children }) {
     const postionClasses = usePostions(postion).map(postion => styles[postion]);
     return (
-        <div className={classNames(styles.root, postionClasses, className)}>
+        <div className={classNames(styles.root, postionClasses, className)} data-element="drift-toolbar">
             { children }
         </div>
     );

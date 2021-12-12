@@ -42,9 +42,12 @@
 }
 
 .root .body {
+    position: relative;
     height: calc(100% - var(--navi-header-height));
 }
 
-.root .body>* {
-    height: 100%;
+.root .body>*:not([data-element='split-view']):not([data-element='drift-toolbar']) {
+    margin: 5px;
+    width: calc(100% - 5px * 2);
+    height: calc(100% - 5px * 2);
 }

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 
 import classNames from 'classnames';
-import { toBase64, fromBase64 } from 'js-base64';
-
-import Select from 'react-select';
 
 import styles from './crypto-kits.module.css';
 
@@ -18,7 +15,7 @@ const options = [
 const convert = ({ value: method }, source, encoding) => {
     if (typeof (method) === 'string') {
         if (method === 'Base64') {
-            return encoding ? fromBase64(source) : toBase64(source);
+            return encoding;
         }
         return `${method} - ${source}`;
     }
@@ -39,7 +36,6 @@ export default function CryptoText() {
             </div>
             <div className={styles.toolbar}>
                 <div className={classNames(styles.part, styles.selector)}>
-                    <Select options={options} value={selected} onChange={setSelected} />
                 </div>
                 <label className={styles.part}>
                     <span>解密：</span>

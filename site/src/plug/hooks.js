@@ -8,6 +8,13 @@ import APP_JSON from 'data/cache/app.json';
 
 export { default as useComponentSize } from '@rehooks/component-size';
 
+/**
+ * JSONPath 工具类
+ * 
+ * @param {*} data 
+ * @param {*} path 
+ * @returns 
+ */
 export const useJSONPath = (data = {}, path) => {
     try {
         return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
@@ -18,8 +25,19 @@ export const useJSONPath = (data = {}, path) => {
 
 const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
 
+/**
+ * 读取站点元数据
+ * 
+ * @param {*} key 
+ * @returns 
+ */
 export const useMetaInfo = (key) => META_FILES[key] ? META_FILES[key] : null;
 
+/**
+ * 设置页面标替
+ * 
+ * @param {*} title 
+ */
 export const useDocumentTitle = (title) => {
     useEffect(() => {
         document.title = (title ? (title.trim() + ' - ') : '') + process.env.REACT_APP_TITLE;
@@ -34,6 +52,12 @@ const POSTIONS = {
     l: 'left',
 };
 
+/**
+ * 转换定位
+ * 
+ * @param {*} flags 
+ * @returns 
+ */
 export function usePostions(flags = 'lb') {
     return flags.split('').map(flag => POSTIONS[flag]).filter(flag => flag);
 };

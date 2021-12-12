@@ -12,6 +12,8 @@
     "axios": "latest",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
+    "cron-parser": "^4.2.0",
+    "cronstrue": "^1.122.0",
     "d3-dsv": "^3.0.1",
     "dayjs": "^1.10.7",
     "export-from-json": "^1.4.1",
@@ -55,7 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@murphyl/files2json": "latest",
+    "@murphyl/files2json": "^1.2.2",
     "monaco-editor-webpack-plugin": "^6.0.0",
     "react-app-rewired": "^2.1.8",
     "react-scripts": "latest"

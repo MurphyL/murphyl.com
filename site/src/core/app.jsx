@@ -17,7 +17,7 @@ import Notebook from 'view/notebook/notebook.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
-import KitList from 'view/kits/home/kits-list.module';
+import KitList from 'view/kits/kits';
 import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
@@ -43,7 +43,7 @@ const RouteViews = () => useRoutes([{
     }]
 }, {
     path: '/kits',
-    element: <NaviLayout />,
+    element: <NaviLayout navi={[{ name: 'All kits', path: './' }]} />,
     children: [SQLKits, JSONKits, KitList]
 }, {
     path: '/kits/notebook',

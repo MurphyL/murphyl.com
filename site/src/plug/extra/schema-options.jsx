@@ -40,7 +40,7 @@ export default (schema) => {
             </div>
         );
     } else {
-        return renderer.parseSchema(Object.assign({ component: 'div', className: classes }, schema));
+        return renderer.parseSchema({ component: 'div', className: classes, ...schema }, schema);
     }
 
 };

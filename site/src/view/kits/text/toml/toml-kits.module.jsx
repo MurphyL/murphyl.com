@@ -1,7 +1,7 @@
 import { useDocumentTitle } from 'plug/hooks';
 
 import SplitView from 'plug/extra/split-view/split-view.module';
-import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
+import { CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
 
 import styles from './toml-kits.module.css';
 

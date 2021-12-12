@@ -1,6 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 
 import kindOf from 'kind-of';
+import { nanoid } from 'nanoid'
 import classNames from "classnames";
 
 import * as monaco from 'monaco-editor';
@@ -59,14 +60,16 @@ export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue,
         if (null === instance || null === instance.current) {
             return;
         }
-        const editorInstance = monaco.editor.create(instance.current, Object.assign(editorOptions, extra, {
-            id: `editor-${Date.now()}`,
+        const editorInstance = monaco.editor.create(instance.current, { 
+            id: `editor-${nanoid()}`,
+            ...editorOptions, 
+            ...extra,
             language,
             value: defaultValue || value || '',
             minimap: {
                 enabled: minimap
             }
-        }));
+        });
         if (onChange && kindOf(onChange) === 'function') {
             editorInstance.onDidChangeModelContent(() => {
                 setPrevent(true);
@@ -87,7 +90,6 @@ export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue,
 
 CodeEditor.displayName = 'CodeEditor';
 
-
 export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue, value, minimap, onChange, ...extra }) => {
     const instance = useRef();
     const [originalModel, setOriginalModel] = useState();
@@ -96,10 +98,12 @@ export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue,
         if (null === instance || null === instance.current) {
             return;
         }
-        const editorInstance = monaco.editor.createDiffEditor(instance.current, Object.assign(editorOptions, extra, {
-            id: `editor-${Date.now()}`,
+        const editorInstance = monaco.editor.createDiffEditor(instance.current, {
+            ...editorOptions, 
+            ...extra,
+            id: `diff-editor-${nanoid()}`,
             originalEditable: true
-        }));
+        });
         const [original, modified] = (kindOf(value) === 'array') ? value : [value, value];
         var originalModel = monaco.editor.createModel(original, language);
         var modifiedModel = monaco.editor.createModel(modified, language);

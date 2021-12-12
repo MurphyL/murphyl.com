@@ -28,9 +28,11 @@ const callGithubAPI = selectorFamily({
         }
         return ajax.post('', {
             query: graphql,
-            variables: Object.assign(GHP_VARS, {
+            variables: {
+                ...GHP_VARS,
                 ghp_issue_states: (process.env.REACT_APP_GHP_ISSUE_STATES || 'CLOSED').split(','),
-            }, extra)
+                ...extra
+            }
         }).then(({ status, data }) => {
             return status === 200 ? (path ? useJSONPath(data, path) : data) : null;
         }).catch(err => {

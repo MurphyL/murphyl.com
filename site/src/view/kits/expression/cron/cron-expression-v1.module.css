@@ -1,3 +1,8 @@
+.root {
+    margin-right: 0 !important;
+    overflow-y: auto;
+}
+
 .root h3 {
     border-left: 5px solid var(--shadow-color);
     text-indent: 10px;

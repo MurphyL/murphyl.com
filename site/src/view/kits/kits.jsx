@@ -10,8 +10,7 @@ import TextCrypto from './text/crypto/crypto-kits.module';
 import TextDifference from './text/difference/text-difference.module';
 
 // expr
-import CronMaker from './expression/cron/maker/cron-maker.module';
-import CronParser from './expression/cron/parser/cron-parser.module';
+import CronExpressionKit from './expression/cron/cron-expression-v1.module';
 import ScoopCLIMaker from './expression/cli/scoop/scoop-cli-maker.module';
 
 const KitList = () => {
@@ -34,8 +33,8 @@ const KitsLayout = () => {
             name: 'Text Crypter',
             path: './text/crypter',
         }, {
-            name: 'Cron Parser',
-            path: './expression/cron/parser',
+            name: 'Cron Expression',
+            path: './expression/cron/v1',
         }, {
             name: 'Scoop CLI Maker',
             path: './expression/scoop/cli',
@@ -74,14 +73,8 @@ export default {
     }, {
         path: 'expression',
         children: [{
-            path: 'cron',
-            children: [{
-                path: 'maker',
-                element: <CronMaker />
-            }, {
-                path: 'parser',
-                element: <CronParser />
-            }]
+            path: 'cron/v1',
+            element: <CronExpressionKit />
         }, {
             path: 'scoop/cli',
             element: <ScoopCLIMaker />

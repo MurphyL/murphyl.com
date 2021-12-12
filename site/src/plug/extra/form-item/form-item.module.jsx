@@ -12,10 +12,10 @@ const PLACEHOLDERS = {
 };
 
 
-const readFiles = async (fileList) => {
+const readFiles = async (fileList, limit) => {
     let files = Array.from(fileList);
-    if (kindOf(extra.size) === 'number' && extra.size > 0) {
-        files = files.slice(0, extra.size);
+    if (!isNaN(limit) && limit > 0) {
+        files = files.slice(0, limit);
     }
     return Promise.all(files.map((file) => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -49,7 +49,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                 if (!instance || !instance.current || instance.current.length === 0) {
                     return;
                 }
-                readFiles(instance.current.files).then((files) => {
+                readFiles(instance.current.files, parseInt(extra.size)).then((files) => {
                     setValue(files.map(({ name }) => name).join(', '));
                     extra.multiple ? changeRefrenceValue(files) : changeRefrenceValue(files[0]);
                 });

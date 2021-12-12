@@ -4,6 +4,8 @@ import { Outlet, useOutletContext } from "react-router-dom";
 
 import { useDocumentTitle } from 'plug/hooks';
 
+import TextDiffer from '../text-differ/text-differ.module';
+
 import { SQL_KITS_NAVI, SQLFormatter } from '../sql/v1/sql-kits-v1.module';
 
 import { JSON_KITS_NAVI } from '../json/v1/json-kits-v1.module';
@@ -21,8 +23,14 @@ const KitsLayout = memo(() => {
     const { setNaviItems } = useOutletContext();
     useEffect(() => {
         setNaviItems([{
+            name: 'All kits',
+            path: './'
+        }, {
             name: 'SQL Formatter',
             path: 'sql-formatter'
+        }, {
+            name: 'Text Difference',
+            path: 'text-differ'
         }]);
     }, []);
     return (
@@ -42,6 +50,9 @@ export default {
     }, {
         path: 'sql-formatter',
         element: <SQLFormatter />
+    }, {
+        path: 'text-differ',
+        element: <TextDiffer />
     }, {
         path: '*',
         element: <div>no matched kit</div>

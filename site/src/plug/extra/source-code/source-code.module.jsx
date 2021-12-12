@@ -133,7 +133,7 @@ DiffEditor.displayName = 'DiffEditor';
  * @param {*} param0 
  * @returns 
  */
-export const JSONViewer = memo(({ className, name, data = {}, onChange = false }) => {
+export const JSONViewer = memo(({ className, name, value = {}, onChange = false }) => {
     if (onChange && kindOf(onChange) !== 'function') {
         throw new Error('onChange must a function');
     }
@@ -156,7 +156,7 @@ export const JSONViewer = memo(({ className, name, data = {}, onChange = false }
     };
     return (
         <div className={classNames(styles.json_view, className)}>
-            <JSONView src={data} {...options} />
+            <JSONView src={value} {...options} />
         </div>
     );
 });

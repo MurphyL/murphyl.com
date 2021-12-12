@@ -76,7 +76,7 @@ const JSONEditor = () => {
             {(kindOf(data) === 'string') ? (
                 <CodeBlock className={styles.error} language="text" value={data} />
             ) : (
-                <JSONViewer data={data} onChange={(value) => {
+                <JSONViewer value={data} onChange={(value) => {
                     setSource(stringifyJSON(value));
                 }} />
             )}
@@ -98,7 +98,7 @@ const PathQuery = () => {
                 <TextArea value={path} data-after="JSONPath" placeholder="jsonpath..." onChange={setPath} />
             </div>
             <div className={styles.viewer} style={{ height: `calc(100% - ${textareaHeight}px)` }}>
-                <JSONViewer className={styles.viewer} name="query result" data={['array', 'object'].includes(kindOf(result)) ? result : [result]} />
+                <JSONViewer className={styles.viewer} name="query result" value={['array', 'object'].includes(kindOf(result)) ? result : [result]} />
             </div>
         </div>
     );

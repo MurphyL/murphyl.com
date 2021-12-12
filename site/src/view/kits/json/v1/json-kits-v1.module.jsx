@@ -117,7 +117,7 @@ const TOMLConvertrer = () => {
 
 const PATHNAME_PREFIX = 'json/v1';
 
-const JSON_KITS_NAVI = [{
+export const JSON_KITS_NAVI = [{
     path: `./${PATHNAME_PREFIX}`,
     name: 'JSON Editor',
 }, {

@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
 
+import axios from 'axios';
 import kindOf from 'kind-of';
 import { JSONPath } from 'jsonpath-plus-browser';
 
 export { default as useComponentSize } from '@rehooks/component-size';
 
 export const useJSONPath = (data = {}, path) => {
-    try { 
+    try {
         return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
-    } catch(e) {
+    } catch (e) {
         return `Query error: ${e.message}`;
     }
-    
 };
 
 export const useDocumentTitle = (title) => {
@@ -19,10 +19,6 @@ export const useDocumentTitle = (title) => {
         document.title = (title ? (title.trim() + ' - ') : '') + process.env.REACT_APP_TITLE;
         return () => document.title = process.env.REACT_APP_TITLE;
     }, [title]);
-};
-
-export const useGithubAPI = () => {
-    return 0;
 };
 
 const POSTIONS = {
@@ -34,4 +30,13 @@ const POSTIONS = {
 
 export function usePostions(flags = 'lb') {
     return flags.split('').map(flag => POSTIONS[flag]).filter(flag => flag);
+};
+
+
+export function useAJAX() {
+    console.log(arguments);
+};
+
+export function useVercleInfo() {
+
 };

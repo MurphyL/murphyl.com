@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 
+import classNames from "classnames";
 import { format as formatSQL } from '@sqltools/formatter';
 
 import { useDocumentTitle } from 'plug/hooks';
@@ -15,7 +16,7 @@ import IssueSchema from "plug/github/issue/issue-schema/issue-schema.module";
 
 import styles from './sql-kits-v1.module.css';
 
-const SQLFormatter = () => {
+export const SQLFormatter = ({ className }) => {
     useDocumentTitle('SQL 格式化');
     const [sql, setSQL] = useState('select 1 from dual');
     const [wordCase, setWordCase] = useState('null');
@@ -28,7 +29,7 @@ const SQLFormatter = () => {
         }));
     };
     return (
-        <div className={styles.formatter}>
+        <div className={classNames(styles.formatter, className)}>
             <CodeEditor language="sql" value={sql} onChange={setSQL} />
             <DriftToolbar>
                 <Button onClick={format}>Beautify</Button>
@@ -63,15 +64,15 @@ const SQLManual = () => {
 
 const PATHNAME_PREFIX = 'sql/v1';
 
-const SQL_KITS_NAVI = [{
+export const SQL_KITS_NAVI = [{
     path: `./${PATHNAME_PREFIX}`,
-    name: 'SQL 格式化',
+    name: 'SQL Formatter',
 }, {
     path: `./${PATHNAME_PREFIX}/snippet`,
-    name: 'SQL 代码片段',
+    name: 'SQL Snippet',
 }, {
     path: `./${PATHNAME_PREFIX}/manual`,
-    name: 'SQL 帮助文档',
+    name: 'SQL Manual',
 }];
 
 const SQLKitsLayout = () => {

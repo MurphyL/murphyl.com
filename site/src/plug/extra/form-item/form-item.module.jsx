@@ -12,6 +12,28 @@ const PLACEHOLDERS = {
 };
 
 
+const readFiles = async (fileList) => {
+    let files = Array.from(fileList);
+    if (kindOf(extra.size) === 'number' && extra.size > 0) {
+        files = files.slice(0, extra.size);
+    }
+    return Promise.all(files.map((file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        try {
+            reader.readAsText(file);
+            reader.onload = () => {
+                resolve({
+                    name: file.name,
+                    type: file.type,
+                    content: reader.result
+                });
+            };
+        } catch (e) {
+            reject(`Load file(${value}) error: ${e.message}`);
+        }
+    })));
+};
+
 // https://zh-hans.reactjs.org/docs/hooks-reference.html#useimperativehandle
 const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra }, ref) => {
     const instance = useRef(ref);
@@ -27,26 +49,8 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                 if (!instance || !instance.current || instance.current.length === 0) {
                     return;
                 }
-                let files = Array.from(instance.current.files);
-                if (kindOf(extra.size) === 'number' && extra.size > 0) {
-                    files = files.slice(0, extra.size);
-                }
-                setValue(files.map(file => file.name).join(', '));
-                Promise.all(files.map((file) => new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    try {
-                        reader.readAsText(file);
-                        reader.onload = () => {
-                            resolve({
-                                name: file.name,
-                                type: file.type,
-                                content: reader.result
-                            });
-                        };
-                    } catch (e) {
-                        reject(`Load file(${value}) error: ${e.message}`);
-                    }
-                }))).then((files) => {
+                readFiles(instance.current.files).then((files) => {
+                    setValue(files.map(({ name }) => name).join(', '));
                     extra.multiple ? changeRefrenceValue(files) : changeRefrenceValue(files[0]);
                 });
             } else {

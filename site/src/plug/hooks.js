@@ -4,6 +4,8 @@ import axios from 'axios';
 import kindOf from 'kind-of';
 import { JSONPath } from 'jsonpath-plus-browser';
 
+import APP_JSON from 'data/cache/app.json';
+
 export { default as useComponentSize } from '@rehooks/component-size';
 
 export const useJSONPath = (data = {}, path) => {
@@ -13,6 +15,10 @@ export const useJSONPath = (data = {}, path) => {
         return `Query error: ${e.message}`;
     }
 };
+
+const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
+
+export const useMetaInfo = (key) => META_FILES[key] ? META_FILES[key] : null;
 
 export const useDocumentTitle = (title) => {
     useEffect(() => {

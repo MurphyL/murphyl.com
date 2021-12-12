@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 import classNames from 'classnames';
-import { JSONPath } from 'jsonpath-plus-browser';
 
-import SITE_PROPERTIES from 'data/cache/site.toml.json';
+import { useMetaInfo } from 'plug/hooks';
 
 import styles from './site-layout.module.css';
 
-function Header({ className, ...extra }) {
+const SITE_META = useMetaInfo('src/data/toml/site.toml') || {};
+
+function Header({ className, meta = {}, ...extra }) {
     const [show, setShow] = useState(false);
     const { pathname } = useLocation();
     return (
@@ -17,7 +18,7 @@ function Header({ className, ...extra }) {
                 <span>{process.env.REACT_APP_TITLE}</span>
             </Link>
             <nav className={classNames(styles.navi, { show })}>
-                {(JSONPath({ json: SITE_PROPERTIES, path: '$.headr.navi', wrap: false }) || []).map((item, index) => (
+                {(meta.navi || []).map((item, index) => (
                     <Link key={index} to={item.link} className={classNames(styles.navi_item, { [styles.selected]: pathname === item.link })}>
                         <span className={styles.navi_text}>{item.label}</span>
                     </Link>
@@ -28,11 +29,11 @@ function Header({ className, ...extra }) {
     );
 };
 
-function Footer({ className, ...extra }) {
+function Footer({ className, meta = {}, ...extra }) {
     return (
         <footer className={classNames(className, styles.footer)} {...extra}>
             <div className={styles.navi}>
-                {Object.entries(JSONPath({ json: SITE_PROPERTIES, path: '$.footer', wrap: false }) || {}).map(([key, { label, links }], index) => (
+                {Object.entries(meta).map(([key, { label, links }], index) => (
                     <dl key={index} className={classNames(styles.section, styles[key])} data-group={key}>
                         <dt>{label}</dt>
                         <dd>
@@ -57,13 +58,14 @@ function Footer({ className, ...extra }) {
 }
 
 export default function SiteLayout() {
+    const { header, footer } = SITE_META;
     return (
         <div className={styles.root}>
-            <Header />
+            <Header meta={header} />
             <main className={styles.main}>
                 <Outlet />
             </main>
-            <Footer />
+            <Footer meta={footer} />
         </div>
     );
 }

@@ -33,7 +33,7 @@
     "strip-json-comments": "^4.0.0"
   },
   "scripts": {
-    "toml": "toml2json -v src/data/toml/site.toml src/data/toml/graphql.toml src/data/cache/",
+    "toml": "files2json -v src/data/toml/ -o src/data/cache/app.json",
     "prestart": "npm run toml",
     "prebuild": "npm run toml",
     "start": "react-app-rewired start",
@@ -55,7 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@murphyl/toml2json": "latest",
+    "@murphyl/files2json": "latest",
     "monaco-editor-webpack-plugin": "^6.0.0",
     "react-app-rewired": "^2.1.8",
     "react-scripts": "latest"

@@ -7,7 +7,7 @@ import { useDocumentTitle } from 'plug/hooks';
 import { FileInput, Label } from 'plug/extra/form-item/form-item.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
-import styles from './text-differ.module.css';
+import styles from './text-difference.module.css';
 
 const DEFAULT_VALUE = 'Paste text here…';
 

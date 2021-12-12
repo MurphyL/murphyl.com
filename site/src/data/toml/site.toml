@@ -1,18 +1,18 @@
-[headr]
+[header]
 
-[[headr.navi]]
+[[header.navi]]
 label = '首页'
 link = '/'
 
-[[headr.navi]]
+[[header.navi]]
 label = '博客'
 link = '/blog'
 
-[[headr.navi]]
+[[header.navi]]
 label = '笔记'
 link = '/kits/notebook'
 
-[[headr.navi]]
+[[header.navi]]
 label = '关于'
 link = '/about'
 

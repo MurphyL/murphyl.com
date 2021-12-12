@@ -2,9 +2,9 @@ import { useRecoilValue, selectorFamily } from 'recoil';
 
 import axios from 'axios';
 
-import { JSONPath } from 'jsonpath-plus-browser';
+import { useJSONPath, useMetaInfo } from 'plug/hooks';
 
-import PREPARED_GRAPHQL from 'data/cache/graphql.toml.json';
+const PREPARED_GRAPHQL = useMetaInfo('src/data/toml/graphql.toml') || {};
 
 const ajax = axios.create({
     baseURL: 'https://api.github.com/graphql',
@@ -32,7 +32,7 @@ const callGithubAPI = selectorFamily({
                 ghp_issue_states: (process.env.REACT_APP_GHP_ISSUE_STATES || 'CLOSED').split(','),
             }, extra)
         }).then(({ status, data }) => {
-            return status === 200 ? (path ? JSONPath({ json: data, path, wrap: false }) : data) : null;
+            return status === 200 ? (path ? useJSONPath(data, path) : data) : null;
         }).catch(err => {
             console.error('Github API 调用出错：', err.message);
             return null;

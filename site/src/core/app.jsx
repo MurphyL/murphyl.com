@@ -21,8 +21,6 @@ import KitList from 'view/kits/home/kits-list.module';
 import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
-import TextDiffer from 'view/kits/text-differ/text-differ.module';
-
 import NaviLayout from 'plug/layout/navi-layout/navi-layout.module';
 
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
@@ -50,9 +48,6 @@ const RouteViews = () => useRoutes([{
 }, {
     path: '/kits/notebook',
     element: <Dynamic><Notebook /></Dynamic>,
-}, {
-    path: '/kits/text/differ',
-    element: <TextDiffer />,
 }, {
     path: '/schema',
     element: <DriftLayout />,

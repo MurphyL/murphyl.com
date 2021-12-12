@@ -4,7 +4,7 @@ import { Outlet, useOutletContext } from "react-router-dom";
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import TextDiffer from '../text-differ/text-differ.module';
+import TextDifference from '../text/difference/text-difference.module';
 
 import { SQL_KITS_NAVI, SQLFormatter } from '../sql/v1/sql-kits-v1.module';
 
@@ -52,7 +52,7 @@ export default {
         element: <SQLFormatter />
     }, {
         path: 'text-differ',
-        element: <TextDiffer />
+        element: <TextDifference />
     }, {
         path: '*',
         element: <div>no matched kit</div>

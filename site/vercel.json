@@ -1,7 +1,5 @@
 {
     "functions": {
-      "api/hello.js": {
-        "includeFiles": "docs/**"
-      }
+
     }
   }

@@ -133,11 +133,13 @@
 }
 
 .root .footer .navi .section dt {
+	font-size: 0.8rem;
 	font-weight: 800;
 }
 
 .root .footer .navi .section dd {
 	margin: 0;
+	font-size: 0.7rem;
 }
 
 .root .footer .navi .section dd ul {

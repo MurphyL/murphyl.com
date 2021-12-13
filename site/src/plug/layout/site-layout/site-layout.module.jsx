@@ -1,48 +1,33 @@
-import React, { useState } from 'react';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import React from 'react';
+import { Link, Outlet } from "react-router-dom";
 
 import classNames from 'classnames';
 
 import { useMetaInfo } from 'plug/hooks';
 
+import { NaviHeader } from '../base-element/base-element.module';
+
 import styles from './site-layout.module.css';
 
 const SITE_META = useMetaInfo('src/data/toml/site.toml') || {};
 
-function Header({ className, meta = {}, ...extra }) {
-    const [show, setShow] = useState(false);
-    const { pathname } = useLocation();
-    return (
-        <header className={classNames(className, styles.header)} {...extra}>
-            <Link className={styles.logo} to="/">
-                <span>{process.env.REACT_APP_TITLE}</span>
-            </Link>
-            <nav className={classNames(styles.navi, { show })}>
-                {(meta.navi || []).map((item, index) => (
-                    <Link key={index} to={item.link} className={classNames(styles.navi_item, { [styles.selected]: pathname === item.link })}>
-                        <span className={styles.navi_text}>{item.label}</span>
-                    </Link>
-                ))}
-                <span className={styles.trigger} onClick={() => setShow(!show)}>=</span>
-            </nav>
-        </header>
-    );
-};
 
 function Footer({ className, meta = {}, ...extra }) {
     return (
         <footer className={classNames(className, styles.footer)} {...extra}>
             <div className={styles.navi}>
-                {Object.entries(meta).map(([key, { label, links }], index) => (
+                {Object.entries(meta).map(([key, { name, links }], index) => (
                     <dl key={index} className={classNames(styles.section, styles[key])} data-group={key}>
-                        <dt>{label}</dt>
+                        <dt>{name}</dt>
                         <dd>
                             <ul>
-                                {(links || []).map((item, index) => (
+                                {(links || []).map(({name, path}, index) => (
                                     <li key={index}>
-                                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                                            <span>{item.label}</span>
-                                        </a>
+                                        {(/^http/.test(path)) ? (
+                                            <a href={path} target="_blank" rel="noopener noreferrer">{name}</a>
+                                        ) : (
+                                            <Link to={path}>{name}</Link>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
@@ -58,10 +43,10 @@ function Footer({ className, meta = {}, ...extra }) {
 }
 
 export default function SiteLayout() {
-    const { header, footer } = SITE_META;
+    const { header = {}, footer } = SITE_META;
     return (
         <div className={styles.root}>
-            <Header meta={header} />
+            <NaviHeader right={header.navi} />
             <main className={styles.main}>
                 <Outlet />
             </main>

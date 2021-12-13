@@ -111,7 +111,6 @@ const PathQuery = () => {
 const TOMLConvertrer = () => {
     useDocumentTitle('JSON -> TOML');
     const { source } = useContext(JSONKitsContext);
-    console.log(source);
     const [target, setTarget] = useState('');
     useEffect(() => {
         if (source.trim().length === 0) {

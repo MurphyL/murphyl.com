@@ -70,13 +70,13 @@ const RouteViews = () => useRoutes([{
 export default function App() {
     return (
         <StrictMode>
-            <ErrorBoundary>
-                <RecoilRoot>
-                    <BrowserRouter>
+            <RecoilRoot>
+                <BrowserRouter>
+                    <ErrorBoundary>
                         <RouteViews />
-                    </BrowserRouter>
-                </RecoilRoot>
-            </ErrorBoundary>
+                    </ErrorBoundary>
+                </BrowserRouter>
+            </RecoilRoot>
         </StrictMode>
     );
 }

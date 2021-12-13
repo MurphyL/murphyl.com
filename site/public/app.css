@@ -1,3 +1,4 @@
+/** 全局 **/
 body, code {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -5,6 +6,7 @@ body, code {
     font-variant: tabular-nums;
 }
 
+/** 滚动条 **/
 * {
   scrollbar-width: thin;
   scrollbar-color: blue orange;
@@ -24,9 +26,18 @@ body, code {
 	border: 1px solid  rgba(192, 192, 192, 1);
 }
 
-
+/**变量  **/
 :root {
+	/* 基础变量 */
 	--view-width: 960px;
+	--code-font-size: 18px;
+
+	/* 基础模块 */
 	--shadow-color: rgba(0, 0, 0, 0.1);
+	
+	/* 头部 */
+	--navi-header-height: 40px;
+	
+	/* 工具栏 */	
 	--toolbar-color: white;
 }

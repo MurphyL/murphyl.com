@@ -1,61 +1,56 @@
 [header]
 
 [[header.navi]]
-label = '首页'
-link = '/'
+name = '首页'
+path = '/'
 
 [[header.navi]]
-label = '博客'
-link = '/blog'
+name = '博客'
+path = '/blog'
 
 [[header.navi]]
-label = '笔记'
-link = '/kits/notebook'
+name = '工具'
+path = '/kits/'
 
 [[header.navi]]
-label = '关于'
-link = '/about'
-
-[router]
-[[router.notebook]]
-label = '笔记'
-link = '/notebook'
+name = '关于'
+path = '/about'
 
 [footer]
 
 [footer.sitemap]
-label = '站点地图'
+name = '站点地图'
 
 [[footer.sitemap.links]]
-label = '博客'
-link = '/blog'
+name = '博客'
+path = '/blog'
 
 [[footer.sitemap.links]]
-label = '笔记'
-link = '/kits/notebook'
+name = '笔记'
+path = '/kits/notebook'
 
 [[footer.sitemap.links]]
-label = '动态页面'
-link = '/schema/page'
+name = '动态页面'
+path = '/schema/page'
 
 [footer.kits]
-label = '常用工具'
+name = '常用工具'
 
 [[footer.kits.links]]
-label = '比较文本'
-link = '/kits/text-differ'
+name = '比较文本'
+path = '/kits/text-differ'
 
 [[footer.kits.links]]
-label = 'SQL 工具集'
-link = '/kits/sql/v1'
+name = 'SQL 工具集'
+path = '/kits/sql/v1'
 
 [[footer.kits.links]]
-label = 'JSON 工具集'
-link = '/kits/json/v1'
+name = 'JSON 工具集'
+path = '/kits/json/v1'
 
 [footer.social]
-label = '友情链接'
+name = '友情链接'
 
 [[footer.social.links]]
-label = '此间·我们'
-link = 'https://cijian.us'
+name = '此间·我们'
+path = 'https://cijian.us'

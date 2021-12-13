@@ -20,7 +20,7 @@ const MarkdownPost = memo(() => {
         <article className={styles.root}>
             <h2>{post.title}</h2>
             <section className={styles.content}>
-                <MarkdownViewer code={content || ''} />
+                <MarkdownViewer value={content || ''} />
             </section>
         </article>
     );

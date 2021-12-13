@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { useJSONPath } from 'plug/hooks';
+import { jsonpath } from 'plug/hooks';
 
 import TOML from '@iarna/toml';
 import * as matter from 'gray-matter';
@@ -30,7 +30,7 @@ const options = {
         ol: ({ children }) => <ol className={classNames(styles.list)}>{children}</ol>,
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
         pre: ({ children, node }) => {
-            const tagName = useJSONPath(node, '$.children.0.tagName');
+            const tagName = jsonpath(node, '$.children.0.tagName');
             if (tagName === 'code') {
                 return children;
             } else {
@@ -53,7 +53,7 @@ const options = {
     }
 };
 
-export const MarkdownViewer = ({ code }) => <ReactMarkdown children={code} {...options} />;
+export const MarkdownViewer = ({ value }) => <ReactMarkdown children={value} {...options} />;
 
 export const parseMarkdown = (data = '') => {
     const { data: meta, excerpt, content } = matter(data, {

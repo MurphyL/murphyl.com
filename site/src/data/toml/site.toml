@@ -38,7 +38,7 @@ name = '常用工具'
 
 [[footer.kits.links]]
 name = '比较文本'
-path = '/kits/text/differ'
+path = '/kits/text/difference'
 
 [[footer.kits.links]]
 name = 'SQL 工具集'

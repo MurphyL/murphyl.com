@@ -1,3 +1,4 @@
-.root>* {
-    height: 100%;
+.root {
+    margin: 5px;
+    height: calc(100% - 5px * 2);
 }

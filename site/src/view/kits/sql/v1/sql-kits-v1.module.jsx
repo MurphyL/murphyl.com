@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment , useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 
 import classNames from "classnames";
@@ -29,7 +29,7 @@ export const SQLFormatter = ({ className }) => {
         }));
     };
     return (
-        <div className={classNames(styles.formatter, className)}>
+        <Fragment>
             <CodeEditor language="sql" value={sql} onChange={setSQL} />
             <DriftToolbar>
                 <Button onClick={format}>Beautify</Button>
@@ -40,7 +40,7 @@ export const SQLFormatter = ({ className }) => {
                     <option value="lower">LowerCase</option>
                 </Select>
             </DriftToolbar>
-        </div>
+        </Fragment>
     );
 };
 
@@ -65,7 +65,7 @@ const SQLManual = () => {
 const PATHNAME_PREFIX = 'sql/v1';
 
 export const SQL_KITS_NAVI = [{
-    path: `./${PATHNAME_PREFIX}`,
+    path: `./${PATHNAME_PREFIX}/`,
     name: 'SQL Formatter',
 }, {
     path: `./${PATHNAME_PREFIX}/snippet`,

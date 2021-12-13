@@ -4,14 +4,15 @@
 
 .root .left,
 .root .right {
-    margin: 5px;
+    padding: 5px;
     width: calc(100% - 5px * 2);
     height: calc(100% - 5px * 2);
 }
 
 /** JSON Editor **/
 .root .right.viewer {
-    margin-right: 0;
+    padding-right: 0;
+    
 }
 
 /** Path Query **/
@@ -21,5 +22,6 @@
 
 /** JSON -> TOML **/
 .root .right.toml {
+    width: 100%;
     overflow: hidden;
 }

@@ -17,7 +17,7 @@ export function IssueComment({ title, type, content, ...extra }) {
                 {renderSchema(extra)}
             </div>
             <div className={styles.markdown}>
-                <MarkdownViewer code={content || ''} />
+                <MarkdownViewer value={content || ''} />
             </div>
         </Fragment>
     );

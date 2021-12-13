@@ -21,7 +21,7 @@ export function PostSummary({ post }) {
                 <h3>{post.title}</h3>
             </Link>
             <article className={classNames(styles.excerpt, post.kind)}>
-                <MarkdownViewer code={(excerpt || content)} />
+                <MarkdownViewer value={(excerpt || content)} />
             </article>
         </div>
     );

@@ -26,7 +26,7 @@ export default function SchemaRenderer({ unique }) {
     console.log('page schema:', unique, mapper);
     return (
         <div className={styles.root}>
-            {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer code={source} />}
+            {type === 'toml/schema' ? renderer(schema) : <MarkdownViewer value={source} />}
         </div>
     );
 };

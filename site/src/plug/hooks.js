@@ -2,11 +2,14 @@ import { useEffect } from 'react'
 
 import axios from 'axios';
 import kindOf from 'kind-of';
+import { nanoid } from 'nanoid'
 import { JSONPath } from 'jsonpath-plus-browser';
 
 import APP_JSON from 'data/cache/app.json';
 
 export { default as useComponentSize } from '@rehooks/component-size';
+
+export const unique = () => nanoid();
 
 /**
  * JSONPath 工具类
@@ -15,11 +18,11 @@ export { default as useComponentSize } from '@rehooks/component-size';
  * @param {*} path 
  * @returns 
  */
-export const useJSONPath = (data = {}, path) => {
+export const jsonpath = (data = {}, path) => {
     return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
 };
 
-const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
+const META_FILES = Object.fromEntries(jsonpath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
 
 /**
  * 读取站点元数据

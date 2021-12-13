@@ -31,6 +31,7 @@
 }
 
 .navi.header .header_navi_group.header_navi_group_left {
+    border-left: 1px solid var(--shadow-color);
     overflow: hidden;
 }
 

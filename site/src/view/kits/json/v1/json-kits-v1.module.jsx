@@ -14,7 +14,7 @@ import unsafeParseJSON from 'parse-json';
 import safeStringifyJSON from 'json-stringify-safe';
 import stripJSONComments from 'strip-json-comments';
 
-import { useDocumentTitle, useComponentSize, useJSONPath } from 'plug/hooks';
+import { useDocumentTitle, useComponentSize, jsonpath } from 'plug/hooks';
 
 import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.module';
 
@@ -82,7 +82,7 @@ const PathQuery = () => {
     const { source } = useContext(JSONKitsContext);
     const result = useMemo(() => {
         try {
-            const parsed = useJSONPath(unsafeParseJSON(source), path);
+            const parsed = jsonpath(unsafeParseJSON(source), path);
             return SUPPORTED_VIEWER_TYPES.includes(kindOf(parsed)) ? parsed : [parsed];
         } catch (e) {
             return e;
@@ -145,7 +145,7 @@ const TOMLConvertrer = () => {
 const PATHNAME_PREFIX = 'json/v1';
 
 export const JSON_KITS_NAVI = [{
-    path: `./${PATHNAME_PREFIX}`,
+    path: `./${PATHNAME_PREFIX}/`,
     name: 'JSON Editor',
 }, {
     path: `./${PATHNAME_PREFIX}/path-query`,

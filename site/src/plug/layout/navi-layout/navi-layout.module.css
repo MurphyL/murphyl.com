@@ -1,67 +1,10 @@
 .root {
-    --header-height: 50px;
     overflow: hidden;
     width: 100vw;
     height: 100vh;
 }
 
-.root .header {
-    display: flex;
-    padding: 0 10px;
-    line-height: calc(var(--header-height) - 1px);
-    box-shadow: 0 1px 1px 0 var(--shadow-color);
-}
-
-.root .header .group {
-    flex: 1;
-}
-
-.root .header a {
-    display: inline-block;
-    padding: 0 20px;
-    color: #3e3e3e;
-    font-size: 14px;
-    text-decoration: none;
-}
-
-.root .header .logo {
-    width: 120px;
-    border-right: 1px solid var(--shadow-color);
-}
-
-.root .header .group.left a {
-    opacity: 0.6;
-    border-right: 1px solid var(--shadow-color);
-}
-
-.root .header .group.left a.current {
-    position: relative;
-    opacity: 1;
-}
-
-.root .header .group.left a.current::before {
-    position: absolute;
-    left: 50%;
-    bottom: 10px;
-    display: inline-block;
-    margin-right: 3px;
-    content: '';
-    width: 5px;
-    height: 5px;
-    background-color: var(--shadow-color);
-    border-radius: 50%;
-}
-
-.root .header .group.right {
-    text-align: right;
-}
-
 .root .body {
     position: relative;
-    height: calc(100% - var(--navi-header-height));
-}
-
-.root .body>*:not([data-element='split-view']):not([data-element='drift-toolbar']) {
-    margin: 5px;
-    height: calc(100% - 5px * 2);
+    height: calc(100% - var(--navi-header-height) - 5px * 2);
 }

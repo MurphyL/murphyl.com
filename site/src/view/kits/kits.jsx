@@ -30,9 +30,6 @@ const KitsLayout = () => {
             name: 'Text Difference',
             path: './text/difference',
         }, {
-            name: 'Text Crypter',
-            path: './text/crypter',
-        }, {
             name: 'Cron Expression',
             path: './expression/cron/v1',
         }, {

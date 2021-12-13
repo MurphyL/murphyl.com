@@ -6,8 +6,8 @@ import { toast, ToastContainer } from 'react-toast';
 
 import kindOf from 'kind-of';
 import classNames from "classnames";
-
 import doCopy from 'copy-to-clipboard';
+
 import TOML from '@iarna/toml';
 import { csvParse } from 'd3-dsv';
 import unsafeParseJSON from 'parse-json';
@@ -67,6 +67,8 @@ const parseTOML = (source) => {
     }
 };
 
+const SUPPORTED_VIEWER_TYPES = ['array', 'object'];
+
 const JSONEditor = () => {
     useDocumentTitle('JSON 编辑器');
     const { source, setSource } = useContext(JSONKitsContext);
@@ -76,7 +78,7 @@ const JSONEditor = () => {
             {(kindOf(data) === 'string') ? (
                 <CodeBlock className={styles.error} language="text" value={data} />
             ) : (
-                <JSONViewer value={data} onChange={(value) => {
+                <JSONViewer name="JSON" value={data} onChange={(value) => {
                     setSource(stringifyJSON(value));
                 }} />
             )}
@@ -84,6 +86,10 @@ const JSONEditor = () => {
     );
 };
 
+/**
+ * JSONPath 查询 JSON 数据
+ * @returns 
+ */
 const PathQuery = () => {
     useDocumentTitle('JSONPath Query');
     const textarea = useRef(null);
@@ -98,18 +104,49 @@ const PathQuery = () => {
                 <TextArea value={path} data-after="JSONPath" placeholder="jsonpath..." onChange={setPath} />
             </div>
             <div className={styles.viewer} style={{ height: `calc(100% - ${textareaHeight}px)` }}>
-                <JSONViewer className={styles.viewer} name="query result" value={['array', 'object'].includes(kindOf(result)) ? result : [result]} />
+                <JSONViewer className={styles.viewer} name="JSONPath resolved" value={SUPPORTED_VIEWER_TYPES.includes(kindOf(result)) ? result : [result]} />
             </div>
         </div>
     );
 };
 
+/**
+ * TOML 编辑器
+ */
+const JSON_ARRAY_VALUE_KEY = '__json_array';
+const NOT_JSON_VALUE_KEY = '__not_a_json_value';
+
 const TOMLConvertrer = () => {
     useDocumentTitle('JSON -> TOML');
     const { source } = useContext(JSONKitsContext);
+    console.log(source);
+    const [target, setTarget] = useState('');
+    useEffect(() => {
+        if (source.trim().length === 0) {
+            toast.error(`空字符串无法解析`);
+            return setTarget(String(source));
+        }
+        try {
+            const json = unsafeParseJSON(source);
+            if (kindOf(json) === 'array') {
+                toast.error(`无法渲染 JSON 数组，使用[${JSON_ARRAY_VALUE_KEY}]包装数组对象`);
+                setTarget(stringifyTOML({ [JSON_ARRAY_VALUE_KEY]: json }));
+            } else if (kindOf(json) !== 'object') {
+                toast.error(`无法渲染的数据类型，使用[${NOT_JSON_VALUE_KEY}]包装数组对象`);
+                setTarget(stringifyTOML({ [NOT_JSON_VALUE_KEY]: json }));
+            } else {
+                setTarget(stringifyTOML(json));
+            }
+        } catch (e) {
+            toast.error(`无法解析的 JSON 字符串`);
+            setTarget(e.message);
+        }
+
+    }, [source]);
     return (
         <div className={classNames(styles.right, styles.toml)}>
-            <CodeEditor language="toml" value={stringifyTOML(parseJSON(source))} minimap={false} readOnly={true} />
+            <CodeEditor language="toml" value={target} minimap={false} readOnly={true} />
+            <ToastContainer position="bottom-right" delay={5000} />
         </div>
     );
 };
@@ -145,7 +182,7 @@ function JSONKitsLayout() {
                     <div className={styles.left}>
                         {editor}
                     </div>
-                    <Outlet />
+                    <Outlet context={source} />
                 </SplitView>
             </JSONKitsContext.Provider>
             <DriftToolbar>
@@ -175,8 +212,7 @@ function JSONKitsLayout() {
                         }
                     }
                 }} />
-            </DriftToolbar> 
-            {/* <ToastContainer position="bottom-right" />*/}
+            </DriftToolbar>
         </Fragment>
     );
 };

@@ -32,6 +32,7 @@ git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/pl
 - npm.js - vfile
 - Templage Engine - https://www.npmjs.com/package/sprintf-js
 - https://www.npmjs.com/package/nanoid
+- https://www.svgrepo.com/collections/all/
 
 ## 日期格式
 

@@ -16,11 +16,7 @@ export { default as useComponentSize } from '@rehooks/component-size';
  * @returns 
  */
 export const useJSONPath = (data = {}, path) => {
-    try {
-        return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
-    } catch (e) {
-        return `Query error: ${e.message}`;
-    }
+    return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
 };
 
 const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));

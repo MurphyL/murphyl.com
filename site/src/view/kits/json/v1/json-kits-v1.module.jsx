@@ -37,48 +37,32 @@ const stringifyJSON = (data, indent = 4) => {
     }
 }
 
-const parseJSON = (source) => {
-    if (!source) {
-        return null;
-    }
-    try {
-        return unsafeParseJSON(source);
-    } catch (e) {
-        return `Parse JSON error:\n${e.message}`;
-    }
-};
-
-const stringifyTOML = (data) => {
-    try {
-        return (kindOf(data) === 'array') ? TOML.stringify({ data }) : TOML.stringify(data);
-    } catch (e) {
-        return e.message;
-    }
-};
-
-const parseTOML = (source) => {
-    if (!source) {
-        return null;
-    }
-    try {
-        return TOML.parse(source);
-    } catch (e) {
-        return e.message;
-    }
-};
+const JSON_ARRAY_VALUE_KEY = '__json_array';
+const NOT_JSON_VALUE_KEY = '__not_a_json_value';
 
 const SUPPORTED_VIEWER_TYPES = ['array', 'object'];
 
 const JSONEditor = () => {
     useDocumentTitle('JSON 编辑器');
     const { source, setSource } = useContext(JSONKitsContext);
-    const data = useMemo(() => parseJSON(source), [source]);
+    const parsed = useMemo(() => {
+        try {
+            const value = unsafeParseJSON(source);
+            if (kindOf(value) === 'object' || kindOf(value) === 'array') {
+                return value;
+            } else {
+                return { [NOT_JSON_VALUE_KEY]: value };
+            }
+        } catch (e) {
+            return e;
+        }
+    }, [source]);
     return (
         <div className={classNames(styles.right, styles.viewer)}>
-            {(kindOf(data) === 'string') ? (
-                <CodeBlock className={styles.error} language="text" value={data} />
+            {(kindOf(parsed) === 'error') ? (
+                <CodeBlock className={styles.error} language="text" value={parsed.message} />
             ) : (
-                <JSONViewer name="JSON" value={data} onChange={(value) => {
+                <JSONViewer name="JSON" value={parsed} onChange={(value) => {
                     setSource(stringifyJSON(value));
                 }} />
             )}
@@ -96,15 +80,26 @@ const PathQuery = () => {
     const [path, setPath] = useState('$');
     const { height: textareaHeight } = useComponentSize(textarea);
     const { source } = useContext(JSONKitsContext);
-    const data = useMemo(() => parseJSON(source), [source]);
-    const result = useJSONPath(data, path);
+    const result = useMemo(() => {
+        try {
+            const parsed = useJSONPath(unsafeParseJSON(source), path);
+            return SUPPORTED_VIEWER_TYPES.includes(kindOf(parsed)) ? parsed : [parsed];
+        } catch (e) {
+            return e;
+        }
+    }, [source, path]);
     return (
         <div className={classNames(styles.right, styles.jsonpath)}>
             <div ref={textarea}>
                 <TextArea value={path} data-after="JSONPath" placeholder="jsonpath..." onChange={setPath} />
             </div>
             <div className={styles.viewer} style={{ height: `calc(100% - ${textareaHeight}px)` }}>
-                <JSONViewer className={styles.viewer} name="JSONPath resolved" value={SUPPORTED_VIEWER_TYPES.includes(kindOf(result)) ? result : [result]} />
+                {kindOf(result) === 'error' ? (
+                    <CodeBlock className={styles.viewer} value={result.message} />
+                ) : (
+                    <JSONViewer className={styles.viewer} name="JSONPath resolved" value={result} />
+                )}
+
             </div>
         </div>
     );
@@ -113,9 +108,6 @@ const PathQuery = () => {
 /**
  * TOML 编辑器
  */
-const JSON_ARRAY_VALUE_KEY = '__json_array';
-const NOT_JSON_VALUE_KEY = '__not_a_json_value';
-
 const TOMLConvertrer = () => {
     useDocumentTitle('JSON -> TOML');
     const { source } = useContext(JSONKitsContext);
@@ -130,15 +122,16 @@ const TOMLConvertrer = () => {
             const json = unsafeParseJSON(source);
             if (kindOf(json) === 'array') {
                 toast.error(`无法渲染 JSON 数组，使用[${JSON_ARRAY_VALUE_KEY}]包装数组对象`);
-                setTarget(stringifyTOML({ [JSON_ARRAY_VALUE_KEY]: json }));
+                setTarget(TOML.stringify({ [JSON_ARRAY_VALUE_KEY]: json }));
             } else if (kindOf(json) !== 'object') {
                 toast.error(`无法渲染的数据类型，使用[${NOT_JSON_VALUE_KEY}]包装数组对象`);
-                setTarget(stringifyTOML({ [NOT_JSON_VALUE_KEY]: json }));
+                setTarget(TOML.stringify({ [NOT_JSON_VALUE_KEY]: json }));
             } else {
-                setTarget(stringifyTOML(json));
+                setTarget(TOML.stringify(json));
             }
         } catch (e) {
-            toast.error(`无法解析的 JSON 字符串`);
+            toast.error('将 JSON 转换为 TOML 出错');
+            console.error('将 JSON 转换为 TOML 出错', e);
             setTarget(e.message);
         }
 
@@ -146,7 +139,6 @@ const TOMLConvertrer = () => {
     return (
         <div className={classNames(styles.right, styles.toml)}>
             <CodeEditor language="toml" value={target} minimap={false} readOnly={true} />
-            <ToastContainer position="bottom-right" delay={5000} />
         </div>
     );
 };
@@ -181,13 +173,26 @@ function JSONKitsLayout() {
                 <SplitView className={styles.root} sizes={[55, 45]} minSize={[600, 400]}>
                     <div className={styles.left}>
                         {editor}
+                        <ToastContainer position="bottom-right" delay={5000} />
                     </div>
                     <Outlet context={source} />
                 </SplitView>
             </JSONKitsContext.Provider>
             <DriftToolbar>
-                <Button onClick={() => setSource(stringifyJSON(parseJSON(source)))}>Beautify</Button>
-                <Button onClick={() => setSource(stringifyJSON(parseJSON(source), 0))}>Minify</Button>
+                <Button onClick={() => {
+                    try {
+                        setSource(stringifyJSON(unsafeParseJSON(source)));
+                    } catch (e) {
+                        toast.error('格式化 JSON 出错');
+                    }
+                }}>Beautify</Button>
+                <Button onClick={() => {
+                    try {
+                        setSource(stringifyJSON(unsafeParseJSON(source), 0));
+                    } catch (e) {
+                        toast.error('格式化 JSON 出错');
+                    }
+                }}>Minify</Button>
                 <Button onClick={() => doCopy(source, { debug: true })}>Copy</Button>
                 <FileInput placeholder="Load file as JSON..." ref={readerInstance} accept=".json,.toml,.csv" onChange={(loaded) => {
                     if (!loaded) {
@@ -205,7 +210,7 @@ function JSONKitsLayout() {
                         }
                     } else if (name.endsWith('.toml')) {
                         try {
-                            setSource(stringifyJSON(parseTOML(content)));
+                            setSource(stringifyJSON(TOML.parse(content)));
                         } catch (e) {
                             console.log('解析 TOML 文件出错：', name, e);
                             toast.error(`解析 TOML 文件出错：${e.message}`);

@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense, useEffect, useMemo, useState } from 'react';
-import { NavLink, useParams, useOutletContext } from "react-router-dom";
+import { NavLink, Navigate, useParams, useOutletContext } from "react-router-dom";
 
 import { useDocumentTitle } from 'plug/hooks';
 import { useIssueComments } from 'plug/github/graphql-utils';
@@ -37,29 +37,43 @@ function Notebook({ title = '笔记', labels }) {
             if (topics[group]) {
                 return topics[group];
             }
+            return 0;
         }
         return null;
     }, [topics, group, unique]);
     return (
         <div className={styles.root}>
-            {(current === null) ? (<span>404</span>) : (
-                <Fragment>
-                    <aside className={styles.tree}>
-                        <ul>
-                            {(topics[group].children || []).map(({ unique, title }, index) => (
-                                <li key={index}>
-                                    <NavLink to={`/kits/notebook/${group}/${unique}`}>{title || unique}</NavLink>
-                                </li>
-                            ))}
-                        </ul>
-                    </aside>
-                    <main className={styles.board}>
-                        <div className={styles.content}>
-                            <MarkdownViewer value={current.content || 'empty'} />
-                        </div>
-                    </main>
-                </Fragment>
-            )}
+            {(() => {
+                if (current === null) {
+                    return (
+                        <div>404</div>
+                    );
+                } else if (current === 0) {
+                    const [first] = Object.entries(topics).map(([key, { sort }]) => ({ key, sort })).sort((a, b) => a.sort - b.sort);
+                    return (
+                        <Navigate to={`./${first.key}`} replace={true} />
+                    );
+                } else {
+                    return (
+                        <Fragment>
+                            <aside className={styles.tree}>
+                                <ul>
+                                    {(topics[group].children || []).map(({ unique, title }, index) => (
+                                        <li key={index}>
+                                            <NavLink to={`/kits/notebook/${group}/${unique}`}>{title || unique}</NavLink>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </aside>
+                            <main className={styles.board}>
+                                <div className={styles.content}>
+                                    <MarkdownViewer value={current.content || 'empty'} />
+                                </div>
+                            </main>
+                        </Fragment>
+                    );
+                }
+            })()}
         </div>
     );
 };

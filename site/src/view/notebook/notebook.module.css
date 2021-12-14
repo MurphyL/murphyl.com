@@ -5,7 +5,7 @@
 
 .root .tree {
     position: relative;
-    width: 300px;
+    width: 230px;
     overflow: auto;
     border-right: 1px solid var(--shadow-color);
     line-height: 28px;

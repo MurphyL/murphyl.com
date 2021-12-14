@@ -1,65 +1,35 @@
 .root {
     display: flex;
+    height: 100%;
 }
 
 .root .tree {
-    margin: 0;
+    position: relative;
     width: 300px;
-    height: 100vh;
-    overflow-y: auto;
-    user-select: none;
+    overflow: auto;
     border-right: 1px solid var(--shadow-color);
+    line-height: 28px;
+    user-select: none;
 }
 
-.root .tree dl {
-    margin: 10px;
+.root .tree li::marker {
+    color: var(--shadow-color);
 }
 
-.root .tree dl dd {
-    margin: 0;
-}
-
-.root .tree dl dd ul {
-    margin: 5px 0;
-    padding: 0 0 0 20px;
-}
-
-.root .tree dl a {
+.root .tree li a {
     text-decoration: none;
-    color: rgb(68, 68, 68);
+    color: black;
+    opacity: 0.5;
+}
+
+.root .tree li a:global(.active) {
+    opacity: 0.9;
+    color: var(--toast-default);
 }
 
 .root .board {
     flex: 1;
-    height: 100vh;
     overflow: auto;
-}
-
-.root .board .header {
-    display: flex;
-    padding: 10px;
-    line-height: 30px;
-    box-shadow: 0 2px 2px 0 var(--shadow-color);
-    user-select: none;
-}
-
-.root .board .header .toolbar {
-    flex: 1;
-    text-align: right;
-}
-
-.root .board .header .toolbar a {
-    margin-left: 5px;
-    padding: 2px 5px;
-    text-decoration: none;
-    font-size: 12px;
-    border: 1px solid var(--shadow-color);
-    border-radius: 3px;
-    color: rgb(68, 68, 68);
-}
-
-.root .board .header .toolbar a:hover {
-    color: rgba(68, 68, 68, 0.7);
 }
 
 .root .board .content {

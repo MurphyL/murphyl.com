@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Outlet, useNavigate, useParams, useOutletContext } from "react-router-dom";
+import { NavLink, useParams, useOutletContext } from "react-router-dom";
 
-import { useDocumentTitle, jsonpath } from 'plug/hooks';
+import { useDocumentTitle } from 'plug/hooks';
 import { useIssueComments } from 'plug/github/graphql-utils';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
@@ -10,69 +10,70 @@ import styles from './notebook.module.css';
 
 const PATHNAME_PREFIX = 'notebook';
 
-function Notebook() {
-    useDocumentTitle('笔记');
+function Notebook({ title = '笔记', labels }) {
+    useDocumentTitle(title);
     const { group, unique } = useParams();
     const { setNaviItems } = useOutletContext();
-    const [topics, setTopics] = useState([]);
-    const issues = useIssueComments('X-TOPIC');
+    const [topics, setTopics] = useState(null);
+    const issues = useIssueComments(labels);
     useEffect(() => {
         const navi = [];
-        setTopics((issues || []).map(({ url, title, body, publishedAt, comments: { nodes } }) => {
+        setTopics(Object.fromEntries((issues || []).map(({ url, title, body, publishedAt, comments: { nodes } }) => {
             const { unique, sort = 9999, content } = parseMarkdown(body);
             navi.push({ name: title, path: `./${PATHNAME_PREFIX}/${unique.trim()}`, sort });
             const children = nodes.map(({ url, body, publishedAt }) => {
                 const { unique, excerpt, ...extra } = parseMarkdown(body);
-                return { url, publishedAt, sort: 9999, unique: unique.trim(), ...extra };
+                return { unique: unique.trim(), url, publishedAt, sort: 9999, ...extra };
             }).sort((a, b) => a.sort - b.sort);
-            return { unique: unique.trim(), url, title, sort, content, publishedAt, children };
-        }));
+            return [unique.trim(), { url, title, sort, content, publishedAt, children }];
+        })));
         setNaviItems(navi.sort((a, b) => a.sort - b.sort));
     }, [issues]);
-    const [ current ] = useMemo(() => jsonpath(topics, `$[?(@.unique=='${group}')]`) || topics, [group, topics]);
+    const current = useMemo(() => {
+        if (topics) {
+            if (unique && topics[group]) {
+                return topics[group].children.find((comment) => comment.unique === unique);
+            }
+            if (topics[group]) {
+                return topics[group];
+            }
+        }
+        return null;
+    }, [topics, group, unique]);
     return (
         <div className={styles.root}>
-            {current ? (
+            {(current === null) ? (<span>404</span>) : (
                 <Fragment>
                     <aside className={styles.tree}>
                         <ul>
-                            {(current.children || []).map(({ unique, title }, index) => (
+                            {(topics[group].children || []).map(({ unique, title }, index) => (
                                 <li key={index}>
-                                    <Link to={`/kits/notebook/${current.unique}/${unique}`}>{title || unique}</Link>
+                                    <NavLink to={`/kits/notebook/${group}/${unique}`}>{title || unique}</NavLink>
                                 </li>
                             ))}
                         </ul>
                     </aside>
                     <main className={styles.board}>
                         <div className={styles.content}>
-                            <MarkdownViewer value={current.content || '> Nothing here!'} />
-                            <Outlet />
+                            <MarkdownViewer value={current.content || 'empty'} />
                         </div>
                     </main>
                 </Fragment>
-            ) : (
-                <div>404</div>
             )}
         </div>
     );
-};
-
-const NoteGroup = () => {
-    const { group, unique } = useParams();
-    console.log(group, unique);
-    return null;
 };
 
 export default {
     path: PATHNAME_PREFIX,
     element: (
         <Suspense fallback="loading...">
-            <Notebook />
+            <Notebook title="技术笔记" labels={['X-TOPIC']} />
         </Suspense>
     ),
     children: [{
         path: ':group',
-        element: <NoteGroup />,
+        element: null,
         children: [{
             path: ':unique',
             element: null,

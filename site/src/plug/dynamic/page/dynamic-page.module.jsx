@@ -1,6 +1,7 @@
 import React from "react";
 
 import classNames from 'classnames';
+
 import { useDocumentTitle } from 'plug/hooks';
 
 import styles from './dynamic-page.module.css';

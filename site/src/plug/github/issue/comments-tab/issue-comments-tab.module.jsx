@@ -6,8 +6,6 @@ import { JSONPath } from 'jsonpath-plus-browser';
 import renderSchema from 'plug/extra/schema-options.jsx';
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
-import DynamicLink from 'plug/dynamic/link/dynamic-link.module';
-
 import styles from './issue-comments-tab.module.css';
 
 export function IssueComment({ title, type, content, ...extra }) {
@@ -34,9 +32,6 @@ export default function IssueComments({ title, comments }) {
                     {nodes.map(({ title }, index) => (
                         <span key={index} className={classNames(styles.item, { [styles.selected]: index === tab })} onClick={() => setTab(index)}>{title}</span>
                     ))}
-                </div>
-                <div className={styles.toolbar}>
-                    { nodes[tab] && (<DynamicLink className={styles.button} link={nodes[tab].url}>编辑</DynamicLink>) }
                 </div>
             </div>
             <div className={styles.board}>

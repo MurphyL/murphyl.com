@@ -11,8 +11,6 @@ import SiteLayout from "plug/layout/site-layout/site-layout.module";
 import IssueComments from "plug/github/issue/comments-tab/issue-comments-tab.module";
 
 
-import DynamicLink from "plug/dynamic/link/dynamic-link.module";
-import DynamicList from "plug/dynamic/list/dynamic-list.module";
 import DynamicTable from "plug/dynamic/table/dynamic-table.module";
 
 const renderer = new ReactJsonSchema();
@@ -23,8 +21,6 @@ renderer.setComponentMap({
     DriftNav,
     SiteLayout,
 
-    DynamicLink,
-    DynamicList,
     DynamicTable,
 
     IssueComments,

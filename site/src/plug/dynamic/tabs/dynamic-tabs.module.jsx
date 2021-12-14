@@ -22,24 +22,4 @@ export default function Tabs({ className, children, selected: current = 0 }) {
             </div>
         </div>
     );
-}
-
-export function NaviTabs({ className, children, logo, selected: current = 0 }) {
-    const [selected, setSelected] = useState(current);
-    const tabs = Children.toArray(children);
-    return (
-        <div className={classNames(styles.root, styles.navi, className)}>
-            <div className={styles.keys}>
-                { logo && <div className={styles.logo}>{ logo }</div> }
-                {tabs.map((child, index) => (
-                    <div key={index} className={classNames(styles.key, { [styles.selected]: selected === index })} onClick={() => setSelected(index)}>
-                        {child.props.name || `Tab ${index + 1}`}
-                    </div>
-                ))}
-            </div>
-            <div className={styles.body}>
-                {tabs[selected]}
-            </div>
-        </div>
-    );
-}
+};

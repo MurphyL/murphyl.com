@@ -1,19 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import classNames from 'classnames';
 
-export default function DataTable({ className, children }) {
-    const [[columns, filter]] = useState([]);
+import styles from './data-table.module.css';
+
+export function Column() {
+    return null;
+};
+
+export default function Instance({ className, children, type, data, filter }) {
+    const [columns, setColumns] = useState([]);
     useEffect(() => {
         if (React.Children.count(children) === 0) {
             return;
         }
-        React.Children.forEach(child => {
-            console.log(child);
+        const tableColumns = [];
+        (children || []).forEach(({ key, type, props }, index) => {
+            if (type === Column) {
+                tableColumns.push({ index, key, ...props });
+            }
         });
-    }, children);
-    console.log(columns, filter);
+        setColumns(tableColumns);
+    }, [children]);
+    console.log(columns);
     return (
-        <table className={classNames(className)}></table>
+        <table className={classNames(styles.instance, styles[type], className)}>
+            {(columns && columns.length > 0) ? (
+                <Fragment>
+                    <thead>
+                        <tr>
+                            {columns.map((column, index) => (
+                                <th key={index}>{column.name || column.key}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {(data || []).map((row, rowIndex) => (
+                            <tr key={rowIndex}></tr>
+                        ))}
+                    </tbody>
+                </Fragment>
+            ) : (
+                <tbody><tr><td>必须添加数据列</td></tr></tbody>
+            )}
+        </table>
     );
-}
+};
+
+Instance.displayName = 'DataTable.Instance';
+
+export function DataFrame({ className, children, type }) {
+    return (
+        <Instance className={classNames(styles.frame, styles[type], className)}>{children}</Instance>
+    );
+};
+
+DataFrame.displayName = 'DataTable.Frame';

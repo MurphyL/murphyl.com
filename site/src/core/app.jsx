@@ -16,7 +16,7 @@ import Post from 'view/post/post.module';
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
 import KitsHome from 'view/kits/kits';
-import DemoList from 'view/kits/demo';
+import DemoList from 'view/kits/demo/demo.module';
 import Notebook from 'view/notebook/notebook.module';
 import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import JSONKits from 'view/kits/json/v1/json-kits-v1.module';

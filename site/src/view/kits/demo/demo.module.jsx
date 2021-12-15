@@ -3,23 +3,13 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 import { Loading } from 'plug/extra/status/status.module';
+import DataTable, { DataFrame, Column, Filter, Payload } from 'plug/extra/data-table/data-table.module';
 
 function DemoGroup({ width, children }) {
-    console.log(
-        React.Children.map(children, (child, index) => (
-            <div key={index}>{child}</div>
-        ))
-    );
     return (
         <div style={{ padding: '10px', width: (isNaN(width) ? width : `${width * 100}%`) }}>
             <div style={{ padding: '10px', border: '1px solid var(--border-color)', borderRadius: '3px' }}>
-                {(React.Children.count(children) > 0) ? (
-                    React.Children.map(children, (child, index) => (
-                        <div key={index}>{child}</div>
-                    ))
-                ) : (
-                    <div>Empty group!</div>
-                )}
+                {(React.Children.count(children) > 0) ? children : <div>Empty group!</div>}
             </div>
         </div>
     );
@@ -48,5 +38,32 @@ export default {
                 <Loading type="inline" message="hello world" />
             </DemoGroup>
         )
+    }, {
+        path: 'data',
+        element: <Outlet />,
+        children: [{
+            path: 'table',
+            element: (
+                <DemoGroup>
+                    <DataTable  data={[{ name: 'ID', unique: 'unique' }]}>
+                        <Column key="unique" />
+                        <Column key="name" />
+                        <Column key="x" />
+                        <Column key="y" />
+                    </DataTable>
+                </DemoGroup>
+            )
+        }, {
+            path: 'frame',
+            element: (
+                <DemoGroup>
+                    <DataFrame>
+                        <Column />
+                        <Column />
+                        <Column />
+                    </DataFrame>
+                </DemoGroup>
+            )
+        }]
     }]
 }

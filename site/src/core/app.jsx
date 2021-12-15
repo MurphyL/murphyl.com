@@ -1,4 +1,4 @@
-import React, { StrictMode, Suspense } from 'react';
+import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 
@@ -15,12 +15,15 @@ import Post from 'view/post/post.module';
 
 import SchemaViewer from 'view/page/schema/schema-page.module';
 
-import KitList from 'view/kits/kits';
+import KitsHome from 'view/kits/kits';
+import DemoList from 'view/kits/demo';
 import Notebook from 'view/notebook/notebook.module';
 import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import JSONKits from 'view/kits/json/v1/json-kits-v1.module';
 
 import NaviLayout from 'plug/layout/navi-layout/navi-layout.module';
+
+import DataTable from 'plug/dynamic/table/dynamic-table.module';
 
 const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
 
@@ -43,7 +46,7 @@ const RouteViews = () => useRoutes([{
 }, {
     path: '/kits',
     element: <NaviLayout />,
-    children: [SQLKits, JSONKits, KitList, Notebook]
+    children: [KitsHome, SQLKits, JSONKits, Notebook, DemoList]
 }, {
     path: '/schema',
     element: <DriftLayout />,
@@ -57,6 +60,9 @@ const RouteViews = () => useRoutes([{
     children: [{
         path: 'loading',
         element: <Loading color="red" />,
+    }, {
+        path: 'datatable',
+        element: <DataTable />,
     }]
 }, {
     path: '*',

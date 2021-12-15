@@ -41,7 +41,7 @@ const options = {
         },
         code: ({ inline, children, className }) => {
             if (inline) {
-                return <span className={styles.code}>{children}</span>;
+                return <code className={styles.code}>{children}</code>;
             } else {
                 const language = className ? className.replace(/^language-/, '') : null;
                 return (

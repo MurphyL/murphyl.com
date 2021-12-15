@@ -42,7 +42,7 @@ const RouteViews = () => useRoutes([{
     }]
 }, {
     path: '/kits',
-    element: <NaviLayout navi={[{ name: 'All kits', path: './' }]} />,
+    element: <NaviLayout />,
     children: [SQLKits, JSONKits, KitList, Notebook]
 }, {
     path: '/schema',

@@ -37,7 +37,7 @@
 
 .root.navi .keys .key.selected {
     border-bottom: 1px solid #2aa0ea;
-    background-color: var(--shadow-color);
+    background-color: var(--border-color);
     opacity: 0.8;
 }
 

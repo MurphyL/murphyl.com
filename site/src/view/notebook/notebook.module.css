@@ -7,13 +7,13 @@
     position: relative;
     width: 230px;
     overflow: auto;
-    border-right: 1px solid var(--shadow-color);
+    border-right: 1px solid var(--border-color);
     line-height: 28px;
     user-select: none;
 }
 
 .root .tree li::marker {
-    color: var(--shadow-color);
+    color: var(--border-color);
 }
 
 .root .tree li a {
@@ -28,10 +28,13 @@
 }
 
 .root .board {
+    position: relative;
     flex: 1;
     overflow: auto;
 }
 
+
 .root .board .content {
     padding: 10px;
+    height: calc(100% - 10px * 2 -20px - 3px * 2);
 }

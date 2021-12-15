@@ -3,11 +3,8 @@ import React, { Component, Suspense } from 'react';
 import styles from './status.module.css';
 
 export const Loading = ({ message, color }) => {
-    const stylish = {
-        ['--loading-theme-color']: color
-    };
     return (
-        <div className={styles.loading} style={stylish}>
+        <div className={styles.loading} style={{ ['--loading-color']: color }}>
             <div className={styles.instance}>
                 <div className={styles.dots}>
                     <i className={styles.dot}></i>

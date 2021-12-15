@@ -33,11 +33,14 @@ body, code {
 	--code-font-size: 18px;
 
 	/* 基础模块 */
-	--shadow-color: rgba(0, 0, 0, 0.1);
+	--border-color: rgba(0, 0, 0, 0.1);
 	
 	/* 头部 */
 	--navi-header-height: 40px;
 	
 	/* 工具栏 */	
 	--toolbar-color: white;
+
+	/* Loading */
+	--loading-color: rgba(0, 0, 0);
 }

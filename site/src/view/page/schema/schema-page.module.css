@@ -22,7 +22,7 @@
     margin: 0 auto;
     width: calc(100% - 30px);
     min-height: 600px;
-    border: 1px solid var(--shadow-color);
+    border: 1px solid var(--border-color);
 }
 
 /** NOT FOUND */

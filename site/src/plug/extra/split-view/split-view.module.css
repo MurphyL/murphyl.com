@@ -8,5 +8,5 @@
 }
 
 .root :global(.gutter) {
-    background-color: var(--shadow-color);
+    background-color: var(--border-color);
 }

@@ -7,7 +7,7 @@ import { NaviHeader } from '../base-element/base-element.module';
 
 import styles from './navi-layout.module.css';
 
-export default function NaviLayout({ className, navi }) {
+export default function NaviLayout({ className, navi = [] }) {
     const [items, setItems] = useState([]);
     return (
         <div className={classNames(styles.root, className)}>

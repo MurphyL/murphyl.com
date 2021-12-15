@@ -2,7 +2,9 @@ import React, { Fragment, Suspense, useEffect, useMemo, useState } from 'react';
 import { NavLink, Navigate, useParams, useOutletContext } from "react-router-dom";
 
 import { useDocumentTitle } from 'plug/hooks';
+import { Loading } from 'plug/extra/status/status.module';
 import { useIssueComments } from 'plug/github/graphql-utils';
+import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import { MarkdownViewer, parseMarkdown } from "plug/extra/markdown/v1/markdown-v1.module";
 
@@ -46,10 +48,15 @@ function Notebook({ title = '笔记', labels }) {
             {(() => {
                 if (current === null) {
                     return (
-                        <div>404</div>
+                        <Loading />
                     );
                 } else if (current === 0) {
                     const [first] = Object.entries(topics).map(([key, { sort }]) => ({ key, sort })).sort((a, b) => a.sort - b.sort);
+                    if (!first) {
+                        return (
+                            <div>404</div>
+                        );
+                    }
                     return (
                         <Navigate to={`./${first.key}`} replace={true} />
                     );
@@ -81,7 +88,7 @@ function Notebook({ title = '笔记', labels }) {
 export default {
     path: PATHNAME_PREFIX,
     element: (
-        <Suspense fallback="loading...">
+        <Suspense fallback={<Loading />}>
             <Notebook title="技术笔记" labels={['X-TOPIC']} />
         </Suspense>
     ),

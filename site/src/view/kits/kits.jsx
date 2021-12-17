@@ -7,6 +7,7 @@ import { useDocumentTitle } from 'plug/hooks';
 // text
 import TOMLEditor from './text/toml/toml-kits.module';
 import TextCrypto from './text/crypto/crypto-kits.module';
+import Time2Text from './text/time/time-text.module';
 import TextDifference from './text/difference/text-difference.module';
 
 // expr
@@ -33,8 +34,8 @@ const KitsLayout = () => {
             name: 'Cron Expression',
             path: './expression/cron/v1',
         }, {
-            name: 'Scoop CLI Maker',
-            path: './expression/scoop/cli',
+            name: 'DateTime Formatter',
+            path: './text/time/converter',
         }, {
             name: 'JSONPath Query',
             path: './json/v1/path-query',
@@ -66,6 +67,9 @@ export default {
         }, {
             path: 'crypter',
             element: <TextCrypto />
+        }, {
+            path: 'time/converter',
+            element: <Time2Text />
         }]
     }, {
         path: 'expression',

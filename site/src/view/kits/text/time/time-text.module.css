@@ -1,0 +1,8 @@
+.root {
+    display: flex;
+    margin: 5px;
+}
+
+.root>* {
+    flex: 1;
+}

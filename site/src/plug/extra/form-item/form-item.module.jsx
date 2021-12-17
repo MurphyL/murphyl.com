@@ -2,6 +2,8 @@ import React, { forwardRef, useMemo, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
 
+import { nanoid } from 'nanoid';
+
 import kindOf from 'kind-of';
 import classNames from 'classnames';
 
@@ -58,37 +60,38 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
             }
         }
     }, [onChange]);
+    const id = useMemo(() => nanoid(), []);
     if (type === 'label') {
         return (
-            <label className={classNames(styles.root, styles.label)} htmlFor={extra.htmlFor}>
+            <label id={id} className={classNames(styles.root, styles.label)} htmlFor={extra.htmlFor}>
                 {children}
             </label>
         );
     } else if (type === 'select') {
         return (
-            <select className={classNames(styles.root, styles.select)} ref={instance} onChange={e => onValueChanged(e.target.value)}>
+            <select id={id} className={classNames(styles.root, styles.select)} ref={instance} onChange={e => onValueChanged(e.target.value)}>
                 {children}
             </select>
         );
     } else if (type === 'button') {
         return (
-            <button className={classNames(styles.root, styles.button)} ref={instance} onClick={extra.onClick}>{children}</button>
+            <button id={id} className={classNames(styles.root, styles.button)} ref={instance} onClick={extra.onClick}>{children}</button>
         );
     } else if (type === 'file') {
         return (
-            <label className={classNames(styles.root, styles.file)}>
+            <label id={id} className={classNames(styles.root, styles.file)}>
                 <input type="file" onChange={e => onValueChanged(e.target.value)} ref={instance} multiple={extra.multiple} accept={extra.accept} />
                 <span className={styles.placeholder}>{value || extra.placeholder || PLACEHOLDERS[type]}</span>
             </label>
         );
     } else if (type === 'textarea') {
         return (
-            <textarea className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} onChange={e => { onValueChanged(e.target.value) }} />
+            <textarea id={id} className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} onChange={e => { onValueChanged(e.target.value) }} />
         );
     }
     return (
-        <label className={classNames(styles.root, styles.input)} form-item-type="text">
-            <input type="text" ref={instance} onChange={e => onValueChanged(e.target.value)} />
+        <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="text">
+            <input id={id} name={id} type="text" defaultValue={extra.value} placeholder={extra.placeholder || name || 'text'} title={name || extra.placeholder} ref={instance} onChange={e => onValueChanged(e.target.value)} />
         </label>
     );
 });

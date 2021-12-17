@@ -1,7 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 
 import kindOf from 'kind-of';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import classNames from "classnames";
 
 import * as monaco from 'monaco-editor';

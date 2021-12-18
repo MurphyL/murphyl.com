@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { useMetaInfo } from 'plug/hooks';
 
-import { NaviHeader } from '../base-element/base-element.module';
+import { NaviHeader, Copyright } from '../base-element/base-element.module';
 
 import styles from './site-layout.module.css';
 
@@ -35,9 +35,7 @@ function Footer({ className, meta = {}, ...extra }) {
                     </dl>
                 ))}
             </div>
-            <div className={styles.copyright}>
-                <div>Copyright © 2020 {process.env.REACT_APP_TITLE}, All rights reserved. Host by <a href="https://vercel.com/" rel="noopener noreferrer" target="_blank">ZEIT.co</a></div>
-            </div>
+            <Copyright className={styles.copyright} />
         </footer>
     );
 }

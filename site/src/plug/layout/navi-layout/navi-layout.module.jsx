@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import classNames from 'classnames';
 
-import { NaviHeader } from '../base-element/base-element.module';
+import { NaviHeader, Copyright } from '../base-element/base-element.module';
 
 import styles from './navi-layout.module.css';
 
@@ -15,6 +15,9 @@ export default function NaviLayout({ className, navi = [] }) {
             <main className={styles.body}>
                 <Outlet context={{ setNaviItems: setItems }} />
             </main>
+            <footer className={styles.copyright}>
+                <Copyright />
+            </footer>
         </div>
     );
 };

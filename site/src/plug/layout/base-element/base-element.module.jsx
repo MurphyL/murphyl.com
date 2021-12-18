@@ -34,5 +34,14 @@ export const NaviHeader = forwardRef(({ left = [], right = [] }, ref) => {
     );
 });
 
-
 NaviHeader.displayName = 'BaseElement.NaviHeader';
+
+export const Copyright = ({ className }) => {
+    return (
+        <div className={classNames(styles.copyright, className)}>
+            <div>Copyright © 2020 {process.env.REACT_APP_TITLE}, All rights reserved. Host by <a href="https://vercel.com/" rel="noopener noreferrer" target="_blank">ZEIT.co</a></div>
+        </div>
+    );
+};
+
+Copyright.displayName = 'BaseElement.Copyright';

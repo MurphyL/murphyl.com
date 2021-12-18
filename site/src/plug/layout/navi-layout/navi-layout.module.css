@@ -6,5 +6,11 @@
 
 .root .body {
     position: relative;
-    height: calc(100% - var(--navi-header-height) - 5px * 2);
+    height: calc(100% - var(--navi-header-height) - 5px * 2 - 20px);
+}
+
+.root .copyright {
+    height: 19px;
+    text-indent: 3px;
+    border-top: 1px solid var(--border-color);
 }

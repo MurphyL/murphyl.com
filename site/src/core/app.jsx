@@ -69,6 +69,8 @@ const RouteViews = () => useRoutes([{
     element: <div>404</div>
 }]);
 
+RouteViews.dispalyName = 'Application.RouteViews';
+
 export default function App() {
     return (
         <StrictMode>

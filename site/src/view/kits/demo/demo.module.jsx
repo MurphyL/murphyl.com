@@ -3,7 +3,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 import { Loading } from 'plug/extra/status/status.module';
-import DataTable, { DataFrame, Column, Filter, Payload } from 'plug/extra/data-table/data-table.module';
+import DataTable, { DataFrame, Column } from 'plug/extra/data-table/data-table.module';
 
 function DemoGroup({ width, children }) {
     return (

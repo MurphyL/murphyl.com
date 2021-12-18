@@ -9,3 +9,7 @@
     text-indent: 10px;
     line-height: 2rem;
 }
+
+.root .desc dt {
+    text-transform: uppercase;
+}

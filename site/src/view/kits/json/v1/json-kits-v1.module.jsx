@@ -11,7 +11,6 @@ import doCopy from 'copy-to-clipboard';
 import TOML from '@iarna/toml';
 import { csvParse } from 'd3-dsv';
 import unsafeParseJSON from 'parse-json';
-import safeStringifyJSON from 'json-stringify-safe';
 import stripJSONComments from 'strip-json-comments';
 
 import { useDocumentTitle, useComponentSize, jsonpath } from 'plug/hooks';
@@ -31,7 +30,7 @@ const stringifyJSON = (data, indent = 4) => {
         return null;
     }
     try {
-        return safeStringifyJSON(data, null, indent);
+        return JSON.stringify(data, null, indent);
     } catch (e) {
         return `Stringify JSON error: \n${e.message}`;
     }

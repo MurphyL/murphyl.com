@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 
 import { Outlet, useOutletContext } from "react-router-dom";
 
-import { useDocumentTitle } from 'plug/hooks';
-
 // text
 import TOMLEditor from './text/toml/toml-kits.module';
 import TextCrypto from './text/crypto/crypto-kits.module';
@@ -21,7 +19,6 @@ const KitList = () => {
 }
 
 const KitsLayout = () => {
-    useDocumentTitle('所有工具');
     const { setNaviItems } = useOutletContext();
     useEffect(() => {
         setNaviItems([{
@@ -43,7 +40,7 @@ const KitsLayout = () => {
             name: 'SQL Formatter',
             path: './sql/v1',
         }]);
-    }, []);
+    }, [ setNaviItems ]);
     return (
         <Outlet />
     );

@@ -86,7 +86,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         );
     } else if (type === 'textarea') {
         return (
-            <textarea id={id} className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} onChange={e => { onValueChanged(e.target.value) }} />
+            <textarea id={id} className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} spellCheck="false" autoCapitalize="false" autoCorrect="false" onChange={e => { onValueChanged(e.target.value) }} />
         );
     }
     return (

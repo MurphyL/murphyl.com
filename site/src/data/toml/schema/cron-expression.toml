@@ -1,0 +1,36 @@
+[second]
+    required = false
+    owner = 'minute'
+    range = { min = 0, max = 59, step = 1 }
+
+[minute]
+    required = true
+    owner = 'hour'
+    range = { min = 0, max = 59, step = 1 }
+
+[hour]
+    required = true
+    owner = 'day'
+    range = { min = 0, max = 23, step = 1 }
+
+[day_of_month]
+    required = true
+    owner = 'month'
+    range = { min = 1, max = 31, step = 1 }
+
+[month]
+    required = true
+    owner = 'year'
+    names = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+    alias = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ]
+    range = { min = 1, max = 12, step = 1 }
+
+[day_of_week]
+    required = true
+    owner = 'month'
+    names = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
+    alias = [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
+    range = { min = 1, max = 7, step = 1 }
+
+[year]
+    range = { min = 1970, max = 3000, step = 1 }

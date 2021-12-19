@@ -17,11 +17,16 @@
 }
 
 /** 输入框 **/
-.root.input input[type="text"] {
+.root.input input[type="text"],
+.root.input input[type="number"] {
     margin: 0;
     padding: 0;
     line-height: 26px;
     outline: none;
+}
+
+.root.input input[type="checkbox"] {
+    vertical-align: middle;
 }
 
 

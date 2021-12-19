@@ -2,7 +2,7 @@ import { useRecoilValue, selectorFamily } from 'recoil';
 
 import axios from 'axios';
 
-import { jsonpath, useMetaInfo } from 'plug/hooks';
+import { useJSONPath, useMetaInfo } from 'plug/hooks';
 
 const PREPARED_GRAPHQL = useMetaInfo('src/data/toml/graphql.toml') || {};
 
@@ -34,7 +34,7 @@ const callGithubAPI = selectorFamily({
                 ...extra
             }
         }).then(({ status, data }) => {
-            return status === 200 ? (path ? jsonpath(data, path) : data) : null;
+            return status === 200 ? (path ? useJSONPath(data, path) : data) : null;
         }).catch(err => {
             console.error('Github API 调用出错：', err.message);
             return null;

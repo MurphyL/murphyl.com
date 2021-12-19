@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { jsonpath } from 'plug/hooks';
+import { useJSONPath } from 'plug/hooks';
 
 import TOML from '@iarna/toml';
 import * as matter from 'gray-matter';
@@ -30,7 +30,7 @@ const options = {
         ol: ({ children }) => <ol className={classNames(styles.list)}>{children}</ol>,
         li: ({ children }) => <li className={classNames(styles.item)}>{children}</li>,
         pre: ({ children, node }) => {
-            const tagName = jsonpath(node, '$.children.0.tagName');
+            const tagName = useJSONPath(node, '$.children.0.tagName');
             if (tagName === 'code') {
                 return children;
             } else {

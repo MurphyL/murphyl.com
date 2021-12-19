@@ -18,11 +18,11 @@ export const unique = () => nanoid();
  * @param {*} path 
  * @returns 
  */
-export const jsonpath = (data = {}, path) => {
+export const useJSONPath = (data = {}, path) => {
     return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
 };
 
-const META_FILES = Object.fromEntries(jsonpath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
+const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
 
 /**
  * 读取站点元数据

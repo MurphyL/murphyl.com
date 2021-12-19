@@ -13,7 +13,7 @@ import { csvParse } from 'd3-dsv';
 import unsafeParseJSON from 'parse-json';
 import stripJSONComments from 'strip-json-comments';
 
-import { useDocumentTitle, useComponentSize, jsonpath } from 'plug/hooks';
+import { useDocumentTitle, useComponentSize, useJSONPath } from 'plug/hooks';
 
 import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.module';
 
@@ -81,7 +81,7 @@ const PathQuery = () => {
     const { source } = useContext(JSONKitsContext);
     const result = useMemo(() => {
         try {
-            const parsed = jsonpath(unsafeParseJSON(source), path);
+            const parsed = useJSONPath(unsafeParseJSON(source), path);
             return SUPPORTED_VIEWER_TYPES.includes(kindOf(parsed)) ? parsed : [parsed];
         } catch (e) {
             return e;

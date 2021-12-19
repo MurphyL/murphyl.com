@@ -86,11 +86,26 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         );
     } else if (type === 'textarea') {
         return (
-            <textarea id={id} className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} spellCheck="false" autoCapitalize="false" autoCorrect="false" onChange={e => { onValueChanged(e.target.value) }} />
+            <textarea id={id} className={classNames(styles.root, styles.textarea)} defaultValue={extra.value} placeholder={extra.placeholder} ref={instance} spellCheck="false" autoCorrect="false" onChange={e => { onValueChanged(e.target.value) }} />
+        );
+    } else if (type === 'checkbox') {
+        return (
+            <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="checkbox">
+                {extra.label && <span className={styles.label}>{extra.label}</span>}
+                <input id={id} name={id} type="checkbox" defaultChecked={extra.value} ref={instance} onChange={e => onValueChanged(e.target.value)} />
+            </label>
+        );
+    } else if (type === 'number') {
+        return (
+            <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="number">
+                {extra.label && <span className={styles.label}>{extra.label}</span>}
+                <input id={id} name={id} type="number" defaultValue={extra.value} ref={instance} onChange={e => onValueChanged(e.target.value)} />
+            </label>
         );
     }
     return (
         <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="text">
+            {extra.label && <span className={styles.label}>{extra.label}</span>}
             <input id={id} name={id} type="text" defaultValue={extra.value} placeholder={extra.placeholder || name || 'text'} title={name || extra.placeholder} ref={instance} onChange={e => onValueChanged(e.target.value)} />
         </label>
     );
@@ -105,6 +120,10 @@ export const Button = ({ type, ...props }) => <FormItem {...props} type="button"
 export const Select = ({ type, ...props }) => <FormItem {...props} type="select" />;
 
 export const TextInput = ({ type, ...props }) => <FormItem {...props} type="text" />;
+
+export const NumberInput = ({ type, ...props }) => <FormItem {...props} type="number" />;
+
+export const Checkbox = ({ type, ...props }) => <FormItem {...props} type="checkbox" />;
 
 export const TextArea = ({ type, ...props }) => <FormItem {...props} type="textarea" />;
 

@@ -6,7 +6,7 @@ import styles from './status.module.css';
 
 export const Loading = ({ type, message, color }) => {
     return (
-        <div className={classNames(styles.loading, styles[type])} style={{ ['--loading-color']: color }}>
+        <div className={classNames(styles.loading, styles[type])} style={{ ['--loading-color']: color }} role="status">
             <div className={styles.instance}>
                 <div className={styles.dots}>
                     <i className={styles.dot}></i>

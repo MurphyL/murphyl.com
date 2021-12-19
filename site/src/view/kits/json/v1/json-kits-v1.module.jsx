@@ -94,7 +94,7 @@ const PathQuery = () => {
             </div>
             <div className={styles.viewer} style={{ height: `calc(100% - ${textareaHeight}px)` }}>
                 {kindOf(result) === 'error' ? (
-                    <CodeBlock className={styles.viewer} value={result.message} />
+                    <CodeBlock className={styles.viewer} value={result.message} copyable={false} />
                 ) : (
                     <JSONViewer className={styles.viewer} name="JSONPath resolved" value={result} />
                 )}
@@ -171,7 +171,6 @@ function JSONKitsLayout() {
                 <SplitView className={styles.root} sizes={[55, 45]} minSize={[600, 400]}>
                     <div className={styles.left}>
                         {editor}
-                        <ToastContainer position="bottom-right" delay={5000} />
                     </div>
                     <Outlet context={source} />
                 </SplitView>

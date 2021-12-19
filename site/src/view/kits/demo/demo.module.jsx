@@ -2,8 +2,10 @@ import React from "react";
 
 import { Outlet } from "react-router-dom";
 
+import * as icons from '@icons-pack/react-simple-icons';
+
 import { Loading } from 'plug/extra/status/status.module';
-import DataTable, { DataFrame, Column } from 'plug/extra/data-table/data-table.module';
+import DataTable, { DataFrame } from 'plug/extra/data-table/data-table.module';
 
 function DemoGroup({ width, children }) {
     return (
@@ -14,7 +16,6 @@ function DemoGroup({ width, children }) {
         </div>
     );
 }
-
 
 function DemoLayout() {
     return (
@@ -45,23 +46,14 @@ export default {
             path: 'table',
             element: (
                 <DemoGroup>
-                    <DataTable  data={[{ name: 'ID', unique: 'unique' }]}>
-                        <Column key="unique" />
-                        <Column key="name" />
-                        <Column key="x" />
-                        <Column key="y" />
-                    </DataTable>
+                    <DataTable  data={[{ name: 'ID', unique: 'unique' }]} />
                 </DemoGroup>
             )
         }, {
             path: 'frame',
             element: (
                 <DemoGroup>
-                    <DataFrame>
-                        <Column />
-                        <Column />
-                        <Column />
-                    </DataFrame>
+                    <DataFrame />
                 </DemoGroup>
             )
         }]

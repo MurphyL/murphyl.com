@@ -18,4 +18,5 @@
     height: 19px;
     text-indent: 3px;
     border-top: 1px solid var(--border-color);
+    background-color: #fff;
 }

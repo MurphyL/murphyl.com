@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 import { Outlet, useOutletContext } from "react-router-dom";
 
+import IconKits from './icons/icon-kits.module';
+
 // text
 import TOMLEditor from './text/toml/toml-kits.module';
 import TextCrypto from './text/crypto/crypto-kits.module';
@@ -39,6 +41,9 @@ const KitsLayout = () => {
         }, {
             name: 'SQL Formatter',
             path: './sql/v1',
+        }, {
+            name: 'Simple Icons',
+            path: './icon',
         }]);
     }, [ setNaviItems ]);
     return (
@@ -77,6 +82,9 @@ export default {
             path: 'scoop/cli',
             element: <ScoopCLIMaker />
         }]
+    }, {
+        path: 'icon',
+        element: <IconKits />
     }, {
         path: '*',
         element: <div>no matched kit</div>

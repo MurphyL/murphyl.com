@@ -73,6 +73,9 @@ function Notebook({ title = '笔记', labels }) {
                                 </ul>
                             </aside>
                             <main className={styles.board}>
+                                <div className={styles.toolbar}>
+                                    <a href={current.url} title={current.title} target="_blank">编辑</a>
+                                </div>
                                 <div className={styles.content}>
                                     <MarkdownViewer value={current.content || 'empty'} />
                                 </div>

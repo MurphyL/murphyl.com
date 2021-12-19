@@ -3,6 +3,7 @@ import { RecoilRoot } from 'recoil';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 
 import loadable from '@loadable/component';
+import { Toaster } from 'react-hot-toast';
 
 import { Dynamic, ErrorBoundary, Loading } from 'plug/extra/status/status.module';
 
@@ -79,6 +80,7 @@ export default function App() {
                     <ErrorBoundary>
                         <RouteViews />
                     </ErrorBoundary>
+                    <Toaster />
                 </BrowserRouter>
             </RecoilRoot>
         </StrictMode>

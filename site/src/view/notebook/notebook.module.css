@@ -12,19 +12,23 @@
     user-select: none;
 }
 
-.root .tree li::marker {
+.root .tree ul {
+    margin-left: 10px;
+}
+
+.root .tree ul li::marker {
     color: var(--border-color);
 }
 
-.root .tree li a {
+.root .tree ul li a {
     text-decoration: none;
     color: black;
     opacity: 0.5;
 }
 
-.root .tree li a:global(.active) {
+.root .tree ul li a:global(.active) {
     opacity: 0.9;
-    color: var(--toast-default);
+    color: black;
 }
 
 .root .board {

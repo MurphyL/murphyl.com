@@ -10,8 +10,22 @@
     margin: 15px 0 10px;
 }
 
+.root .title::before {
+    margin-right: 5px;
+    content: '#';
+    opacity: 0.6;
+}
+
+.root .title:hover::before {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
 .root .code {
     margin: 0 3px;
+    padding: 3px 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
 }
 
 .root .paragraph {
@@ -22,10 +36,6 @@
     margin: 5px 0;
     padding: 3px 10px;
     border-left: 5px solid var(--border-color);
-}
-
-.root .code_block {
-    margin: 5px 0;
 }
 
 .root .link {

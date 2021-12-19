@@ -3,7 +3,8 @@ import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import kindOf from 'kind-of';
 import { nanoid } from 'nanoid';
 import classNames from "classnames";
-
+import doCopy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
 import * as monaco from 'monaco-editor';
 
 import JSONView from 'react-json-view';
@@ -25,7 +26,7 @@ const editorOptions = {
  * @param {*} param0 
  * @returns 
  */
-export const CodeBlock = memo(({ language = PLAINTEXT, value }) => {
+export const CodeBlock = memo(({ language = PLAINTEXT, copyable = true, value }) => {
     const instance = useRef(null);
     useEffect(() => {
         if (null === instance || null === instance.current) {
@@ -34,9 +35,16 @@ export const CodeBlock = memo(({ language = PLAINTEXT, value }) => {
         monaco.editor.colorizeElement(instance.current, {
             tabSize: 4
         });
-    }, []);
+    }, [value]);
     return (
         <pre className={styles.block}>
+            {copyable && <i className={styles.copyable} onClick={() => doCopy(value, {
+                debug: true,
+                format: 'text/plain',
+                onCopy: () => {
+                    toast('Copyed!');
+                }
+            })} />}
             <code data-lang={language} ref={instance}>
                 {value}
             </code>
@@ -60,9 +68,9 @@ export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue,
         if (null === instance || null === instance.current) {
             return;
         }
-        const editorInstance = monaco.editor.create(instance.current, { 
+        const editorInstance = monaco.editor.create(instance.current, {
             id: `editor-${nanoid()}`,
-            ...editorOptions, 
+            ...editorOptions,
             ...extra,
             language,
             value: defaultValue || value || '',
@@ -99,7 +107,7 @@ export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue,
             return;
         }
         const editorInstance = monaco.editor.createDiffEditor(instance.current, {
-            ...editorOptions, 
+            ...editorOptions,
             ...extra,
             id: `diff-editor-${nanoid()}`,
             originalEditable: true

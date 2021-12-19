@@ -2,7 +2,7 @@ import { createContext, Fragment, useContext, useEffect, useMemo, useRef, useSta
 
 import { Outlet, useOutletContext } from "react-router-dom";
 
-import { toast, ToastContainer } from 'react-toast';
+import toast from 'react-hot-toast';
 
 import kindOf from 'kind-of';
 import classNames from "classnames";

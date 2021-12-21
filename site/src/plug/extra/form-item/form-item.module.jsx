@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { nanoid } from 'nanoid';
 
 import kindOf from 'kind-of';
+import stripBOM from 'strip-bom';
 import classNames from 'classnames';
 
 import styles from './form-item.module.css';
@@ -27,7 +28,7 @@ const readFiles = async (fileList, limit) => {
                 resolve({
                     name: file.name,
                     type: file.type,
-                    content: reader.result
+                    content: stripBOM(reader.result)
                 });
             };
         } catch (e) {

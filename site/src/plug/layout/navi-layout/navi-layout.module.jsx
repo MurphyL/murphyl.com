@@ -15,6 +15,8 @@ const RIGHT = [{
     path: '/kits/'
 }];
 
+
+// TabView - https://codesandbox.io/s/festive-benz-ocwfi?file=/src/tab/tab.module.jsx
 export default function NaviLayout({ className, navi = [] }) {
     const [items, setItems] = useState([]);
     return (

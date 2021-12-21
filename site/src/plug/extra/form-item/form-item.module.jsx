@@ -62,13 +62,14 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         }
     }, [onChange]);
     const id = useMemo(() => nanoid(), []);
+    // fieldset, lenged
     if (type === 'label') {
         return (
             <label id={id} className={classNames(styles.root, styles.label)} htmlFor={extra.htmlFor}>
                 {children}
             </label>
         );
-    } else if (type === 'select') {
+    } else if (type === 'select') {     // datalist
         return (
             <select id={id} className={classNames(styles.root, styles.select)} ref={instance} onChange={e => onValueChanged(e.target.value)}>
                 {children}

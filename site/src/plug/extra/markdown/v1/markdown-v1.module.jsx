@@ -58,8 +58,18 @@ export const MarkdownViewer = ({ value }) => <ReactMarkdown children={value} {..
 export const parseMarkdown = (data = '') => {
     const { data: meta, excerpt, content } = matter(data, {
         excerpt: true,
+        language: 'toml',
         delims: ['```', '```'],
-        excerpt_separator: '<!-- more -->'
+        excerpt_separator: '<!-- more -->',
+        engines: {
+            toml: {
+                parse: (source) => TOML.parse(source),
+                stringify: () => {
+                    throw new Error('cannot stringify to TOML');
+                }
+            },
+        }
+
     });
     return { ...meta, excerpt, content };
 };

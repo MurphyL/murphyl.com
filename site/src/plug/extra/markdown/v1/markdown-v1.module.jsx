@@ -20,8 +20,8 @@ const options = {
     components: {
         a: ({ children, href }) => <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">{children}</a>,
         p: ({ children }) => <p className={styles.paragraph}>{children}</p>,
-        h1: ({ children }) => <h2 className={styles.title}>{children}</h2>,
-        h2: ({ children }) => <h2 className={styles.title}>{children}</h2>,
+        h1: ({ children }) => <h3 className={styles.title}>{children}</h3>,
+        h2: ({ children }) => <h3 className={styles.title}>{children}</h3>,
         h3: ({ children }) => <h3 className={styles.title}>{children}</h3>,
         h4: ({ children }) => <h4 className={styles.title}>{children}</h4>,
         h5: ({ children }) => <h5 className={styles.title}>{children}</h5>,
@@ -58,12 +58,8 @@ export const MarkdownViewer = ({ value }) => <ReactMarkdown children={value} {..
 export const parseMarkdown = (data = '') => {
     const { data: meta, excerpt, content } = matter(data, {
         excerpt: true,
-        language: 'toml',
         delims: ['```', '```'],
-        excerpt_separator: '<!-- more -->',
-        engines: {
-            toml: TOML.parse.bind(TOML),
-        }
+        excerpt_separator: '<!-- more -->'
     });
     return { ...meta, excerpt, content };
 };

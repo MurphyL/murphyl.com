@@ -20,12 +20,11 @@ import DemoList from 'view/kits/demo/demo.module';
 import Notebook from 'view/notebook/notebook.module';
 import SQLKits from 'view/kits/sql/v1/sql-kits-v1.module';
 import JSONKits from 'view/kits/json/v1/json-kits-v1.module';
+import DynamicPage from 'view/page/dynamic/dynamic-page.module';
 
 import NaviLayout from 'plug/layout/navi-layout/navi-layout.module';
 
 import DataTable from 'plug/dynamic/table/dynamic-table.module';
-
-const DynamicPage = import('view/page/dynamic/dynamic-page.module');
 
 const RouteViews = () => useRoutes([{
     path: '/',
@@ -47,6 +46,13 @@ const RouteViews = () => useRoutes([{
     path: '/kits',
     element: <NaviLayout />,
     children: [KitsHome, SQLKits, JSONKits, Notebook, DemoList]
+}, {
+    path: '/schema',
+    element: <DriftLayout />,
+    children: [{
+        path: 'page',
+        element: <Dynamic title="动态页面"><DynamicPage /></Dynamic>,
+    }]
 }, {
     path: '/demo',
     element: <DriftLayout />,

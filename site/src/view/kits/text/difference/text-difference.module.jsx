@@ -4,7 +4,7 @@ import { DiffEditor } from 'plug/extra/source-code/source-code.module';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import { FileInput, Label } from 'plug/extra/form-item/form-item.module';
+import { Checkbox, FileInput, Label } from 'plug/extra/form-item/form-item.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './text-difference.module.css';
@@ -13,10 +13,11 @@ const DEFAULT_VALUE = 'Paste text here…';
 
 export default function TextDifference() {
     useDocumentTitle('文本比较');
+    const [inline, setInline] = useState(false);
     const [values, setValues] = useState([DEFAULT_VALUE, DEFAULT_VALUE]);
     return (
         <div className={styles.root}>
-            <DiffEditor value={values} />
+            <DiffEditor value={values} inline={inline} />
             <DriftToolbar>
                 <Label>Load files:</Label>
                 <FileInput placeholder="nothing…" multiple={true} size={2} onChange={(files) => {
@@ -25,6 +26,7 @@ export default function TextDifference() {
                     }
                     setValues(files.map(file => `/** Load from [${file.name}] **/\n\n${file.content}`));
                 }} />
+                <Checkbox label="Display inline" defaultChecked={inline} onChange={value => { setInline(value) }} />
             </DriftToolbar>
         </div>
     );

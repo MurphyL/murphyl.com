@@ -94,7 +94,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         return (
             <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="checkbox">
                 {extra.label && <span className={styles.label}>{extra.label}</span>}
-                <input id={id} name={id} type="checkbox" defaultChecked={extra.value} ref={instance} onChange={e => onValueChanged(e.target.value)} />
+                <input id={id} name={id} type="checkbox" defaultChecked={extra.value} ref={instance} onChange={e => {onValueChanged(e.target.checked);}} />
             </label>
         );
     } else if (type === 'number') {

@@ -36,7 +36,7 @@ export const CodeBlock = memo(({ language = PLAINTEXT, copyable = true, value })
             tabSize: 4
         });
     }, [value]);
-    return (
+    return useMemo(() => (
         <pre className={styles.block}>
             {copyable && <i className={styles.copyable} onClick={() => doCopy(value, {
                 debug: true,
@@ -49,7 +49,7 @@ export const CodeBlock = memo(({ language = PLAINTEXT, copyable = true, value })
                 {value}
             </code>
         </pre>
-    );
+    ), []);
 });
 
 CodeBlock.displayName = 'CodeBlock';
@@ -62,13 +62,13 @@ CodeBlock.displayName = 'CodeBlock';
  */
 export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue, value, minimap, onChange, ...extra }) => {
     const instance = useRef();
-    const [editor, setEditor] = useState();
+    const [editorInstance, setEditorInstance] = useState();
     const [prevent, setPrevent] = useState(false);
     useEffect(() => {
         if (null === instance || null === instance.current) {
             return;
         }
-        const editorInstance = monaco.editor.create(instance.current, {
+        const editor = monaco.editor.create(instance.current, {
             id: `editor-${nanoid()}`,
             ...editorOptions,
             ...extra,
@@ -79,18 +79,25 @@ export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue,
             }
         });
         if (onChange && kindOf(onChange) === 'function') {
-            editorInstance.onDidChangeModelContent(() => {
+            editor.onDidChangeModelContent(() => {
                 setPrevent(true);
-                onChange(editorInstance.getValue());
+                onChange(editor.getValue());
                 setPrevent(false);
             });
         }
-        setEditor(editorInstance);
-        return () => editorInstance && editorInstance.dispose();
+        setEditorInstance(editor);
+        return () => editor && editor.dispose();
     }, [language]);
     useEffect(() => {
-        editor && !prevent && editor.setValue(value);
+        editorInstance && !prevent && editorInstance.setValue(value);
     }, [value]);
+    useEffect(() => {
+        if(editorInstance) {
+            editorInstance.updateOptions({
+                ...extra,
+            });
+        }
+    }, [extra]);
     return useMemo(() => (
         <div className={classNames(styles.editor, className)} ref={instance} />
     ), []);
@@ -98,39 +105,50 @@ export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue,
 
 CodeEditor.displayName = 'CodeEditor';
 
-export const DiffEditor = memo(({ className, language = PLAINTEXT, defaultValue, value, minimap, onChange, ...extra }) => {
+export const DiffEditor = memo(({ className, language = PLAINTEXT, inline=false, defaultValue, value, onChange, ...extra }) => {
     const instance = useRef();
+    const [editorInstance, setEditorInstance] = useState();
     const [originalModel, setOriginalModel] = useState();
     const [modifiedModel, setModifiedModel] = useState();
     useEffect(() => {
         if (null === instance || null === instance.current) {
             return;
         }
-        const editorInstance = monaco.editor.createDiffEditor(instance.current, {
+        const editor = monaco.editor.createDiffEditor(instance.current, {
             ...editorOptions,
             ...extra,
+            renderSideBySide: !inline,
             id: `diff-editor-${nanoid()}`,
             originalEditable: true
         });
         const [original, modified] = (kindOf(value) === 'array') ? value : [value, value];
         var originalModel = monaco.editor.createModel(original, language);
         var modifiedModel = monaco.editor.createModel(modified, language);
-        editorInstance.setModel({
+        editor.setModel({
             original: originalModel,
             modified: modifiedModel
         });
+        setEditorInstance(editor);
         setOriginalModel(originalModel);
         setModifiedModel(modifiedModel);
-        return () => editorInstance && editorInstance.dispose();
-    }, [language]);
+        return () => editor && editor.dispose();
+    }, []);
     useEffect(() => {
         const [original, modified] = value;
         originalModel && original && originalModel.setValue(original);
         modifiedModel && modified && modifiedModel.setValue(modified);
     }, [value]);
+    useEffect(() => {
+        if(editorInstance) {
+            editorInstance.updateOptions({
+                ...extra,
+                renderSideBySide: !inline,
+            });
+        }
+    }, [inline, extra]);
     return useMemo(() => (
         <div className={classNames(styles.editor, styles.diff, className)} ref={instance} />
-    ));
+    ), []);
 });
 
 DiffEditor.displayName = 'DiffEditor';
@@ -162,11 +180,11 @@ export const JSONViewer = memo(({ className, name, value = {}, onChange = false 
         displayDataTypes: false,
         displayObjectSize: false
     };
-    return (
+    return useMemo(() => (
         <div className={classNames(styles.json_view, className)}>
             <JSONView src={value} {...options} />
         </div>
-    );
+    ), []);
 });
 
 JSONViewer.displayName = 'JSONViewer';

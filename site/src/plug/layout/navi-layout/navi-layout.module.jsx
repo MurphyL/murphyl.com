@@ -25,9 +25,6 @@ export default function NaviLayout({ className, navi = [] }) {
             <main className={styles.body}>
                 <Outlet context={{ setNaviItems: setItems }} />
             </main>
-            <footer className={styles.copyright}>
-                <Copyright />
-            </footer>
         </div>
     );
 };

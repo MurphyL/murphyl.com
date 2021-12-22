@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import classNames from 'classnames';
 
-import { NaviHeader, Copyright } from '../base-element/base-element.module';
+import { NaviHeader } from '../base-element/base-element.module';
 
 import styles from './navi-layout.module.css';
 

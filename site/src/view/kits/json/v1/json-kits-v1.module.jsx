@@ -13,7 +13,7 @@ import { csvParse } from 'd3-dsv';
 import unsafeParseJSON from 'parse-json';
 import stripJSONComments from 'strip-json-comments';
 
-import { useDocumentTitle, useComponentSize, useJSONPath } from 'plug/hooks';
+import { useDocumentTitle, useJSONPath } from 'plug/hooks';
 
 import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.module';
 
@@ -77,7 +77,6 @@ const PathQuery = () => {
     useDocumentTitle('JSONPath Query');
     const textarea = useRef(null);
     const [path, setPath] = useState('$');
-    const { height: textareaHeight } = useComponentSize(textarea);
     const { source } = useContext(JSONKitsContext);
     const result = useMemo(() => {
         try {
@@ -89,10 +88,10 @@ const PathQuery = () => {
     }, [source, path]);
     return (
         <div className={classNames(styles.right, styles.jsonpath)}>
-            <div ref={textarea}>
+            <div className={styles.input} ref={textarea}>
                 <TextArea value={path} data-after="JSONPath" placeholder="jsonpath..." onChange={setPath} />
             </div>
-            <div className={styles.viewer} style={{ height: `calc(100% - ${textareaHeight}px)` }}>
+            <div className={styles.viewer}>
                 {kindOf(result) === 'error' ? (
                     <CodeBlock className={styles.viewer} value={result.message} copyable={false} />
                 ) : (

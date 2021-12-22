@@ -7,8 +7,6 @@ import { JSONPath } from 'jsonpath-plus-browser';
 
 import APP_JSON from 'data/cache/app.json';
 
-export { default as useComponentSize } from '@rehooks/component-size';
-
 export const unique = () => nanoid();
 
 /**

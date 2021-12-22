@@ -7,8 +7,6 @@
     "@datasert/cronjs-parser": "^1.2.0",
     "@iarna/toml": "^2.2.5",
     "@icons-pack/react-simple-icons": "^4.6.1",
-    "@loadable/component": "^5.15.0",
-    "@rehooks/component-size": "^1.0.3",
     "@sqltools/formatter": "^1.2.3",
     "ajv": "^8.8.2",
     "axios": "latest",
@@ -17,18 +15,14 @@
     "d3-dsv": "^3.0.1",
     "dayjs": "^1.10.7",
     "export-from-json": "^1.4.1",
-    "final-form": "^4.20.6",
-    "format-duration": "^1.4.0",
     "gray-matter": "^4.0.3",
     "jsonpath-plus-browser": "^5.0.6",
     "mingo": "^5.0.0",
     "monaco-editor": "latest",
-    "parents": "^1.0.1",
     "parse-json": "^5.2.0",
     "react": "^17.0.2",
     "react-base-table": "^1.13.0",
     "react-dom": "^17.0.2",
-    "react-final-form": "^6.5.7",
     "react-hot-toast": "^2.1.1",
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
@@ -67,6 +61,6 @@
     "@murphyl/files2json": "^1.2.2",
     "monaco-editor-webpack-plugin": "^6.0.0",
     "react-app-rewired": "^2.1.8",
-    "react-scripts": "latest"
+    "react-scripts": "^4.0.3"
   }
 }

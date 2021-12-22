@@ -59,7 +59,7 @@ const descWeekday = (number) => `${WEEK_DAYS[number]}(${descIndex(number)})` || 
 const descMonth = (number) => `${MONTH_NAMES[number]}(${descIndex(number)})` || 'invalid month';
 
 const resolve = (expression) => {
-    const { expressions: [parsed] } = parseCron(expression, { hasSeconds: true });
+    const { expressions: [parsed] } = parseCron(expression.trim(), { hasSeconds: true });
     return {
         parsed,
         details: FIELDS.map((field, index) => {
@@ -137,9 +137,9 @@ export default function CronExpressionParser() {
     useDocumentTitle('Cron Expression Parser');
     const [expression, setExpression] = useState('1-2/3 1-2,3,4 * 2W SEP,OCT 1L */10');
     const converted = useMemo(() => {
-        const parts = expression.split(/\s+/);
+        const parts = expression.trim().split(/\s+/);
         try {
-            const { details, parsed } = resolve(expression);
+            const { details, parsed } = resolve(expression.trim());
             return { parts, details, rows: FIELDS.map(field => JSON.stringify(parsed[field])) };
         } catch (e) {
             console.log(e.message);

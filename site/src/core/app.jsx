@@ -2,7 +2,6 @@ import React, { StrictMode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 
-import loadable from '@loadable/component';
 import { Toaster } from 'react-hot-toast';
 
 import { Dynamic, ErrorBoundary, Loading } from 'plug/extra/status/status.module';
@@ -26,7 +25,7 @@ import NaviLayout from 'plug/layout/navi-layout/navi-layout.module';
 
 import DataTable from 'plug/dynamic/table/dynamic-table.module';
 
-const DynamicPage = loadable(() => import('view/page/dynamic/dynamic-page.module'));
+const DynamicPage = import('view/page/dynamic/dynamic-page.module');
 
 const RouteViews = () => useRoutes([{
     path: '/',
@@ -48,13 +47,6 @@ const RouteViews = () => useRoutes([{
     path: '/kits',
     element: <NaviLayout />,
     children: [KitsHome, SQLKits, JSONKits, Notebook, DemoList]
-}, {
-    path: '/schema',
-    element: <DriftLayout />,
-    children: [{
-        path: 'page',
-        element: <Dynamic title="动态页面" children={<DynamicPage />} />,
-    }]
 }, {
     path: '/demo',
     element: <DriftLayout />,

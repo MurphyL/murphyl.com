@@ -75,7 +75,7 @@ const JSONEditor = () => {
  */
 const PathQuery = () => {
     useDocumentTitle('JSONPath Query');
-    const textarea = useRef(null);
+    const textarea = useRef();
     const [path, setPath] = useState('$');
     const { source } = useContext(JSONKitsContext);
     const result = useMemo(() => {
@@ -97,7 +97,6 @@ const PathQuery = () => {
                 ) : (
                     <JSONViewer className={styles.viewer} name="JSONPath resolved" value={result} />
                 )}
-
             </div>
         </div>
     );
@@ -156,20 +155,18 @@ export const JSON_KITS_NAVI = [{
 function JSONKitsLayout() {
     useDocumentTitle('JSON 工具集');
     const readerInstance = useRef();
+    const editorInstance = useRef();
     const [source, setSource] = useState('{}');
     const { setNaviItems } = useOutletContext();
     useEffect(() => {
         setNaviItems(JSON_KITS_NAVI);
     }, []);
-    const editor = useMemo(() => (
-        <CodeEditor className={styles.editor} language="json" value={source} onChange={setSource} />
-    ), [source])
     return (
         <Fragment>
             <JSONKitsContext.Provider value={{ source, setSource }}>
                 <SplitView className={styles.root} sizes={[55, 45]} minSize={[600, 400]}>
                     <div className={styles.left}>
-                        {editor}
+                        <CodeEditor className={styles.editor} language="json" ref={editorInstance} value={source} onChange={setSource} />
                     </div>
                     <Outlet context={source} />
                 </SplitView>

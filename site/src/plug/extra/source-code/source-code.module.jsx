@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
 import kindOf from 'kind-of';
 import { nanoid } from 'nanoid';
@@ -60,8 +60,8 @@ CodeBlock.displayName = 'CodeBlock';
  * @param {*} param0 
  * @returns 
  */
-export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue, value, minimap, onChange, ...extra }) => {
-    const instance = useRef();
+export const CodeEditor = memo(forwardRef(({ className, language = PLAINTEXT, defaultValue, value, minimap, onChange, ...extra }, ref) => {
+    const instance = useRef(ref);
     const [editorInstance, setEditorInstance] = useState();
     const [prevent, setPrevent] = useState(false);
     useEffect(() => {
@@ -98,10 +98,10 @@ export const CodeEditor = memo(({ className, language = PLAINTEXT, defaultValue,
             });
         }
     }, [extra]);
-    return useMemo(() => (
+    return (
         <div className={classNames(styles.editor, className)} ref={instance} />
-    ), []);
-});
+    );
+}));
 
 CodeEditor.displayName = 'CodeEditor';
 
@@ -180,11 +180,11 @@ export const JSONViewer = memo(({ className, name, value = {}, onChange = false 
         displayDataTypes: false,
         displayObjectSize: false
     };
-    return useMemo(() => (
+    return (
         <div className={classNames(styles.json_view, className)}>
             <JSONView src={value} {...options} />
         </div>
-    ), []);
+    );
 });
 
 JSONViewer.displayName = 'JSONViewer';

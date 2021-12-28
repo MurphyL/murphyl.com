@@ -1,0 +1,16 @@
+.form-input {
+    appearance: auto;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgb(118, 118, 118);
+    border-style: none;
+    border-width: 0;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    box-sizing: border-box;
+    caret-color: rgb(118, 118, 118);
+    outline-color: rgb(118, 118, 118);
+    outline-style: none;
+}

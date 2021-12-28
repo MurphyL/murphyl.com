@@ -1,25 +1,47 @@
-import React from "react";
+import React, { Children, Fragment } from "react";
 
 import { Outlet } from "react-router-dom";
 
-import * as icons from '@icons-pack/react-simple-icons';
+import { FormItem } from 'plug/extra/visual-item/visual-item.module';
 
 import { Loading } from 'plug/extra/status/status.module';
 import DataTable, { DataFrame } from 'plug/extra/data-table/data-table.module';
 
-function DemoGroup({ width, children }) {
+import styles from './demo.module.css';
+
+const DemoGroup = ({ children, name }) => {
     return (
-        <div style={{ padding: '10px', width: (isNaN(width) ? width : `${width * 100}%`) }}>
-            <div style={{ padding: '10px', border: '1px solid var(--border-color)', borderRadius: '3px' }}>
-                {(React.Children.count(children) > 0) ? children : <div>Empty group!</div>}
-            </div>
-        </div>
+        <fieldset className={styles.group}>
+            <legend>
+                <b>{name || 'NAMED'}</b>
+            </legend>
+            {(Children.count(children)) ? (
+                <div className={styles.container}>
+                    {(Children.map(children, (child, index) => (
+                        <div className={styles.item} key={index}>{child}</div>
+                    )))}
+                </div>
+            ) : <div>Empty group!</div>}
+        </fieldset>
     );
-}
+};
+
+const FormItems = () => {
+    return (
+        <Fragment>
+            <FormItem />
+            <FormItem />
+            <FormItem />
+            <FormItem />
+        </Fragment>
+    );
+};
 
 function DemoLayout() {
     return (
-        <Outlet />
+        <div className={styles.root}>
+            <Outlet />
+        </div>
     );
 }
 
@@ -32,11 +54,18 @@ export default {
     }, {
         path: 'loading',
         element: (
-            <DemoGroup name="Loading" width={1 / 3}>
+            <DemoGroup name="Loading">
                 <Loading type="inline" />
                 <Loading type="inline" color="red" />
                 <Loading type="inline" color="blue" />
                 <Loading type="inline" message="hello world" />
+            </DemoGroup>
+        )
+    }, {
+        path: 'form-item',
+        element: (
+            <DemoGroup name="Form Item">
+                <FormItems />
             </DemoGroup>
         )
     }, {
@@ -46,7 +75,7 @@ export default {
             path: 'table',
             element: (
                 <DemoGroup>
-                    <DataTable  data={[{ name: 'ID', unique: 'unique' }]} />
+                    <DataTable data={[{ name: 'ID', unique: 'unique' }]} />
                 </DemoGroup>
             )
         }, {

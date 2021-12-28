@@ -5,9 +5,9 @@ import { Outlet, useOutletContext } from "react-router-dom";
 import IconKits from './icons/icon-kits.module';
 
 // text
+import TimeKits from './text/time/time-kits.module';
 import TOMLEditor from './text/toml/toml-kits.module';
 import TextCrypto from './text/crypto/crypto-kits.module';
-import Time2Text from './text/time/time-text.module';
 import TextDifference from './text/difference/text-difference.module';
 
 // expr
@@ -33,8 +33,8 @@ const KitsLayout = () => {
             name: 'Cron Expression',
             path: './expression/cron/v1',
         }, {
-            name: 'DateTime Formatter',
-            path: './text/time/converter',
+            name: 'DateTime Kit',
+            path: './text/datetime',
         }, {
             name: 'JSONPath Query',
             path: './json/v1/path-query',
@@ -70,8 +70,8 @@ export default {
             path: 'crypter',
             element: <TextCrypto />
         }, {
-            path: 'time/converter',
-            element: <Time2Text />
+            path: 'datetime',
+            element: <TimeKits />
         }]
     }, {
         path: 'expression',

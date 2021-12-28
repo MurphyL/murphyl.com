@@ -7,11 +7,14 @@ yarn upgrade --latest
 
 git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/plug/drc
 ```
+
 ## 参考
 
 - [JS SDK](https://cusdis.com/doc#/advanced/sdk)
 - [跟我一起写Makefile](https://seisman.github.io/how-to-write-makefile/introduction.html)
 - [TOML<->JSON Online converter](https://pseitz.github.io/toml-to-json-online-converter/)
+- Vercle 中国区镜像 - `cname-china.vercel-dns.com`
+
 
 ## 文档
 

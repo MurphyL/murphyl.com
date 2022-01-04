@@ -7,8 +7,6 @@ import { JSONPath } from 'jsonpath-plus-browser';
 
 import APP_JSON from 'data/cache/app.json';
 
-export { default as useDocumentTitle } from "use-document-title";
-
 export const unique = () => nanoid();
 
 /**
@@ -36,14 +34,13 @@ export const useMetaInfo = (key) => META_FILES[key] ? META_FILES[key] : null;
  * 设置页面标替
  * 
  * @param {*} title 
- *
+ */
 export const useDocumentTitle = (title) => {
     useEffect(() => {
         document.title = (title ? (title.trim() + ' - ') : '') + process.env.REACT_APP_TITLE;
         return () => document.title = process.env.REACT_APP_TITLE;
     }, [title]);
 };
-*/
 
 const POSTIONS = {
     t: 'top',

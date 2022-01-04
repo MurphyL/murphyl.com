@@ -4,6 +4,8 @@ import { Outlet, useOutletContext } from "react-router-dom";
 
 import IconKits from './icons/icon-kits.module';
 
+import Snippets from './snippets/snippet-kits.module';
+
 // text
 import TimeKits from './text/time/time-kits.module';
 import TOMLEditor from './text/toml/toml-kits.module';
@@ -36,14 +38,11 @@ const KitsLayout = () => {
             name: 'DateTime Kit',
             path: './text/datetime',
         }, {
-            name: 'JSONPath Query',
-            path: './json/v1/path-query',
-        }, {
-            name: 'SQL Formatter',
-            path: './sql/v1',
-        }, {
             name: 'Simple Icons',
             path: './icon',
+        }, {
+            name: 'Snippets',
+            path: './snippet',
         }]);
     }, [ setNaviItems ]);
     return (
@@ -82,6 +81,9 @@ export default {
             path: 'scoop/cli',
             element: <ScoopCLIMaker />
         }]
+    }, {
+        path: 'snippet',
+        element: <Snippets />
     }, {
         path: 'icon',
         element: <IconKits />

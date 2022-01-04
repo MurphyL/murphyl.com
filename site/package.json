@@ -36,12 +36,14 @@
     "recoil": "latest",
     "strip-bom": "^5.0.0",
     "strip-json-comments": "^4.0.0",
-    "trim-newlines": "^4.0.2"
+    "trim-newlines": "^4.0.2",
+    "use-document-title": "^1.0.4"
   },
   "scripts": {
     "toml": "files2json -v src/data/toml/ -o src/data/cache/app.json",
-    "prestart": "npm run toml",
-    "prebuild": "npm run toml",
+    "snippets": "files2json -v ../snippets/ -o src/data/cache/snippets.json",
+    "prestart": "npm run toml && npm run snippets",
+    "prebuild": "npm run toml && npm run snippets",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build"
   },

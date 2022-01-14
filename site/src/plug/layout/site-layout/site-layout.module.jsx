@@ -9,9 +9,6 @@ import { NaviHeader, Copyright } from '../base-element/base-element.module';
 
 import styles from './site-layout.module.css';
 
-const SITE_META = useMetaInfo('src/data/toml/site.toml') || {};
-
-
 function Footer({ className, meta = {}, ...extra }) {
     return (
         <footer className={classNames(className, styles.footer)} {...extra}>
@@ -41,6 +38,7 @@ function Footer({ className, meta = {}, ...extra }) {
 }
 
 export default function SiteLayout() {
+    const SITE_META = useMetaInfo('src/data/toml/site.toml') || {};
     const { header = {}, footer } = SITE_META;
     return (
         <div className={styles.root}>

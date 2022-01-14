@@ -29,6 +29,7 @@
     "react-json-schema": "^1.2.2",
     "react-json-view": "^1.21.3",
     "react-markdown": "^7.0.1",
+    "react-masonry-component": "^6.3.0",
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.1.1",
     "react-split": "^2.0.13",

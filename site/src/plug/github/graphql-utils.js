@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { useJSONPath, useMetaInfo } from 'plug/hooks';
 
-const PREPARED_GRAPHQL = useMetaInfo('src/data/toml/graphql.toml') || {};
+
 
 const ajax = axios.create({
     baseURL: 'https://api.github.com/graphql',
@@ -21,8 +21,8 @@ const GHP_VARS = {
 
 const callGithubAPI = selectorFamily({
     key: 'call-github-api-v4',
-    get: ({ key, path, ...extra }) => () => {
-        const graphql = PREPARED_GRAPHQL[key];
+    get: ({ graphql, ...extra }) => () => {
+        
         if (!graphql) {
             throw new Error('查询语句为空！');
         }
@@ -34,7 +34,7 @@ const callGithubAPI = selectorFamily({
                 ...extra
             }
         }).then(({ status, data }) => {
-            return status === 200 ? (path ? useJSONPath(data, path) : data) : null;
+            return status === 200 ? data : null;
         }).catch(err => {
             console.error('Github API 调用出错：', err.message);
             return null;
@@ -45,25 +45,31 @@ const callGithubAPI = selectorFamily({
 });
 
 export const useIssueList = (label) => {
-    return useRecoilValue(callGithubAPI({
-        key: 'query-issue-list',
+    const prepared = useMetaInfo('src/data/toml/graphql.toml') || {};
+    const result = useRecoilValue(callGithubAPI({
+        key: prepared['query-issue-list'],
         ghp_labels: label,
-        path: '$.data.repository.issues.nodes'
     }));
+    // path: '$.data.repository.issues.nodes'
+    return useJSONPath(result, '$.data.repository.issues.nodes');
 };
 
 export const useIssueComments = (label) => {
-    return useRecoilValue(callGithubAPI({
-        key: 'query-issue-comments',
+    const prepared = useMetaInfo('src/data/toml/graphql.toml') || {};
+    const result = useRecoilValue(callGithubAPI({
+        key: prepared['query-issue-comments'],
         ghp_labels: label,
-        path: '$.data.repository.issues.nodes'
     }));
+    // path: '$.data.repository.issues.nodes'
+    return useJSONPath(result, '$.data.repository.issues.nodes');
 };
 
 export const useIssueDetails = (unique) => {
-    return useRecoilValue(callGithubAPI({
-        key: 'get-issue-details',
+    const prepared = useMetaInfo('src/data/toml/graphql.toml') || {};
+    const result = useRecoilValue(callGithubAPI({
+        key: prepared['get-issue-details'],
         issue_number: parseInt(unique),
-        path: '$.data.repository.issue'
     }));
+    // path: '$.data.repository.issue'
+    return useJSONPath(result, '$.data.repository.issue');
 };

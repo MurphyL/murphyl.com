@@ -3,14 +3,14 @@ import { useMemo, useState } from 'react';
 import Ajv from "ajv";
 import { parse as parseCron } from '@datasert/cronjs-parser';
 
-import { useDocumentTitle, useMetaInfo } from 'plug/hooks';
+import { useDocumentTitle /** , useMetaInfo */ } from 'plug/hooks';
 
 import { TextArea } from 'plug/extra/form-item/form-item.module';
 import { DataFrame } from 'plug/extra/data-table/data-table.module';
 
 import styles from './cron-expression-v1.module.css';
 
-const metaInfo = useMetaInfo('src/data/toml/schema/cron-expression.toml');
+// const metaInfo = useMetaInfo('src/data/toml/schema/cron-expression.toml');
 
 /**
  * cron parser:
@@ -27,10 +27,10 @@ const MONTH_FIELD = 'month';
 const FIELDS = ['second', 'minute', 'hour', DAY_FIELD, MONTH_FIELD, WEEK_FIELD, 'year'];
 
 // Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday
-const WEEK_DAYS = metaInfo[WEEK_FIELD]['names'];
+const WEEK_DAYS = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]; // metaInfo[WEEK_FIELD]['names'];
 
 // January, February, March, April, May, June, July, August, September, October, November, December
-const MONTH_NAMES = metaInfo[MONTH_FIELD]['names'];
+const MONTH_NAMES = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]; // metaInfo[MONTH_FIELD]['names'];
 
 const validate = new Ajv().compile({
     "type": "array"
@@ -134,7 +134,7 @@ const resolve = (expression) => {
 };
 
 export default function CronExpressionParser() {
-    useDocumentTitle('Cron Expression Parser');
+    useDocumentTitle('Cron 表达式');
     const [expression, setExpression] = useState('1-2/3 1-2,3,4 * 2W SEP,OCT 1L */10');
     const converted = useMemo(() => {
         const parts = expression.trim().split(/\s+/);

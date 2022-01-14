@@ -1,13 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react';
 
-import axios from 'axios';
 import kindOf from 'kind-of';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
+
 import { JSONPath } from 'jsonpath-plus-browser';
 
 import APP_JSON from 'data/cache/app.json';
 
-export const unique = () => nanoid();
+export const useId = () => useMemo(() => nanoid(), []);
 
 /**
  * JSONPath 工具类
@@ -17,10 +17,13 @@ export const unique = () => nanoid();
  * @returns 
  */
 export const useJSONPath = (data = {}, path) => {
-    return JSONPath({ path: (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$', json: data, wrap: false })
+    const jp = useMemo(() => {
+        return (kindOf(path) === 'string' && path.trim().length > 0) ? path : '$';
+    }, [path]);
+    return JSONPath({ path: jp, json: data, wrap: false });
 };
 
-const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __unique, __content }) => ([__unique, __content])));
+
 
 /**
  * 读取站点元数据
@@ -28,7 +31,15 @@ const META_FILES = Object.fromEntries(useJSONPath(APP_JSON, '$.*.*').map(({ __un
  * @param {*} key 
  * @returns 
  */
-export const useMetaInfo = (key) => META_FILES[key] ? META_FILES[key] : null;
+export const useMetaInfo = (key) => {
+    const entries = useJSONPath(APP_JSON, '$.*.*');
+    const metaFiles = useMemo(() => {
+        return Object.fromEntries(entries.map(({ __unique, __content }) => {
+            return [__unique, __content];
+        }));
+    }, [entries]);
+    return (metaFiles && metaFiles[key]) ? metaFiles[key] : null;
+};
 
 /**
  * 设置页面标替
@@ -38,7 +49,9 @@ export const useMetaInfo = (key) => META_FILES[key] ? META_FILES[key] : null;
 export const useDocumentTitle = (title) => {
     useEffect(() => {
         document.title = (title ? (title.trim() + ' - ') : '') + process.env.REACT_APP_TITLE;
-        return () => document.title = process.env.REACT_APP_TITLE;
+        return () => {
+            document.title = process.env.REACT_APP_TITLE;
+        };
     }, [title]);
 };
 
@@ -56,7 +69,7 @@ const POSTIONS = {
  * @returns 
  */
 export function usePostions(flags = 'lb') {
-    return flags.split('').map(flag => POSTIONS[flag]).filter(flag => flag);
+    return useMemo(() => flags.split('').map(flag => POSTIONS[flag]).filter(flag => flag), [flags]);
 };
 
 

@@ -17,12 +17,12 @@
 }
 
 /** 输入框 **/
-.root.input input[type="text"],
-.root.input input[type="number"] {
-    margin: 0;
+.root.input {
     padding: 0;
-    line-height: 26px;
+    margin: 0;
+    box-sizing: border-box;
     outline: none;
+    appearance: none;
 }
 
 .root.input input[type="checkbox"] {

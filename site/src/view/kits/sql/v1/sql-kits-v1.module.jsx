@@ -1,22 +1,29 @@
-import { Fragment , useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 
 import classNames from "classnames";
+import { useDocumentTitle } from 'plug/hooks';
+import { Parser } from 'sql-ddl-to-json-schema';
 import { format as formatSQL } from '@sqltools/formatter';
 
-import { useDocumentTitle } from 'plug/hooks';
+import SplitView from "plug/extra/split-view/split-view.module";
+import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import { Dynamic } from 'plug/extra/status/status.module';
+import { CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
+import { Button, Label, Select } from 'plug/extra/form-item/v1/form-item-v1.module';
 
-import { CodeEditor } from 'plug/extra/source-code/source-code.module';
-import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
-import { Button, Label, Select } from 'plug/extra/form-item/form-item.module';
+import { Select as SelectV2 } from 'plug/extra/form-item/v2/form-item-v2.module';
 
 import IssueSchema from "plug/github/issue/issue-schema/issue-schema.module";
 
 import styles from './sql-kits-v1.module.css';
 
-export const SQLFormatter = ({ className }) => {
+const MYSQL_DDL_PARSER = new Parser('mysql');
+
+const DDL_PARSER_OPTIONS = { useRef: false };
+
+export const SQLFormatter = () => {
     useDocumentTitle('SQL 格式化');
     const [sql, setSQL] = useState('select 1 from dual');
     const [wordCase, setWordCase] = useState('null');
@@ -29,7 +36,7 @@ export const SQLFormatter = ({ className }) => {
         }));
     };
     return (
-        <Fragment>
+        <div className={styles.editor}>
             <CodeEditor language="sql" value={sql} onChange={setSQL} />
             <DriftToolbar>
                 <Button onClick={format}>Beautify</Button>
@@ -40,7 +47,49 @@ export const SQLFormatter = ({ className }) => {
                     <option value="lower">LowerCase</option>
                 </Select>
             </DriftToolbar>
-        </Fragment>
+        </div>
+    );
+};
+
+const DEMO_DDL=`
+CREATE TABLE demo_table (
+    id int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    status tinyint(1) DEFAULT '1' COMMENT '有效标志',
+    create_time datetime DEFAULT NULL COMMENT '创建时间',
+    update_time datetime DEFAULT NULL COMMENT '更新时间',
+    ts timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+    PRIMARY KEY (id)
+) COMMENT='DEMO Table';
+`;
+
+const SCHEMA_RENDERS = Object.entries({
+    'java/bean': 'Java Bean Code',
+});
+
+const DDLSchema = () => {
+    const renderRef = useRef(null);
+    const [ddl, setDDL] = useState(DEMO_DDL);
+    const [ schema ] = useMemo(() => {
+        return MYSQL_DDL_PARSER.feed(ddl).toJsonSchemaArray(DDL_PARSER_OPTIONS);
+        // return Object.fromEntries(items.map(({ $id, ...schema}) => [$id, schema]));
+    }, [ddl]);
+    return (
+        <SplitView sizes={[60, 40]} gutterSize={5}>
+            <div className={styles.editor}>
+                <CodeEditor language="sql" value={ddl} onChange={setDDL} />
+            </div>
+            <div className={classNames(styles.board)}>
+                <JSONViewer name="DDL" value={schema} />
+                <DriftToolbar postion="rb">
+                    <Button onClick={() => console.log(renderRef)}>Show</Button>
+                    <Select ref={renderRef}>
+                        {SCHEMA_RENDERS.map(([value, label], index) => (
+                            <option key={index} value={value}>{label}</option>
+                        ))}
+                    </Select>
+                </DriftToolbar>
+            </div>
+        </SplitView>
     );
 };
 
@@ -68,6 +117,9 @@ export const SQL_KITS_NAVI = [{
     path: `./${PATHNAME_PREFIX}/`,
     name: 'SQL Formatter',
 }, {
+    path: `./${PATHNAME_PREFIX}/ddl/schema`,
+    name: 'DDL Schema',
+}, {
     path: `./${PATHNAME_PREFIX}/snippet`,
     name: 'SQL Snippet',
 }, {
@@ -81,9 +133,7 @@ const SQLKitsLayout = () => {
         setNaviItems(SQL_KITS_NAVI);
     }, []);
     return (
-        <div className={styles.root}>
-            <Outlet />
-        </div>
+        <Outlet />
     );
 };
 
@@ -95,6 +145,9 @@ export default {
     children: [{
         index: true,
         element: <SQLFormatter />
+    }, {
+        path: 'ddl/schema',
+        element: <DDLSchema />
     }, {
         path: 'snippet',
         element: <SQLSnippet />

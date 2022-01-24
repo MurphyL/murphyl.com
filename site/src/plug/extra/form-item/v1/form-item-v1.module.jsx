@@ -1,14 +1,13 @@
 import React, { forwardRef, useMemo, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
-
 import { nanoid } from 'nanoid';
 
 import kindOf from 'kind-of';
 import stripBOM from 'strip-bom';
 import classNames from 'classnames';
 
-import styles from './form-item.module.css';
+import styles from './form-item-v1.module.css';
 
 const PLACEHOLDERS = {
     file: '暂无文件……'
@@ -37,12 +36,13 @@ const readFiles = async (fileList, limit) => {
     })));
 };
 
+// https://developer.mozilla.org/en-US/docs/Learn/Forms/Styling_web_forms
 // https://zh-hans.reactjs.org/docs/hooks-reference.html#useimperativehandle
 const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra }, ref) => {
-    const instance = useRef(ref);
+    const instance = useRef();
     const [value, setValue] = useState();
     const onValueChanged = useMemo(() => {
-        const changeRefrenceValue = (value) => (kindOf(onChange) === 'function') && onChange(value);
+        const changeReferenceValue = (value) => (kindOf(onChange) === 'function') && onChange(value);
         return (value) => {
             if (type === 'file') {
                 if (!value || !value.length) {
@@ -54,10 +54,10 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
                 }
                 readFiles(instance.current.files, parseInt(extra.size)).then((files) => {
                     setValue(files.map(({ name }) => name).join(', '));
-                    extra.multiple ? changeRefrenceValue(files) : changeRefrenceValue(files[0]);
+                    extra.multiple ? changeReferenceValue(files) : changeReferenceValue(files[0]);
                 });
             } else {
-                changeRefrenceValue(value);
+                changeReferenceValue(value);
             }
         }
     }, [onChange]);
@@ -71,7 +71,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         );
     } else if (type === 'select') {     // datalist
         return (
-            <select id={id} className={classNames(styles.root, styles.select)} ref={instance} onChange={e => onValueChanged(e.target.value)}>
+            <select id={id} className={classNames(styles.root, styles.select)} ref={ref} onChange={e => onValueChanged(e.target.value)}>
                 {children}
             </select>
         );
@@ -94,7 +94,7 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         return (
             <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="checkbox">
                 {extra.label && <span className={styles.label}>{extra.label}</span>}
-                <input id={id} name={id} type="checkbox" defaultChecked={extra.value} ref={instance} onChange={e => {onValueChanged(e.target.checked);}} />
+                <input id={id} name={id} type="checkbox" defaultChecked={extra.value} ref={instance} onChange={e => { onValueChanged(e.target.checked); }} />
             </label>
         );
     } else if (type === 'number') {
@@ -106,23 +106,19 @@ const FormItem = forwardRef(({ type = 'text', name, onChange, children, ...extra
         );
     }
     return (
-        <label className={classNames(styles.root, styles.input)} htmlFor={id} form-item-type="text">
-            {extra.label && <span className={styles.label}>{extra.label}</span>}
-            <input id={id} name={id} type="text" defaultValue={extra.value} placeholder={extra.placeholder || name || 'text'} title={name || extra.placeholder} ref={instance} onChange={e => onValueChanged(e.target.value)} />
-        </label>
+        <input id={id} name={name} type="text" defaultValue={extra.value} placeholder={extra.placeholder || name || 'text'} title={name || extra.placeholder} ref={instance} onChange={e => onValueChanged(e.target.value)} />
     );
 });
 
 FormItem.displayName = 'FormItem';
 
-
-
+// label, lenged
 
 export const Label = ({ type, ...props }) => <FormItem {...props} type="label" />;
 
 export const Button = ({ type, ...props }) => <FormItem {...props} type="button" />;
 
-export const Select = ({ type, ...props }) => <FormItem {...props} type="select" />;
+export const Select = forwardRef(({ type, ...props }, ref) => <FormItem {...props} ref={ref} type="select" />);
 
 export const TextInput = ({ type, ...props }) => <FormItem {...props} type="text" />;
 

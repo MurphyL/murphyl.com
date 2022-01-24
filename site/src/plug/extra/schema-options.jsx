@@ -16,8 +16,6 @@ import DynamicTable from "plug/dynamic/table/dynamic-table.module";
 const renderer = new ReactJsonSchema();
 
 renderer.setComponentMap({
-    Fragment,
-
     DriftNav,
     SiteLayout,
 

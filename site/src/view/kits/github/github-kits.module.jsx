@@ -5,7 +5,7 @@ import { useDocumentTitle } from 'plug/hooks';
 
 import NaviLayout from "plug/layout/navi-layout/navi-layout.module";
 
-import { Button, Label, TextInput } from 'plug/extra/form-item/form-item.module';
+import { Button, Label, TextInput } from 'plug/extra/form-item/v1/form-item-v1.module';
 
 import styles from './github-kits.module.css';
 

@@ -36,7 +36,7 @@ export const CodeBlock = memo(({ language = PLAINTEXT, copyable = true, value })
             tabSize: 4
         });
     }, [value]);
-    return useMemo(() => (
+    return (
         <pre className={styles.block}>
             {copyable && <i className={styles.copyable} onClick={() => doCopy(value, {
                 debug: true,
@@ -49,7 +49,7 @@ export const CodeBlock = memo(({ language = PLAINTEXT, copyable = true, value })
                 {value}
             </code>
         </pre>
-    ), []);
+    );
 });
 
 CodeBlock.displayName = 'CodeBlock';

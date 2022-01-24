@@ -4,7 +4,7 @@ import { DiffEditor } from 'plug/extra/source-code/source-code.module';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import { Checkbox, FileInput, Label } from 'plug/extra/form-item/form-item.module';
+import { Checkbox, FileInput, Label } from 'plug/extra/form-item/v1/form-item-v1.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import styles from './text-difference.module.css';

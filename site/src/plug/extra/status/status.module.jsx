@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component, Fragment, Suspense } from 'react';
 
 import classNames from 'classnames';
 
@@ -52,7 +52,20 @@ export class ErrorBoundary extends Component {
 
     render() {
         if (this.state.hasError) {
-            return <h3>好像出错了！</h3>;
+            return (
+                <Fragment>
+                    <h3>好像出错了！</h3>
+                    {this.state.error && (
+                        (process.env.NODE_ENV === 'development') ? (
+                            <pre>
+                                <code>{this.state.error.stack}</code>
+                            </pre>
+                        ) : (
+                            <div>{this.state.error.message}</div>
+                        )
+                    )}
+                </Fragment>
+            );
         }
         return this.props.children;
     }

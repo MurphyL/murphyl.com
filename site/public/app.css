@@ -9,7 +9,7 @@ body, code {
 /** 滚动条 **/
 * {
   scrollbar-width: thin;
-  scrollbar-color: blue orange;
+  scrollbar-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Works on Chrome/Edge/Safari */
@@ -18,7 +18,7 @@ body, code {
 	height: 6px;
 }
 *::-webkit-scrollbar-track {
-	background: orange rgba(241, 241, 241, 1);
+	background: rgba(241, 241, 241, 1);
 }
 *::-webkit-scrollbar-thumb {
 	background-color: rgba(193, 193, 193, 1);

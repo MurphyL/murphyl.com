@@ -14,7 +14,7 @@ import TextDifference from './text/difference/text-difference.module';
 
 // expr
 import CronExpressionKit from './expression/cron/cron-expression-v1.module';
-import ScoopCLIMaker from './expression/cli/scoop/scoop-cli-maker.module';
+import ScoopCommandKit from './expression/cli/scoop/scoop-cli.module';
 
 const KitList = () => {
     return (
@@ -79,7 +79,7 @@ export default {
             element: <CronExpressionKit />
         }, {
             path: 'scoop/cli',
-            element: <ScoopCLIMaker />
+            element: <ScoopCommandKit />
         }]
     }, {
         path: 'snippet',

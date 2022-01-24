@@ -15,7 +15,7 @@ import stripJSONComments from 'strip-json-comments';
 
 import { useDocumentTitle, useJSONPath } from 'plug/hooks';
 
-import { Button, TextArea, FileInput } from 'plug/extra/form-item/form-item.module';
+import { Button, TextArea, FileInput } from 'plug/extra/form-item/v1/form-item-v1.module';
 
 import SplitView from 'plug/extra/split-view/split-view.module';
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';

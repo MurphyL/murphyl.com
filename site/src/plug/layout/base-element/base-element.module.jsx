@@ -9,8 +9,7 @@ export function Logo() {
     return (
         <Link className={styles.logo} to="/">{process.env.REACT_APP_TITLE}</Link>
     );
-}
-
+};
 
 export const NaviHeader = forwardRef(({ left = [], right = [] }, ref) => {
     return (

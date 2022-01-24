@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import * as simpleicons from '@icons-pack/react-simple-icons';
 
-import { TextInput } from 'plug/extra/form-item/form-item.module';
+import { TextInput } from 'plug/extra/form-item/v1/form-item-v1.module';
 
 import styles from './icon-kits.module.css';
 

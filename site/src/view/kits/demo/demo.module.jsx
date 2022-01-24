@@ -1,8 +1,6 @@
-import React, { Children, Fragment } from "react";
+import React, { Children } from "react";
 
 import { Outlet } from "react-router-dom";
-
-import { FormItem } from 'plug/extra/visual-item/visual-item.module';
 
 import { Loading } from 'plug/extra/status/status.module';
 import DataTable, { DataFrame } from 'plug/extra/data-table/data-table.module';
@@ -23,17 +21,6 @@ const DemoGroup = ({ children, name }) => {
                 </div>
             ) : <div>Empty group!</div>}
         </fieldset>
-    );
-};
-
-const FormItems = () => {
-    return (
-        <Fragment>
-            <FormItem />
-            <FormItem />
-            <FormItem />
-            <FormItem />
-        </Fragment>
     );
 };
 
@@ -59,13 +46,6 @@ export default {
                 <Loading type="inline" color="red" />
                 <Loading type="inline" color="blue" />
                 <Loading type="inline" message="hello world" />
-            </DemoGroup>
-        )
-    }, {
-        path: 'form-item',
-        element: (
-            <DemoGroup name="Form Item">
-                <FormItems />
             </DemoGroup>
         )
     }, {

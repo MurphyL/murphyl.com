@@ -5,7 +5,7 @@ import { parse as parseCron } from '@datasert/cronjs-parser';
 
 import { useDocumentTitle /** , useMetaInfo */ } from 'plug/hooks';
 
-import { TextArea } from 'plug/extra/form-item/form-item.module';
+import { TextArea } from 'plug/extra/form-item/v1/form-item-v1.module';
 import { DataFrame } from 'plug/extra/data-table/data-table.module';
 
 import styles from './cron-expression-v1.module.css';

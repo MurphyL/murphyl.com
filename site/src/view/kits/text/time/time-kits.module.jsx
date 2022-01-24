@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import classNames from 'classnames';
 
-import { TextInput } from 'plug/extra/form-item/form-item.module';
+import { TextInput } from 'plug/extra/form-item/v1/form-item-v1.module';
 
 import styles from './time-kits.module.css';
 

@@ -17,6 +17,8 @@ import { Modal, Select } from 'plug/components';
 
 import IssueSchema from "plug/github/issue/issue-schema/issue-schema.module";
 
+import JavaBeanViewer from '../ddl-schema/java-bean/ddl-schema2java-bean.module';
+
 import styles from './sql-kits-v1.module.css';
 
 const MYSQL_DDL_PARSER = new Parser('mysql');
@@ -97,9 +99,7 @@ const DDLSchema = () => {
                 </div>
             </SplitView>
             <Modal open={show} title="展示 Schema" onClose={() => setShow(false)}>
-                <pre>
-                    <code>{JSON.stringify(schema, null, 3)}</code>
-                </pre>
+                <JavaBeanViewer schema={ schema } />
             </Modal>
         </Fragment>
     );

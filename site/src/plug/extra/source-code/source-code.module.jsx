@@ -26,7 +26,7 @@ const editorOptions = {
  * @param {*} param0 
  * @returns 
  */
-export const CodeBlock = memo(({ language = PLAINTEXT, copyable = true, value }) => {
+export const CodeBlock = memo(({ language = PLAINTEXT, copyable = false, value }) => {
     const instance = useRef(null);
     useEffect(() => {
         if (null === instance || null === instance.current) {

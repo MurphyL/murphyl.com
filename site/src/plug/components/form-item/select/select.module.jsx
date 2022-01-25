@@ -1,7 +1,10 @@
-import kindOf from 'kind-of';
 import React, { Children, forwardRef, useState } from "react";
+import kindOf from 'kind-of';
+import classNames from "classnames";
 
-const Select = forwardRef(({ children, options = [], defaultValue, onChange, optionRender }, ref) => {
+import styles from './select.module.css';
+
+const Select = forwardRef(({ className, children, options = [], defaultValue, onChange, optionRender }, ref) => {
     const [selected, setSelected] = useState(defaultValue);
     const valueChanged = (value) => {
         setSelected(value);
@@ -10,7 +13,7 @@ const Select = forwardRef(({ children, options = [], defaultValue, onChange, opt
         }
     };
     return (
-        <select defaultValue={selected} onChange={e => {
+        <select className={classNames(styles.root, className)} defaultValue={selected} onChange={e => {
             const value = e.target.value;
             if (Children.count(children)) {
                 valueChanged(value);

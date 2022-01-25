@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import camelCase from 'camelcase';
 import { pascalCase } from "pascal-case";
 
+import { CodeBlock } from "plug/extra/source-code/source-code.module";
+
 const TYPE_MAPPER = {
     integer: 'Integer',
     string: 'String',
@@ -21,11 +23,7 @@ export default function JavaBeanViewer({ schema = {} }) {
     }, [title, required, properties]);
     return (
         <div>
-            <pre>
-                <code>
-                    {code}
-                </code>
-            </pre>
+            <CodeBlock value={code} language="java" />
         </div>
     );
 };

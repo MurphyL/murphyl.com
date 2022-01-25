@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 
 import classNames from "classnames";
@@ -11,9 +11,9 @@ import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import { Dynamic } from 'plug/extra/status/status.module';
 import { CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
-import { Button, Label, Select } from 'plug/extra/form-item/v1/form-item-v1.module';
+import { Button, Label, Select as SelectV1 } from 'plug/extra/form-item/v1/form-item-v1.module';
 
-import { Select as SelectV2 } from 'plug/extra/form-item/v2/form-item-v2.module';
+import { Modal, Select } from 'plug/components';
 
 import IssueSchema from "plug/github/issue/issue-schema/issue-schema.module";
 
@@ -41,11 +41,11 @@ export const SQLFormatter = () => {
             <DriftToolbar>
                 <Button onClick={format}>Beautify</Button>
                 <Label>Convert keywords to</Label>
-                <Select onChange={setWordCase}>
+                <SelectV1 onChange={setWordCase}>
                     <option value="null">Preserve</option>
                     <option value="upper">UpperCase</option>
                     <option value="lower">LowerCase</option>
-                </Select>
+                </SelectV1>
             </DriftToolbar>
         </div>
     );
@@ -62,34 +62,46 @@ CREATE TABLE demo_table (
 ) COMMENT='DEMO Table';
 `;
 
+
+const DEFAULT_RENDER = 'java/bean';
+
 const SCHEMA_RENDERS = Object.entries({
-    'java/bean': 'Java Bean Code',
+    'java/bean': 'Java Bean',
+    'json/object': 'JSON Object',
 });
 
 const DDLSchema = () => {
-    const renderRef = useRef(null);
-    const [ddl, setDDL] = useState(DEMO_DDL);
+    useDocumentTitle('DDL Schema');
+    const [ddls, setDDLs] = useState(DEMO_DDL);
+    const [mode, setMode] = useState(DEFAULT_RENDER);
+    const [show, setShow] = useState(false);
     const [ schema ] = useMemo(() => {
-        return MYSQL_DDL_PARSER.feed(ddl).toJsonSchemaArray(DDL_PARSER_OPTIONS);
-        // return Object.fromEntries(items.map(({ $id, ...schema}) => [$id, schema]));
-    }, [ddl]);
+        return MYSQL_DDL_PARSER.feed(ddls).toJsonSchemaArray(DDL_PARSER_OPTIONS);
+    }, [ddls]);
     return (
-        <SplitView sizes={[60, 40]} gutterSize={5}>
-            <div className={styles.editor}>
-                <CodeEditor language="sql" value={ddl} onChange={setDDL} />
-            </div>
-            <div className={classNames(styles.board)}>
-                <JSONViewer name="DDL" value={schema} />
-                <DriftToolbar postion="rb">
-                    <Button onClick={() => console.log(renderRef)}>Show</Button>
-                    <Select ref={renderRef}>
-                        {SCHEMA_RENDERS.map(([value, label], index) => (
-                            <option key={index} value={value}>{label}</option>
-                        ))}
-                    </Select>
-                </DriftToolbar>
-            </div>
-        </SplitView>
+        <Fragment>
+            <SplitView sizes={[60, 40]} gutterSize={5}>
+                <div className={styles.editor}>
+                    <CodeEditor language="sql" value={ddls} onChange={setDDLs} />
+                </div>
+                <div className={classNames(styles.board)}>
+                    <JSONViewer name="DDL" value={schema} />
+                    <DriftToolbar postion="rb">
+                        <Button onClick={() => setShow(true)}>Show</Button>
+                        <Select defaultValue={mode} onChange={value => {setMode(value);}}>
+                            {SCHEMA_RENDERS.map(([value, label], index) => (
+                                <option key={index} value={value}>{label}</option>
+                            ))}
+                        </Select>
+                    </DriftToolbar>
+                </div>
+            </SplitView>
+            <Modal open={show} title="展示 Schema" onClose={() => setShow(false)}>
+                <pre>
+                    <code>{JSON.stringify(schema, null, 3)}</code>
+                </pre>
+            </Modal>
+        </Fragment>
     );
 };
 

@@ -1,0 +1,48 @@
+.block {
+    position: relative;
+    margin: 10px 2px;
+    padding: 15px 15px 10px 20px;
+
+    overflow-x: scroll;
+
+    word-wrap: break-word;
+
+    background-color: rgba(150, 150, 150, 0.1);
+    border-radius: 5px;
+}
+
+.block .copyable {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 5px solid #efefef;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+}
+
+.block:hover .copyable {
+    opacity: 1;
+}
+
+.block code {
+    font-size: 18px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace;
+}
+
+.editor {
+    height: 100%;
+}
+
+.diff {
+    margin: 0;
+}
+
+.json_view {
+    overflow-y: auto;
+    height: 100%;
+}

@@ -49,7 +49,11 @@ const RouteViews = () => useRoutes([{
     children: [KitsHome, SQLKits, JSONKits, Notebook, DemoList]
 }, {
     path: '/kits_v1',
-    element: <Kits />,
+    element: <NaviLayout />,
+    children: [ {
+        index: true,
+        element: <Kits />,
+    } ]
 }, {
     path: '/schema',
     element: <DriftLayout />,

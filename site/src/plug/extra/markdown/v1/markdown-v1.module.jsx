@@ -9,7 +9,7 @@ import * as matter from 'gray-matter';
 
 import ReactMarkdown from 'react-markdown';
 
-import { CodeBlock } from 'plug/extra/source-code/source-code.module';
+import { CodeBlock } from 'plug/components';
 
 import styles from './markdown-v1.module.css';
 

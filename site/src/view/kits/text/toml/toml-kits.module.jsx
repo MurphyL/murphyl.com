@@ -5,8 +5,7 @@ import TOML from '@iarna/toml';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import SplitView from 'plug/extra/split-view/split-view.module';
-import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
+import { Splitter, CodeBlock, CodeEditor, JSONViewer } from "plug/components";
 
 import styles from './toml-kits.module.css';
 
@@ -22,7 +21,7 @@ export default function TOMLKits() {
 
     }, [content]);
     return (
-        <SplitView className={styles.root}>
+        <Splitter className={styles.root}>
             <CodeEditor className={styles.item} value={content} onChange={setContent} />
             <div className={styles.item}>
                 {(kindOf(data) === 'string') ? (
@@ -31,6 +30,6 @@ export default function TOMLKits() {
                     <JSONViewer value={data} name="TOML" />
                 )}
             </div>
-        </SplitView>
+        </Splitter>
     );
 }

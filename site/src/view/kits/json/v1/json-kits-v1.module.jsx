@@ -17,9 +17,10 @@ import { useDocumentTitle, useJSONPath } from 'plug/hooks';
 
 import { Button, TextArea, FileInput } from 'plug/extra/form-item/v1/form-item-v1.module';
 
-import SplitView from 'plug/extra/split-view/split-view.module';
+import { Splitter as SplitView } from "plug/components";
+
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
-import { CodeBlock, CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
+import { CodeBlock, CodeEditor, JSONViewer } from 'plug/components';
 
 import styles from './json-kits-v1.module.css';
 

@@ -6,11 +6,12 @@ import { useDocumentTitle } from 'plug/hooks';
 import { Parser } from 'sql-ddl-to-json-schema';
 import { format as formatSQL } from '@sqltools/formatter';
 
-import SplitView from "plug/extra/split-view/split-view.module";
+import { Splitter as SplitView } from "plug/components";
+
 import DriftToolbar from 'plug/extra/drift-toolbar/drift-toolbar.module';
 
 import { Dynamic } from 'plug/extra/status/status.module';
-import { CodeEditor, JSONViewer } from 'plug/extra/source-code/source-code.module';
+import { CodeEditor, JSONViewer } from 'plug/components';
 import { Button, Label, Select as SelectV1 } from 'plug/extra/form-item/v1/form-item-v1.module';
 
 import { Modal, Select } from 'plug/components';

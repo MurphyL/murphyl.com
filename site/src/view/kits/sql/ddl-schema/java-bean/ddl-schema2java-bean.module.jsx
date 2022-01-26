@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import camelCase from 'camelcase';
 import { pascalCase } from "pascal-case";
 
-import { CodeBlock } from "plug/extra/source-code/source-code.module";
+import { CodeBlock } from "plug/components";
 
 const TYPE_MAPPER = {
     integer: 'Integer',

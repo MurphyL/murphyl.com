@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { useDocumentTitle } from 'plug/hooks';
 
 import { Checkbox, Label, Select, TextInput } from 'plug/extra/form-item/v1/form-item-v1.module';
-import { CodeBlock } from 'plug/extra/source-code/source-code.module';
+import { CodeBlock } from 'plug/components';
 
 import styles from './scoop-cli.module.css';
 

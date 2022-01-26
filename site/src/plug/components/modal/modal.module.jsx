@@ -1,12 +1,10 @@
 import ReactModal from 'react-modal';
 
-ReactModal.setAppElement('#root');
-
-const noop = () => {};
+const noop = () => { };
 
 export default function Modal({ open, title, children, onClose = noop }) {
     return (
-        <ReactModal isOpen={open} onRequestClose={onClose} contentLabel={title}>
+        <ReactModal isOpen={open} onRequestClose={onClose} contentLabel={title} ariaHideApp={false}>
             {children}
         </ReactModal>
     );

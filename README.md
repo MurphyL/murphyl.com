@@ -10,6 +10,9 @@ yarn upgrade --latest
 
 git submodule add git@github.com:MurphyL/dynamic-react-component.git site/src/plug/drc
 ```
+- [react-svg-map](https://www.npmjs.com/package/react-svg-map)
+- [react-heat-map](https://github.com/uiwjs/react-heat-map)
+- [react-burger-menu](https://hamburger-react.netlify.app/)
 
 ## 参考
 

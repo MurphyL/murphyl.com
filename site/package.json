@@ -42,8 +42,8 @@
   "scripts": {
     "toml": "files2json -v --matter=toml src/data/toml/ -o src/data/cache/app.json",
     "snippets": "files2json -v --matter=toml ../snippets/ -o src/data/cache/snippets.json",
-    "prestart": "npm run toml && npm run snippets",
-    "prebuild": "npm run toml && npm run snippets",
+    "prestart": "npm run toml",
+    "prebuild": "npm run toml",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build"
   },

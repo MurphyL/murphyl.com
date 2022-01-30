@@ -2,7 +2,7 @@ import Masonry from 'react-masonry-component';
 
 import { useDocumentTitle } from 'plug/hooks';
 
-import items from 'data/cache/snippets.json';
+const items = [];
 
 console.log(items);
 

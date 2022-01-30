@@ -13,8 +13,8 @@ import TextCrypto from './text/crypto/crypto-kits.module';
 import TextDifference from './text/difference/text-difference.module';
 
 // expr
-import CronExpressionKit from './expression/cron/cron-expression-v1.module';
-import ScoopCommandKit from './expression/cli/scoop/scoop-cli.module';
+import CronExpressionKit from './text/cron/cron-expression-v1.module';
+import ScoopCommandKit from './text/cli/scoop/scoop-cli.module';
 
 const KitList = () => {
     return (

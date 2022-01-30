@@ -1,5 +1,6 @@
 export { default as Select } from './form-item/select/select.module';
 
+export { default as Tree } from './tree/tree.module';
 
 export { default as Modal } from './modal/modal.module';
 export { CodeBlock, CodeEditor, DiffEditor, JSONViewer } from './source/source.module';

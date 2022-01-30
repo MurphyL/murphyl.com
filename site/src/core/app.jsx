@@ -48,7 +48,7 @@ const RouteViews = () => useRoutes([{
     element: <NaviLayout />,
     children: [KitsHome, SQLKits, JSONKits, Notebook, DemoList]
 }, {
-    path: '/kits_v1',
+    path: '/kits/v2',
     element: <NaviLayout />,
     children: [ {
         index: true,

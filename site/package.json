@@ -5,11 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "@datasert/cronjs-parser": "^1.2.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
     "@iarna/toml": "^2.2.5",
     "@icons-pack/react-simple-icons": "^4.6.1",
-    "@mui/material": "^5.3.1",
     "@sqltools/formatter": "^1.2.3",
     "ajv": "^8.8.2",
     "axios": "latest",

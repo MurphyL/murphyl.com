@@ -1,0 +1,29 @@
+.root {
+    --bg-color: #fff;
+    margin: 15px 0;
+}
+
+.root.inline {
+    display: inline-block;
+
+    margin-right: 5px;
+}
+
+.root .container {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.root .container .label {
+    position: absolute;
+    top: -15px;
+    display: none; 
+    background-color: var(--bg-color);
+}
+
+.root .container.focused .label {
+    display: inherit;
+    padding: 0 5px;
+}

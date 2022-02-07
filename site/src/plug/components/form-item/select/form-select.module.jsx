@@ -2,7 +2,7 @@ import React, { Children, forwardRef, useState } from "react";
 import kindOf from 'kind-of';
 import classNames from "classnames";
 
-import styles from './select.module.css';
+import styles from './form-select.module.css';
 
 const Select = forwardRef(({ className, children, options = [], defaultValue, onChange, optionRender }, ref) => {
     const [selected, setSelected] = useState(defaultValue);

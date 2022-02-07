@@ -10,6 +10,7 @@ import Snippets from './snippets/snippet-kits.module';
 import TimeKits from './text/time/time-kits.module';
 import TOMLEditor from './text/toml/toml-kits.module';
 import TextCrypto from './text/crypto/crypto-kits.module';
+import Translator from './text/translator/translator.module';
 import TextDifference from './text/difference/text-difference.module';
 
 // expr
@@ -71,6 +72,9 @@ export default {
         }, {
             path: 'datetime',
             element: <TimeKits />
+        }, {
+            path: 'translator',
+            element: <Translator />
         }]
     }, {
         path: 'expression',

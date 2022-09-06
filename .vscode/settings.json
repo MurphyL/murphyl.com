@@ -1,11 +1,3 @@
 {
-    "rest-client.environmentVariables": {
-        "$shared": {
-            
-        }
-    },
-    "rest-client.enableTelemetry": false,
-    "rest-client.rememberCookiesForSubsequentRequests": false,
-    "rest-client.decodeEscapedUnicodeCharacters": true,
-    "rest-client.previewOption": "exchange"
+
 }

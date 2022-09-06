@@ -1,3 +1,0 @@
----
-tags = [ 'Linux', 'Shell' ]
----

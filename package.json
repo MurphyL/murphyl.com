@@ -12,6 +12,7 @@
     "object-path": "^0.11.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "recoil": "^0.7.5"
   },
   "devDependencies": {

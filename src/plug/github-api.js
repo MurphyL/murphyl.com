@@ -27,7 +27,7 @@ const ISSUE_FIELDS = 'id, number, title, bodyText, createdAt, labels(first: 10) 
 export const fetchIssueList = selectorFamily({
     key: 'fetch-issues-list-v1',
     get: (params) => async () => {
-        const result = await instance.post('', {
+        return instance.post('', {
             query: `query($gh_login:String!, $repository:String!, $post_labels:[String!]!, $post_states:[IssueState!], $start_cursor:String) { ${REPO_QUERY} { ${ISSUE_LIST_QUERY} { ${PAGE_FIELDS}, nodes { ${ISSUE_FIELDS} } } } }`,
             variables: {
                 gh_login: import.meta.env.VITE_GH_USERNAME,
@@ -36,8 +36,13 @@ export const fetchIssueList = selectorFamily({
                 post_states: import.meta.env.PROD ? ['CLOSED'] : ['CLOSED', 'OPEN'],
                 start_cursor: params.startCursor,
             }
+        }).then(result => {
+            return extract(result, 'data.repository.issues');
+        }).catch(err => {
+            console.error(err);
+            return [1, []];
         });
-        return extract(result, 'data.repository.issues');
+        
     },
 });
 
